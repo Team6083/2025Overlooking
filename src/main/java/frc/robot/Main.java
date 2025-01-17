@@ -13,6 +13,10 @@ public final class Main {
 HijrahChronology
 
 
+  private Main() {
+    System.err.println("hiiii");
+  }
+
   public static void main(String... args) {
     RobotBase.startRobot(Robot::new);
   }
