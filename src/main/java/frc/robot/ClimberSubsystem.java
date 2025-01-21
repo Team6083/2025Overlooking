@@ -4,23 +4,45 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimberSubsystem extends SubsystemBase {
-private final VictorSPX climbermotor;
+private final VictorSP climbermotor;
+private final PIDController climberPID;
 
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-  climbermotor = new VictorSPX(43);
+  climbermotor = new VictorSP(43);
+  climberPID = new PIDController(0.08, 0, 0);
   }
 
   private void climbUp (){
   
   }
 
+ 
+
   private void climbDown(){
   climbermotor.set(-0.35);
+  }
+
+  private double getSetpoint(){
+    return climberPID.getSetpoint();
+  }
+  
+
+
+  public Command climbUpcmd(){
+  Command cmd = run(this::climbUp);
+  return cmd;
+  }
+
+  public Command climbDowncmd(){
+    Command cmd = run(this::climbDown);
+    return cmd;
   }
   
   @Override
