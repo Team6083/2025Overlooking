@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constant.RampConstant;
 
 public class RampSubsystem extends SubsystemBase {
  VictorSP rampmotor = new VictorSP(0);
@@ -17,10 +18,10 @@ public class RampSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   void rampstrite (){
-    rampmotor.set(1);
+    rampmotor.setVoltage(RampConstant.kUpRampMotor);
   }
   void rampback (){
-    rampmotor.set(-1);
+    rampmotor.setVoltage(RampConstant.kDownRampMotor);
   }
   public Command rampstritecmd (){
     Command cmd = run(this::rampstritecmd);
