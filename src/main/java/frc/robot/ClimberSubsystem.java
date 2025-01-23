@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ClimberConstant;
 
 public class ClimberSubsystem extends SubsystemBase {
   private final VictorSP climbermotor;
@@ -27,11 +28,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   private void setsetpoint() {
-    climberPID.setSetpoint(1);
+    climberPID.setSetpoint(ClimberConstant.kClimberSetpoint);
   }
 
   private void climbDown() {
-    climbermotor.set(-0.35);
+    climbermotor.set(ClimberConstant.kClimbDownSpeed);
   }
 
   private double getSetpoint() {
@@ -39,8 +40,9 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   private double getClimberRate(){
-    return climberEncoder.getRate();
+    return climberEncoder.get();
   }
+
   public Command climbUpCmd() {
     Command cmd = run(this::climbUp);
     return cmd;
