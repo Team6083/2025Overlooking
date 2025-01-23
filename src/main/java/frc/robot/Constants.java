@@ -8,5 +8,12 @@ public class Constants {
         public static final int kShooterMotorChannel = 1 ; 
         public static final double kShooterMotorVoltage = 4 ;
     }
+
+
+    public final static class ClimberConstant{
+        public static final int kClimberSetpoint = 40;
+        public static final double kClimbDownSpeed = -0.35;
+    }
+
     
 }
