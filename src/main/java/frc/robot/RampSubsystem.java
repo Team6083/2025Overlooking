@@ -24,11 +24,11 @@ public class RampSubsystem extends SubsystemBase {
     rampmotor.setVoltage(RampConstant.kDownRampMotor);
   }
   public Command rampstritecmd (){
-    Command cmd = run(this::rampstritecmd);
+    Command cmd = run(this::rampstritecmd).withTimeout(1);
     return cmd;
   }
   public Command rampbackcmd (){
-    Command cmd = run(this::rampbackcmd);
+    Command cmd = run(this::rampbackcmd).withTimeout(1);
     return cmd;
   }
 }
