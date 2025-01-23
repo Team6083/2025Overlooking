@@ -38,12 +38,15 @@ public class ClimberSubsystem extends SubsystemBase {
     return climberPID.getSetpoint();
   }
 
-  public Command climbUpcmd() {
+  private double getClimberRate(){
+    return climberEncoder.getRate();
+  }
+  public Command climbUpCmd() {
     Command cmd = run(this::climbUp);
     return cmd;
   }
 
-  public Command climbDowncmd() {
+  public Command climbDownCmd() {
     Command cmd = run(this::climbDown);
     return cmd;
   }
