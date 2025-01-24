@@ -30,6 +30,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Download REV2mDistanceSensor ZIP
+      run: |
+        curl -L -o REV2mDistanceSensor-2025.0.0.zip https://github.com/REVrobotics/2m-Distance-Sensor/releases/download/v2025.0.0/REV2mDistanceSensor-2025.0.0.zip
+
+    - name: Unzip the ZIP file
+      run: |
+        mkdir -p ~/wpilib/2025
+        unzip REV2mDistanceSensor-2025.0.0.zip -d temp
+        mv temp/maven ~/wpilib/2025/maven
+
+    - name: Clean up
+      run: |
+        rm -rf temp REV2mDistanceSensor-2025.0.0.zip
+
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
