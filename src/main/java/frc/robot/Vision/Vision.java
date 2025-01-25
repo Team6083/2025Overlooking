@@ -19,6 +19,18 @@ public class Vision extends SubsystemBase {
   public Vision() {
   }
 
+  public double getTx() {
+    return tx.getDouble(0.0);
+  }
+
+  public double getTy() {
+    return ty.getDouble(0.0);
+  }
+
+  public double getTa() {
+    return ta.getDouble(0.0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
