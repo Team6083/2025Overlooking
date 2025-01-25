@@ -4,7 +4,6 @@
 
 package frc.robot.Subsystems ;
 
-import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooter;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.DistanceSensorInterface;
-import frc.robot.lib.SimDistanceSensor;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
@@ -27,17 +25,17 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
-  private void SetMotorVoltage(double Vol) { // 設定電壓
+  private void setMotorVoltage(double Vol) { // 設定電壓
     this.Vol = Vol;
-    CoralShooterMotor.set(Vol);
+    CoralShooterMotor.setVoltage(Vol);
   }
 
-  public void CoralShooterOn() { // 正轉
-    SetMotorVoltage(CoralShooter.kShooterMotorSpeed);
+  public void coralShooterOn() { // 正轉
+    setMotorVoltage(CoralShooter.kShooterMotorSpeed);
   }
 
-  public void CoralShooterStop() { // 停止
-    SetMotorVoltage(0.0);
+  public void coralShooterStop() { // 停止
+    setMotorVoltage(0.0);
   }
 
   public boolean isGetCoral() {
@@ -53,13 +51,13 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public Command CoralShooterShootOncmd() { // 正轉
-    Command cmd = runEnd(this::CoralShooterOn, this::CoralShooterStop);
+  public Command coralShooterShootOncmd() { // 正轉
+    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
     return cmd;
   }
 
-  public Command CoralShooterStopcmd() { // 停止
-    Command cmd = runOnce(this::CoralShooterStop);
+  public Command coralShooterStopcmd() { // 停止
+    Command cmd = runOnce(this::coralShooterStop);
     return cmd;
   }
 
