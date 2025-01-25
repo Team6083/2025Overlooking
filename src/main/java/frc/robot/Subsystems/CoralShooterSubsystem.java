@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Subsystems ;
+package frc.robot.Subsystems;
 
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
@@ -16,18 +16,18 @@ import frc.robot.lib.DistanceSensorInterface;
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
 
-  private VictorSP CoralShooterMotor;
+  private VictorSP coralShooterMotor;
   private DistanceSensorInterface distanceSensor;
   private double Vol;
 
-  public CoralShooterSubsystem() { 
-    CoralShooterMotor = new VictorSP(CoralShooter.kShooterMotorChannel);
+  public CoralShooterSubsystem() {
+    coralShooterMotor = new VictorSP(CoralShooter.kShooterMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
   private void setMotorVoltage(double Vol) { // 設定電壓
     this.Vol = Vol;
-    CoralShooterMotor.setVoltage(Vol);
+    coralShooterMotor.setVoltage(Vol);
   }
 
   public void coralShooterOn() { // 正轉

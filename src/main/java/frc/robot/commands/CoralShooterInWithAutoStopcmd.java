@@ -6,9 +6,9 @@ import frc.robot.Subsystems.CoralShooterSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CoralShooterInWithAutoStopcmd extends Command {
   /** Creates a new CoralShooterInWithAutoStopcmd. */
-  
-  private final CoralShooterSubsystem coralShooterSubsystem ;
-  
+
+  private final CoralShooterSubsystem coralShooterSubsystem;
+
   public CoralShooterInWithAutoStopcmd(CoralShooterSubsystem coralShooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralShooterSubsystem = coralShooterSubsystem;
