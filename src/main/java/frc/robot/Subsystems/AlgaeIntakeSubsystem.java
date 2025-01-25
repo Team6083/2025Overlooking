@@ -14,13 +14,13 @@ import frc.robot.Constants.AlgaeIntakeConstant;
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSP intakeMotor;
-  private final VictorSP RotateIntakeMotor;
+  private final VictorSP rotateIntakeMotor;
   private final Timer timer;
 
   public AlgaeIntakeSubsystem() {
 
     intakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeMotorChannel);
-    RotateIntakeMotor = new VictorSP(AlgaeIntakeConstant.kRotateMotorChannel);
+    rotateIntakeMotor = new VictorSP(AlgaeIntakeConstant.kRotateMotorChannel);
     timer = new Timer();
   }
 
@@ -40,15 +40,15 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setUpIntake() {
-    RotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeVoltage);
+    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeVoltage);
   }
 
   public void setDownIntake() {
-    RotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeVoltage);
+    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeVoltage);
   }
 
   public void stopRotateIntakeMotor() {
-    RotateIntakeMotor.setVoltage(0);
+    rotateIntakeMotor.setVoltage(0);
   }
 
   public Command setUpIntakeCmd() {
