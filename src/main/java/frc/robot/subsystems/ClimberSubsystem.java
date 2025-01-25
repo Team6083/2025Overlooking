@@ -12,19 +12,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstant;
 
 public class ClimberSubsystem extends SubsystemBase {
-  private final VictorSP climbermotor;
+  private final VictorSP climberMotor;
   private final PIDController climberPID;
   private final Encoder climberEncoder;
 
   /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
-    climbermotor = new VictorSP(43);
+    climberMotor = new VictorSP(43);
     climberPID = new PIDController(0.08, 0, 0);
     climberEncoder = new Encoder(0, 0);
   }
 
   private void climbUp() {
-    climbermotor.set(climberPID.calculate(climberEncoder.get()));
+    climberMotor.set(climberPID.calculate(climberEncoder.get()));
   }
 
   private void setSetpoint() {
@@ -32,7 +32,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   private void climbDown() {
-    climbermotor.set(ClimberConstant.kClimbDownSpeed);
+    climberMotor.set(ClimberConstant.kClimbDownSpeed);
   }
 
   private double getSetpoint() {
