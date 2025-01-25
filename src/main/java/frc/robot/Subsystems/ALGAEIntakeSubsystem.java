@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AlgaeIntakeConstant;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
@@ -18,32 +19,32 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public AlgaeIntakeSubsystem() {
 
-    intakeMotor = new VictorSP(0);
-    RotateIntakeMotor = new VictorSP(1);
+    intakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeMotorChannel);
+    RotateIntakeMotor = new VictorSP(AlgaeIntakeConstant.kRotateMotorChannel);
     timer = new Timer();
   }
 
   public void setTimer() {
     timer.start();
     if (timer.get() > 8) {
-      intakeMotor.setVoltage(0);
+      intakeMotor.setVoltage(AlgaeIntakeConstant.kIntakeVoltage);
     }
   }
 
   public void setIntakeMotor() {
-    intakeMotor.setVoltage(6.0);
+    intakeMotor.setVoltage(AlgaeIntakeConstant.kIntakeVoltage);
   }
 
   public void setReIntake() {
-    intakeMotor.setVoltage(3);
+    intakeMotor.setVoltage(AlgaeIntakeConstant.kReIntakeVoltage);
   }
 
   public void setUpIntake() {
-    RotateIntakeMotor.setVoltage(12);
+    RotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeVoltage);
   }
 
   public void setDownIntake() {
-    RotateIntakeMotor.setVoltage(-12);
+    RotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeVoltage);
   }
 
   public void stopRotateIntakeMotor() {
