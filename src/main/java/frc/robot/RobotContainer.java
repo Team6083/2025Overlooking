@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.Subsystems.AlgaeIntakeSubsystem;
-import frc.robot.Subsystems.RampSubsystem;
+import frc.robot.subsystems.AlgaeIntakeSubsystem;
+import frc.robot.subsystems.RampSubsystem;
 
 public class RobotContainer {
   private final ClimberSubsystem climberSubsystem;
