@@ -49,12 +49,12 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public Command coralShooterShootOncmd() { // 正轉
+  public Command coralShooterShootOnCmd() { // 正轉
     Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
     return cmd;
   }
 
-  public Command coralShooterStopcmd() { // 停止
+  public Command coralShooterStopCmd() { // 停止
     Command cmd = runOnce(this::coralShooterStop);
     return cmd;
   }

@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.CoralShooterSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralShooterInWithAutoStopcmd extends Command {
-  /** Creates a new CoralShooterInWithAutoStopcmd. */
+public class CoralShooterInWithAutoStopCmd extends Command {
+  /** Creates a new CoralShooterInWithAutoStopCmd. */
 
   private final CoralShooterSubsystem coralShooterSubsystem;
 
-  public CoralShooterInWithAutoStopcmd(CoralShooterSubsystem coralShooterSubsystem) {
+  public CoralShooterInWithAutoStopCmd(CoralShooterSubsystem coralShooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralShooterSubsystem = coralShooterSubsystem;
     addRequirements(this.coralShooterSubsystem);
