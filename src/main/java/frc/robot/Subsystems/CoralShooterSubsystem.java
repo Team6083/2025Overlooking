@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,16 +19,14 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   private VictorSP coralShooterMotor;
   private DistanceSensorInterface distanceSensor;
-  private double Vol;
 
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSP(CoralShooter.kShooterMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
-  private void setMotorVoltage(double Vol) { // 設定電壓
-    this.Vol = Vol;
-    coralShooterMotor.setVoltage(Vol);
+  private void setMotorVoltage(double Voltage) { // 設定電壓
+    coralShooterMotor.setVoltage(Voltage);
   }
 
   public void coralShooterOn() { // 正轉
