@@ -17,5 +17,5 @@ public class DistanceSensor extends Rev2mDistanceSensor implements DistanceSenso
     public boolean isGetTarget() {
         return super.isRangeValid();
     }
-    
+
 }

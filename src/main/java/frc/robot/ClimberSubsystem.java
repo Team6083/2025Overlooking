@@ -39,7 +39,7 @@ public class ClimberSubsystem extends SubsystemBase {
     return climberPID.getSetpoint();
   }
 
-  private double getClimberRate(){
+  private double getClimberRate() {
     return climberEncoder.get();
   }
 

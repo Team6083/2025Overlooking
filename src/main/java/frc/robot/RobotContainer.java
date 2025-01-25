@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Subsystems.ALGAEIntakeSubsystem;
 import frc.robot.Subsystems.RampSubsystem;
 
-
 public class RobotContainer {
   private final ClimberSubsystem climberSubsystem;
   private final RampSubsystem rampSubsystem;

@@ -2,7 +2,7 @@ package frc.robot.lib;
 
 public class SimDistanceSensor implements DistanceSensorInterface {
 
-    public SimDistanceSensor(){
+    public SimDistanceSensor() {
         super();
     }
 
@@ -13,12 +13,12 @@ public class SimDistanceSensor implements DistanceSensorInterface {
 
     @Override
     public boolean isGetTarget() {
-       return true;
+        return true;
     }
 
     @Override
     public void setAutomaticMode(boolean isEnable) {
         return;
     }
-    
+
 }
