@@ -9,7 +9,7 @@ import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CoralShooter;
+import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.DistanceSensorInterface;
 
@@ -20,7 +20,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private DistanceSensorInterface distanceSensor;
 
   public CoralShooterSubsystem() {
-    coralShooterMotor = new VictorSP(CoralShooter.kShooterMotorChannel);
+    coralShooterMotor = new VictorSP(CoralShooterConstant.kShooterMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
@@ -29,7 +29,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void coralShooterOn() { // 正轉
-    setMotorVoltage(CoralShooter.kShooterMotorSpeed);
+    setMotorVoltage(CoralShooterConstant.kShooterMotorSpeed);
   }
 
   public void coralShooterStop() { // 停止
@@ -38,7 +38,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public boolean isGetCoral() {
     if (distanceSensor.isGetTarget()) { // 碰到目標
-      return distanceSensor.getTargetDistance() <= CoralShooter.kDistanceRange
+      return distanceSensor.getTargetDistance() <= CoralShooterConstant.kDistanceRange
           && distanceSensor.getTargetDistance() > 0;
     }
     return false;
