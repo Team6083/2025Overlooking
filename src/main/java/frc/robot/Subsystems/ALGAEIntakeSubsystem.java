@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ALGAEIntakeSubsystem extends SubsystemBase {
+public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSP intakeMotor;
   private final VictorSP RotateIntakeMotor;
   private final Timer timer;
 
-  public ALGAEIntakeSubsystem() {
+  public AlgaeIntakeSubsystem() {
 
     intakeMotor = new VictorSP(0);
     RotateIntakeMotor = new VictorSP(1);

@@ -11,19 +11,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.Subsystems.ALGAEIntakeSubsystem;
+import frc.robot.Subsystems.AlgaeIntakeSubsystem;
 import frc.robot.Subsystems.RampSubsystem;
 
 public class RobotContainer {
   private final ClimberSubsystem climberSubsystem;
   private final RampSubsystem rampSubsystem;
-  private final ALGAEIntakeSubsystem algaeIntakeSubsystem;
+  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SendableChooser<Command> autChooser;
 
   public RobotContainer() {
     climberSubsystem = new ClimberSubsystem();
     rampSubsystem = new RampSubsystem();
-    algaeIntakeSubsystem = new ALGAEIntakeSubsystem();
+    algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     autChooser = AutoBuilder.buildAutoChooser();
     autChooser.setDefaultOption("Donothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autChooser);
