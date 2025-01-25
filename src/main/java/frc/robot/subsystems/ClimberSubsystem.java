@@ -27,7 +27,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climbermotor.set(climberPID.calculate(climberEncoder.get()));
   }
 
-  private void setsetpoint() {
+  private void setSetpoint() {
     climberPID.setSetpoint(ClimberConstant.kClimberSetpoint);
   }
 
