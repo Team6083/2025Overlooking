@@ -22,7 +22,7 @@ public class PowerDistributionSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("isCoralShooterOverCurrent", false);
     SmartDashboard.putBoolean("isAlgaeIntakeOverCurrent", false);
     SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", false);
-    SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", false);
+    SmartDashboard.putBoolean("isClimberOverCurrent", false);
     SmartDashboard.putBoolean("isRampOverCurrent", false);
   }
 
@@ -77,7 +77,7 @@ public class PowerDistributionSubsystem extends SubsystemBase {
 
   public boolean isAlgaeRotateOverCurrent() {
     boolean isOverCurrent = 
-        coralShooterCurrent() > PowerDistributionConstant.kAlgaeIntakeMotorMaxCurrent;
+        algaeRotateCurrent() > PowerDistributionConstant.kAlgaeRotateMotorMaxCurrent;
     SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
@@ -85,7 +85,7 @@ public class PowerDistributionSubsystem extends SubsystemBase {
   public boolean isClimbeOverCurrent() {
     boolean isOverCurrent = 
         climberCurrent() > PowerDistributionConstant.kClimberMotorMaxCurrent;
-    SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", isOverCurrent);
+    SmartDashboard.putBoolean("isClimberOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
 
