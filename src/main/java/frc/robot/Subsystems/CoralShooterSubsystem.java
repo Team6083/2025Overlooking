@@ -38,7 +38,19 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public boolean isGetCoral() {
     if (distanceSensor.isGetTarget()) { // 碰到目標
-      return distanceSensor.getTargetDistance() <= CoralShooter.kDistanceRange
+      double distance = distanceSensor.getTargetSDistance();
+      if(distance <= 0){
+        System.out.println("Error:Invalid distance(" + distance + ")");
+        return false;
+      }
+      if(distance > CoralShooterConstant.kDistanceRange){
+        System.out.println("Error:Distance(" + distance + ") is out of range");
+        return false;
+      }
+      return true;
+    }
+    return false;
+        return distanceSensor.getTargetDistance() <= CoralShooter.kDistanceRange
           && distanceSensor.getTargetDistance() > 0;
     }
     return false;
