@@ -21,7 +21,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ModuleConstants;
+import frc.robot.Constants.DriveBaseConstants;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -65,18 +65,18 @@ public class SwerveModule extends SubsystemBase {
   public void configDriveMotor() {
     SparkMaxConfig configdriveMotor = new SparkMaxConfig();
     configdriveMotor.smartCurrentLimit(10, 80);
-    configdriveMotor.closedLoopRampRate(ModuleConstants.kDdriveClosedLoopRampRate);
+    configdriveMotor.closedLoopRampRate(DriveBaseConstants.kDdriveClosedLoopRampRate);
     configdriveMotor.idleMode(IdleMode.kBrake);
-    configdriveMotor.voltageCompensation(ModuleConstants.kMaxModuleDriveVoltage);
+    configdriveMotor.voltageCompensation(DriveBaseConstants.kMaxModuleDriveVoltage);
     driveMotor.configure(configdriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void configTurningMotor() {
     SparkMaxConfig configturningMotor = new SparkMaxConfig();
     configturningMotor.smartCurrentLimit(20);
-    configturningMotor.closedLoopRampRate(ModuleConstants.kTurningClosedLoopRampRate);
+    configturningMotor.closedLoopRampRate(DriveBaseConstants.kTurningClosedLoopRampRate);
     configturningMotor.idleMode(IdleMode.kBrake);
-    configturningMotor.voltageCompensation(ModuleConstants.kMaxModuleTurningVoltage);
+    configturningMotor.voltageCompensation(DriveBaseConstants.kMaxModuleTurningVoltage);
     turningMotor.configure(configturningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
@@ -95,12 +95,12 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveDistance() {
-    return driveEncoder.getPosition() / ModuleConstants.kWheelGearRate * 2.0 * Math.PI * ModuleConstants.kWheelRadius;
+    return driveEncoder.getPosition() / DriveBaseConstants.kWheelGearRate * 2.0 * Math.PI * DriveBaseConstants.kWheelRadius;
   }
 
   public double getDriveRate() {
-    return driveEncoder.getVelocity() / 60.0 / ModuleConstants.kWheelGearRate * 2.0 * Math.PI
-        * ModuleConstants.kWheelRadius;
+    return driveEncoder.getVelocity() / 60.0 / DriveBaseConstants.kWheelGearRate * 2.0 * Math.PI
+        * DriveBaseConstants.kWheelRadius;
 
   }
 
@@ -109,14 +109,15 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double[] optimizeOutputVoltage(SwerveModuleState goalState, double currentTurningDegree) {
-    double driveMotorVoltage = goalState.speedMetersPerSecond * ModuleConstants.kDesireSpeedtoMotorVoltage;
+    goalState.optimize(Rotation2d.fromDegrees(currentTurningDegree));
+    double driveMotorVoltage = goalState.speedMetersPerSecond * DriveBaseConstants.kDesireSpeedtoMotorVoltage;
     double turningMotorVoltage = rotController.calculate(currentTurningDegree, goalState.angle.getDegrees());
     double[] moduleState = { driveMotorVoltage, turningMotorVoltage };
     return moduleState;
   }
 
   public void setDesiredState(SwerveModuleState desiredState) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < ModuleConstants.kMinSpeed) {
+    if (Math.abs(desiredState.speedMetersPerSecond) < DriveBaseConstants.kMinSpeed) {
       stopModule();
     } else {
       var moduleState = optimizeOutputVoltage(desiredState, getRotation());
@@ -137,7 +138,6 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber(Modulename + "_ModuleDistance", getDriveDistance());
     SmartDashboard.putNumber(Modulename + "_ModuleVelocity", getDriveRate());
     SmartDashboard.putNumber(Modulename + "_ModuleRotation", getRotation());
