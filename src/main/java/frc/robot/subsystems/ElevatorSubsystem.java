@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   SparkMax ElevatorMotor1;
-  SparkMax ElevatorMotor2;
+ 
 
   public ElevatorSubsystem() {
     ElevatorMotor1 = new SparkMax(0, MotorType.kBrushless);
-    ElevatorMotor2 = new SparkMax(2, MotorType.kBrushless);
+    
   }
 
   public void getSetPoint() {
@@ -35,7 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  public void totheFourFloor() {
+  public void toTheFourFloor() {
   }
 
   public void backToDefault() {
@@ -56,7 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command SetCoralToFourFloor() {
-    Command cmd = runEnd(this::totheFourFloor, this::backToDefault);
+    Command cmd = runEnd(this::toTheFourFloor, this::backToDefault);
     return cmd;
   }
 
