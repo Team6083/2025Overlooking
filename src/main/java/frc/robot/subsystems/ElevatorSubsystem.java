@@ -79,7 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     moveToHeight(ElevatorConstant.kTopFloor);
   }
 
-  public void defaultPosition() {
+  public void todefaultPosition() {
     moveToHeight(ElevatorConstant.kInitialHeight);
   }
 
@@ -99,6 +99,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command ToTopFloorCmd(){
     Command cmd = run(this::toTopFloor);
+    return cmd;
+  }
+
+  public Command ToDefaultPositionCmd(){
+    Command cmd = run(this::todefaultPosition);
     return cmd;
   }
 
