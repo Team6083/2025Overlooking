@@ -15,20 +15,23 @@ import frc.robot.lib.DistanceSensorInterface;
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
 
-  private VictorSP coralShooterMotor;
+  private VictorSP coralShooterLeftMotor;
+  private VictorSP coralShooterRightMotor;
   private DistanceSensorInterface distanceSensor;
 
   public CoralShooterSubsystem() {
-    coralShooterMotor = new VictorSP(CoralShooterConstant.kShooterMotorChannel);
+    coralShooterLeftMotor = new VictorSP(CoralShooterConstant.kShooterLeftMotorChannel);
+    coralShooterRightMotor = new VictorSP(CoralShooterConstant.kShooterRightMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
   private void setMotorVoltage(double voltage) { // 設定電壓
-    coralShooterMotor.setVoltage(voltage);
+    coralShooterLeftMotor.setVoltage(voltage);
+    coralShooterRightMotor.setVoltage(-voltage);
   }
 
   public void coralShooterOn() { // 正轉
-    setMotorVoltage(CoralShooterConstant.kShooterMotorSpeed);
+    setMotorVoltage(CoralShooterConstant.kShooterMotorVoltage);
   }
 
   public void coralShooterStop() { // 停止
