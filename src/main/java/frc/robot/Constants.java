@@ -10,8 +10,9 @@ public class Constants {
   public static final class CoralShooterConstant {
     public static final int kOnboard = 0;
     public static final double kDistanceRange = 4;
-    public static final int kShooterMotorChannel = 1;
-    public static final double kShooterMotorSpeed = 4;
+    public static final int kShooterLeftMotorChannel = 1;
+    public static final int kShooterRightMotorChannel = 2;
+    public static final double kShooterMotorVoltage = 4;
   }
 
   public static final class AlgaeIntakeConstant {
