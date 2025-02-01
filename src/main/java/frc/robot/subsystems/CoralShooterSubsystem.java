@@ -56,9 +56,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command coralShooterStopCmd() { // 停止
-    Command cmd = runOnce(this::coralShooterStop);
-    return cmd;
-  }
-
 }
