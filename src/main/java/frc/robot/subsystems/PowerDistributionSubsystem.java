@@ -82,7 +82,7 @@ public class PowerDistributionSubsystem extends SubsystemBase {
     return isOverCurrent;
   }
 
-  public boolean isClimbeOverCurrent() {
+  public boolean isClimberOverCurrent() {
     boolean isOverCurrent = 
         climberCurrent() > PowerDistributionConstant.kClimberMotorMaxCurrent;
     SmartDashboard.putBoolean("isClimberOverCurrent", isOverCurrent);
