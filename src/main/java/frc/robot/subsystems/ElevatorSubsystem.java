@@ -7,16 +7,14 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
@@ -56,7 +54,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  public void moveToHeight(double targetHeight) {// 限制開關偵測
+  public void moveToHeight(double targetHeight) { // 限制開關偵測
     if ((targetHeight > encoder.getPosition() && !limitSwitchUp.get())
         || (targetHeight < encoder.getPosition() && !limitSwitchDown.get())) {
       pidController.setReference(targetHeight, SparkMax.ControlType.kPosition);
@@ -105,7 +103,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public void setButtonControl(boolean controlMode) {// 切換搖桿控制或按鈕控制
+  public void setButtonControl(boolean controlMode) { // 切換搖桿控制或按鈕控制
     this.isButtonControl = controlMode;
   }
 
@@ -120,7 +118,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       double currentHeight = encoder.getPosition();
       double deltaHeight = joystickInput * 10;
       double targetHeight = currentHeight + deltaHeight;
-      if (Math.abs(targetHeight - currentHeight) > 5) {// 平滑過渡閾值
+      if (Math.abs(targetHeight - currentHeight) > 5) { // 平滑過渡閾值
         targetHeight = currentHeight + Math.signum(deltaHeight) * 5;
       }
       moveToHeight(targetHeight);
