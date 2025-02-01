@@ -18,10 +18,12 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstants;
+import frc.robot.Constants.ModuleConstants;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -47,7 +49,7 @@ public class SwerveModule extends SubsystemBase {
     turningEncoder = new CANcoder(CANcoderID);
     driveMotorConfig = new SparkMaxConfig();
     turningmotorConfig = new SparkMaxConfig();
-    rotController = new PIDController(180.0, 180.0, 1);
+    rotController = new PIDController(1, 0, 0);
     rotController.enableContinuousInput(-180.0, 180.0);
 
     driveMotorConfig.inverted(driveInverted);
@@ -62,21 +64,25 @@ public class SwerveModule extends SubsystemBase {
     turningEncoder.getConfigurator().apply(turningEncoderConfiguration);
   }
 
-  public void configDriveMotor() {
+
+
+
+
+public void configDriveMotor() {
     SparkMaxConfig configdriveMotor = new SparkMaxConfig();
     configdriveMotor.smartCurrentLimit(10, 80);
-    configdriveMotor.closedLoopRampRate(DriveBaseConstants.kDdriveClosedLoopRampRate);
+    configdriveMotor.closedLoopRampRate(ModuleConstants.kDdriveClosedLoopRampRate);
     configdriveMotor.idleMode(IdleMode.kBrake);
-    configdriveMotor.voltageCompensation(DriveBaseConstants.kMaxModuleDriveVoltage);
+    configdriveMotor.voltageCompensation(ModuleConstants.kMaxModuleDriveVoltage);
     driveMotor.configure(configdriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void configTurningMotor() {
     SparkMaxConfig configturningMotor = new SparkMaxConfig();
     configturningMotor.smartCurrentLimit(20);
-    configturningMotor.closedLoopRampRate(DriveBaseConstants.kTurningClosedLoopRampRate);
+    configturningMotor.closedLoopRampRate(ModuleConstants.kTurningClosedLoopRampRate);
     configturningMotor.idleMode(IdleMode.kBrake);
-    configturningMotor.voltageCompensation(DriveBaseConstants.kMaxModuleTurningVoltage);
+    configturningMotor.voltageCompensation(ModuleConstants.kMaxModuleTurningVoltage);
     turningMotor.configure(configturningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
@@ -95,22 +101,26 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveDistance() {
-    return driveEncoder.getPosition() / DriveBaseConstants.kWheelGearRate * 2.0 * Math.PI * DriveBaseConstants.kWheelRadius;
+    return driveEncoder.getPosition() / ModuleConstants.kWheelGearRate * 2.0 * Math.PI * ModuleConstants.kWheelRadius;
   }
 
   public double getDriveRate() {
-    return driveEncoder.getVelocity() / 60.0 / DriveBaseConstants.kWheelGearRate * 2.0 * Math.PI
-        * DriveBaseConstants.kWheelRadius;
-
+    return driveEncoder.getVelocity() / 60.0 / ModuleConstants.kWheelGearRate * 2.0 * Math.PI
+        * ModuleConstants.kWheelRadius;
+  }
+   public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+        getDriveDistance(), new Rotation2d(Math.toRadians(getRotation())));
   }
 
   public double getRotation() {
     return turningEncoder.getAbsolutePosition().getValueAsDouble() * 360.0;
   }
 
+
   public double[] optimizeOutputVoltage(SwerveModuleState goalState, double currentTurningDegree) {
     goalState.optimize(Rotation2d.fromDegrees(currentTurningDegree));
-    double driveMotorVoltage = goalState.speedMetersPerSecond * DriveBaseConstants.kDesireSpeedtoMotorVoltage;
+    double driveMotorVoltage = goalState.speedMetersPerSecond * ModuleConstants.kDesireSpeedtoMotorVoltage;
     double turningMotorVoltage = rotController.calculate(currentTurningDegree, goalState.angle.getDegrees());
     double[] moduleState = { driveMotorVoltage, turningMotorVoltage };
     return moduleState;
