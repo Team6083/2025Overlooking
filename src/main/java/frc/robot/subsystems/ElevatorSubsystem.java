@@ -4,19 +4,17 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
-  SparkMax ElevatorMotor1;
- 
+  SparkMax elevatorMotor1;
 
   public ElevatorSubsystem() {
-    ElevatorMotor1 = new SparkMax(0, MotorType.kBrushless);
-    
+    elevatorMotor1 = new SparkMax(0, MotorType.kBrushless);
   }
 
   public void getSetPoint() {
@@ -45,17 +43,17 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  public Command SetCoralToSecFloor() {
+  public Command setCoralToSecFloor() {
     Command cmd = runEnd(this::toTheSecFloor, this::backToDefault);
     return cmd;
   }
 
-  public Command SetCoralToTrdFloor() {
+  public Command setCoralToTrdFloor() {
     Command cmd = runEnd(this::toTheTrdFloor, this::backToDefault);
     return cmd;
   }
 
-  public Command SetCoralToFourFloor() {
+  public Command setCoralToFourFloor() {
     Command cmd = runEnd(this::toTheFourFloor, this::backToDefault);
     return cmd;
   }
