@@ -36,6 +36,6 @@ public class CoralShooterInWithAutoStopCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return coralShooterSubsystem.isGetCoral(); // 是否拿到 Coral
+    return coralShooterSubsystem.isEnoughRotate(); // 是否拿到 Coral
   }
 }
