@@ -1,13 +1,8 @@
 package frc.robot.drivebase;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.FollowPathCommand;
-import com.pathplanner.lib.config.ModuleConfig;
-import com.pathplanner.lib.config.PIDConstants;
+
 import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -17,14 +12,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstants;
 
 public class SwerveDrive extends SubsystemBase {
@@ -107,54 +98,11 @@ public class SwerveDrive extends SubsystemBase {
 
     field2d = new Field2d();
 
-    // 初始化 magnification 值
-    magnification = 1.0;
-
     // reset the gyro
     gyro.setYaw(0);
 
     // set the swerve speed equal 0
     drive(0, 0, 0, false);
-
-    RobotConfig config;
-
-    try {
-      config = RobotConfig.fromGUISettings();
-    } catch (Exception e) {
-      // Handle exception as needed
-      e.printStackTrace();
-      return;
-    }
-
-    // 設置 AutoBuilder
-    AutoBuilder.configure(
-                                this::getPose2d, // 取得機器人目前位置
-                                this::resetPose, // 重設機器人的位置
-                                this::getRobotRelativeSpeeds, // 取得底盤速度
-                                (speeds, feedforwards) -> driveRobotRelative(speeds, feedforwards),
-                                // 一個根據機器人自身座標系的 ChassisSpeeds 來驅動機器人的方法
-                                new PPHolonomicDriveController(
-                                                new com.pathplanner.lib.config.PIDConstants(
-                                                                AutoConstants.kPTranslation,
-                                                                AutoConstants.kITranslation,
-                                                                AutoConstants.kDTranslation),
-                                                new com.pathplanner.lib.config.PIDConstants(
-                                                                AutoConstants.kPRotation,
-                                                                AutoConstants.kIRotation,
-                                                                AutoConstants.kDRotation)
-
-                                ),
-                                config,
-                                () -> {
-                                  // 這個 Boolean Supplier 決定機器人是否要鏡像路徑
-                                  // 若機器人屬於紅方，會回傳 true，
-                                  var alliance = DriverStation.getAlliance();
-                                  if (alliance.isPresent()) {
-                                    return alliance.get() == DriverStation.Alliance.Red;
-                                  }
-                                  return false;
-                                },
-                                this);
   }
 
   /**
@@ -228,21 +176,6 @@ public class SwerveDrive extends SubsystemBase {
     gyro.reset();
   }
 
-  // 取得機器人當前的相對速度
-  public ChassisSpeeds getRobotRelativeSpeeds() {
-    return kinematics.toChassisSpeeds(
-                                frontLeft.getState(),
-                                frontRight.getState(),
-                                backLeft.getState(),
-                                backRight.getState());
-  }
-
-  // 以機器人自身為參考點控制移動，傳入機器人的速度資訊（前後、左右、旋轉）。
-  public void driveRobotRelative(ChassisSpeeds speeds, DriveFeedforwards feedforwards) {
-    drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond,
-                                speeds.omegaRadiansPerSecond, false);
-  }
-
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
@@ -251,71 +184,12 @@ public class SwerveDrive extends SubsystemBase {
                                 : gyro.getRotation2d().getDegrees()));
   }
 
-  // 設定倍率參數
-  public void setMagnification(double magnification) {
-    this.magnification = magnification;
-  }
-
-  // 取得倍率參數
-  public double getMagnification() {
-    return magnification;
-  }
-
   public void putDashboard() {
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
                                 getPose2d().getRotation().getDegrees());
-  }
-
-  public Command followPathCommand(String pathName) {
-
-    try {
-      PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
-      DCMotor driveMotor = DCMotor.getNEO(DriveBaseConstants.kNumMotors);
-
-      ModuleConfig swerveModuleConfig = new ModuleConfig(
-                        DriveBaseConstants.kWheelRadiusMeters,
-                        DriveBaseConstants.kMaxSpeed,
-                        DriveBaseConstants.kWheelCOF,
-                        driveMotor,
-                        DriveBaseConstants.kDriveCurrentLimit,
-                        DriveBaseConstants.kNumMotors);
-
-      return new FollowPathCommand(
-                                        path,
-                                        this::getPose2d,
-
-                                        this::getRobotRelativeSpeeds,
-                                        this::driveRobotRelative,
-                                        new PPHolonomicDriveController(
-                                                        new PIDConstants(
-                                                                        AutoConstants.kPTranslation,
-                                                                        AutoConstants.kITranslation,
-                                                                        AutoConstants.kDTranslation
-                                                                        ),
-                                                        new PIDConstants(AutoConstants.kPRotation,
-                                                                        AutoConstants.kIRotation,
-                                                                        AutoConstants.kDRotation)),
-                                        new RobotConfig(DriveBaseConstants.kRobotMass,
-                                                        DriveBaseConstants.kRobotMomentOfInertia,
-                                                        swerveModuleConfig,
-                                                        DriveBaseConstants.kTrackWidth),
-                                        () -> {
-
-                                          var alliance = DriverStation.getAlliance();
-                                          if (alliance.isPresent()) {
-                                            return alliance.get() 
-                                                == DriverStation.Alliance.Red;
-                                          }
-                                          return false;
-                                        },
-                                        this);
-    } catch (Exception e) {
-      DriverStation.reportError("Big oops: " + e.getMessage(), e.getStackTrace());
-      return Commands.none();
-    }
   }
 
   @Override
