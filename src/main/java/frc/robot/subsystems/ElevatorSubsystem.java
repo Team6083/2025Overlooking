@@ -26,6 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput limitSwitchUp;
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
+  private double targetHeight;
 
   public ElevatorSubsystem() {
     elevatorMotor = new SparkMax(0, MotorType.kBrushless);
@@ -49,16 +50,12 @@ public class ElevatorSubsystem extends SubsystemBase {
         //如果確認不是的話我再改就好:)
     elevatorMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder.setPosition(ElevatorConstant.kInitialHeight);
+    targetHeight = ElevatorConstant.kInitialHeight;
 
   }
 
-  public void moveToHeight(double targetHeight) { // 限制開關偵測
-    if ((targetHeight > encoder.getPosition() && !limitSwitchUp.get())
-        || (targetHeight < encoder.getPosition() && !limitSwitchDown.get())) {
-      pidController.setReference(targetHeight, SparkMax.ControlType.kPosition);
-    } else {
-      stopMove();
-    }
+  public void moveToHeight(double newTargetHeight) { // 限制開關偵測
+    targetHeight = newTargetHeight;
   }//此行程式需不停重複運行 應放在最下面的periodic 所以可能要改
 
   public void toSecFloor() {
@@ -111,6 +108,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if ((targetHeight > encoder.getPosition() && !limitSwitchUp.get())
+        || (targetHeight < encoder.getPosition() && !limitSwitchDown.get())) {
+      pidController.setReference(targetHeight, SparkMax.ControlType.kPosition);
+    } else {
+      stopMove();
+    }
     
     }
   }
