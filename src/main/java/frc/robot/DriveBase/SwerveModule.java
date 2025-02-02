@@ -4,16 +4,15 @@
 
 package frc.robot.drivebase;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -64,11 +63,7 @@ public class SwerveModule extends SubsystemBase {
     turningEncoder.getConfigurator().apply(turningEncoderConfiguration);
   }
 
-
-
-
-
-public void configDriveMotor() {
+  public void configDriveMotor() {
     SparkMaxConfig configdriveMotor = new SparkMaxConfig();
     configdriveMotor.smartCurrentLimit(40, 20);
     configdriveMotor.closedLoopRampRate(ModuleConstants.kDdriveClosedLoopRampRate);
@@ -108,7 +103,8 @@ public void configDriveMotor() {
     return driveEncoder.getVelocity() / 60.0 / ModuleConstants.kWheelGearRate * 2.0 * Math.PI
         * ModuleConstants.kWheelRadius;
   }
-   public SwerveModulePosition getPosition() {
+
+  public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
         getDriveDistance(), new Rotation2d(Math.toRadians(getRotation())));
   }
@@ -116,7 +112,6 @@ public void configDriveMotor() {
   public double getRotation() {
     return turningEncoder.getAbsolutePosition().getValueAsDouble() * 360.0;
   }
-
 
   public double[] optimizeOutputVoltage(SwerveModuleState goalState, double currentTurningDegree) {
     goalState.optimize(Rotation2d.fromDegrees(currentTurningDegree));
