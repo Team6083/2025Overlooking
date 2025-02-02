@@ -211,7 +211,7 @@ public class SwerveDrive extends SubsystemBase {
                                         frontRight.getPosition(),
                                         backLeft.getPosition(),
                                         backRight.getPosition()
-                                });
+                });
   }
 
   // 重置所有輪子的 Encoder 與機器人位置
@@ -247,7 +247,7 @@ public class SwerveDrive extends SubsystemBase {
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
                                 + ((DriveBaseConstants.kGyroInverted) 
-                                ?(360.0 - gyro.getRotation2d().getDegrees())
+                                ? (360.0 - gyro.getRotation2d().getDegrees())
                                 : gyro.getRotation2d().getDegrees()));
   }
 

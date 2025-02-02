@@ -7,7 +7,7 @@ public class Constants {
   public static final class ClimberConstant {
     public static final int kClimberSetpoint = 40;
     public static final double kClimbDownSpeed = -0.35;
-    }
+  }
 
   public static final class ModuleConstants {
     // 定義輪子的半徑，單位是公尺
