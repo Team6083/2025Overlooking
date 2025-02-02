@@ -25,11 +25,11 @@ public class Constants {
 
   public static final class PowerDistributionConstant {
     // Motor channel
-    public static final int kCoralShooterMotorCurrentchannel = 7;
-    public static final int kAlgaeIntakeMotorCurrentchannel = 7;
-    public static final int kAlgaeRotateMotorCurrentchannel = 7;
-    public static final int kClimberMotorCurrentchannel = 7;
-    public static final int kRampMotorCurrentchannel = 7;
+    public static final int kCoralShooterMotorCurrentChannel = 7;
+    public static final int kAlgaeIntakeMotorCurrentChannel = 7;
+    public static final int kAlgaeRotateMotorCurrentChannel = 7;
+    public static final int kClimberMotorCurrentChannel = 7;
+    public static final int kRampMotorCurrentChannel = 7;
     // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
     public static final double kAlgaeIntakeMotorMaxCurrent = 40;
