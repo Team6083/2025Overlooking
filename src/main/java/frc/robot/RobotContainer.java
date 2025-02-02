@@ -4,17 +4,44 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.AlgaeIntakeSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.CoralShooterSubsystem;
+import frc.robot.subsystems.RampSubsystem;
 
 public class RobotContainer {
+  private final ClimberSubsystem climberSubsystem;
+  private final RampSubsystem rampSubsystem;
+  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  private final CoralShooterSubsystem coralShooterSubsystem;
+  private final SendableChooser<Command> autChooser;
+
   public RobotContainer() {
+    coralShooterSubsystem = new CoralShooterSubsystem();
+    climberSubsystem = new ClimberSubsystem();
+    rampSubsystem = new RampSubsystem();
+    algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
+    autChooser = AutoBuilder.buildAutoChooser();
+    autChooser.setDefaultOption("Donothing", Commands.none());
+    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
+    SmartDashboard.putData("AutoChooser", autChooser);
+    SmartDashboard.putData("ALGAElntakeSubsystem", algaeIntakeSubsystem);
+    SmartDashboard.putData("RampSubsystem", rampSubsystem);
+    SmartDashboard.putData("ClimberSubsystem", climberSubsystem);
+
     configureBindings();
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+  }
 
   public Command getAutonomousCommand() {
+
     return Commands.print("No autonomous command configured");
   }
 }
