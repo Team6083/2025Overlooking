@@ -14,7 +14,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -32,7 +31,7 @@ public class SwerveModule extends SubsystemBase {
   private final SparkBaseConfig turningmotorConfig;
   private final RelativeEncoder driveEncoder;
   private final CANcoder turningEncoder;
-  public double AbsoluteSensorDiscontinuityPoint;
+  public double absoluteSensorDiscontinuityPoint;
   private String moduleName;
   private boolean driveInverted;
   private boolean turningInverted;
@@ -40,8 +39,8 @@ public class SwerveModule extends SubsystemBase {
 
   public SwerveModule(
       int driveMotorChannel, int turningMotorChannel,
-      int turningEncoderChannel, int canCoderId, String Modulename) {
-    this.moduleName = Modulename;
+      int turningEncoderChannel, int canCoderId, String modulename) {
+    this.moduleName = modulename;
     driveMotor = new SparkMax(driveMotorChannel, MotorType.kBrushless);
     turningMotor = new SparkMax(turningMotorChannel, MotorType.kBrushless);
     driveEncoder = driveMotor.getEncoder();
@@ -55,11 +54,11 @@ public class SwerveModule extends SubsystemBase {
     driveMotorConfig.inverted(driveInverted);
     turningmotorConfig.inverted(turningInverted);
 
-    setName(Modulename);
-    AbsoluteSensorDiscontinuityPoint = 0.5;
+    setName(modulename);
+    absoluteSensorDiscontinuityPoint = 0.5;
     CANcoderConfiguration turningEncoderConfiguration = new CANcoderConfiguration();
     turningEncoderConfiguration.MagnetSensor.MagnetOffset = 0;
-    turningEncoderConfiguration.MagnetSensor.MagnetOffset = AbsoluteSensorDiscontinuityPoint;
+    turningEncoderConfiguration.MagnetSensor.MagnetOffset = absoluteSensorDiscontinuityPoint;
 
     turningEncoder.getConfigurator().apply(turningEncoderConfiguration);
   }

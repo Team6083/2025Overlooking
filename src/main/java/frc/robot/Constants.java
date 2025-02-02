@@ -4,7 +4,7 @@ import com.pathplanner.lib.config.RobotConfig;
 
 public class Constants {
 
-    public final static class ClimberConstant {
+    public static final class ClimberConstant {
         public static final int kClimberSetpoint = 40;
         public static final double kClimbDownSpeed = -0.35;
     }
@@ -23,13 +23,15 @@ public class Constants {
         public static final double kTurningClosedLoopRampRate = 0.1;
 
         // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
-        public static final double kDesireSpeedtoMotorVoltage = kMaxModuleDriveVoltage / DriveBaseConstants.kMaxSpeed;
+        public static final double kDesireSpeedtoMotorVoltage = kMaxModuleDriveVoltage
+                / DriveBaseConstants.kMaxSpeed;
 
         // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
         public static final double kMaxSpeedTurningDegree = 180.0;
 
         // 設定 rotPID 的參數
-        public static final double kPRotationController = kMaxModuleTurningVoltage / kMaxSpeedTurningDegree;
+        public static final double kPRotationController = kMaxModuleTurningVoltage
+                / kMaxSpeedTurningDegree;
         public static final double kIRotationController = 0.0;
         public static final double kDRotationController = 0.0004;
 
@@ -81,7 +83,8 @@ public class Constants {
         // 機器人的大小規格
         public static final double kRobotWidth = 0.6;
         public static final double kRobotLength = 0.6;
-        public static final double kRobotDiagonal = Math.sqrt(Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
+        public static final double kRobotDiagonal = Math.sqrt(
+                Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
 
         // 機器人的重量 (還沒測)
         public static final double kRobotMass = 45;

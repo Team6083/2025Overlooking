@@ -73,7 +73,8 @@ public class SwerveDrive extends SubsystemBase {
                                 "frontRight");
                 backLeft = new SwerveModule(DriveBaseConstants.kBackLeftDriveMotorChannel,
                                 DriveBaseConstants.kBackLeftTurningMotorChannel,
-                                DriveBaseConstants.kBackLeftTurningEncoderChannel, DriveBaseConstants.kBackLeftCanCoder,
+                                DriveBaseConstants.kBackLeftTurningEncoderChannel,
+                                DriveBaseConstants.kBackLeftCanCoder,
                                 "backLeft");
                 backRight = new SwerveModule(DriveBaseConstants.kBackRightDriveMotorChannel,
                                 DriveBaseConstants.kBackRightTurningMotorChannel,
@@ -91,7 +92,8 @@ public class SwerveDrive extends SubsystemBase {
 
                 // 定義 Kinematics 與 Odometry
                 kinematics = new SwerveDriveKinematics(
-                                frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
+                                frontLeftLocation, frontRightLocation,
+                                backLeftLocation, backRightLocation);
 
                 odometry = new SwerveDriveOdometry(
                                 kinematics,
@@ -129,22 +131,23 @@ public class SwerveDrive extends SubsystemBase {
                                 this::getPose2d, // 取得機器人目前位置
                                 this::resetPose, // 重設機器人的位置
                                 this::getRobotRelativeSpeeds, // 取得底盤速度
-                                (speeds, feedforwards) -> driveRobotRelative(speeds, feedforwards), // 一個根據機器人自身座標系的
-                                                                                                    // ChassisSpeeds
-                                // 來驅動機器人的方法
+                                (speeds, feedforwards) -> driveRobotRelative(speeds, feedforwards),
+                                // 一個根據機器人自身座標系的 ChassisSpeeds 來驅動機器人的方法
                                 new PPHolonomicDriveController(
-                                                new com.pathplanner.lib.config.PIDConstants(AutoConstants.kPTranslation,
+                                                new com.pathplanner.lib.config.PIDConstants(
+                                                                AutoConstants.kPTranslation,
                                                                 AutoConstants.kITranslation,
-                                                                AutoConstants.kDTranslation), // Translation PID
-                                                new com.pathplanner.lib.config.PIDConstants(AutoConstants.kPRotation,
-                                                                AutoConstants.kIRotation, AutoConstants.kDRotation) // Rotation
-                                                                                                                    // PID
+                                                                AutoConstants.kDTranslation),
+                                                new com.pathplanner.lib.config.PIDConstants(
+                                                                AutoConstants.kPRotation,
+                                                                AutoConstants.kIRotation,
+                                                                AutoConstants.kDRotation)
+
                                 ),
                                 config,
                                 () -> {
                                         // 這個 Boolean Supplier 決定機器人是否要鏡像路徑
-                                        // 若機器人屬於紅方，會回傳 true，機器人翻轉路徑到場地的紅方區域，但場地的原點仍然維持在藍方
-                                        // 若機器人屬於藍方，會回傳 false，路徑不變
+                                        // 若機器人屬於紅方，會回傳 true，
 
                                         var alliance = DriverStation.getAlliance();
                                         if (alliance.isPresent()) {
@@ -158,8 +161,8 @@ public class SwerveDrive extends SubsystemBase {
         /**
          * Method to drive the robot using joystick info.
          *
-         * @param ySpeed        Speed of the robot in the y direction (forward).
-         * @param xSpeed        Speed of the robot in the x direction (sideways).
+         * @param y_speed       Speed of the robot in the y direction (forward).
+         * @param x_speed       Speed of the robot in the x direction (sideways).
          * @param rot           Angular rate of the robot.
          * @param fieldRelative Whether the provided x and y speeds are relative to the
          *                      field.
@@ -167,13 +170,15 @@ public class SwerveDrive extends SubsystemBase {
          *                      using the wpi function to set the speed of the swerve
          */
 
-        public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+        public void drive(double x_speed, double y_speed, double rot, boolean fieldRelative) {
                 swerveModuleStates = kinematics.toSwerveModuleStates(
                                 fieldRelative
-                                                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot,
+                                                ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                                                                x_speed, y_speed, rot,
                                                                 gyro.getRotation2d())
-                                                : new ChassisSpeeds(xSpeed, ySpeed, rot));
-                SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DriveBaseConstants.kMaxSpeed);
+                                                : new ChassisSpeeds(x_speed, y_speed, rot));
+                SwerveDriveKinematics.desaturateWheelSpeeds(
+                                swerveModuleStates, DriveBaseConstants.kMaxSpeed);
                 frontLeft.setDesiredState(swerveModuleStates[0]);
                 frontRight.setDesiredState(swerveModuleStates[1]);
                 backLeft.setDesiredState(swerveModuleStates[2]);
@@ -235,7 +240,8 @@ public class SwerveDrive extends SubsystemBase {
 
         // 以機器人自身為參考點控制移動，傳入機器人的速度資訊（前後、左右、旋轉）。
         public void driveRobotRelative(ChassisSpeeds speeds, DriveFeedforwards feedforwards) {
-                drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
+                drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond,
+                                speeds.omegaRadiansPerSecond, false);
         }
 
         // 取得機器人目前的旋轉角度
@@ -259,7 +265,8 @@ public class SwerveDrive extends SubsystemBase {
                 SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
                 SmartDashboard.putNumber("poseX", getPose2d().getX());
                 SmartDashboard.putNumber("poseY", getPose2d().getY());
-                SmartDashboard.putNumber("poseRotationDegree", getPose2d().getRotation().getDegrees());
+                SmartDashboard.putNumber("poseRotationDegree",
+                                getPose2d().getRotation().getDegrees());
         }
 
         public Command followPathCommand(String pathName) {
@@ -283,20 +290,24 @@ public class SwerveDrive extends SubsystemBase {
                                         this::getRobotRelativeSpeeds,
                                         this::driveRobotRelative,
                                         new PPHolonomicDriveController(
-                                                        new PIDConstants(AutoConstants.kPTranslation,
+                                                        new PIDConstants(
+                                                                        AutoConstants.kPTranslation,
                                                                         AutoConstants.kITranslation,
-                                                                        AutoConstants.kDTranslation),
+                                                                        AutoConstants.kDTranslation
+                                                                        ),
                                                         new PIDConstants(AutoConstants.kPRotation,
                                                                         AutoConstants.kIRotation,
                                                                         AutoConstants.kDRotation)),
                                         new RobotConfig(DriveBaseConstants.kRobotMass,
-                                                        DriveBaseConstants.kRobotMomentOfInertia, swerveModuleConfig,
+                                                        DriveBaseConstants.kRobotMomentOfInertia,
+                                                        swerveModuleConfig,
                                                         DriveBaseConstants.kTrackWidth),
                                         () -> {
 
                                                 var alliance = DriverStation.getAlliance();
                                                 if (alliance.isPresent()) {
-                                                        return alliance.get() == DriverStation.Alliance.Red;
+                                                        return alliance.get() == 
+                                                        DriverStation.Alliance.Red;
                                                 }
                                                 return false;
                                         },
