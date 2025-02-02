@@ -1,6 +1,5 @@
 package frc.robot;
 
-
 import com.pathplanner.lib.config.RobotConfig;
 
 public class Constants {
@@ -37,9 +36,7 @@ public class Constants {
         public static final boolean kTurningMotorInverted = true;
     }
 
-
-    
-        public static final class DriveBaseConstants{
+    public static final class DriveBaseConstants {
         // driveMotor channel
         public static final int kFrontLeftDriveMotorChannel = 11;
         public static final int kFrontRightDriveMotorChannel = 15;
@@ -63,7 +60,7 @@ public class Constants {
         public static final int kFrontRightTurningEncoderChannel = 32;
         public static final int kBackLeftTurningEncoderChannel = 33;
         public static final int kBackRightTurningEncoderChannel = 34;
-        //turnning CANcoder ID
+        // turnning CANcoder ID
         public static final int kFrontLeftCanCoder = 1;
         public static final int kFrontRightCanCoder = 2;
         public static final int kBackLeftCanCoder = 3;
@@ -86,13 +83,13 @@ public class Constants {
         public static final double kRobotLength = 0.6;
         public static final double kRobotDiagonal = Math.sqrt(Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
 
-        //機器人的重量 (還沒測)
+        // 機器人的重量 (還沒測)
         public static final double kRobotMass = 45;
 
-        //機器人兩排輪子間的寬度，以公尺為單位(還沒測)
+        // 機器人兩排輪子間的寬度，以公尺為單位(還沒測)
         public static final double kTrackWidth = 2;
 
-        //機器人的輪子半徑，以公尺為單位
+        // 機器人的輪子半徑，以公尺為單位
         public static final double kWheelRadiusMeters = 0.1;
 
         // 最大轉速需要實際測試看看
@@ -103,17 +100,17 @@ public class Constants {
 
         // 最大角速度
         public static final double kMaxAngularSpeed = kMaxSpeed / (kRobotDiagonal / 2.0); // rad/s
-        
-        //機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
+
+        // 機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
         public static final double kRobotMomentOfInertia = 6;
 
-        //輪子和地毯之間的摩擦係數
+        // 輪子和地毯之間的摩擦係數
         public static final double kWheelCOF = 1.0;
 
-        //驅動馬達的電流限制，以安培為單位
+        // 驅動馬達的電流限制，以安培為單位
         public static final double kDriveCurrentLimit = 12.0;
 
-        //每個模組的馬達數量
+        // 每個模組的馬達數量
         public static final int kNumMotors = 2;
 
         // make the input from Gamepad more smooth
@@ -121,63 +118,54 @@ public class Constants {
         public static final double kYLimiterRateLimit = 5.0;
         public static final double kRotLimiterRateLimit = 5.0;
 
-        //Tracking PID
+        // Tracking PID
         public static final double kTrackingP = 0.08;
         public static final double kTrackingI = 0.0;
         public static final double kTrackingD = 0.0;
     }
 
-    public static final class AutoConstants{
+    public static final class AutoConstants {
         public static final double kPTranslation = 0.08;
         public static final double kITranslation = 0;
         public static final double kDTranslation = 0;
         public static final double kPRotation = 1;
         public static final double kIRotation = 0;
         public static final double kDRotation = 0;
-        public static final double kDrivebaseRadius =0.3;
-
+        public static final double kDrivebaseRadius = 0.3;
 
     }
 
     public static RobotConfig robotConfig;
 
-public class Constants {
+    public static final class CoralShooterConstant {
+        public static final int kOnboard = 0;
+        public static final double kDistanceRange = 4;
+        public static final int kShooterMotorChannel = 1;
+        public static final double kShooterMotorSpeed = 4;
+    }
 
-  public static final class ClimberConstant {
-    public static final int kClimberSetpoint = 40;
-    public static final double kClimbDownSpeed = -0.35;
-  }
+    public static final class AlgaeIntakeConstant {
+        public static final int kIntakeMotorChannel = 2;
+        public static final int kRotateMotorChannel = 1;
+        public static final double kIntakeVoltage = 6.0;
+        public static final double kReIntakeVoltage = 3.0;
+        public static final double kUpIntakeVoltage = 12.0;
+        public static final double kDownIntakeVoltage = -12.0;
+    }
 
-  public static final class CoralShooterConstant {
-    public static final int kOnboard = 0;
-    public static final double kDistanceRange = 4;
-    public static final int kShooterMotorChannel = 1;
-    public static final double kShooterMotorSpeed = 4;
-  }
-
-  public static final class AlgaeIntakeConstant {
-    public static final int kIntakeMotorChannel = 2;
-    public static final int kRotateMotorChannel = 1;
-    public static final double kIntakeVoltage = 6.0;
-    public static final double kReIntakeVoltage = 3.0;
-    public static final double kUpIntakeVoltage = 12.0;
-    public static final double kDownIntakeVoltage = -12.0;
-  }
-
-  public static final class PowerDistributionConstant {
-    // Motor channel
-    public static final int kCoralShooterMotorCurrentchannel = 7;
-    public static final int kAlgaeIntakeMotorCurrentchannel = 7;
-    public static final int kAlgaeRotateMotorCurrentchannel = 7;
-    public static final int kClimberMotorCurrentchannel = 7;
-    public static final int kRampMotorCurrentchannel = 7;
-    // Motor Max Current
-    public static final double kCoralShooterMotorMaxCurrent = 40;
-    public static final double kAlgaeIntakeMotorMaxCurrent = 40;
-    public static final double kAlgaeRotateMotorMaxCurrent = 40;
-    public static final double kClimberMotorMaxCurrent = 40;
-    public static final double kRampMotorMaxCurrent = 40;
-  }
-
+    public static final class PowerDistributionConstant {
+        // Motor channel
+        public static final int kCoralShooterMotorCurrentchannel = 7;
+        public static final int kAlgaeIntakeMotorCurrentchannel = 7;
+        public static final int kAlgaeRotateMotorCurrentchannel = 7;
+        public static final int kClimberMotorCurrentchannel = 7;
+        public static final int kRampMotorCurrentchannel = 7;
+        // Motor Max Current
+        public static final double kCoralShooterMotorMaxCurrent = 40;
+        public static final double kAlgaeIntakeMotorMaxCurrent = 40;
+        public static final double kAlgaeRotateMotorMaxCurrent = 40;
+        public static final double kClimberMotorMaxCurrent = 40;
+        public static final double kRampMotorMaxCurrent = 40;
+    }
 
 }
