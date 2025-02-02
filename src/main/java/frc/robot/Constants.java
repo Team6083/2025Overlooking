@@ -4,171 +4,171 @@ import com.pathplanner.lib.config.RobotConfig;
 
 public class Constants {
 
-    public static final class ClimberConstant {
-        public static final int kClimberSetpoint = 40;
-        public static final double kClimbDownSpeed = -0.35;
+  public static final class ClimberConstant {
+    public static final int kClimberSetpoint = 40;
+    public static final double kClimbDownSpeed = -0.35;
     }
 
-    public static final class ModuleConstants {
-        // 定義輪子的半徑，單位是公尺
-        public static final double kWheelRadius = 0.046;
-        public static final double kWheelGearRate = 1;
+  public static final class ModuleConstants {
+    // 定義輪子的半徑，單位是公尺
+    public static final double kWheelRadius = 0.046;
+    public static final double kWheelGearRate = 1;
 
-        // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
-        public static final double kMaxModuleDriveVoltage = 12.0;
-        public static final double kMaxModuleTurningVoltage = 10.0;
+    // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
+    public static final double kMaxModuleDriveVoltage = 12.0;
+    public static final double kMaxModuleTurningVoltage = 10.0;
 
-        // 設定 Motor 的 closedLoopRampRate 之時距
-        public static final double kDdriveClosedLoopRampRate = 0.1; // 1 second 1 unit
-        public static final double kTurningClosedLoopRampRate = 0.1;
+    // 設定 Motor 的 closedLoopRampRate 之時距
+    public static final double kDdriveClosedLoopRampRate = 0.1; // 1 second 1 unit
+    public static final double kTurningClosedLoopRampRate = 0.1;
 
-        // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
-        public static final double kDesireSpeedtoMotorVoltage = kMaxModuleDriveVoltage
-                / DriveBaseConstants.kMaxSpeed;
+    // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
+    public static final double kDesireSpeedtoMotorVoltage = kMaxModuleDriveVoltage
+            / DriveBaseConstants.kMaxSpeed;
 
-        // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
-        public static final double kMaxSpeedTurningDegree = 180.0;
+    // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
+    public static final double kMaxSpeedTurningDegree = 180.0;
 
-        // 設定 rotPID 的參數
-        public static final double kPRotationController = kMaxModuleTurningVoltage
-                / kMaxSpeedTurningDegree;
-        public static final double kIRotationController = 0.0;
-        public static final double kDRotationController = 0.0004;
+    // 設定 rotPID 的參數
+    public static final double kPRotationController = kMaxModuleTurningVoltage
+            / kMaxSpeedTurningDegree;
+    public static final double kIRotationController = 0.0;
+    public static final double kDRotationController = 0.0004;
 
-        public static final boolean kTurningMotorInverted = true;
-    }
+    public static final boolean kTurningMotorInverted = true;
+  }
 
-    public static final class DriveBaseConstants {
-        // driveMotor channel
-        public static final int kFrontLeftDriveMotorChannel = 11;
-        public static final int kFrontRightDriveMotorChannel = 15;
-        public static final int kBackLeftDriveMotorChannel = 13;
-        public static final int kBackRightDriveMotorChannel = 17;
+  public static final class DriveBaseConstants {
+    // driveMotor channel
+    public static final int kFrontLeftDriveMotorChannel = 11;
+    public static final int kFrontRightDriveMotorChannel = 15;
+    public static final int kBackLeftDriveMotorChannel = 13;
+    public static final int kBackRightDriveMotorChannel = 17;
 
-        // turningMotor channel
-        public static final int kFrontLeftTurningMotorChannel = 12;
-        public static final int kFrontRightTurningMotorChannel = 16;
-        public static final int kBackLeftTurningMotorChannel = 14;
-        public static final int kBackRightTurningMotorChannel = 18;
+    // turningMotor channel
+    public static final int kFrontLeftTurningMotorChannel = 12;
+    public static final int kFrontRightTurningMotorChannel = 16;
+    public static final int kBackLeftTurningMotorChannel = 14;
+    public static final int kBackRightTurningMotorChannel = 18;
 
-        // 定義 driveMotor 的正反轉
-        public static final boolean kFrontLeftDriveMotorInverted = false;
-        public static final boolean kFrontRightDriveMotorInverted = true;
-        public static final boolean kBackLeftDriveMotorInverted = false;
-        public static final boolean kBackRightDriveMotorInverted = true;
+    // 定義 driveMotor 的正反轉
+    public static final boolean kFrontLeftDriveMotorInverted = false;
+    public static final boolean kFrontRightDriveMotorInverted = true;
+    public static final boolean kBackLeftDriveMotorInverted = false;
+    public static final boolean kBackRightDriveMotorInverted = true;
 
-        // turnning encoder channel
-        public static final int kFrontLeftTurningEncoderChannel = 31;
-        public static final int kFrontRightTurningEncoderChannel = 32;
-        public static final int kBackLeftTurningEncoderChannel = 33;
-        public static final int kBackRightTurningEncoderChannel = 34;
-        // turnning CANcoder ID
-        public static final int kFrontLeftCanCoder = 1;
-        public static final int kFrontRightCanCoder = 2;
-        public static final int kBackLeftCanCoder = 3;
-        public static final int kBackRightCanCoder = 4;
+    // turnning encoder channel
+    public static final int kFrontLeftTurningEncoderChannel = 31;
+    public static final int kFrontRightTurningEncoderChannel = 32;
+    public static final int kBackLeftTurningEncoderChannel = 33;
+    public static final int kBackRightTurningEncoderChannel = 34;
+    // turnning CANcoder ID
+    public static final int kFrontLeftCanCoder = 1;
+    public static final int kFrontRightCanCoder = 2;
+    public static final int kBackLeftCanCoder = 3;
+    public static final int kBackRightCanCoder = 4;
 
-        // turning encoder magnet offset value
-        public static final double kFrontLeftCanCoderMagOffset = 0.003174;
-        public static final double kFrontRightCanCoderMagOffset = 0.117676;
-        public static final double kBackLeftCanCoderMagOffset = 0.347656;
-        public static final double kBackRightCanCoderMagOffset = -0.178955;
+    // turning encoder magnet offset value
+    public static final double kFrontLeftCanCoderMagOffset = 0.003174;
+    public static final double kFrontRightCanCoderMagOffset = 0.117676;
+    public static final double kBackLeftCanCoderMagOffset = 0.347656;
+    public static final double kBackRightCanCoderMagOffset = -0.178955;
 
-        public static final int kGyroChannel = 30;
+    public static final int kGyroChannel = 30;
 
-        // whether gyro is under the robot
-        public static final boolean kGyroInverted = false;
-        public static final double kGyroOffSet = 0.0;
+    // whether gyro is under the robot
+    public static final boolean kGyroInverted = false;
+    public static final double kGyroOffSet = 0.0;
 
-        // 機器人的大小規格
-        public static final double kRobotWidth = 0.6;
-        public static final double kRobotLength = 0.6;
-        public static final double kRobotDiagonal = Math.sqrt(
-                Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
+    // 機器人的大小規格
+    public static final double kRobotWidth = 0.6;
+    public static final double kRobotLength = 0.6;
+    public static final double kRobotDiagonal = Math.sqrt(
+            Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
 
-        // 機器人的重量 (還沒測)
-        public static final double kRobotMass = 45;
+    // 機器人的重量 (還沒測)
+    public static final double kRobotMass = 45;
 
-        // 機器人兩排輪子間的寬度，以公尺為單位(還沒測)
-        public static final double kTrackWidth = 2;
+    // 機器人兩排輪子間的寬度，以公尺為單位(還沒測)
+    public static final double kTrackWidth = 2;
 
-        // 機器人的輪子半徑，以公尺為單位
-        public static final double kWheelRadiusMeters = 0.1;
+    // 機器人的輪子半徑，以公尺為單位
+    public static final double kWheelRadiusMeters = 0.1;
 
-        // 最大轉速需要實際測試看看
-        public static final double kMaxSpeed = 4.0;
+    // 最大轉速需要實際測試看看
+    public static final double kMaxSpeed = 4.0;
 
-        // 設定最小轉速，以避免 Gamepad 胡亂輸送訊號以至於機器人不受控制
-        public static final double kMinSpeed = 0.2;
+    // 設定最小轉速，以避免 Gamepad 胡亂輸送訊號以至於機器人不受控制
+    public static final double kMinSpeed = 0.2;
 
-        // 最大角速度
-        public static final double kMaxAngularSpeed = kMaxSpeed / (kRobotDiagonal / 2.0); // rad/s
+    // 最大角速度
+    public static final double kMaxAngularSpeed = kMaxSpeed / (kRobotDiagonal / 2.0); // rad/s
 
-        // 機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
-        public static final double kRobotMomentOfInertia = 6;
+    // 機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
+    public static final double kRobotMomentOfInertia = 6;
 
-        // 輪子和地毯之間的摩擦係數
-        public static final double kWheelCOF = 1.0;
+    // 輪子和地毯之間的摩擦係數
+    public static final double kWheelCOF = 1.0;
 
-        // 驅動馬達的電流限制，以安培為單位
-        public static final double kDriveCurrentLimit = 12.0;
+    // 驅動馬達的電流限制，以安培為單位
+    public static final double kDriveCurrentLimit = 12.0;
 
-        // 每個模組的馬達數量
-        public static final int kNumMotors = 2;
+    // 每個模組的馬達數量
+    public static final int kNumMotors = 2;
 
-        // make the input from Gamepad more smooth
-        public static final double kXLimiterRateLimit = 5.0;
-        public static final double kYLimiterRateLimit = 5.0;
-        public static final double kRotLimiterRateLimit = 5.0;
+    // make the input from Gamepad more smooth
+    public static final double kXLimiterRateLimit = 5.0;
+    public static final double kYLimiterRateLimit = 5.0;
+    public static final double kRotLimiterRateLimit = 5.0;
 
-        // Tracking PID
-        public static final double kTrackingP = 0.08;
-        public static final double kTrackingI = 0.0;
-        public static final double kTrackingD = 0.0;
-    }
+    // Tracking PID
+    public static final double kTrackingP = 0.08;
+    public static final double kTrackingI = 0.0;
+    public static final double kTrackingD = 0.0;
+  }
 
-    public static final class AutoConstants {
-        public static final double kPTranslation = 0.08;
-        public static final double kITranslation = 0;
-        public static final double kDTranslation = 0;
-        public static final double kPRotation = 1;
-        public static final double kIRotation = 0;
-        public static final double kDRotation = 0;
-        public static final double kDrivebaseRadius = 0.3;
+  public static final class AutoConstants {
+    public static final double kPTranslation = 0.08;
+    public static final double kITranslation = 0;
+    public static final double kDTranslation = 0;
+    public static final double kPRotation = 1;
+    public static final double kIRotation = 0;
+    public static final double kDRotation = 0;
+    public static final double kDrivebaseRadius = 0.3;
 
-    }
+  }
 
-    public static RobotConfig robotConfig;
+  public static RobotConfig robotConfig;
 
-    public static final class CoralShooterConstant {
-        public static final int kOnboard = 0;
-        public static final double kDistanceRange = 4;
-        public static final int kShooterMotorChannel = 1;
-        public static final double kShooterMotorSpeed = 4;
-    }
+  public static final class CoralShooterConstant {
+    public static final int kOnboard = 0;
+    public static final double kDistanceRange = 4;
+    public static final int kShooterMotorChannel = 1;
+    public static final double kShooterMotorSpeed = 4;
+  }
 
-    public static final class AlgaeIntakeConstant {
-        public static final int kIntakeMotorChannel = 2;
-        public static final int kRotateMotorChannel = 1;
-        public static final double kIntakeVoltage = 6.0;
-        public static final double kReIntakeVoltage = 3.0;
-        public static final double kUpIntakeVoltage = 12.0;
-        public static final double kDownIntakeVoltage = -12.0;
-    }
+  public static final class AlgaeIntakeConstant {
+    public static final int kIntakeMotorChannel = 2;
+    public static final int kRotateMotorChannel = 1;
+    public static final double kIntakeVoltage = 6.0;
+    public static final double kReIntakeVoltage = 3.0;
+    public static final double kUpIntakeVoltage = 12.0;
+    public static final double kDownIntakeVoltage = -12.0;
+  }
 
-    public static final class PowerDistributionConstant {
-        // Motor channel
-        public static final int kCoralShooterMotorCurrentchannel = 7;
-        public static final int kAlgaeIntakeMotorCurrentchannel = 7;
-        public static final int kAlgaeRotateMotorCurrentchannel = 7;
-        public static final int kClimberMotorCurrentchannel = 7;
-        public static final int kRampMotorCurrentchannel = 7;
-        // Motor Max Current
-        public static final double kCoralShooterMotorMaxCurrent = 40;
-        public static final double kAlgaeIntakeMotorMaxCurrent = 40;
-        public static final double kAlgaeRotateMotorMaxCurrent = 40;
-        public static final double kClimberMotorMaxCurrent = 40;
-        public static final double kRampMotorMaxCurrent = 40;
-    }
+  public static final class PowerDistributionConstant {
+    // Motor channel
+    public static final int kCoralShooterMotorCurrentchannel = 7;
+    public static final int kAlgaeIntakeMotorCurrentchannel = 7;
+    public static final int kAlgaeRotateMotorCurrentchannel = 7;
+    public static final int kClimberMotorCurrentchannel = 7;
+    public static final int kRampMotorCurrentchannel = 7;
+    // Motor Max Current
+    public static final double kCoralShooterMotorMaxCurrent = 40;
+    public static final double kAlgaeIntakeMotorMaxCurrent = 40;
+    public static final double kAlgaeRotateMotorMaxCurrent = 40;
+    public static final double kClimberMotorMaxCurrent = 40;
+    public static final double kRampMotorMaxCurrent = 40;
+  }
 
 }

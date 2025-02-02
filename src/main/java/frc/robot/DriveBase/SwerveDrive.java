@@ -121,7 +121,7 @@ public class SwerveDrive extends SubsystemBase {
     try {
       config = RobotConfig.fromGUISettings();
     } catch (Exception e) {
-                        // Handle exception as needed
+      // Handle exception as needed
       e.printStackTrace();
       return;
     }
@@ -146,8 +146,8 @@ public class SwerveDrive extends SubsystemBase {
                                 ),
                                 config,
                                 () -> {
-                                        // 這個 Boolean Supplier 決定機器人是否要鏡像路徑
-                                        // 若機器人屬於紅方，會回傳 true，
+                                  // 這個 Boolean Supplier 決定機器人是否要鏡像路徑
+                                  // 若機器人屬於紅方，會回傳 true，
                                   var alliance = DriverStation.getAlliance();
                                   if (alliance.isPresent()) {
                                     return alliance.get() == DriverStation.Alliance.Red;
@@ -160,8 +160,8 @@ public class SwerveDrive extends SubsystemBase {
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param y_speed       Speed of the robot in the y direction (forward).
-   * @param x_speed       Speed of the robot in the x direction (sideways).
+   * @param yspeed       Speed of the robot in the y direction (forward).
+   * @param xspeed       Speed of the robot in the x direction (sideways).
    * @param rot           Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
@@ -204,13 +204,13 @@ public class SwerveDrive extends SubsystemBase {
 
   // 更新機器人的場地相對位置
   public void updateOdometry() {
-                odometry.update(
-                                gyro.getRotation2d(),
-                                new SwerveModulePosition[] {
-                                                frontLeft.getPosition(),
-                                                frontRight.getPosition(),
-                                                backLeft.getPosition(),
-                                                backRight.getPosition()
+    odometry.update(
+                gyro.getRotation2d(),
+                new SwerveModulePosition[] {
+                                        frontLeft.getPosition(),
+                                        frontRight.getPosition(),
+                                        backLeft.getPosition(),
+                                        backRight.getPosition()
                                 });
   }
 
@@ -246,15 +246,15 @@ public class SwerveDrive extends SubsystemBase {
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
-                                + ((DriveBaseConstants.kGyroInverted) ? 
-                                (360.0 - gyro.getRotation2d().getDegrees())
+                                + ((DriveBaseConstants.kGyroInverted) 
+                                ?(360.0 - gyro.getRotation2d().getDegrees())
                                 : gyro.getRotation2d().getDegrees()));
   }
 
   // 設定倍率參數
   public void setMagnification(double magnification) {
     this.magnification = magnification;
-   }
+  }
 
   // 取得倍率參數
   public double getMagnification() {
