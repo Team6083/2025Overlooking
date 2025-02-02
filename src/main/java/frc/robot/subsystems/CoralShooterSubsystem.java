@@ -4,8 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
@@ -15,27 +17,30 @@ import frc.robot.lib.DistanceSensorInterface;
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
 
-  private VictorSP coralShooterLeftMotor;
-  private VictorSP coralShooterRightMotor;
+  private VictorSPX coralShooterLeftMotor;
+  private VictorSPX coralShooterRightMotor;
+  private Encoder coralShooterEncoder;
   private DistanceSensorInterface distanceSensor;
 
   public CoralShooterSubsystem() {
-    coralShooterLeftMotor = new VictorSP(CoralShooterConstant.kShooterLeftMotorChannel);
-    coralShooterRightMotor = new VictorSP(CoralShooterConstant.kShooterRightMotorChannel);
+    coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
+    coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
+    coralShooterEncoder = new Encoder
+    (CoralShooterConstant.kShooterEncoderChannelA, CoralShooterConstant.kShooterEncoderChannelB);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
-  private void setMotorVoltage(double voltage) { // 設定電壓
-    coralShooterLeftMotor.setVoltage(voltage);
-    coralShooterRightMotor.setVoltage(-voltage);
+  private void setMotorSpeed(double speed) { // 設定電壓
+    coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
   }
 
   public void coralShooterOn() { // 正轉
-    setMotorVoltage(CoralShooterConstant.kShooterMotorVoltage);
+    setMotorSpeed(CoralShooterConstant.kShooterMotorSpeed);
   }
 
   public void coralShooterStop() { // 停止
-    setMotorVoltage(0.0);
+    setMotorSpeed(0.0);
   }
 
   public boolean isGetCoral() {
@@ -44,6 +49,17 @@ public class CoralShooterSubsystem extends SubsystemBase {
           && distanceSensor.getTargetDistance() > 0;
     }
     return false;
+  }
+
+  public void encoderReset() {
+    coralShooterEncoder.reset();
+  }
+
+  public boolean isEnoughRotate() {
+    int rotate;
+    rotate = coralShooterEncoder.get() / 2048;
+    rotate *= 360;
+    return rotate >= 180 ;
   }
 
   @Override
