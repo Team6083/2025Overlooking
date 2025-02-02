@@ -44,11 +44,13 @@ public class SwerveDrive extends SubsystemBase {
 
         private final PIDController trackingPID;
 
+        private double magnification;
+
         // Method to drive the robot using joystick info
-         double xSpeed;
-         double ySpeed;
-         double rot;
-         boolean fieldRelative;
+        double xSpeed;
+        double ySpeed;
+        double rot;
+        boolean fieldRelative;
 
         private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
@@ -62,8 +64,8 @@ public class SwerveDrive extends SubsystemBase {
                                 DriveBaseConstants.kRobotWidth / 2.0);
                 backRightLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
                                 -DriveBaseConstants.kRobotWidth / 2.0);
-                
-                //初始化 Swerve 模組
+
+                // 初始化 Swerve 模組
                 frontLeft = new SwerveModule(DriveBaseConstants.kFrontLeftDriveMotorChannel,
                                 DriveBaseConstants.kFrontLeftTurningMotorChannel,
                                 DriveBaseConstants.kFrontLeftTurningEncoderChannel,
@@ -83,8 +85,8 @@ public class SwerveDrive extends SubsystemBase {
                                 DriveBaseConstants.kBackRightTurningEncoderChannel,
                                 DriveBaseConstants.kBackRightCanCoder,
                                 "backRight");
-                
-                //初始化 Gyro
+
+                // 初始化 Gyro
                 gyro = new Pigeon2(1, "rio");
 
                 // 定義 Kinematics 與 Odometry
@@ -106,7 +108,7 @@ public class SwerveDrive extends SubsystemBase {
 
                 // set the swerve speed equal 0
                 drive(0, 0, 0, false);
-                
+
                 // 定義 Auto 時的 PID 控制器
                 trackingPID = new PIDController(DriveBaseConstants.kTrackingP, DriveBaseConstants.kTrackingI,
                                 DriveBaseConstants.kTrackingD);
@@ -147,7 +149,7 @@ public class SwerveDrive extends SubsystemBase {
                                         return false;
                                 },
                                 this);
-        } 
+        }
 
         /**
          * Method to drive the robot using joystick info.
@@ -200,5 +202,43 @@ public class SwerveDrive extends SubsystemBase {
 
         public void driveRobotRelative(ChassisSpeeds speeds) {
                 drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
-        }       
+        }
+
+        public Rotation2d getRotation2dDegrees() {
+                return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
+                                + ((DriveBaseConstants.kGyroInverted) ? (360.0 - gyro.getRotation2d().getDegrees())
+                                                : gyro.getRotation2d().getDegrees()));
+        }
+
+        public void setMagnification(double magnification) {
+                this.magnification = magnification;
+        }
+
+        public double getMagnification() {
+                return magnification;
+        }
+
+        /** Updates the field relative position of the robot. */
+        public void updateOdometry() {
+                odometry.update(
+                                gyro.getRotation2d(),
+                                new SwerveModulePosition[] {
+                                                frontLeft.getPosition(),
+                                                frontRight.getPosition(),
+                                                backLeft.getPosition(),
+                                                backRight.getPosition()
+                                });
+        }
+
+        public void resetPose2dAndEncoder() {
+                frontLeft.resetAllEncoder();
+                frontRight.resetAllEncoder();
+                backLeft.resetAllEncoder();
+                backRight.resetAllEncoder();
+                resetPose(new Pose2d(0, 0, new Rotation2d(0)));
+        }
+
+        public void resetGyro() {
+                gyro.reset();
+        }
 }
