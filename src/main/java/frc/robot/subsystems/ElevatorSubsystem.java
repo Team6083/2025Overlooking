@@ -14,7 +14,6 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
@@ -24,13 +23,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final SparkMax elevatorMotor;
   private final RelativeEncoder encoder;
   private final SparkClosedLoopController pidController;
-  private final Joystick joystick;
   private final DigitalInput limitSwitchUp;
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
 
-  public ElevatorSubsystem(Joystick joystick) {
-    this.joystick = joystick;
+  public ElevatorSubsystem() {
     elevatorMotor = new SparkMax(0, MotorType.kBrushless);
     pidController = elevatorMotor.getClosedLoopController();
     encoder = elevatorMotor.getEncoder();
@@ -48,7 +45,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         .velocityConversionFactor(velocityFactor);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+        .pid(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);//不確定是否用SparkMax 所以我覺得還是分開寫 而且分開寫必較能做細部調整
+        //如果確認不是的話我再改就好:)
     elevatorMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder.setPosition(ElevatorConstant.kInitialHeight);
 
@@ -61,7 +59,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       stopMove();
     }
-  }
+  }//此行程式需不停重複運行 應放在最下面的periodic 所以可能要改
 
   public void toSecFloor() {
     moveToHeight(ElevatorConstant.kSecFloor);
@@ -113,15 +111,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (!isButtonControl) {
-      double joystickInput = -joystick.getY();
-      double currentHeight = encoder.getPosition();
-      double deltaHeight = joystickInput * 10;
-      double targetHeight = currentHeight + deltaHeight;
-      if (Math.abs(targetHeight - currentHeight) > 5) { // 平滑過渡閾值
-        targetHeight = currentHeight + Math.signum(deltaHeight) * 5;
-      }
-      moveToHeight(targetHeight);
+    
     }
   }
-}
+
