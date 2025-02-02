@@ -46,8 +46,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         .velocityConversionFactor(velocityFactor);
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);//不確定是否用SparkMax 所以我覺得還是分開寫 而且分開寫必較能做細部調整
-        //如果確認不是的話我再改就好:)
+        .pid(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+    //不確定是否用SparkMax 所以我覺得還是分開寫 而且分開寫比較能做細部調整
+    //如果確認不是的話我再改就好:)
     elevatorMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     encoder.setPosition(ElevatorConstant.kInitialHeight);
     targetHeight = ElevatorConstant.kInitialHeight;
@@ -56,7 +57,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void moveToHeight(double newTargetHeight) { // 限制開關偵測
     targetHeight = newTargetHeight;
-  }//此行程式需不停重複運行 應放在最下面的periodic 所以可能要改
+  } //此行程式需不停重複運行 應放在最下面的periodic 所以可能要改
 
   public void toSecFloor() {
     moveToHeight(ElevatorConstant.kSecFloor);
@@ -114,7 +115,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       stopMove();
     }
-    
-    }
   }
+}
 
