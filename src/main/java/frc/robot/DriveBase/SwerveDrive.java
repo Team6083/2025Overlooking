@@ -5,6 +5,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -15,7 +16,10 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstants;
@@ -41,15 +45,15 @@ public class SwerveDrive extends SubsystemBase {
         private final PIDController trackingPID;
 
         // Method to drive the robot using joystick info
-        double xSpeed;
-        double ySpeed;
-        double rot;
-        boolean fieldRelative;
+         double xSpeed;
+         double ySpeed;
+         double rot;
+         boolean fieldRelative;
 
         private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
         public SwerveDrive() {
-                // 定義四隻腳的位置，單位為公尺
+                // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺（m）
                 frontLeftLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
                                 DriveBaseConstants.kRobotWidth / 2.0);
                 frontRightLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
@@ -58,7 +62,8 @@ public class SwerveDrive extends SubsystemBase {
                                 DriveBaseConstants.kRobotWidth / 2.0);
                 backRightLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
                                 -DriveBaseConstants.kRobotWidth / 2.0);
-
+                
+                //初始化 Swerve 模組
                 frontLeft = new SwerveModule(DriveBaseConstants.kFrontLeftDriveMotorChannel,
                                 DriveBaseConstants.kFrontLeftTurningMotorChannel,
                                 DriveBaseConstants.kFrontLeftTurningEncoderChannel,
@@ -78,28 +83,31 @@ public class SwerveDrive extends SubsystemBase {
                                 DriveBaseConstants.kBackRightTurningEncoderChannel,
                                 DriveBaseConstants.kBackRightCanCoder,
                                 "backRight");
-
+                
+                //初始化 Gyro
                 gyro = new Pigeon2(1, "rio");
 
-                // 定義 Swerve Drive 的 Kinematics 去將整體的速度算成各腳角度及速度
+                // 定義 Kinematics 與 Odometry
                 kinematics = new SwerveDriveKinematics(
                                 frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
 
-                                odometry = new SwerveDriveOdometry(
-                                        kinematics,
-                                        gyro.getRotation2d(),
-                                        new SwerveModulePosition[] {
-                                            frontLeft.getPosition(),
-                                            frontRight.getPosition(),
-                                            backLeft.getPosition(),
-                                            backRight.getPosition()
-                                        });
+                odometry = new SwerveDriveOdometry(
+                                kinematics,
+                                gyro.getRotation2d(),
+                                new SwerveModulePosition[] {
+                                                frontLeft.getPosition(),
+                                                frontRight.getPosition(),
+                                                backLeft.getPosition(),
+                                                backRight.getPosition()
+                                });
 
                 // reset the gyro
                 gyro.reset();
+
                 // set the swerve speed equal 0
                 drive(0, 0, 0, false);
-
+                
+                // 定義 Auto 時的 PID 控制器
                 trackingPID = new PIDController(DriveBaseConstants.kTrackingP, DriveBaseConstants.kTrackingI,
                                 DriveBaseConstants.kTrackingD);
                 RobotConfig config;
@@ -110,31 +118,28 @@ public class SwerveDrive extends SubsystemBase {
                         e.printStackTrace();
                         return;
                 }
+
+                // 設置 AutoBuilder
                 AutoBuilder.configure(
-                                this::getPose2d, // Robot pose suppier
-                                this::resetPose, // Method to reset odometry (will be called if your auto has a starting
-                                                 // pose)
-                                this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-                                (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the
-                                                                                      // robot given ROBOT RELATIVE
-                                                                                      // ChassisSpeeds
-                                new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live
-                                                                // in your Constants class
+                                this::getPose2d, // 取得機器人目前位置
+                                this::resetPose, // 重設機器人的位置
+                                this::getRobotRelativeSpeeds, // 取得底盤速度
+                                (speeds, feedforwards) -> driveRobotRelative(speeds), // 一個根據機器人自身座標系的 ChassisSpeeds
+                                                                                      // 來驅動機器人的方法
+                                new PPHolonomicDriveController(
                                                 new com.pathplanner.lib.config.PIDConstants(AutoConstants.kPTranslation,
                                                                 AutoConstants.kITranslation,
-                                                                AutoConstants.kDTranslation), // Translation
-                                                // PID
-                                                // constants
+                                                                AutoConstants.kDTranslation), // Translation PID
                                                 new com.pathplanner.lib.config.PIDConstants(AutoConstants.kPRotation,
                                                                 AutoConstants.kIRotation, AutoConstants.kDRotation) // Rotation
-                                // PID
+                                                                                                                    // PID
                                 ),
                                 config,
                                 () -> {
-                                        // Boolean supplier that controls when the path will be mirrored for the red
-                                        // alliance
-                                        // This will flip the path being followed to the red side of the field.
-                                        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+                                        // 這個 Boolean Supplier 決定機器人是否要鏡像路徑
+                                        // 若機器人屬於紅方，會回傳 true，機器人翻轉路徑到場地的紅方區域，但場地的原點仍然維持在藍方
+                                        // 若機器人屬於藍方，會回傳 false，路徑不變
+
                                         var alliance = DriverStation.getAlliance();
                                         if (alliance.isPresent()) {
                                                 return alliance.get() == DriverStation.Alliance.Red;
@@ -142,7 +147,7 @@ public class SwerveDrive extends SubsystemBase {
                                         return false;
                                 },
                                 this);
-        }
+        } 
 
         /**
          * Method to drive the robot using joystick info.
@@ -195,5 +200,5 @@ public class SwerveDrive extends SubsystemBase {
 
         public void driveRobotRelative(ChassisSpeeds speeds) {
                 drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
-        }
+        }       
 }
