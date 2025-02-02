@@ -33,19 +33,20 @@ public class SwerveModule extends SubsystemBase {
   private final RelativeEncoder driveEncoder;
   private final CANcoder turningEncoder;
   public double AbsoluteSensorDiscontinuityPoint;
-  private String Modulename;
+  private String moduleName;
   private boolean driveInverted;
   private boolean turningInverted;
   private final PIDController rotController;
 
   public SwerveModule(
-      int driveMotorChannel, int turningMotorChannel, int turningEncoderChannel, int CANcoderID, String Modulename) {
-    this.Modulename = Modulename;
+      int driveMotorChannel, int turningMotorChannel,
+      int turningEncoderChannel, int canCoderId, String Modulename) {
+    this.moduleName = Modulename;
     driveMotor = new SparkMax(driveMotorChannel, MotorType.kBrushless);
     turningMotor = new SparkMax(turningMotorChannel, MotorType.kBrushless);
     driveEncoder = driveMotor.getEncoder();
     driveEncoder.setPosition(0);
-    turningEncoder = new CANcoder(CANcoderID);
+    turningEncoder = new CANcoder(canCoderId);
     driveMotorConfig = new SparkMaxConfig();
     turningmotorConfig = new SparkMaxConfig();
     rotController = new PIDController(1, 0, 0);
@@ -69,7 +70,8 @@ public class SwerveModule extends SubsystemBase {
     configdriveMotor.closedLoopRampRate(ModuleConstants.kDdriveClosedLoopRampRate);
     configdriveMotor.idleMode(IdleMode.kBrake);
     configdriveMotor.voltageCompensation(ModuleConstants.kMaxModuleDriveVoltage);
-    driveMotor.configure(configdriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveMotor.configure(configdriveMotor,
+        ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void configTurningMotor() {
@@ -78,7 +80,8 @@ public class SwerveModule extends SubsystemBase {
     configturningMotor.closedLoopRampRate(ModuleConstants.kTurningClosedLoopRampRate);
     configturningMotor.idleMode(IdleMode.kBrake);
     configturningMotor.voltageCompensation(ModuleConstants.kMaxModuleTurningVoltage);
-    turningMotor.configure(configturningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    turningMotor.configure(configturningMotor,
+        ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void resetAllEncoder() {
@@ -96,7 +99,8 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveDistance() {
-    return driveEncoder.getPosition() / ModuleConstants.kWheelGearRate * 2.0 * Math.PI * ModuleConstants.kWheelRadius;
+    return driveEncoder.getPosition() / ModuleConstants.kWheelGearRate * 2.0 * Math.PI
+        * ModuleConstants.kWheelRadius;
   }
 
   public double getDriveRate() {
@@ -115,8 +119,10 @@ public class SwerveModule extends SubsystemBase {
 
   public double[] optimizeOutputVoltage(SwerveModuleState goalState, double currentTurningDegree) {
     goalState.optimize(Rotation2d.fromDegrees(currentTurningDegree));
-    double driveMotorVoltage = goalState.speedMetersPerSecond * ModuleConstants.kDesireSpeedtoMotorVoltage;
-    double turningMotorVoltage = rotController.calculate(currentTurningDegree, goalState.angle.getDegrees());
+    double driveMotorVoltage = goalState.speedMetersPerSecond
+        * ModuleConstants.kDesireSpeedtoMotorVoltage;
+    double turningMotorVoltage = rotController.calculate(
+        currentTurningDegree, goalState.angle.getDegrees());
     double[] moduleState = { driveMotorVoltage, turningMotorVoltage };
     return moduleState;
   }
@@ -143,9 +149,9 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber(Modulename + "_ModuleDistance", getDriveDistance());
-    SmartDashboard.putNumber(Modulename + "_ModuleVelocity", getDriveRate());
-    SmartDashboard.putNumber(Modulename + "_ModuleRotation", getRotation());
-    SmartDashboard.putData(Modulename + "_rotController", rotController);
+    SmartDashboard.putNumber(moduleName + "_ModuleDistance", getDriveDistance());
+    SmartDashboard.putNumber(moduleName + "_ModuleVelocity", getDriveRate());
+    SmartDashboard.putNumber(moduleName + "_ModuleRotation", getRotation());
+    SmartDashboard.putData(moduleName + "_rotController", rotController);
   }
 }
