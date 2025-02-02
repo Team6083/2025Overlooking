@@ -78,13 +78,21 @@ public class Constants {
 
         // whether gyro is under the robot
         public static final boolean kGyroInverted = false;
-
         public static final double kGyroOffSet = 0.0;
 
         // 機器人的大小規格
         public static final double kRobotWidth = 0.6;
         public static final double kRobotLength = 0.6;
         public static final double kRobotDiagonal = Math.sqrt(Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
+
+        //機器人的重量 (還沒測)
+        public static final double kRobotMass = 45;
+
+        //機器人兩排輪子間的寬度，以公尺為單位(還沒測)
+        public static final double kTrackWidth = 2;
+
+        //機器人的輪子半徑，以公尺為單位
+        public static final double kWheelRadiusMeters = 0.1;
 
         // 最大轉速需要實際測試看看
         public static final double kMaxSpeed = 4.0;
@@ -94,6 +102,18 @@ public class Constants {
 
         // 最大角速度
         public static final double kMaxAngularSpeed = kMaxSpeed / (kRobotDiagonal / 2.0); // rad/s
+        
+        //機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
+        public static final double kRobotMomentOfInertia = 6;
+
+        //輪子和地毯之間的摩擦係數
+        public static final double kWheelCOF = 1.0;
+
+        //驅動馬達的電流限制，以安培為單位
+        public static final double kDriveCurrentLimit = 12.0;
+
+        //每個模組的馬達數量
+        public static final int kNumMotors = 2;
 
         // make the input from Gamepad more smooth
         public static final double kXLimiterRateLimit = 5.0;
@@ -107,7 +127,7 @@ public class Constants {
     }
 
     public static final class AutoConstants{
-        public static final double  kPTranslation = 0.08;
+        public static final double kPTranslation = 0.08;
         public static final double kITranslation = 0;
         public static final double kDTranslation = 0;
         public static final double kPRotation = 1;

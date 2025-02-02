@@ -1,7 +1,5 @@
 package frc.robot.DriveBase;
 
-
-
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
@@ -52,7 +50,7 @@ public class SwerveDrive extends SubsystemBase {
         private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
         public SwerveDrive() {
-                // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺（m）
+                // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
                 frontLeftLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
                                 DriveBaseConstants.kRobotWidth / 2.0);
                 frontRightLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
@@ -268,15 +266,15 @@ public class SwerveDrive extends SubsystemBase {
 
                 try {
                         PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
-                        DCMotor driveMotor = DCMotor.getNEO(1);
+                        DCMotor driveMotor = DCMotor.getNEO(DriveBaseConstants.kNumMotors);
 
                         ModuleConfig swerveModuleConfig = new ModuleConfig(
-                                        4.0,
-                                        6.8,
-                                        3.0,
+                                        DriveBaseConstants.kWheelRadiusMeters,
+                                        DriveBaseConstants.kMaxSpeed,
+                                        DriveBaseConstants.kWheelCOF,
                                         driveMotor,
-                                        12.0,
-                                        1);
+                                        DriveBaseConstants.kDriveCurrentLimit,
+                                        DriveBaseConstants.kNumMotors);
 
                         return new FollowPathCommand(
                                         path,
@@ -285,9 +283,15 @@ public class SwerveDrive extends SubsystemBase {
                                         this::getRobotRelativeSpeeds,
                                         this::driveRobotRelative,
                                         new PPHolonomicDriveController(
-                                                        new PIDConstants(5.0, 0.0, 0.0),
-                                                        new PIDConstants(5.0, 0.0, 0.0)),
-                                        new RobotConfig(56.3, 35.4, swerveModuleConfig, 1),
+                                                        new PIDConstants(AutoConstants.kPTranslation,
+                                                                        AutoConstants.kITranslation,
+                                                                        AutoConstants.kDTranslation),
+                                                        new PIDConstants(AutoConstants.kPRotation,
+                                                                        AutoConstants.kIRotation,
+                                                                        AutoConstants.kDRotation)),
+                                        new RobotConfig(DriveBaseConstants.kRobotMass,
+                                                        DriveBaseConstants.kRobotMomentOfInertia, swerveModuleConfig,
+                                                        DriveBaseConstants.kTrackWidth),
                                         () -> {
 
                                                 var alliance = DriverStation.getAlliance();
@@ -305,7 +309,6 @@ public class SwerveDrive extends SubsystemBase {
 
         @Override
         public void periodic() {
-                // This method will be called once per scheduler run
                 updateOdometry();
                 field2d.setRobotPose(getPose2d());
                 putDashboard();
