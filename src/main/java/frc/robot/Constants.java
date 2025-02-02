@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.config.RobotConfig;
+
 public class Constants {
 
     public final static class ClimberConstant {
@@ -115,4 +117,6 @@ public class Constants {
 
 
     }
+
+    public static RobotConfig robotConfig;
 }
