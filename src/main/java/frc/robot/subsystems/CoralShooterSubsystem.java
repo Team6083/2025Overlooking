@@ -21,6 +21,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSP(CoralShooterConstant.kShooterMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
+    coralShooterMotor.setInverted(CoralShooterConstant.kcoralShooterMotorInverted);
   }
 
   private void setMotorVoltage(double voltage) { // 設定電壓
