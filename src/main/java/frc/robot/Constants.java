@@ -40,16 +40,16 @@ public class Constants {
 
   public static final class DriveBaseConstants {
     // driveMotor channel
-    public static final int kFrontLeftDriveMotorChannel = 11;
-    public static final int kFrontRightDriveMotorChannel = 15;
-    public static final int kBackLeftDriveMotorChannel = 13;
-    public static final int kBackRightDriveMotorChannel = 17;
+    public static final int kFrontLeftDriveMotorChannel = 19;
+    public static final int kFrontRightDriveMotorChannel = 11;
+    public static final int kBackLeftDriveMotorChannel = 16;
+    public static final int kBackRightDriveMotorChannel = 2;
 
     // turningMotor channel
-    public static final int kFrontLeftTurningMotorChannel = 12;
-    public static final int kFrontRightTurningMotorChannel = 16;
-    public static final int kBackLeftTurningMotorChannel = 14;
-    public static final int kBackRightTurningMotorChannel = 18;
+    public static final int kFrontLeftTurningMotorChannel = 23;
+    public static final int kFrontRightTurningMotorChannel = 10;
+    public static final int kBackLeftTurningMotorChannel = 15;
+    public static final int kBackRightTurningMotorChannel = 21;
 
     // 定義 driveMotor 的正反轉
     public static final boolean kFrontLeftDriveMotorInverted = false;
@@ -58,15 +58,16 @@ public class Constants {
     public static final boolean kBackRightDriveMotorInverted = true;
 
     // turnning encoder channel
-    public static final int kFrontLeftTurningEncoderChannel = 31;
-    public static final int kFrontRightTurningEncoderChannel = 32;
-    public static final int kBackLeftTurningEncoderChannel = 33;
-    public static final int kBackRightTurningEncoderChannel = 34;
+    public static final int kFrontLeftTurningEncoderChannel = 0;
+    public static final int kFrontRightTurningEncoderChannel = 1;
+    public static final int kBackLeftTurningEncoderChannel = 2;
+    public static final int kBackRightTurningEncoderChannel = 3;
+
     // turnning CANcoder ID
-    public static final int kFrontLeftCanCoder = 1;
-    public static final int kFrontRightCanCoder = 2;
+    public static final int kFrontLeftCanCoder = 0;
+    public static final int kFrontRightCanCoder = 1;
     public static final int kBackLeftCanCoder = 3;
-    public static final int kBackRightCanCoder = 4;
+    public static final int kBackRightCanCoder = 8;
 
     // turning encoder magnet offset value
     public static final double kFrontLeftCanCoderMagOffset = 0.003174;
@@ -125,6 +126,11 @@ public class Constants {
     public static final double kTrackingP = 0.08;
     public static final double kTrackingI = 0.0;
     public static final double kTrackingD = 0.0;
+
+    //變速的放大倍率
+    public static final double kmagnification = 1;
+    public static final double kHighMagnification = 2;
+    public static final double kDefaultMagnification =0.5;
   }
 
   public static final class AutoConstants {
