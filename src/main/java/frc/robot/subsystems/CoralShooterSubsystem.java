@@ -30,21 +30,21 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
-  private void setMotorSpeed(double speed) { // 設定電壓
+  private void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
   }
 
-  public void coralShooterOn() { // 正轉
+  public void coralShooterOn() { // Motor on
     setMotorSpeed(CoralShooterConstant.kShooterMotorSpeed);
   }
 
-  public void coralShooterStop() { // 停止
+  public void coralShooterStop() { // Motor stop
     setMotorSpeed(0.0);
   }
 
   public boolean isGetCoral() {
-    if (distanceSensor.isGetTarget()) { // 碰到目標
+    if (distanceSensor.isGetTarget()) {
       return distanceSensor.getTargetDistance() <= CoralShooterConstant.kDistanceRange
           && distanceSensor.getTargetDistance() > 0;
     }
@@ -67,7 +67,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public Command coralShooterShootOnCmd() { // 正轉
+  public Command coralShooterShootOnCmd() { // Motor on
     Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
     return cmd;
   }
