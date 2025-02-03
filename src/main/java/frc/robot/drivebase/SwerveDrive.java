@@ -22,7 +22,7 @@ public class SwerveDrive extends SubsystemBase {
   private final Translation2d frontRightLocation;
   private final Translation2d backLeftLocation;
   private final Translation2d backRightLocation;
-   
+
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
@@ -42,35 +42,35 @@ public class SwerveDrive extends SubsystemBase {
   public SwerveDrive() {
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
     frontLeftLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
-                                DriveBaseConstants.kRobotWidth / 2.0);
+        DriveBaseConstants.kRobotWidth / 2.0);
     frontRightLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
-                                -DriveBaseConstants.kRobotWidth / 2.0);
+        -DriveBaseConstants.kRobotWidth / 2.0);
     backLeftLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
-                                DriveBaseConstants.kRobotWidth / 2.0);
+        DriveBaseConstants.kRobotWidth / 2.0);
     backRightLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
-                                -DriveBaseConstants.kRobotWidth / 2.0);
+        -DriveBaseConstants.kRobotWidth / 2.0);
 
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(DriveBaseConstants.kFrontLeftDriveMotorChannel,
-                                DriveBaseConstants.kFrontLeftTurningMotorChannel,
-                                DriveBaseConstants.kFrontLeftTurningEncoderChannel,
-                                DriveBaseConstants.kFrontLeftCanCoder,
-                                "frontLeft");
+        DriveBaseConstants.kFrontLeftTurningMotorChannel,
+        DriveBaseConstants.kFrontLeftTurningEncoderChannel,
+        DriveBaseConstants.kFrontLeftCanCoder,
+        "frontLeft");
     frontRight = new SwerveModule(DriveBaseConstants.kFrontRightDriveMotorChannel,
-                                DriveBaseConstants.kFrontRightTurningMotorChannel,
-                                DriveBaseConstants.kFrontRightTurningEncoderChannel,
-                                DriveBaseConstants.kFrontRightCanCoder,
-                                "frontRight");
+        DriveBaseConstants.kFrontRightTurningMotorChannel,
+        DriveBaseConstants.kFrontRightTurningEncoderChannel,
+        DriveBaseConstants.kFrontRightCanCoder,
+        "frontRight");
     backLeft = new SwerveModule(DriveBaseConstants.kBackLeftDriveMotorChannel,
-                                DriveBaseConstants.kBackLeftTurningMotorChannel,
-                                DriveBaseConstants.kBackLeftTurningEncoderChannel,
-                                DriveBaseConstants.kBackLeftCanCoder,
-                                "backLeft");
+        DriveBaseConstants.kBackLeftTurningMotorChannel,
+        DriveBaseConstants.kBackLeftTurningEncoderChannel,
+        DriveBaseConstants.kBackLeftCanCoder,
+        "backLeft");
     backRight = new SwerveModule(DriveBaseConstants.kBackRightDriveMotorChannel,
-                                DriveBaseConstants.kBackRightTurningMotorChannel,
-                                DriveBaseConstants.kBackRightTurningEncoderChannel,
-                                DriveBaseConstants.kBackRightCanCoder,
-                                "backRight");
+        DriveBaseConstants.kBackRightTurningMotorChannel,
+        DriveBaseConstants.kBackRightTurningEncoderChannel,
+        DriveBaseConstants.kBackRightCanCoder,
+        "backRight");
 
     SmartDashboard.putData("frontLeft", frontLeft);
     SmartDashboard.putData("frontRight", frontRight);
@@ -82,18 +82,18 @@ public class SwerveDrive extends SubsystemBase {
 
     // 定義 Kinematics 與 Odometry
     kinematics = new SwerveDriveKinematics(
-                                frontLeftLocation, frontRightLocation,
-                                backLeftLocation, backRightLocation);
+        frontLeftLocation, frontRightLocation,
+        backLeftLocation, backRightLocation);
 
     odometry = new SwerveDriveOdometry(
-                                kinematics,
-                                gyro.getRotation2d(),
-                                new SwerveModulePosition[] {
-                                                frontLeft.getPosition(),
-                                                frontRight.getPosition(),
-                                                backLeft.getPosition(),
-                                                backRight.getPosition()
-                                });
+        kinematics,
+        gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition()
+        });
 
     field2d = new Field2d();
 
@@ -107,8 +107,8 @@ public class SwerveDrive extends SubsystemBase {
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param yspeed       Speed of the robot in the y direction (forward).
-   * @param xspeed       Speed of the robot in the x direction (sideways).
+   * @param yspeed        Speed of the robot in the y direction (forward).
+   * @param xspeed        Speed of the robot in the x direction (sideways).
    * @param rot           Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
@@ -118,13 +118,13 @@ public class SwerveDrive extends SubsystemBase {
 
   public void drive(double xspeed, double yspeed, double rot, boolean fieldRelative) {
     swerveModuleStates = kinematics.toSwerveModuleStates(
-                                fieldRelative
-                                                ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                                                                xspeed, yspeed, rot,
-                                                                gyro.getRotation2d())
-                                                : new ChassisSpeeds(xspeed, yspeed, rot));
+        fieldRelative
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                xspeed, yspeed, rot,
+                gyro.getRotation2d())
+            : new ChassisSpeeds(xspeed, yspeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
-                                swerveModuleStates, DriveBaseConstants.kMaxSpeed);
+        swerveModuleStates, DriveBaseConstants.kMaxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
     frontRight.setDesiredState(swerveModuleStates[1]);
     backLeft.setDesiredState(swerveModuleStates[2]);
@@ -139,26 +139,26 @@ public class SwerveDrive extends SubsystemBase {
   // 重設機器人的位置與角度
   public void resetPose(Pose2d pose) {
     odometry.resetPosition(
-                                gyro.getRotation2d(),
-                                new SwerveModulePosition[] {
-                                                frontLeft.getPosition(),
-                                                frontRight.getPosition(),
-                                                backLeft.getPosition(),
-                                                backRight.getPosition()
-                                },
-                                pose);
+        gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition()
+        },
+        pose);
   }
 
   // 更新機器人的場地相對位置
   public void updateOdometry() {
     odometry.update(
-                gyro.getRotation2d(),
-                new SwerveModulePosition[] {
-                                        frontLeft.getPosition(),
-                                        frontRight.getPosition(),
-                                        backLeft.getPosition(),
-                                        backRight.getPosition()
-                });
+        gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition()
+        });
   }
 
   // 重置所有輪子的 Encoder 與機器人位置
@@ -178,9 +178,9 @@ public class SwerveDrive extends SubsystemBase {
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
-                                + ((DriveBaseConstants.kGyroInverted) 
-                                ? (360.0 - gyro.getRotation2d().getDegrees())
-                                : gyro.getRotation2d().getDegrees()));
+        + ((DriveBaseConstants.kGyroInverted)
+            ? (360.0 - gyro.getRotation2d().getDegrees())
+            : gyro.getRotation2d().getDegrees()));
   }
 
   public void putDashboard() {
@@ -188,7 +188,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
-                                getPose2d().getRotation().getDegrees());
+        getPose2d().getRotation().getDegrees());
   }
 
   @Override
