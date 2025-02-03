@@ -18,7 +18,7 @@ public class CoralShooterInWithAutoStopCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coralShooterSubsystem.coralShooterStop();
+    coralShooterSubsystem.encoderReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +36,6 @@ public class CoralShooterInWithAutoStopCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return coralShooterSubsystem.isEnoughRotate(); // 是否拿到 Coral
+    return coralShooterSubsystem.isEnoughRotate(); // 轉一點點把 Coral 卡進來
   }
 }
