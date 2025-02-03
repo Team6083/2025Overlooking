@@ -183,6 +183,14 @@ public class SwerveDrive extends SubsystemBase {
                                 : gyro.getRotation2d().getDegrees()));
   }
 
+  public void setMagnification(double magnification) {
+    this.magnification = magnification;
+  }
+
+  public double getMagnification() {
+    return magnification;
+  }
+
   public void putDashboard() {
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
