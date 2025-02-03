@@ -23,4 +23,11 @@ public class Constants {
     public static final double kDownIntakeVoltage = -12.0;
   }
 
+  public static final class TagTrackingConstant {
+    public static final double kRampHeight = 0.0;
+    public static final double kCamHeight = 0.615;
+    public static final double kCamPitch = 10.0;
+    public static final double kCamToRampDistance = 0.11;
+  }
+
 }
