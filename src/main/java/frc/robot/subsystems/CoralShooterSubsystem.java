@@ -25,8 +25,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public CoralShooterSubsystem() {
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-    coralShooterEncoder = new Encoder
-    (CoralShooterConstant.kShooterEncoderChannelA, CoralShooterConstant.kShooterEncoderChannelB);
+    coralShooterEncoder = new Encoder(
+        CoralShooterConstant.kShooterEncoderChannelA, CoralShooterConstant.kShooterEncoderChannelB);
     distanceSensor = new DistanceSensor(Port.kOnboard);
   }
 
@@ -59,7 +59,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     int rotate;
     rotate = coralShooterEncoder.get() / 2048;
     rotate *= 360;
-    return rotate >= 180 ;
+    return rotate >= 180;
   }
 
   @Override
