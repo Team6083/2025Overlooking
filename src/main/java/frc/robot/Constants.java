@@ -5,6 +5,8 @@ public class Constants {
   public static final class ClimberConstant {
     public static final int kClimberSetpoint = 40;
     public static final double kClimbDownSpeed = -0.35;
+    public static final Boolean kclimberMotorInverted = false;
+    public static final Boolean kclimberEncoderInverted = true;
   }
 
   public static final class CoralShooterConstant {
@@ -12,6 +14,7 @@ public class Constants {
     public static final double kDistanceRange = 4;
     public static final int kShooterMotorChannel = 1;
     public static final double kShooterMotorSpeed = 4;
+    public static final Boolean kcoralShooterMotorInverted = false;
   }
 
   public static final class AlgaeIntakeConstant {
@@ -28,6 +31,12 @@ public class Constants {
     public static final double DownMotorPIDkP = 0.8;
     public static final double DownMotorPIDkI = 0;
     public static final double DownMotorPIDkD = 0;
+    public static final Boolean kIntakeMotorInverted = false;
+    public static final Boolean krotateIntakeMotorInverted = false;
+  }
+
+  public static final class RampConstant {
+    public static final Boolean rampmotorInverted = false;
   }
 
   public static final class PowerDistributionConstant {
