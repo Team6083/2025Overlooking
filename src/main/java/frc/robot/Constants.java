@@ -27,6 +27,11 @@ public class Constants {
     public static final Boolean kIntakeMotorInverted = false;
     public static final Boolean krotateIntakeMotorInverted = false;
   }
+
+  public static final class RampConstant {
+    public static final Boolean rampmotorInverted = false;
+  }
+
   public static final class PowerDistributionConstant {
     // Motor channel
     public static final int kCoralShooterRightMotorCurrentChannel = 7;
