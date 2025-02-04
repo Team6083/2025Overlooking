@@ -13,7 +13,8 @@ public class powerDistribution {
 
   public powerDistribution() {
     powerDistribution = new PowerDistribution();
-    SmartDashboard.putNumber("coralShooterCurrent", 0);
+    SmartDashboard.putNumber("coralShooterRightCurrent", 0);
+    SmartDashboard.putNumber("coralShooterLeftCurrent", 0);
     SmartDashboard.putNumber("algaeIntakeCurrent", 0);
     SmartDashboard.putNumber("algaeRotateCurrent", 0);
     SmartDashboard.putNumber("climberCurrent", 0);
@@ -28,14 +29,14 @@ public class powerDistribution {
   public double coralShooterRightCurrent() {
     double current = powerDistribution
         .getCurrent(PowerDistributionConstant.kCoralShooterRightMotorCurrentChannel);
-    SmartDashboard.putNumber("coralShooterCurrent", current);
+    SmartDashboard.putNumber("coralShooterRightCurrent", current);
     return current;
   }
 
   public double coralShooterLeftCurrent() {
     double current = powerDistribution
         .getCurrent(PowerDistributionConstant.kCoralShooterLeftMotorCurrentChannel);
-    SmartDashboard.putNumber("coralShooterCurrent", current);
+    SmartDashboard.putNumber("coralShooterLeftCurrent", current);
     return current;
   }
 
