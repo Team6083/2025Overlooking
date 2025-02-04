@@ -27,35 +27,35 @@ public class powerDistribution {
 
   public double coralShooterCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kCoralShooterMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kCoralShooterMotorCurrentChannel);
     SmartDashboard.putNumber("coralShooterCurrent", current);
     return current;
   }
 
   public double algaeIntakeCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kAlgaeIntakeMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kAlgaeIntakeMotorCurrentChannel);
     SmartDashboard.putNumber("algaeIntakeCurrent", current);
     return current;
   }
 
   public double algaeRotateCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kAlgaeRotateMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kAlgaeRotateMotorCurrentChannel);
     SmartDashboard.putNumber("algaeRotateCurrent", current);
     return current;
   }
 
   public double climberCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kClimberMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kClimberMotorCurrentChannel);
     SmartDashboard.putNumber("climberCurrent", current);
     return current;
   }
 
   public double rampCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kRampMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kRampMotorCurrentChannel);
     SmartDashboard.putNumber("rampCurrent", current);
     return current;
   }
