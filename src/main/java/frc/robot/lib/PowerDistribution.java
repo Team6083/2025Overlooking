@@ -1,20 +1,15 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+package frc.robot.lib;
 
-package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PowerDistributionConstant;
 
-public class PowerDistributionSubsystem extends SubsystemBase {
-  private PowerDistribution powerDistribution;
+public class PowerDistribution {
+  private edu.wpi.first.wpilibj.PowerDistribution powerDistribution;
 
-  public PowerDistributionSubsystem() {
-    powerDistribution = new PowerDistribution();
-    SmartDashboard.putNumber("coralShooterCurrent", 0);
+  public PowerDistribution() {
+    powerDistribution = new edu.wpi.first.wpilibj.PowerDistribution();
+    SmartDashboard.putNumber("coralShooterRightCurrent", 0);
+    SmartDashboard.putNumber("coralShooterLeftCurrent", 0);
     SmartDashboard.putNumber("algaeIntakeCurrent", 0);
     SmartDashboard.putNumber("algaeRotateCurrent", 0);
     SmartDashboard.putNumber("climberCurrent", 0);
@@ -26,46 +21,56 @@ public class PowerDistributionSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("isRampOverCurrent", false);
   }
 
-  public double coralShooterCurrent() {
+  public double coralShooterRightCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kCoralShooterMotorCurrentchannel);
-    SmartDashboard.putNumber("coralShooterCurrent", current);
+        .getCurrent(PowerDistributionConstant.kCoralShooterRightMotorCurrentChannel);
+    SmartDashboard.putNumber("coralShooterRightCurrent", current);
+    return current;
+  }
+
+  public double coralShooterLeftCurrent() {
+    double current = powerDistribution
+        .getCurrent(PowerDistributionConstant.kCoralShooterLeftMotorCurrentChannel);
+    SmartDashboard.putNumber("coralShooterLeftCurrent", current);
     return current;
   }
 
   public double algaeIntakeCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kAlgaeIntakeMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kAlgaeIntakeMotorCurrentChannel);
     SmartDashboard.putNumber("algaeIntakeCurrent", current);
     return current;
   }
 
   public double algaeRotateCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kAlgaeRotateMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kAlgaeRotateMotorCurrentChannel);
     SmartDashboard.putNumber("algaeRotateCurrent", current);
     return current;
   }
 
   public double climberCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kClimberMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kClimberMotorCurrentChannel);
     SmartDashboard.putNumber("climberCurrent", current);
     return current;
   }
 
   public double rampCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kRampMotorCurrentchannel);
+        .getCurrent(PowerDistributionConstant.kRampMotorCurrentChannel);
     SmartDashboard.putNumber("rampCurrent", current);
     return current;
   }
 
   public boolean isCoralShooterOverCurrent() {
-    boolean isOverCurrent = 
-        coralShooterCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
-    SmartDashboard.putBoolean("isCoralShooterOverCurrent", isOverCurrent);
-    return isOverCurrent;
+    boolean isRightMotorOverCurrent = 
+        coralShooterRightCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isLeftMotorOverCurrent =  
+        coralShooterLeftCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    SmartDashboard.putBoolean("isCoralShooterOverCurrent",
+        isLeftMotorOverCurrent || isRightMotorOverCurrent);
+    return isLeftMotorOverCurrent || isRightMotorOverCurrent;
   }
 
   public boolean isAlgaeIntakeOverCurrent() {
@@ -82,7 +87,7 @@ public class PowerDistributionSubsystem extends SubsystemBase {
     return isOverCurrent;
   }
 
-  public boolean isClimbeOverCurrent() {
+  public boolean isClimberOverCurrent() {
     boolean isOverCurrent = 
         climberCurrent() > PowerDistributionConstant.kClimberMotorMaxCurrent;
     SmartDashboard.putBoolean("isClimberOverCurrent", isOverCurrent);
