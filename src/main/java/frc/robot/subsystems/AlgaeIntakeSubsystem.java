@@ -21,6 +21,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateIntakeMotor = new VictorSP(AlgaeIntakeConstant.kRotateMotorChannel);
     timer = new Timer();
+    intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
   }
 
   public void setTimer() {
@@ -49,6 +50,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void stopRotateIntakeMotor() {
     rotateIntakeMotor.setVoltage(0);
   }
+
 
   public Command setUpIntakeCmd() {
     Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);

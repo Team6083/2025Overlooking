@@ -21,6 +21,8 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMotor = new VictorSP(43);
     climberPID = new PIDController(0.08, 0, 0);
     climberEncoder = new Encoder(0, 0);
+    climberMotor.setInverted(ClimberConstant.kclimberMotorInverted);
+    climberEncoder.setReverseDirection(ClimberConstant.kclimberEncoderInverted);
   }
 
   private void climbUp() {

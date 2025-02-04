@@ -9,24 +9,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RampSubsystem extends SubsystemBase {
- VictorSP rampmotor = new VictorSP(0);
-  public RampSubsystem() {}
+  VictorSP rampmotor = new VictorSP(0);
+
+  public RampSubsystem() {
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  void rampstrite (){
+
+  void rampstrite() {
     rampmotor.set(1);
   }
-  void rampback (){
+
+  void rampback() {
     rampmotor.set(-1);
   }
-  public Command rampstritecmd (){
+
+  public Command rampstritecmd() {
     Command cmd = run(this::rampstritecmd);
     return cmd;
   }
-  public Command rampbackcmd (){
+
+  public Command rampbackcmd() {
     Command cmd = run(this::rampbackcmd);
     return cmd;
   }
