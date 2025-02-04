@@ -25,9 +25,16 @@ public class powerDistribution {
     SmartDashboard.putBoolean("isRampOverCurrent", false);
   }
 
-  public double coralShooterCurrent() {
+  public double coralShooterRightCurrent() {
     double current = powerDistribution
-        .getCurrent(PowerDistributionConstant.kCoralShooterMotorCurrentChannel);
+        .getCurrent(PowerDistributionConstant.kCoralShooterRightMotorCurrentChannel);
+    SmartDashboard.putNumber("coralShooterCurrent", current);
+    return current;
+  }
+
+  public double coralShooterLeftCurrent() {
+    double current = powerDistribution
+        .getCurrent(PowerDistributionConstant.kCoralShooterLeftMotorCurrentChannel);
     SmartDashboard.putNumber("coralShooterCurrent", current);
     return current;
   }
@@ -61,10 +68,13 @@ public class powerDistribution {
   }
 
   public boolean isCoralShooterOverCurrent() {
-    boolean isOverCurrent = 
-        coralShooterCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
-    SmartDashboard.putBoolean("isCoralShooterOverCurrent", isOverCurrent);
-    return isOverCurrent;
+    boolean isRightMotorOverCurrent = 
+        coralShooterRightCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isLeftMotorOverCurrent =  
+        coralShooterLeftCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    SmartDashboard.putBoolean("isCoralShooterOverCurrent",
+        isLeftMotorOverCurrent || isRightMotorOverCurrent);
+    return isLeftMotorOverCurrent || isRightMotorOverCurrent;
   }
 
   public boolean isAlgaeIntakeOverCurrent() {
