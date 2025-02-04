@@ -5,47 +5,43 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
+
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AlgaeIntakeConstant;
 
-public class ALGAEIntakeSubsystem extends SubsystemBase {
+public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSP intakeMotor;
-  private final VictorSP RotateIntakeMotor;
   private final PIDController algaeMotorUpPID;
   private final PIDController algaeMotorDownPID;
   private final Encoder algaeEncoder;
 
-  public ALGAEIntakeSubsystem() {
+  public AlgaeIntakeSubsystem() {
 
-    intakeMotor = new VictorSP(0);
-    RotateIntakeMotor = new VictorSP(1);
-    algaeMotorUpPID = new PIDController(0.8, 0, 0);
-    algaeMotorDownPID = new PIDController(0.8, 0, 0);
-    algaeEncoder = new Encoder(1, 0);
+    intakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeMotorChannel);
+    algaeMotorUpPID = new PIDController(AlgaeIntakeConstant.UpMotorPIDkP, AlgaeIntakeConstant.UpMotorPIDkI,
+        AlgaeIntakeConstant.UpMotorPIDkD);
+    algaeMotorDownPID = new PIDController(AlgaeIntakeConstant.DownMotorPIDkP, AlgaeIntakeConstant.DownMotorPIDkI,
+        AlgaeIntakeConstant.DownMotorPIDkD);
+    algaeEncoder = new Encoder(AlgaeIntakeConstant.kalgaeEncoderChannelA, AlgaeIntakeConstant.kalgaeEncoderChannelB);
   }
 
   public void setIntakeMotor() {
-    intakeMotor.setVoltage(6.0);
+    intakeMotor.setVoltage(AlgaeIntakeConstant.kIntakeVoltage);
   }
 
   public void setReIntake() {
-    intakeMotor.setVoltage(-3);
+    intakeMotor.setVoltage(AlgaeIntakeConstant.kReIntakeVoltage);
   }
 
-  public void stopRotateIntakeMotor() {
-    RotateIntakeMotor.setVoltage(0);
-  }
-
-  public void setUpIntake() {
-    RotateIntakeMotor.set(algaeMotorUpPID.calculate(algaeEncoder.get()));
-  }
-
-  public void setDownIntake() {
-    RotateIntakeMotor.set(algaeMotorDownPID.calculate(algaeEncoder.get()));
+  public void stopIntakeMotor() {
+    intakeMotor.setVoltage(0);
   }
 
   public double getUpIntakeSetpoint() {
@@ -57,34 +53,24 @@ public class ALGAEIntakeSubsystem extends SubsystemBase {
   }
 
   public void setUpIntakeSetpoint() {
-    algaeMotorUpPID.setSetpoint(130);
+    algaeMotorUpPID.setSetpoint(AlgaeIntakeConstant.kUpIntakeSetpoint);
   }
 
   public void setDownIntakeSetpoint() {
-    algaeMotorDownPID.setSetpoint(35);
+    algaeMotorDownPID.setSetpoint(AlgaeIntakeConstant.kDownIntakeSetpoint);
   }
 
   public double getIntakeMotorRotate() {
     return algaeEncoder.get();
   }
 
-  public Command setUpIntakeCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
-    return cmd;
-  }
-
-  public Command setDownIntakeCmd() {
-    Command cmd = runEnd(this::setDownIntake, this::stopRotateIntakeMotor);
-    return cmd;
-  }
-
   public Command setIntakeMotorCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
+    Command cmd = runEnd(this::setIntakeMotor, this::stopIntakeMotor);
     return cmd;
   }
 
   public Command setReIntakeMotorCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
+    Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
     return cmd;
   }
 
