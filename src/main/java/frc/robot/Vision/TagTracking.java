@@ -107,8 +107,8 @@ public class TagTracking {
    * @return tag ID
    */
   public double getTID() {
-    ID = table.getEntry("tid").getDouble(0);
-    return ID;
+    id = table.getEntry("tid").getDouble(0);
+    return id;
   }
 
   /**
