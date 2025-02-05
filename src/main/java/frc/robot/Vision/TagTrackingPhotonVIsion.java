@@ -4,14 +4,12 @@
 
 package frc.robot.Vision;
 
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
-
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
-
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TagTrackingPhotonVIsion extends SubsystemBase {
   /** Creates a new TagTrackingPhotonVIsion. */
