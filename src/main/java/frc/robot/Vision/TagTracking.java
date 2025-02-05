@@ -1,7 +1,6 @@
 package frc.robot.vision;
 
-import java.io.IOException;
-import java.util.Optional;
+import frc.robot.Constants.TagTrackingConstant;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -9,7 +8,8 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.TagTrackingConstant;
+import java.io.IOException;
+import java.util.Optional;
 
 public class TagTracking {
     private final NetworkTable table;
