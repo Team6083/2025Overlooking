@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public class TagTracking {
   private final NetworkTable table;
-  private final AprilTagFieldLayout m_layout;
+  private final AprilTagFieldLayout layout;
 
-  private double v;
-  private double x;
-  private double y;
+  private double tv;
+  private double tx;
+  private double ty;
   private double id;
 
   private double[] bt; // botpose_targetspace
@@ -87,8 +87,8 @@ public class TagTracking {
    * @return y offset
    */
   public double getTy() {
-    y = table.getEntry("ty").getDouble(0);
-    return y;
+    ty = table.getEntry("ty").getDouble(0);
+    return ty;
   }
 
   /**
@@ -97,8 +97,8 @@ public class TagTracking {
    * @return 0 or 1
    */
   public double getTv() {
-    v = table.getEntry("tv").getDouble(0);
-    return v;
+    tv = table.getEntry("tv").getDouble(0);
+    return tv;
   }
 
   /**
