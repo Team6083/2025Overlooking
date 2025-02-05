@@ -32,7 +32,7 @@ public class TagTracking {
     setLedMode(0);
     setPipeline(0);
     try {
-      m_layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
+      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
     } catch (IOException err) {
       throw new RuntimeException();
     }
@@ -77,8 +77,8 @@ public class TagTracking {
    * @return x offset
    */
   public double getTx() {
-    x = table.getEntry("tx").getDouble(0);
-    return x;
+    tx = table.getEntry("tx").getDouble(0);
+    return tx;
   }
 
   /**
