@@ -18,7 +18,7 @@ public class TagTracking {
   private double v;
   private double x;
   private double y;
-  private double ID;
+  private double id;
 
   private double[] bt; // botpose_targetspace
   private double[] ct; // camerapose_targetspace
