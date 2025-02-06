@@ -64,11 +64,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return rotate >= 180;
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
   public Command coralShooterShootOnCmd() { // Motor on
     Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
     return cmd;
