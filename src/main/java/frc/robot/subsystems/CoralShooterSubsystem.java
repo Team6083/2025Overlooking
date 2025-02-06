@@ -28,8 +28,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterEncoder = new Encoder(
         CoralShooterConstant.kShooterEncoderChannelA, CoralShooterConstant.kShooterEncoderChannelB);
     distanceSensor = new DistanceSensor(Port.kOnboard);
-    coralShooterRightMotor.setInverted(CoralShooterConstant.kcoralShooterMotorInverted);
-    coralShooterLeftMotor.setInverted(CoralShooterConstant.kcoralShooterMotorInverted);
+    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
+    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
   }
 
   private void setMotorSpeed(double speed) {
