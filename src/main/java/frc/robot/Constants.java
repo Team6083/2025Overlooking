@@ -17,7 +17,7 @@ public class Constants {
     public static final int kShooterEncoderChannelA = 1;
     public static final int kShooterEncoderChannelB = 1;
     public static final double kShooterMotorSpeed = 4;
-    public static final Boolean kcoralShooterMotorInverted = false;
+    public static final Boolean kCoralShooterMotorInverted = false;
   }
 
   public static final class AlgaeIntakeConstant {
