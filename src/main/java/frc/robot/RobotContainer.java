@@ -27,10 +27,10 @@ public class RobotContainer {
     rampSubsystem = new RampSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("Donothing", Commands.none());
+    autChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("AutoChooser", autChooser);
-    SmartDashboard.putData("ALGAElntakeSubsystem", algaeIntakeSubsystem);
+    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("RampSubsystem", rampSubsystem);
     SmartDashboard.putData("ClimberSubsystem", climberSubsystem);
 
