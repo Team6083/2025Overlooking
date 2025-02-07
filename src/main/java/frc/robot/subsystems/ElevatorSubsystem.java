@@ -15,7 +15,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -138,8 +137,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = Meters.of(encoder.getPosition());
 
-    if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) ||
-        (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
+    if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
+      || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
       pidController.setReference(targetHeight.in(Meters), SparkMax.ControlType.kPosition);
     } else {
       stopMove();
