@@ -6,54 +6,38 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Meters;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
 
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
-  private final SparkMax elevatorMotor;
-  private final RelativeEncoder encoder;
-  private final SparkClosedLoopController pidController;
+  private final WPI_VictorSPX elevatorMotor;
+  private final Encoder encoder;
+   private final PIDController elevatorPID;
   private final DigitalInput limitSwitchUp;
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
   private Distance targetHeight;
 
   public ElevatorSubsystem() {
-    elevatorMotor = new SparkMax(0, MotorType.kBrushless);
-    pidController = elevatorMotor.getClosedLoopController();
-    encoder = elevatorMotor.getEncoder();
+    elevatorMotor = new WPI_VictorSPX(0);
+    elevatorMotor.setInverted(true);
+    encoder = new Encoder(0, 1);
+    encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
+    elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     limitSwitchUp = new DigitalInput(0);
     limitSwitchDown = new DigitalInput(1);
-    boolean isInverted = elevatorMotor.configAccessor.getInverted();
-    double positionFactor = elevatorMotor.configAccessor.encoder.getPositionConversionFactor();
-    double velocityFactor = elevatorMotor.configAccessor.encoder.getVelocityConversionFactor();
-    SparkMaxConfig config = new SparkMaxConfig();
-    config
-        .inverted(isInverted)
-        .idleMode(IdleMode.kBrake);
-    config.encoder
-        .positionConversionFactor(positionFactor)
-        .velocityConversionFactor(velocityFactor);
-    config.closedLoop
-        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    //不確定是否用SparkMax 所以我覺得還是分開寫 而且分開寫比較能做細部調整
-    //如果確認不是的話我再改就好:)
-    elevatorMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    encoder.setPosition(ElevatorConstant.kInitialHeight.in(Meters));
+
+    encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
 
   }
@@ -87,12 +71,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     moveToHeight(ElevatorConstant.kTopFloor);
   }
 
-  public void todefaultPosition() {
+  public void toDefaultPosition() {
     moveToHeight(ElevatorConstant.kInitialHeight);
   }
 
   public void stopMove() {
-    pidController.setReference(encoder.getPosition(), SparkMax.ControlType.kPosition);
+    elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public Command toSecFloorCmd() {
@@ -111,7 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toDefaultPositionCmd() {
-    Command cmd = run(this::todefaultPosition);
+    Command cmd = run(this::toDefaultPosition);
     return cmd;
   }
 
@@ -135,11 +119,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Distance currentHeight = Meters.of(encoder.getPosition());
+    Distance currentHeight = Meters.of(encoder.getDistance());
+    elevatorPID.setSetpoint(targetHeight.in(Meters));
+    double output = elevatorPID.calculate(currentHeight.in(Meters));
+    output = MathUtil.clamp(output, -1.0, 1.0);
 
     if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
         || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
-      pidController.setReference(targetHeight.in(Meters), SparkMax.ControlType.kPosition);
+      elevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       stopMove();
     }

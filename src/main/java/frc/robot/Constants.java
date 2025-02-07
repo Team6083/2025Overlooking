@@ -52,9 +52,10 @@ public class Constants {
     public static final Distance kSecFloor = Meters.of(0.50);
     public static final Distance kTrdFloor = Meters.of(1.00);
     public static final Distance kTopFloor = Meters.of(1.50);
-
     public static final Distance kMaxHeight = Meters.of(2.0); 
-    public static final Distance kStepHeight = Meters.of(0.1); 
+    public static final Distance kStepHeight = Meters.of(0.1);
+
+    public static final double kEncoderDistancePerPulse = 0.001;
 
   }
 
