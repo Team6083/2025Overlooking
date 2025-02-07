@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import static edu.wpi.first.units.Units.Meters;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -13,6 +15,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput limitSwitchUp;
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
-  private double targetHeight;
+  private Distance targetHeight;
 
   public ElevatorSubsystem() {
     elevatorMotor = new SparkMax(0, MotorType.kBrushless);
@@ -50,14 +54,27 @@ public class ElevatorSubsystem extends SubsystemBase {
     //不確定是否用SparkMax 所以我覺得還是分開寫 而且分開寫比較能做細部調整
     //如果確認不是的話我再改就好:)
     elevatorMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    encoder.setPosition(ElevatorConstant.kInitialHeight);
+    encoder.setPosition(ElevatorConstant.kInitialHeight.in(Meters));
     targetHeight = ElevatorConstant.kInitialHeight;
 
   }
 
-  public void moveToHeight(double newTargetHeight) { // 限制開關偵測
+  public void moveToHeight(Distance newTargetHeight) { 
+    if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) { 
+      newTargetHeight = ElevatorConstant.kMaxHeight;
+    } else if (newTargetHeight.lt(ElevatorConstant.kInitialHeight)) { 
+      newTargetHeight = ElevatorConstant.kInitialHeight;
+    }
     targetHeight = newTargetHeight;
-  } //此行程式需不停重複運行 應放在最下面的periodic 所以可能要改
+  }
+
+  public void moveUp() {
+    moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
+  }
+
+  public void moveDown() {
+    moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
+  }
 
   public void toSecFloor() {
     moveToHeight(ElevatorConstant.kSecFloor);
@@ -76,7 +93,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void stopMove() {
-    elevatorMotor.stopMotor();
+    pidController.setReference(encoder.getPosition(), SparkMax.ControlType.kPosition);
   }
 
   public Command toSecFloorCmd() {
@@ -99,6 +116,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
+  public Command moveUpCmd() {
+    Command cmd = run(this::moveUp);
+    return cmd;
+  }
+
+  public Command moveDownCmd() {
+    Command cmd = run(this::moveDown);
+    return cmd;
+  }
+
   public void setButtonControl(boolean controlMode) { // 切換搖桿控制或按鈕控制
     this.isButtonControl = controlMode;
   }
@@ -109,9 +136,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if ((targetHeight > encoder.getPosition() && !limitSwitchUp.get())
-        || (targetHeight < encoder.getPosition() && !limitSwitchDown.get())) {
-      pidController.setReference(targetHeight, SparkMax.ControlType.kPosition);
+    Distance currentHeight = Meters.of(encoder.getPosition());
+
+    if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) ||
+        (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
+      pidController.setReference(targetHeight.in(Meters), SparkMax.ControlType.kPosition);
     } else {
       stopMove();
     }

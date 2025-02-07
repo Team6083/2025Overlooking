@@ -1,5 +1,9 @@
 package frc.robot;
 
+import edu.wpi.first.units.measure.Distance;
+import static edu.wpi.first.units.Units.Meters;
+
+
 public class Constants {
 
   public static final class ClimberConstant {
@@ -43,10 +47,13 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final double kInitialHeight = 0.0;
-    public static final double kSecFloor = 50.0;
-    public static final double kTrdFloor = 100.0;
-    public static final double kTopFloor = 150.0;
+    public static final Distance kInitialHeight = Meters.of(0.0);
+    public static final Distance kSecFloor = Meters.of(0.50);
+    public static final Distance kTrdFloor = Meters.of(1.00);
+    public static final Distance kTopFloor = Meters.of(1.50);
+
+    public static final Distance kMaxHeight = Meters.of(2.0); 
+    public static final Distance kStepHeight = Meters.of(0.1); 
 
   }
 
