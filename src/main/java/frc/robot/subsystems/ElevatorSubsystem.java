@@ -138,7 +138,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     Distance currentHeight = Meters.of(encoder.getPosition());
 
     if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
-      || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
+        || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
       pidController.setReference(targetHeight.in(Meters), SparkMax.ControlType.kPosition);
     } else {
       stopMove();
