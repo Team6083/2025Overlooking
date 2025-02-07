@@ -8,7 +8,6 @@ import static edu.wpi.first.units.Units.Meters;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
@@ -22,7 +21,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   private final WPI_VictorSPX elevatorMotor;
   private final Encoder encoder;
-   private final PIDController elevatorPID;
+  private final PIDController elevatorPID;
   private final DigitalInput limitSwitchUp;
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
