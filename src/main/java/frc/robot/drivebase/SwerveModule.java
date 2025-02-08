@@ -19,9 +19,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.spark.SparkMax;
 import frc.robot.Constants.DriveBaseConstants;
 import frc.robot.Constants.ModuleConstants;
-import com.revrobotics.spark.SparkMax;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -37,9 +37,9 @@ public class SwerveModule extends SubsystemBase {
   private double driveMotorVoltage;
 
   public SwerveModule(int driveMotorChannel,
-      int turningMotorChannel,
-      int turningEncoderChannel, boolean driveInverted, boolean turningInverted, double canCoderMagOffset,
-      String name) {
+      int turningMotorChannel, int turningEncoderChannel,
+      boolean driveInverted, boolean turningInverted,
+      double canCoderMagOffset, String name) {
     this.name = name;
     driveMotor = new SparkMax(driveMotorChannel, MotorType.kBrushless);
     turningMotor = new SparkMax(turningMotorChannel, MotorType.kBrushless);
@@ -76,7 +76,8 @@ public class SwerveModule extends SubsystemBase {
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
     configDriveMotor.signals.primaryEncoderVelocityPeriodMs(20);
     configDriveMotor.inverted(driveInverted);
-    driveMotor.configure(configDriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveMotor.configure(
+        configDriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
   }
 
