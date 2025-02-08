@@ -13,13 +13,13 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.spark.SparkMax;
 import frc.robot.Constants.DriveBaseConstants;
 import frc.robot.Constants.ModuleConstants;
 
@@ -49,7 +49,8 @@ public class SwerveModule extends SubsystemBase {
     turningEncoderConfiguration.MagnetSensor.MagnetOffset = canCoderMagOffset;
     turningEncoder.getConfigurator().apply(turningEncoderConfiguration);
     driveEncoder = driveMotor.getEncoder();
-    rotController = new PIDController(ModuleConstants.kPRotationController, ModuleConstants.kIRotationController,
+    rotController = new PIDController(
+        ModuleConstants.kPRotationController, ModuleConstants.kIRotationController,
         ModuleConstants.kDRotationController);
     rotController.enableContinuousInput(-180.0, 180.0);
     this.driveInverted = driveInverted;
