@@ -10,9 +10,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -136,8 +136,10 @@ public class SwerveModule extends SubsystemBase {
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(new Rotation2d(Math.toRadians(currentTurningDegree)));
-    driveMotorVoltage = desiredState.speedMetersPerSecond * ModuleConstants.kDesireSpeedtoMotorVoltage;
-    turningMotorVoltage = rotController.calculate(currentTurningDegree, desiredState.angle.getDegrees());
+    driveMotorVoltage = desiredState.speedMetersPerSecond
+        * ModuleConstants.kDesireSpeedToMotorVoltage;
+    turningMotorVoltage = rotController.calculate(
+        currentTurningDegree, desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
   }
 

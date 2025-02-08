@@ -62,7 +62,7 @@ public class Constants {
     public static final double kTurningClosedLoopRampRate = 0.1;
 
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
-    public static final double kDesireSpeedtoMotorVoltage = kMaxModuleDriveVoltage
+    public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstants.kMaxSpeed;
 
     // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
