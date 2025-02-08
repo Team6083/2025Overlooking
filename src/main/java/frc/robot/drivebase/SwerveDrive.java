@@ -52,19 +52,23 @@ public class SwerveDrive extends SubsystemBase {
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(DriveBaseConstants.kFrontLeftDriveMotorChannel,
         DriveBaseConstants.kFrontLeftTurningMotorChannel, DriveBaseConstants.kFrontLeftCanCoder,
-        DriveBaseConstants.kFrontLeftDriveMotorInverted, DriveBaseConstants.kFrontLeftTurningMotorInverted,
+        DriveBaseConstants.kFrontLeftDriveMotorInverted, 
+        DriveBaseConstants.kFrontLeftTurningMotorInverted,
         DriveBaseConstants.kFrontLeftCanCoderMagOffset, "frontLeft");
     frontRight = new SwerveModule(DriveBaseConstants.kFrontRightDriveMotorChannel,
         DriveBaseConstants.kFrontRightTurningMotorChannel, DriveBaseConstants.kFrontRightCanCoder,
-        DriveBaseConstants.kFrontRightDriveMotorInverted, DriveBaseConstants.kFrontRightTurningMotorInverted,
+        DriveBaseConstants.kFrontRightDriveMotorInverted, 
+        DriveBaseConstants.kFrontRightTurningMotorInverted,
         DriveBaseConstants.kFrontRightCanCoderMagOffset, "frontRight");
     backLeft = new SwerveModule(DriveBaseConstants.kBackLeftDriveMotorChannel,
         DriveBaseConstants.kBackLeftTurningMotorChannel, DriveBaseConstants.kBackLeftCanCoder,
-        DriveBaseConstants.kBackLeftDriveMotorInverted, DriveBaseConstants.kBackLeftTuringMotorInverted,
+        DriveBaseConstants.kBackLeftDriveMotorInverted, 
+        DriveBaseConstants.kBackLeftTuringMotorInverted,
         DriveBaseConstants.kBackLeftCanCoderMagOffset, "backLeft");
     backRight = new SwerveModule(DriveBaseConstants.kBackRightDriveMotorChannel,
         DriveBaseConstants.kBackRightTurningMotorChannel, DriveBaseConstants.kBackRightCanCoder,
-        DriveBaseConstants.kBackRightDriveMotorInverted, DriveBaseConstants.kBackRightTurningMotorInverted,
+        DriveBaseConstants.kBackRightDriveMotorInverted, 
+        DriveBaseConstants.kBackRightTurningMotorInverted,
         DriveBaseConstants.kBackRightCanCoderMagOffset, "backRight");
     SmartDashboard.putData("frontLeft", frontLeft);
     SmartDashboard.putData("frontRight", frontRight);
@@ -185,7 +189,7 @@ public class SwerveDrive extends SubsystemBase {
     return magnification;
   }
 
-  public void stop(){
+  public void stop() {
     frontLeft.stopModule();
     frontRight.stopModule();
     backLeft.stopModule();
@@ -199,7 +203,7 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree90();
   }
 
-  public void resetTurningDegree(){
+  public void resetTurningDegree() {
     frontLeft.resetTurningDegree();
     frontRight.resetTurningDegree();
     backLeft.resetTurningDegree();
@@ -227,13 +231,14 @@ public class SwerveDrive extends SubsystemBase {
     return cmd;
   }
 
-  public Command resetTurningCmd(){
-    Command cmd = this.runEnd(this::resetTurningDegree,this::stop);
+  public Command resetTurningCmd() {
+    Command cmd = this.runEnd(this::resetTurningDegree, this::stop);
     cmd.setName("resetTurningCmd");
     return cmd;
   }
+
   public Command setTurningDegree90Cmd() {
-    Command cmd = this.runEnd(this::setTurningDegree90,this::stop);
+    Command cmd = this.runEnd(this::setTurningDegree90, this::stop);
     cmd.setName("setTurningDegree90Cmd");
     return cmd;
   }
