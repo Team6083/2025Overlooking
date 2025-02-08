@@ -4,7 +4,6 @@
 
 package frc.robot.drivebase;
 
-import com.revrobotics.spark.SparkMax;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.RelativeEncoder;
@@ -22,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstants;
 import frc.robot.Constants.ModuleConstants;
+import com.revrobotics.spark.SparkMax;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
