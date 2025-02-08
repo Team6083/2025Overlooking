@@ -1,6 +1,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.Millimeters;
 
 import edu.wpi.first.units.measure.Distance;
 
@@ -48,14 +49,16 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final Distance kInitialHeight = Meters.of(0.0);
-    public static final Distance kSecFloor = Meters.of(0.50);
-    public static final Distance kTrdFloor = Meters.of(1.00);
-    public static final Distance kTopFloor = Meters.of(1.50);
-    public static final Distance kMaxHeight = Meters.of(2.0); 
-    public static final Distance kStepHeight = Meters.of(0.1);
+    public static final Distance kInitialHeight = Millimeters.of(0.0);
+    public static final Distance kLowestHeight = Millimeters.of(0.0);
+    public static final Distance kStartedOffest = Millimeters.of(0.0);
+    public static final Distance kSecFloor = Millimeters.of(500);
+    public static final Distance kTrdFloor = Millimeters.of(1000);
+    public static final Distance kTopFloor = Millimeters.of(1500);
+    public static final Distance kMaxHeight = Millimeters.of(2000); 
+    public static final Distance kStepHeight = Millimeters.of(100);
 
-    public static final double kEncoderDistancePerPulse = 0.001;
+    public static final double kEncoderDistancePerPulse = 1;
 
   }
 

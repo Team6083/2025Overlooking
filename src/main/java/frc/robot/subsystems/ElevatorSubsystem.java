@@ -4,7 +4,8 @@
 
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.Centimeters;
+import static edu.wpi.first.units.Units.Millimeters;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -22,36 +23,39 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_VictorSPX elevatorMotor;
   private final Encoder encoder;
   private final PIDController elevatorPID;
-  private final DigitalInput limitSwitchUp;
-  private final DigitalInput limitSwitchDown;
+  // private final DigitalInput limitSwitchUp;
+  // private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
   private Distance targetHeight;
-
+  private Distance truthHeight;
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(0);
     elevatorMotor.setInverted(true);
     encoder = new Encoder(0, 1);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    limitSwitchUp = new DigitalInput(0);
-    limitSwitchDown = new DigitalInput(1);
+    // limitSwitchUp = new DigitalInput(0);
+    // limitSwitchDown = new DigitalInput(1);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
-
+    truthHeight = targetHeight.plus(ElevatorConstant.kStartedOffest);
   }
 
   public void moveToHeight(Distance newTargetHeight) { 
     if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) { 
       newTargetHeight = ElevatorConstant.kMaxHeight;
-    } else if (newTargetHeight.lt(ElevatorConstant.kInitialHeight)) { 
-      newTargetHeight = ElevatorConstant.kInitialHeight;
+    } else if (newTargetHeight.lt(ElevatorConstant.kLowestHeight)) { 
+      newTargetHeight = ElevatorConstant.kLowestHeight;
     }
     targetHeight = newTargetHeight;
+    truthHeight = newTargetHeight.plus(ElevatorConstant.kStartedOffest);
+
   }
 
   public void moveUp() {
-    moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
+    moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight
+    ));
   }
 
   public void moveDown() {
@@ -118,17 +122,18 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Distance currentHeight = Meters.of(encoder.getDistance());
-    elevatorPID.setSetpoint(targetHeight.in(Meters));
-    double output = elevatorPID.calculate(currentHeight.in(Meters));
+    Distance currentHeight = Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kStartedOffest);
+    elevatorPID.setSetpoint(targetHeight.in(Millimeters));
+    double output = elevatorPID.calculate(currentHeight.in(Millimeters));
     output = MathUtil.clamp(output, -1.0, 1.0);
 
-    if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
-        || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
-      elevatorMotor.set(ControlMode.PercentOutput, output);
-    } else {
-      stopMove();
-    }
+    // if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
+    //     || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
+    //   elevatorMotor.set(ControlMode.PercentOutput, output);
+    // } else {
+    //   stopMove();
+    // }
+    //V1沒有limitSwitch 所以先暫時註解
   }
 }
 
