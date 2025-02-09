@@ -14,7 +14,8 @@ public class Constants {
     public static final double kDistanceRange = 4;
     public static final int kShooterLeftMotorChannel = 1;
     public static final int kShooterRightMotorChannel = 2;
-    public static final double kShooterMotorSpeed = 4;
+    public static final double kShooterMotorFastSpeed = 4;
+    public static final double kShooterMotorSlowSpeed = 4;
     public static final Boolean kCoralShooterMotorInverted = false;
   }
 
