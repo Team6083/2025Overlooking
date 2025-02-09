@@ -19,10 +19,13 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     public static final int kIntakeMotorChannel = 2;
+    public static final int kIntakeRotateMotorChannal = 1;
     public static final int kalgaeEncoderChannelA = 3;
     public static final int kalgaeEncoderChannelB = 4;
     public static final double kIntakeVoltage = 6.0;
     public static final double kReIntakeVoltage = 3.0;
+    public static final double kUpIntakeRotateVoltage = 12;
+    public static final double kDownIntakeRotateVoltage = 12;
     public static final int kUpIntakeSetpoint = 130;
     public static final int kDownIntakeSetpoint = 30;
     public static final double UpMotorPIDkP = 0.8;
