@@ -184,7 +184,7 @@ public class TagTracking {
    */
   public Pose2d getTagPose2d() {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = m_layout.getTagPose((int) getTID());
+      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTID());
       Pose2d tagPose2d = tag_Pose3d.isPresent() ? tag_Pose3d.get().toPose2d() : new Pose2d();
       return tagPose2d;
     } else {
@@ -199,7 +199,7 @@ public class TagTracking {
    */
   public Pose3d getTagPose3d() {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = m_layout.getTagPose((int) getTID());
+      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTID());
       Pose3d tagPose = tag_Pose3d.isPresent() ? tag_Pose3d.get() : new Pose3d();
       return tagPose;
     } else {
@@ -209,7 +209,7 @@ public class TagTracking {
 
   public Pose2d getDesiredTagPose2d(double index) {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = m_layout.getTagPose((int) index);
+      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) index);
       Pose2d tagPose2d = tag_Pose3d.isPresent() ? tag_Pose3d.get().toPose2d() : new Pose2d();
       return tagPose2d;
     } else {
