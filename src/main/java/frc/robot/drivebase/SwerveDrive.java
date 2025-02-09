@@ -15,13 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstants;
 
-
 public class SwerveDrive extends SubsystemBase {
-  private final Translation2d frontLeftLocation;
-  private final Translation2d frontRightLocation;
-  private final Translation2d backLeftLocation;
-  private final Translation2d backRightLocation;
-
   public final SwerveModule frontLeft;
   public final SwerveModule frontRight;
   public final SwerveModule backLeft;
@@ -32,44 +26,60 @@ public class SwerveDrive extends SubsystemBase {
 
   private final AHRS gyro;
 
-  private double magnification;
-
   private final Field2d field2d;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
   public SwerveDrive() {
+
+    Translation2d frontLeftLocation;
+    Translation2d frontRightLocation;
+    Translation2d backLeftLocation;
+    Translation2d backRightLocation;
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
-    frontLeftLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
-        DriveBaseConstants.kRobotWidth / 2.0);
-    frontRightLocation = new Translation2d(DriveBaseConstants.kRobotLength / 2.0,
-        -DriveBaseConstants.kRobotWidth / 2.0);
-    backLeftLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
-        DriveBaseConstants.kRobotWidth / 2.0);
-    backRightLocation = new Translation2d(-DriveBaseConstants.kRobotLength / 2.0,
-        -DriveBaseConstants.kRobotWidth / 2.0);
+    frontLeftLocation = new Translation2d(
+        DriveBaseConstants.kRobotLength.div(2),
+        DriveBaseConstants.kRobotWidth.div(2));
+    frontRightLocation = new Translation2d(
+        DriveBaseConstants.kRobotLength.div(2),
+        DriveBaseConstants.kRobotWidth.div(2).unaryMinus());
+    backLeftLocation = new Translation2d(
+        DriveBaseConstants.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstants.kRobotWidth.div(2));
+    backRightLocation = new Translation2d(
+        DriveBaseConstants.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstants.kRobotWidth.div(2).unaryMinus());
 
     // 初始化 Swerve 模組
-    frontLeft = new SwerveModule(DriveBaseConstants.kFrontLeftDriveMotorChannel,
-        DriveBaseConstants.kFrontLeftTurningMotorChannel, DriveBaseConstants.kFrontLeftCanCoder,
-        DriveBaseConstants.kFrontLeftDriveMotorInverted, 
+    frontLeft = new SwerveModule(
+        DriveBaseConstants.kFrontLeftDriveMotorChannel,
+        DriveBaseConstants.kFrontLeftTurningMotorChannel,
+        DriveBaseConstants.kFrontLeftCanCoder,
+        DriveBaseConstants.kFrontLeftDriveMotorInverted,
         DriveBaseConstants.kFrontLeftTurningMotorInverted,
         DriveBaseConstants.kFrontLeftCanCoderMagOffset, "frontLeft");
-    frontRight = new SwerveModule(DriveBaseConstants.kFrontRightDriveMotorChannel,
-        DriveBaseConstants.kFrontRightTurningMotorChannel, DriveBaseConstants.kFrontRightCanCoder,
-        DriveBaseConstants.kFrontRightDriveMotorInverted, 
+    frontRight = new SwerveModule(
+        DriveBaseConstants.kFrontRightDriveMotorChannel,
+        DriveBaseConstants.kFrontRightTurningMotorChannel,
+        DriveBaseConstants.kFrontRightCanCoder,
+        DriveBaseConstants.kFrontRightDriveMotorInverted,
         DriveBaseConstants.kFrontRightTurningMotorInverted,
         DriveBaseConstants.kFrontRightCanCoderMagOffset, "frontRight");
-    backLeft = new SwerveModule(DriveBaseConstants.kBackLeftDriveMotorChannel,
-        DriveBaseConstants.kBackLeftTurningMotorChannel, DriveBaseConstants.kBackLeftCanCoder,
-        DriveBaseConstants.kBackLeftDriveMotorInverted, 
+    backLeft = new SwerveModule(
+        DriveBaseConstants.kBackLeftDriveMotorChannel,
+        DriveBaseConstants.kBackLeftTurningMotorChannel,
+        DriveBaseConstants.kBackLeftCanCoder,
+        DriveBaseConstants.kBackLeftDriveMotorInverted,
         DriveBaseConstants.kBackLeftTuringMotorInverted,
         DriveBaseConstants.kBackLeftCanCoderMagOffset, "backLeft");
-    backRight = new SwerveModule(DriveBaseConstants.kBackRightDriveMotorChannel,
-        DriveBaseConstants.kBackRightTurningMotorChannel, DriveBaseConstants.kBackRightCanCoder,
-        DriveBaseConstants.kBackRightDriveMotorInverted, 
+    backRight = new SwerveModule(
+        DriveBaseConstants.kBackRightDriveMotorChannel,
+        DriveBaseConstants.kBackRightTurningMotorChannel,
+        DriveBaseConstants.kBackRightCanCoder,
+        DriveBaseConstants.kBackRightDriveMotorInverted,
         DriveBaseConstants.kBackRightTurningMotorInverted,
         DriveBaseConstants.kBackRightCanCoderMagOffset, "backRight");
+
     SmartDashboard.putData("frontLeft", frontLeft);
     SmartDashboard.putData("frontRight", frontRight);
     SmartDashboard.putData("backLeft", backLeft);
@@ -77,29 +87,23 @@ public class SwerveDrive extends SubsystemBase {
 
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
+    gyro.reset();
 
     // 定義 Kinematics 與 Odometry
     kinematics = new SwerveDriveKinematics(
-        frontLeftLocation, frontRightLocation,
-        backLeftLocation, backRightLocation);
+        frontLeftLocation,
+        frontRightLocation,
+        backLeftLocation,
+        backRightLocation);
 
     odometry = new SwerveDriveOdometry(
         kinematics,
         gyro.getRotation2d(),
-        new SwerveModulePosition[] {
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
-        });
+        getSwerveModulePosition());
+
+    resetPose2dAndEncoder();
 
     field2d = new Field2d();
-
-    // reset the gyro
-    gyro.reset();
-
-    // set the swerve speed equal 0
-    drive(0, 0, 0, false);
   }
 
   /**
@@ -114,13 +118,13 @@ public class SwerveDrive extends SubsystemBase {
    *                      using the wpi function to set the speed of the swerve
    */
 
-  public void drive(double xspeed, double yspeed, double rot, boolean fieldRelative) {
+  public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     swerveModuleStates = kinematics.toSwerveModuleStates(
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                xspeed, yspeed, rot,
+                xSpeed, ySpeed, rot,
                 gyro.getRotation2d())
-            : new ChassisSpeeds(xspeed, yspeed, rot));
+            : new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveBaseConstants.kMaxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
@@ -134,29 +138,28 @@ public class SwerveDrive extends SubsystemBase {
     return odometry.getPoseMeters();
   }
 
+  public SwerveModulePosition[] getSwerveModulePosition() {
+    return new SwerveModulePosition[] {
+        frontLeft.getPosition(),
+        frontRight.getPosition(),
+        backLeft.getPosition(),
+        backRight.getPosition()
+    };
+  }
+
   // 重設機器人的位置與角度
-  public void resetPose(Pose2d pose) {
+  public void resetPose() {
     odometry.resetPosition(
-        gyro.getRotation2d(),
-        new SwerveModulePosition[] {
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
-        },
-        pose);
+        gyro.getRotation2d(), 
+        getSwerveModulePosition(), 
+        new Pose2d(0, 0, new Rotation2d(0)));
   }
 
   // 更新機器人的場地相對位置
   public void updateOdometry() {
     odometry.update(
-        gyro.getRotation2d(),
-        new SwerveModulePosition[] {
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
-        });
+        gyro.getRotation2d(), 
+        getSwerveModulePosition());
   }
 
   // 重置所有輪子的 Encoder 與機器人位置
@@ -165,7 +168,7 @@ public class SwerveDrive extends SubsystemBase {
     frontRight.resetAllEncoder();
     backLeft.resetAllEncoder();
     backRight.resetAllEncoder();
-    resetPose(new Pose2d(0, 0, new Rotation2d(0)));
+    resetPose();
   }
 
   // 重置陀螺儀的角度
@@ -181,14 +184,6 @@ public class SwerveDrive extends SubsystemBase {
             : gyro.getRotation2d().getDegrees()));
   }
 
-  public void setMagnification(double magnification) {
-    this.magnification = magnification;
-  }
-
-  public double getMagnification() {
-    return magnification;
-  }
-
   public void stop() {
     frontLeft.stopModule();
     frontRight.stopModule();
@@ -196,33 +191,22 @@ public class SwerveDrive extends SubsystemBase {
     backRight.stopModule();
   }
 
-  public void setTurningDegree90() {
-    frontLeft.setTurningDegree90();
-    frontRight.setTurningDegree90();
-    backLeft.setTurningDegree90();
-    backRight.setTurningDegree90();
-  }
-
-  public void resetTurningDegree() {
-    frontLeft.resetTurningDegree();
-    frontRight.resetTurningDegree();
-    backLeft.resetTurningDegree();
-    backRight.resetTurningDegree();
-  }
-
-  public void putDashboard() {
-    SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
-    SmartDashboard.putNumber("poseX", getPose2d().getX());
-    SmartDashboard.putNumber("poseY", getPose2d().getY());
-    SmartDashboard.putNumber("poseRotationDegree",
-        getPose2d().getRotation().getDegrees());
+  public void setTurningDegree(double degree) {
+    frontLeft.setTurningDegree(degree);
+    frontRight.setTurningDegree(degree);
+    backLeft.setTurningDegree(degree);
+    backRight.setTurningDegree(degree);
   }
 
   @Override
   public void periodic() {
     updateOdometry();
     field2d.setRobotPose(getPose2d());
-    putDashboard();
+    SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("poseX", getPose2d().getX());
+    SmartDashboard.putNumber("poseY", getPose2d().getY());
+    SmartDashboard.putNumber("poseRotationDegree",
+        getPose2d().getRotation().getDegrees());
   }
 
   public Command gyroResetCmd() {
@@ -231,15 +215,9 @@ public class SwerveDrive extends SubsystemBase {
     return cmd;
   }
 
-  public Command resetTurningCmd() {
-    Command cmd = this.runEnd(this::resetTurningDegree, this::stop);
-    cmd.setName("resetTurningCmd");
-    return cmd;
-  }
-
-  public Command setTurningDegree90Cmd() {
-    Command cmd = this.runEnd(this::setTurningDegree90, this::stop);
-    cmd.setName("setTurningDegree90Cmd");
+  public Command setTurningDegreeCmd(double degree) {
+    Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
+    cmd.setName("setTurningDegreeCmd");
     return cmd;
   }
 }

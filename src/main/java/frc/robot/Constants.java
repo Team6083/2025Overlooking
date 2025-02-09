@@ -1,5 +1,13 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Kilogram;
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.units.measure.Mass;
+
 public class Constants {
 
   public static final class ClimberConstant {
@@ -50,8 +58,8 @@ public class Constants {
 
   public static final class ModuleConstants {
     // 定義輪子的半徑，單位是公尺
-    public static final double kWheelRadius = 0.046;
-    public static final double kWheelGearRate = 1;
+    public static final Distance kWheelRadius = Meters.of(0.064);
+    public static final Distance kWheelGearRate = Meters.of(1);
 
     // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
     public static final double kMaxModuleDriveVoltage = 12.0;
@@ -63,7 +71,7 @@ public class Constants {
 
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
-        / DriveBaseConstants.kMaxSpeed;
+        / DriveBaseConstants.kMaxSpeed.in(MetersPerSecond);
 
     // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
     public static final double kMaxSpeedTurningDegree = 180.0;
@@ -122,28 +130,25 @@ public class Constants {
     public static final double kGyroOffSet = 0.0;
 
     // 機器人的大小規格
-    public static final double kRobotWidth = 0.6;
-    public static final double kRobotLength = 0.6;
-    public static final double kRobotDiagonal = Math.sqrt(
-        Math.pow(kRobotLength, 2.0) + Math.pow(kRobotWidth, 2.0));
+    public static final Distance kRobotWidth = Meters.of(0.6);
+    public static final Distance kRobotLength = Meters.of(0.6);
+    public static final Distance kRobotDiagonal = Meters.of(
+        Math.sqrt(Math.pow(kRobotLength.in(Meters), 2.0) + Math.pow(kRobotWidth.in(Meters), 2.0)));
 
     // 機器人的重量 (還沒測)
-    public static final double kRobotMass = 45;
+    public static final Mass kRobotMass = Kilogram.of(45);
 
     // 機器人兩排輪子間的寬度，以公尺為單位(還沒測)
-    public static final double kTrackWidth = 2;
+    public static final Distance kTrackWidth = Meters.of(0.5);
 
     // 機器人的輪子半徑，以公尺為單位
-    public static final double kWheelRadiusMeters = 0.1;
+    public static final Distance kWheelRadius = Meters.of(0.1);
 
     // 最大轉速需要實際測試看看
-    public static final double kMaxSpeed = 4.0;
+    public static final LinearVelocity kMaxSpeed =  MetersPerSecond.of(4.0); 
 
     // 設定最小轉速，以避免 Gamepad 胡亂輸送訊號以至於機器人不受控制
-    public static final double kMinSpeed = 0.2;
-
-    // 最大角速度
-    public static final double kMaxAngularSpeed = kMaxSpeed / (kRobotDiagonal / 2.0); // rad/s
+    public static final LinearVelocity kMinSpeed = MetersPerSecond.of(0.2);
 
     // 機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
     public static final double kRobotMomentOfInertia = 6;
