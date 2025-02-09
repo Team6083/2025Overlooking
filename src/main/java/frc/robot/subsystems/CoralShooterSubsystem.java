@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
@@ -19,14 +18,11 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   private VictorSPX coralShooterLeftMotor;
   private VictorSPX coralShooterRightMotor;
-  private Encoder coralShooterEncoder;
   private DistanceSensorInterface distanceSensor;
 
   public CoralShooterSubsystem() {
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-    coralShooterEncoder = new Encoder(
-        CoralShooterConstant.kShooterEncoderChannelA, CoralShooterConstant.kShooterEncoderChannelB);
     distanceSensor = new DistanceSensor(Port.kOnboard);
     coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
     coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
@@ -37,8 +33,12 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
   }
 
-  public void coralShooterOn() { // Motor on
-    setMotorSpeed(CoralShooterConstant.kShooterMotorSpeed);
+  public void coralShooterFastOn() { // Motor on Fast
+    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
+  }
+
+  public void coralShooterSlowOn() { // Motor on Slow
+    setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
   public void coralShooterStop() { // Motor stop
@@ -53,19 +53,13 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public void encoderReset() {
-    coralShooterEncoder.reset();
+  public Command coralShooterFastOnCmd() { // Motor on
+    Command cmd = runEnd(this::coralShooterFastOn, this::coralShooterStop);
+    return cmd;
   }
 
-  public boolean isEnoughRotate() {
-    int rotate;
-    rotate = coralShooterEncoder.get() / 2048;
-    rotate *= 360;
-    return rotate >= 180;
-  }
-
-  public Command coralShooterShootOnCmd() { // Motor on
-    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
+  public Command coralShooterSlowOnCmd() {
+    Command cmd = runEnd(this::coralShooterSlowOnCmd, this::coralShooterStop);
     return cmd;
   }
 
