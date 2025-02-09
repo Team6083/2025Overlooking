@@ -27,6 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private boolean isButtonControl = false;
   private Distance targetHeight;
   private Distance truthHeight;
+
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(0);
     elevatorMotor.setInverted(true);
@@ -41,10 +42,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     truthHeight = targetHeight.plus(ElevatorConstant.kStartedOffest);
   }
 
-  public void moveToHeight(Distance newTargetHeight) { 
-    if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) { 
+  public void moveToHeight(Distance newTargetHeight) {
+    if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) {
       newTargetHeight = ElevatorConstant.kMaxHeight;
-    } else if (newTargetHeight.lt(ElevatorConstant.kLowestHeight)) { 
+    } else if (newTargetHeight.lt(ElevatorConstant.kLowestHeight)) {
       newTargetHeight = ElevatorConstant.kLowestHeight;
     }
     targetHeight = newTargetHeight;
@@ -53,8 +54,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void moveUp() {
-    moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight
-    ));
+    moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
   }
 
   public void moveDown() {
@@ -121,18 +121,18 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Distance currentHeight = Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kStartedOffest);
+    Distance currentHeight = Millimeters.of(encoder.getDistance())
+        .plus(ElevatorConstant.kStartedOffest);
     elevatorPID.setSetpoint(targetHeight.in(Millimeters));
     double output = elevatorPID.calculate(currentHeight.in(Millimeters));
     output = MathUtil.clamp(output, -1.0, 1.0);
 
-    if ((output>=0 && !limitSwitchUp.get())
-        || ((output<=0 && !limitSwitchDown.get()))) {
-      elevatorMotor.set(ControlMode.PercentOutput, output );
+    if ((output >= 0 && !limitSwitchUp.get())
+        || ((output <= 0 && !limitSwitchDown.get()))) {
+      elevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       stopMove();
     }
-    //V1沒有limitSwitch 但不影響
+    // V1沒有limitSwitch 但不影響
   }
 }
-
