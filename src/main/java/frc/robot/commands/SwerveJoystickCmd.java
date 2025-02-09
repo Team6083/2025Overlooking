@@ -52,14 +52,11 @@ public class SwerveJoystickCmd extends Command {
       ySpeed = 0;
     }
     if (Math.abs(mainController.getRightX()) > 0.1) {
-      rotSpeed = rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * :A;
+      rotSpeed = rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * 1.2;
     } else {
       rotSpeed = 0;
     }
     swerveDrive.drive(xSpeed, ySpeed, rotSpeed, DriveBaseConstants.kFieldRelative);
-    SmartDashboard.putNumber("xSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("rot", rotSpeed);
   }
 
   // Called once the command ends or is interrupted.
