@@ -26,8 +26,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
   private Distance targetHeight;
-  private Distance truthHeight;
-
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(0);
     elevatorMotor.setInverted(true);
@@ -39,7 +37,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
-    truthHeight = targetHeight.plus(ElevatorConstant.kStartedOffest);
+
   }
 
   public void moveToHeight(Distance newTargetHeight) {
@@ -49,9 +47,11 @@ public class ElevatorSubsystem extends SubsystemBase {
       newTargetHeight = ElevatorConstant.kLowestHeight;
     }
     targetHeight = newTargetHeight;
-    truthHeight = newTargetHeight.plus(ElevatorConstant.kStartedOffest);
-
   }
+  public Distance truthHeigh(){
+    return targetHeight.plus(ElevatorConstant.kStartedOffest);
+  }
+
 
   public void moveUp() {
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
