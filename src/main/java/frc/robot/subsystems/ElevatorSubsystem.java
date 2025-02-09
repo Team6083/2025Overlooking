@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Centimeters;
 import static edu.wpi.first.units.Units.Millimeters;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -23,8 +22,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_VictorSPX elevatorMotor;
   private final Encoder encoder;
   private final PIDController elevatorPID;
-  // private final DigitalInput limitSwitchUp;
-  // private final DigitalInput limitSwitchDown;
+  private final DigitalInput limitSwitchUp;
+  private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
   private Distance targetHeight;
   private Distance truthHeight;
@@ -34,8 +33,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder = new Encoder(0, 1);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    // limitSwitchUp = new DigitalInput(0);
-    // limitSwitchDown = new DigitalInput(1);
+    limitSwitchUp = new DigitalInput(0);
+    limitSwitchDown = new DigitalInput(1);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
@@ -127,13 +126,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     double output = elevatorPID.calculate(currentHeight.in(Millimeters));
     output = MathUtil.clamp(output, -1.0, 1.0);
 
-    // if ((targetHeight.gt(currentHeight) && !limitSwitchUp.get()) 
-    //     || (targetHeight.lt(currentHeight) && !limitSwitchDown.get())) {
-    //   elevatorMotor.set(ControlMode.PercentOutput, output);
-    // } else {
-    //   stopMove();
-    // }
-    //V1沒有limitSwitch 所以先暫時註解
+    if ((output>=0 && !limitSwitchUp.get())
+        || ((output<=0 && !limitSwitchDown.get()))) {
+      elevatorMotor.set(ControlMode.PercentOutput, output );
+    } else {
+      stopMove();
+    }
+    //V1沒有limitSwitch 但不影響
   }
 }
 
