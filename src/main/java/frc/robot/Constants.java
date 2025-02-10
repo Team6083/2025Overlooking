@@ -2,6 +2,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 
@@ -146,7 +147,6 @@ public class Constants {
     // 變速的放大倍率
     public static final double kMagnification = 2;
     public static final double kHighMagnification = 2;
-    public static final double kDefaultMagnification = 0.5;
 
     // fieldRelative
     // Field - true / Robot - false
