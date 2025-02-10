@@ -104,6 +104,10 @@ public class SwerveDrive extends SubsystemBase {
     resetPose2dAndEncoder();
 
     field2d = new Field2d();
+
+    SwerveAdvantageScope swerveAdvantageScope = new SwerveAdvantageScope();
+    swerveAdvantageScope.setSwerveDrive(this);
+    swerveAdvantageScope.setField2d(field2d);
   }
 
   /**
