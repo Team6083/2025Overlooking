@@ -35,22 +35,17 @@ public class SwerveDrive extends SubsystemBase {
   private final StructArrayPublisher<SwerveModuleState> publisher;
 
   public SwerveDrive() {
-
-    Translation2d frontLeftLocation;
-    Translation2d frontRightLocation;
-    Translation2d backLeftLocation;
-    Translation2d backRightLocation;
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
-    frontLeftLocation = new Translation2d(
+    Translation2d frontLeftLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2),
         DriveBaseConstant.kRobotWidth.div(2));
-    frontRightLocation = new Translation2d(
+    Translation2d frontRightLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2),
         DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
-    backLeftLocation = new Translation2d(
+    Translation2d backLeftLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
         DriveBaseConstant.kRobotWidth.div(2));
-    backRightLocation = new Translation2d(
+    Translation2d backRightLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
         DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
 
@@ -116,8 +111,8 @@ public class SwerveDrive extends SubsystemBase {
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param yspeed        Speed of the robot in the y direction (forward).
-   * @param xspeed        Speed of the robot in the x direction (sideways).
+   * @param ySpeed        Speed of the robot in the y direction (forward).
+   * @param xSpeed        Speed of the robot in the x direction (sideways).
    * @param rot           Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
