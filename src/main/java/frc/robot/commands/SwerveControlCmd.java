@@ -33,7 +33,7 @@ public class SwerveControlCmd extends Command {
 
   // max magnification is 2.0
   private final double magnification = SwerveControlConstant.kMagnification;
-  private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed
+  private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double MinJoystickInput = SwerveControlConstant.kMinJoystickInput;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
