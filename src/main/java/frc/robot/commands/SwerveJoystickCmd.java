@@ -17,15 +17,17 @@ public class SwerveJoystickCmd extends Command {
   /** Creates a new SwerveJoystickCmd. */
   private final SwerveDrive swerveDrive;
   private final CommandXboxController mainController;
+  // CHECKSTYLE.OFF: MemberName
   private final SlewRateLimiter xLimiter;
   private final SlewRateLimiter yLimiter;
+  // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
   private final double drivebaseMaxSpeed = DriveBaseConstants.kMaxSpeed.in(MetersPerSecond);
   // CHECKSTYLE.OFF: MemberName
   private double xSpeed;
   private double ySpeed;
-  private double rotSpeed;
   // CHECKSTYLE.ON: MemberName
+  private double rotSpeed;
   private double magnification;
 
   public SwerveJoystickCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
