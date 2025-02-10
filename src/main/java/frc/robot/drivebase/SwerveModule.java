@@ -23,8 +23,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveBaseConstants;
-import frc.robot.Constants.ModuleConstants;
+import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.Constants.ModuleConstant;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -54,9 +54,9 @@ public class SwerveModule extends SubsystemBase {
     driveEncoder = driveMotor.getEncoder();
 
     rotController = new PIDController(
-        ModuleConstants.kPRotationController,
-        ModuleConstants.kIRotationController,
-        ModuleConstants.kDRotationController);
+        ModuleConstant.kPRotationController,
+        ModuleConstant.kIRotationController,
+        ModuleConstant.kDRotationController);
     rotController.enableContinuousInput(-180.0, 180.0);
 
     driveMotorVoltage = 0;
@@ -67,8 +67,8 @@ public class SwerveModule extends SubsystemBase {
     SparkMaxConfig configDriveMotor = new SparkMaxConfig();
     configDriveMotor.idleMode(IdleMode.kBrake);
     configDriveMotor.smartCurrentLimit(10, 80);
-    configDriveMotor.closedLoopRampRate(ModuleConstants.kDriveClosedLoopRampRate);
-    configDriveMotor.voltageCompensation(ModuleConstants.kMaxModuleDriveVoltage);
+    configDriveMotor.closedLoopRampRate(ModuleConstant.kDriveClosedLoopRampRate);
+    configDriveMotor.voltageCompensation(ModuleConstant.kMaxModuleDriveVoltage);
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
     configDriveMotor.signals.primaryEncoderVelocityPeriodMs(20);
     configDriveMotor.inverted(driveInverted);
@@ -77,9 +77,9 @@ public class SwerveModule extends SubsystemBase {
 
     SparkBaseConfig configTurningMotor = new SparkMaxConfig();
     configTurningMotor.smartCurrentLimit(20);
-    configTurningMotor.closedLoopRampRate(ModuleConstants.kTurningClosedLoopRampRate);
+    configTurningMotor.closedLoopRampRate(ModuleConstant.kTurningClosedLoopRampRate);
     configTurningMotor.idleMode(IdleMode.kBrake);
-    configTurningMotor.voltageCompensation(ModuleConstants.kMaxModuleTurningVoltage);
+    configTurningMotor.voltageCompensation(ModuleConstant.kMaxModuleTurningVoltage);
     configTurningMotor.inverted(turningInverted);
     turningMotor.configure(
         configTurningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -104,14 +104,14 @@ public class SwerveModule extends SubsystemBase {
   // to get the drive distance
   public double getDriveDistance() {
     return (driveEncoder.getPosition() / 6.75)
-        * (2.0 * Math.PI * ModuleConstants.kWheelRadius.in(Meters));
+        * (2.0 * Math.PI * ModuleConstant.kWheelRadius.in(Meters));
 
   }
 
   // calculate the rate of the drive
   public double getDriveRate() {
     return driveEncoder.getVelocity() * 1 / 60.0 / 6.75 * 2.0 * Math.PI
-        * ModuleConstants.kWheelRadius.in(Meters);
+        * ModuleConstant.kWheelRadius.in(Meters);
   }
 
   // to get rotation of turning motor
@@ -132,21 +132,16 @@ public class SwerveModule extends SubsystemBase {
         goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(currentRotation2d);
     driveMotorVoltage = desiredState.speedMetersPerSecond
-        * ModuleConstants.kDesireSpeedToMotorVoltage;
+        * ModuleConstant.kDesireSpeedToMotorVoltage;
     turningMotorVoltage = rotController.calculate(
         currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
   }
 
   public void setDesiredState(SwerveModuleState desiredState) {
-    // CHECKSTYLE.SUPPRESS: LineLength
-    if (Math.abs(desiredState.speedMetersPerSecond) < DriveBaseConstants.kMinSpeed.in(MetersPerSecond)) {
-      stopModule();
-    } else {
-      var moduleState = optimizeOutputVoltage(desiredState, getRotation2d());
-      driveMotor.setVoltage(moduleState[0]);
-      turningMotor.setVoltage(moduleState[1]);
-    }
+    var moduleState = optimizeOutputVoltage(desiredState, getRotation2d());
+    driveMotor.setVoltage(moduleState[0]);
+    turningMotor.setVoltage(moduleState[1]);
   }
 
   public void setTurningDegree(double degree) {

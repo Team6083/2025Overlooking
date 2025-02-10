@@ -4,61 +4,74 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.DriveBaseConstants;
+import frc.robot.Constants.SwerveControlConstant;
 import frc.robot.drivebase.SwerveDrive;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveJoystickCmd extends Command {
+public class SwerveControlCmd extends Command {
   /** Creates a new SwerveJoystickCmd. */
   private final SwerveDrive swerveDrive;
   private final CommandXboxController mainController;
+
   // CHECKSTYLE.OFF: MemberName
   private final SlewRateLimiter xLimiter;
   private final SlewRateLimiter yLimiter;
   // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
-  private final double drivebaseMaxSpeed = DriveBaseConstants.kMaxSpeed.in(MetersPerSecond);
+
   // CHECKSTYLE.OFF: MemberName
   private double xSpeed;
   private double ySpeed;
   // CHECKSTYLE.ON: MemberName
   private double rotSpeed;
-  private double magnification;
 
-  public SwerveJoystickCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
+  // max magnification is 2.0
+  private final double magnification = SwerveControlConstant.kMagnification;
+  private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed
+  private final double MinJoystickInput = SwerveControlConstant.kMinJoystickInput;
+
+  public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
-    xLimiter = new SlewRateLimiter(DriveBaseConstants.kXLimiterRateLimit);
-    yLimiter = new SlewRateLimiter(DriveBaseConstants.kYLimiterRateLimit);
-    rotLimiter = new SlewRateLimiter(DriveBaseConstants.kRotLimiterRateLimit);
+    xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
+    yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
+    rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
     addRequirements(this.swerveDrive);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    magnification = DriveBaseConstants.kMagnification;
-    if (Math.abs(mainController.getLeftY()) > 0.1) {
-      xSpeed = -xLimiter.calculate(mainController.getLeftY()) * drivebaseMaxSpeed * magnification;
+    if (Math.abs(mainController.getLeftY()) > MinJoystickInput) {
+      xSpeed = -xLimiter.calculate(mainController.getLeftY())
+          * drivebaseMaxSpeed * magnification;
+
     } else {
       xSpeed = 0;
     }
-    if (Math.abs(mainController.getLeftX()) > 0.1) {
-      ySpeed = -yLimiter.calculate(mainController.getLeftX()) * drivebaseMaxSpeed * magnification;
+    if (Math.abs(mainController.getLeftX()) > MinJoystickInput) {
+      ySpeed = -yLimiter.calculate(mainController.getLeftX())
+          * drivebaseMaxSpeed * magnification;
+
     } else {
       ySpeed = 0;
     }
-    if (Math.abs(mainController.getRightX()) > 0.1) {
-      rotSpeed = rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * 1.2;
+    if (Math.abs(mainController.getRightX()) > MinJoystickInput) {
+      rotSpeed = rotLimiter.calculate(mainController.getRightX())
+          * drivebaseMaxSpeed * 1.2;
+
     } else {
       rotSpeed = 0;
     }
-    swerveDrive.drive(xSpeed, ySpeed, rotSpeed, DriveBaseConstants.kFieldRelative);
+
+    swerveDrive.drive(
+        xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
   }
 
   // Called once the command ends or is interrupted.

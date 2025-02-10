@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveBaseConstants;
+import frc.robot.Constants.DriveBaseConstant;
 
 public class SwerveDrive extends SubsystemBase {
   public final SwerveModule frontLeft;
@@ -42,47 +42,47 @@ public class SwerveDrive extends SubsystemBase {
     Translation2d backRightLocation;
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
     frontLeftLocation = new Translation2d(
-        DriveBaseConstants.kRobotLength.div(2),
-        DriveBaseConstants.kRobotWidth.div(2));
+        DriveBaseConstant.kRobotLength.div(2),
+        DriveBaseConstant.kRobotWidth.div(2));
     frontRightLocation = new Translation2d(
-        DriveBaseConstants.kRobotLength.div(2),
-        DriveBaseConstants.kRobotWidth.div(2).unaryMinus());
+        DriveBaseConstant.kRobotLength.div(2),
+        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
     backLeftLocation = new Translation2d(
-        DriveBaseConstants.kRobotLength.div(2).unaryMinus(),
-        DriveBaseConstants.kRobotWidth.div(2));
+        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstant.kRobotWidth.div(2));
     backRightLocation = new Translation2d(
-        DriveBaseConstants.kRobotLength.div(2).unaryMinus(),
-        DriveBaseConstants.kRobotWidth.div(2).unaryMinus());
+        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
 
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(
-        DriveBaseConstants.kFrontLeftDriveMotorChannel,
-        DriveBaseConstants.kFrontLeftTurningMotorChannel,
-        DriveBaseConstants.kFrontLeftCanCoder,
-        DriveBaseConstants.kFrontLeftDriveMotorInverted,
-        DriveBaseConstants.kFrontLeftTurningMotorInverted,
-        DriveBaseConstants.kFrontLeftCanCoderMagOffset, "frontLeft");
+        DriveBaseConstant.kFrontLeftDriveMotorChannel,
+        DriveBaseConstant.kFrontLeftTurningMotorChannel,
+        DriveBaseConstant.kFrontLeftCanCoder,
+        DriveBaseConstant.kFrontLeftDriveMotorInverted,
+        DriveBaseConstant.kFrontLeftTurningMotorInverted,
+        DriveBaseConstant.kFrontLeftCanCoderMagOffset, "frontLeft");
     frontRight = new SwerveModule(
-        DriveBaseConstants.kFrontRightDriveMotorChannel,
-        DriveBaseConstants.kFrontRightTurningMotorChannel,
-        DriveBaseConstants.kFrontRightCanCoder,
-        DriveBaseConstants.kFrontRightDriveMotorInverted,
-        DriveBaseConstants.kFrontRightTurningMotorInverted,
-        DriveBaseConstants.kFrontRightCanCoderMagOffset, "frontRight");
+        DriveBaseConstant.kFrontRightDriveMotorChannel,
+        DriveBaseConstant.kFrontRightTurningMotorChannel,
+        DriveBaseConstant.kFrontRightCanCoder,
+        DriveBaseConstant.kFrontRightDriveMotorInverted,
+        DriveBaseConstant.kFrontRightTurningMotorInverted,
+        DriveBaseConstant.kFrontRightCanCoderMagOffset, "frontRight");
     backLeft = new SwerveModule(
-        DriveBaseConstants.kBackLeftDriveMotorChannel,
-        DriveBaseConstants.kBackLeftTurningMotorChannel,
-        DriveBaseConstants.kBackLeftCanCoder,
-        DriveBaseConstants.kBackLeftDriveMotorInverted,
-        DriveBaseConstants.kBackLeftTuringMotorInverted,
-        DriveBaseConstants.kBackLeftCanCoderMagOffset, "backLeft");
+        DriveBaseConstant.kBackLeftDriveMotorChannel,
+        DriveBaseConstant.kBackLeftTurningMotorChannel,
+        DriveBaseConstant.kBackLeftCanCoder,
+        DriveBaseConstant.kBackLeftDriveMotorInverted,
+        DriveBaseConstant.kBackLeftTuringMotorInverted,
+        DriveBaseConstant.kBackLeftCanCoderMagOffset, "backLeft");
     backRight = new SwerveModule(
-        DriveBaseConstants.kBackRightDriveMotorChannel,
-        DriveBaseConstants.kBackRightTurningMotorChannel,
-        DriveBaseConstants.kBackRightCanCoder,
-        DriveBaseConstants.kBackRightDriveMotorInverted,
-        DriveBaseConstants.kBackRightTurningMotorInverted,
-        DriveBaseConstants.kBackRightCanCoderMagOffset, "backRight");
+        DriveBaseConstant.kBackRightDriveMotorChannel,
+        DriveBaseConstant.kBackRightTurningMotorChannel,
+        DriveBaseConstant.kBackRightCanCoder,
+        DriveBaseConstant.kBackRightDriveMotorInverted,
+        DriveBaseConstant.kBackRightTurningMotorInverted,
+        DriveBaseConstant.kBackRightCanCoderMagOffset, "backRight");
 
     SmartDashboard.putData("frontLeft", frontLeft);
     SmartDashboard.putData("frontRight", frontRight);
@@ -133,7 +133,7 @@ public class SwerveDrive extends SubsystemBase {
                 gyro.getRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(
-        swerveModuleStates, DriveBaseConstants.kMaxSpeed);
+        swerveModuleStates, DriveBaseConstant.kMaxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
     frontRight.setDesiredState(swerveModuleStates[1]);
     backLeft.setDesiredState(swerveModuleStates[2]);
@@ -185,8 +185,8 @@ public class SwerveDrive extends SubsystemBase {
 
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
-    return Rotation2d.fromDegrees(DriveBaseConstants.kGyroOffSet
-        + ((DriveBaseConstants.kGyroInverted)
+    return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
+        + ((DriveBaseConstant.kGyroInverted)
             ? (360.0 - gyro.getRotation2d().getDegrees())
             : gyro.getRotation2d().getDegrees()));
   }

@@ -54,7 +54,7 @@ public class Constants {
     public static final double kRampMotorMaxCurrent = 40;
   }
 
-  public static final class ModuleConstants {
+  public static final class ModuleConstant {
     // 定義輪子的半徑，單位是公尺
     public static final Distance kWheelRadius = Meters.of(0.064);
     public static final Distance kWheelGearRate = Meters.of(1);
@@ -69,7 +69,7 @@ public class Constants {
 
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
-        / DriveBaseConstants.kMaxSpeed.in(MetersPerSecond);
+        / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
 
     // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
     public static final double kMaxSpeedTurningDegree = 180.0;
@@ -77,14 +77,14 @@ public class Constants {
     // 設定 rotPID 的參數
     public static final double kPRotationController = kMaxModuleTurningVoltage
         / kMaxSpeedTurningDegree;
-        
+
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.0;
 
     public static final boolean kTurningMotorInverted = true;
   }
 
-  public static final class DriveBaseConstants {
+  public static final class DriveBaseConstant {
     // driveMotor channel
     public static final int kFrontLeftDriveMotorChannel = 19;
     public static final int kFrontRightDriveMotorChannel = 11;
@@ -135,22 +135,24 @@ public class Constants {
 
     // 最大轉速需要實際測試看看
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
+  }
 
-    // 設定最小轉速，以避免 Gamepad 胡亂輸送訊號以至於機器人不受控制
-    public static final LinearVelocity kMinSpeed = MetersPerSecond.of(0.2);
-
-    // make the input from Gamepad more smooth
-    public static final double kXLimiterRateLimit = 5.0;
-    public static final double kYLimiterRateLimit = 5.0;
-    public static final double kRotLimiterRateLimit = 5.0;
+  public static final class SwerveControlConstant {
 
     // 變速的放大倍率
     public static final double kMagnification = 2;
     public static final double kHighMagnification = 2;
 
+    public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+    public static final double kMinJoystickInput = 0.1;
+
+    public static final double kXLimiterRateLimit = 5.0;
+    public static final double kYLimiterRateLimit = 5.0;
+    public static final double kRotLimiterRateLimit = 5.0;
+
     // fieldRelative
     // Field - true / Robot - false
-    public static final boolean kFieldRelative = true;
+    public static final Boolean kFieldRelative = true;
   }
 
 }
