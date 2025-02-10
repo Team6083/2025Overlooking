@@ -139,7 +139,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setDesiredState(SwerveModuleState desiredState) {
-    //CHECKSTYLE.SUPPRESS\:LineLength
+    //CHECKSTYLE.SUPPRESS\: LineLength
     if (Math.abs(desiredState.speedMetersPerSecond) < DriveBaseConstants.kMinSpeed.in(MetersPerSecond)) {
       stopModule();
     } else {
