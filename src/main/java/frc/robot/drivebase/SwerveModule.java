@@ -103,8 +103,8 @@ public class SwerveModule extends SubsystemBase {
 
   // to get the drive distance
   public double getDriveDistance() {
-    return (driveEncoder.getPosition() / 6.75) *
-        (2.0 * Math.PI * ModuleConstants.kWheelRadius.in(Meters));
+    return (driveEncoder.getPosition() / 6.75)
+        * (2.0 * Math.PI * ModuleConstants.kWheelRadius.in(Meters));
 
   }
 
