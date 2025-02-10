@@ -34,7 +34,7 @@ public class SwerveControlCmd extends Command {
   // max magnification is 2.0
   private final double magnification = SwerveControlConstant.kMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
-  private final double MinJoystickInput = SwerveControlConstant.kMinJoystickInput;
+  private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
     this.swerveDrive = swerveDrive;
@@ -48,21 +48,21 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(mainController.getLeftY()) > MinJoystickInput) {
+    if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
           * drivebaseMaxSpeed * magnification;
 
     } else {
       xSpeed = 0;
     }
-    if (Math.abs(mainController.getLeftX()) > MinJoystickInput) {
+    if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
       ySpeed = -yLimiter.calculate(mainController.getLeftX())
           * drivebaseMaxSpeed * magnification;
 
     } else {
       ySpeed = 0;
     }
-    if (Math.abs(mainController.getRightX()) > MinJoystickInput) {
+    if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = rotLimiter.calculate(mainController.getRightX())
           * drivebaseMaxSpeed * 1.2;
 
