@@ -21,11 +21,11 @@ public class SwerveJoystickCmd extends Command {
   private final SlewRateLimiter yLimiter;
   private final SlewRateLimiter rotLimiter;
   private final double drivebaseMaxSpeed = DriveBaseConstants.kMaxSpeed.in(MetersPerSecond);
-  // CHECKSTYLE.OFF:: MemberName
+  // CHECKSTYLE.OFF: MemberName
   private double xSpeed;
   private double ySpeed;
   private double rotSpeed;
-  // CHECKSTYLE.ON:: MemberName
+  // CHECKSTYLE.ON: MemberName
   private double magnification;
 
   public SwerveJoystickCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
