@@ -120,6 +120,7 @@ public class SwerveDrive extends SubsystemBase {
    *                      using the wpi function to set the speed of the swerve
    */
 
+  // CHECKSTYLE.OFF: MemberName
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     swerveModuleStates = kinematics.toSwerveModuleStates(
         fieldRelative
@@ -127,6 +128,7 @@ public class SwerveDrive extends SubsystemBase {
                 xSpeed, ySpeed, rot,
                 gyro.getRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
+    // CHECKSTYLE.ON: MemberName
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveBaseConstant.kMaxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
