@@ -1,5 +1,7 @@
 package frc.robot.drivebase;
 
+import java.util.concurrent.Flow.Publisher;
+
 import com.studica.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -9,6 +11,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +33,8 @@ public class SwerveDrive extends SubsystemBase {
   private final Field2d field2d;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
+
+  private final StructArrayPublisher<SwerveModuleState> publisher;
 
   public SwerveDrive() {
 
@@ -105,9 +111,8 @@ public class SwerveDrive extends SubsystemBase {
 
     field2d = new Field2d();
 
-    SwerveAdvantageScope swerveAdvantageScope = new SwerveAdvantageScope();
-    swerveAdvantageScope.setSwerveDrive(this);
-    swerveAdvantageScope.setField2d(field2d);
+    publisher = NetworkTableInstance.getDefault()
+        .getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
   }
 
   /**
@@ -154,15 +159,15 @@ public class SwerveDrive extends SubsystemBase {
   // 重設機器人的位置與角度
   public void resetPose() {
     odometry.resetPosition(
-        gyro.getRotation2d(), 
-        getSwerveModulePosition(), 
+        gyro.getRotation2d(),
+        getSwerveModulePosition(),
         new Pose2d(0, 0, new Rotation2d(0)));
   }
 
   // 更新機器人的場地相對位置
   public void updateOdometry() {
     odometry.update(
-        gyro.getRotation2d(), 
+        gyro.getRotation2d(),
         getSwerveModulePosition());
   }
 
@@ -206,6 +211,7 @@ public class SwerveDrive extends SubsystemBase {
   public void periodic() {
     updateOdometry();
     field2d.setRobotPose(getPose2d());
+    publisher.set(swerveModuleStates);
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
