@@ -1,12 +1,9 @@
 package frc.robot;
 
-import static edu.wpi.first.units.Units.Kilogram;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
-
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
-import edu.wpi.first.units.measure.Mass;
 
 public class Constants {
 
@@ -79,7 +76,7 @@ public class Constants {
     // 設定 rotPID 的參數
     public static final double kPRotationController = kMaxModuleTurningVoltage
         / kMaxSpeedTurningDegree;
-    // public static final double kPRotationController = 0.01;
+        
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.0;
 
@@ -135,42 +132,16 @@ public class Constants {
     public static final Distance kRobotDiagonal = Meters.of(
         Math.sqrt(Math.pow(kRobotLength.in(Meters), 2.0) + Math.pow(kRobotWidth.in(Meters), 2.0)));
 
-    // 機器人的重量 (還沒測)
-    public static final Mass kRobotMass = Kilogram.of(45);
-
-    // 機器人兩排輪子間的寬度，以公尺為單位(還沒測)
-    public static final Distance kTrackWidth = Meters.of(0.5);
-
-    // 機器人的輪子半徑，以公尺為單位
-    public static final Distance kWheelRadius = Meters.of(0.1);
-
     // 最大轉速需要實際測試看看
-    public static final LinearVelocity kMaxSpeed =  MetersPerSecond.of(4.0); 
+    public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
 
     // 設定最小轉速，以避免 Gamepad 胡亂輸送訊號以至於機器人不受控制
     public static final LinearVelocity kMinSpeed = MetersPerSecond.of(0.2);
-
-    // 機器人的轉動慣量，單位為 KG*M^2 (這個不知道)
-    public static final double kRobotMomentOfInertia = 6;
-
-    // 輪子和地毯之間的摩擦係數
-    public static final double kWheelCOF = 1.0;
-
-    // 驅動馬達的電流限制，以安培為單位
-    public static final double kDriveCurrentLimit = 12.0;
-
-    // 每個模組的馬達數量
-    public static final int kNumMotors = 2;
 
     // make the input from Gamepad more smooth
     public static final double kXLimiterRateLimit = 5.0;
     public static final double kYLimiterRateLimit = 5.0;
     public static final double kRotLimiterRateLimit = 5.0;
-
-    // Tracking PID
-    public static final double kTrackingP = 0.08;
-    public static final double kTrackingI = 0.0;
-    public static final double kTrackingD = 0.0;
 
     // 變速的放大倍率
     public static final double kMagnification = 2;
