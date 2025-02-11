@@ -116,10 +116,10 @@ public class Constants {
     public static final int kBackRightCanCoder = 2;
 
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = -0.029296984375;
-    public static final double kFrontRightCanCoderMagOffset = -0.413818078125;
-    public static final double kBackLeftCanCoderMagOffset =0.177001734375;
-    public static final double kBackRightCanCoderMagOffset = 0.143310078125;
+    public static final double kFrontLeftCanCoderMagOffset = 0.020752;
+    public static final double kFrontRightCanCoderMagOffset = 0.085205;
+    public static final double kBackLeftCanCoderMagOffset = 0.165771;
+    public static final double kBackRightCanCoderMagOffset = 0.127930;
 
     public static final int kGyroChannel = 30;
 
