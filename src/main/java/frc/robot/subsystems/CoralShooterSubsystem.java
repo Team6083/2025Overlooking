@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.DistanceSensorInterface;
+import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
 
   private VictorSP coralShooterMotor;
   private DistanceSensorInterface distanceSensor;
+  private PowerDistribution powerDistribution;
 
-  public CoralShooterSubsystem() {
+  public CoralShooterSubsystem(PowerDistribution powerDistribution) {
+    this.powerDistribution = powerDistribution;
     coralShooterMotor = new VictorSP(CoralShooterConstant.kShooterMotorChannel);
     distanceSensor = new DistanceSensor(Port.kOnboard);
     coralShooterMotor.setInverted(CoralShooterConstant.kcoralShooterMotorInverted);
@@ -29,6 +32,10 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void coralShooterOn() { // 正轉
+    if(powerDistribution.isCoralShooterOverCurrent()){
+      coralShooterMotor.setVoltage(0);
+      return;
+    }
     setMotorVoltage(CoralShooterConstant.kShooterMotorSpeed);
   }
 
