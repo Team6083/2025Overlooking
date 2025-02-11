@@ -26,14 +26,15 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final DigitalInput limitSwitchDown;
   private boolean isButtonControl = false;
   private Distance targetHeight;
+
   public ElevatorSubsystem() {
-    elevatorMotor = new WPI_VictorSPX(0);
+    elevatorMotor = new WPI_VictorSPX(3);
     elevatorMotor.setInverted(true);
-    encoder = new Encoder(0, 1);
+    encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    limitSwitchUp = new DigitalInput(0);
-    limitSwitchDown = new DigitalInput(1);
+    limitSwitchUp = new DigitalInput(9);
+    limitSwitchDown = new DigitalInput(8);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
@@ -48,10 +49,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     targetHeight = newTargetHeight;
   }
-  public Distance truthHeigh(){
+
+  public Distance truthHeigh() {
     return targetHeight.plus(ElevatorConstant.kStartedOffest);
   }
-
 
   public void moveUp() {
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
@@ -110,8 +111,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     Command cmd = run(this::moveDown);
     return cmd;
   }
+  public Command stopMoveCmd(){
+    Command cmd = run(this::stopMove);
+    return cmd;
+  }
 
-  public void setButtonControl(boolean controlMode) { // 切換搖桿控制或按鈕控制
+  public void setButtonControl(boolean controlMode) {
     this.isButtonControl = controlMode;
   }
 
@@ -133,6 +138,5 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       stopMove();
     }
-    // V1沒有limitSwitch 但不影響
   }
 }
