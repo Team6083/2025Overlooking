@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstant;
 
 public class SwerveDrive extends SubsystemBase {
+  
   public final SwerveModule frontLeft;
   public final SwerveModule frontRight;
   public final SwerveModule backLeft;
@@ -31,7 +33,14 @@ public class SwerveDrive extends SubsystemBase {
   private final Field2d field2d;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
+  
+  Pose2d poseA = new Pose2d();
+Pose2d poseB = new Pose2d();
 
+
+  
+StructArrayPublisher<Pose2d> arrayPublisher = NetworkTableInstance.getDefault()
+.getStructArrayTopic("MyPoseArray", Pose2d.struct).publish();
   private final StructArrayPublisher<SwerveModuleState> publisher;
 
   public SwerveDrive() {
@@ -139,6 +148,8 @@ public class SwerveDrive extends SubsystemBase {
 
   // 取得當前機器人在場地上的位置與角度
   public Pose2d getPose2d() {
+    
+    
     return odometry.getPoseMeters();
   }
 
@@ -202,17 +213,22 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
+
   @Override
   public void periodic() {
+    poseB = getPose2d();
+    arrayPublisher.set(new Pose2d[] {poseA, poseB});
     updateOdometry();
     field2d.setRobotPose(getPose2d());
-    publisher.set(swerveModuleStates);
+    publisher.set(swerveModuleStates);  
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
-  }
+  
+}
+  
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
