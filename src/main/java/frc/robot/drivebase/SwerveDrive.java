@@ -31,8 +31,13 @@ public class SwerveDrive extends SubsystemBase {
   private final Field2d field2d;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
+  private final StructArrayPublisher<SwerveModuleState> publisher = NetworkTableInstance
+  .getDefault().getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
 
-  private final StructArrayPublisher<SwerveModuleState> publisher;
+  private final Pose2d poseA = new Pose2d();
+  private Pose2d poseB = new Pose2d();
+  private final StructArrayPublisher<Pose2d> arrayPublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("MyPoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
@@ -103,9 +108,6 @@ public class SwerveDrive extends SubsystemBase {
     resetPose2dAndEncoder();
 
     field2d = new Field2d();
-
-    publisher = NetworkTableInstance.getDefault()
-        .getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
   }
 
   /**
@@ -204,6 +206,8 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
+    poseB = getPose2d();
+    arrayPublisher.set(new Pose2d[] { poseA, poseB });
     updateOdometry();
     field2d.setRobotPose(getPose2d());
     publisher.set(swerveModuleStates);
