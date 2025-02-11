@@ -1,5 +1,17 @@
 package frc.robot.drivebase;
 
+import java.io.IOException;
+import java.util.concurrent.Flow.Publisher;
+
+import org.json.simple.parser.ParseException;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 import com.studica.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -9,10 +21,14 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstants;
 
 
@@ -35,6 +51,7 @@ public class SwerveDrive extends SubsystemBase {
   private double magnification;
 
   private final Field2d field2d;
+  private final StructArrayPublisher <SwerveModuleState> publisher;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
 
@@ -94,13 +111,48 @@ public class SwerveDrive extends SubsystemBase {
         });
 
     field2d = new Field2d();
+    publisher = NetworkTableInstance.getDefault()
+    .getStructArrayTopic("MyStates",SwerveModuleState.struct).publish();
 
     // reset the gyro
     gyro.reset();
-
-    // set the swerve speed equal 0
+     // set the swerve speed equal 0
     drive(0, 0, 0, false);
+     RobotConfig config;
+    try{
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      // Handle exception as needed
+      e.printStackTrace();
+      return;
+    }
+     AutoBuilder.configure(
+        this::getPose2d, // Robot pose suppier
+        this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+        this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+        new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+            new PIDConstants(AutoConstants.kPTranslation, AutoConstants.kITranslation, AutoConstants.kDTranslation), // Translation
+                                                                                                                     // PID
+                                                                                                                     // constants
+            new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation) // Rotation
+                                                                                                            // PID
+        ),
+        config,
+        () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red
+          // alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
   }
+  
 
   /**
    * Method to drive the robot using joystick info.
@@ -113,7 +165,16 @@ public class SwerveDrive extends SubsystemBase {
    * 
    *                      using the wpi function to set the speed of the swerve
    */
-
+  public ChassisSpeeds getRobotRelativeSpeeds() {
+    return kinematics.toChassisSpeeds(
+        frontLeft.getState(),
+        frontRight.getState(),
+        backLeft.getState(),
+        backRight.getState());
+  }
+  public void driveRobotRelative(ChassisSpeeds speeds) {
+    drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
+  }
   public void drive(double xspeed, double yspeed, double rot, boolean fieldRelative) {
     swerveModuleStates = kinematics.toSwerveModuleStates(
         fieldRelative
@@ -172,6 +233,7 @@ public class SwerveDrive extends SubsystemBase {
   public void resetGyro() {
     gyro.reset();
   }
+  
 
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
@@ -209,6 +271,33 @@ public class SwerveDrive extends SubsystemBase {
     backLeft.resetTurningDegree();
     backRight.resetTurningDegree();
   }
+  public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
+    RobotConfig config;
+    config = RobotConfig.fromGUISettings();
+   
+    PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+    return new FollowPathCommand(
+            path,
+            this::getPose2d, 
+            this::getRobotRelativeSpeeds, 
+            (speeds, feedforwards) -> driveRobotRelative(speeds),
+            new PPHolonomicDriveController(
+                    new PIDConstants(5.0, 0.0, 0.0), 
+                    new PIDConstants(5.0, 0.0, 0.0)
+                     ),
+            config,
+            () -> {
+              
+
+              var alliance = DriverStation.getAlliance();
+              if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+              return false;
+            },
+            this 
+    );
+    }
 
   public void putDashboard() {
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());

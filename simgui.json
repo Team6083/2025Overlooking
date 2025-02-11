@@ -1,0 +1,21 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Alerts": "Alerts",
+      "/SmartDashboard/AutoChooser": "String Chooser",
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/backLeft": "Subsystem",
+      "/SmartDashboard/backLeft_rotController": "PIDController",
+      "/SmartDashboard/backRight": "Subsystem",
+      "/SmartDashboard/backRight_rotController": "PIDController",
+      "/SmartDashboard/frontLeft": "Subsystem",
+      "/SmartDashboard/frontLeft_rotController": "PIDController",
+      "/SmartDashboard/frontRight": "Subsystem",
+      "/SmartDashboard/frontRight_rotController": "PIDController"
+    }
+  },
+  "NetworkTables Info": {
+    "visible": true
+  }
+}

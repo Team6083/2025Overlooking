@@ -8,6 +8,16 @@ public class Constants {
     public static final Boolean kclimberMotorInverted = false;
     public static final Boolean kclimberEncoderInverted = true;
   }
+  public static final class AutoConstants {
+    public static final double kPTranslation = 0.08;
+    public static final double kITranslation = 0;
+    public static final double kDTranslation = 0;
+    public static final double kPRotation = 1;
+    public static final double kIRotation = 0;
+    public static final double kDRotation = 0;
+    public static final double kDrivebaseRadius = 0.3;
+
+  }
 
   public static final class CoralShooterConstant {
     public static final int kOnboard = 0;
@@ -110,10 +120,10 @@ public class Constants {
     public static final int kBackRightCanCoder = 2;
 
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = 0.020752;
-    public static final double kFrontRightCanCoderMagOffset = 0.085205;
-    public static final double kBackLeftCanCoderMagOffset = 0.165771;
-    public static final double kBackRightCanCoderMagOffset = 0.127930;
+    public static final double kFrontLeftCanCoderMagOffset = -0.02539071875;
+    public static final double kFrontRightCanCoderMagOffset =-0.410888984375;
+    public static final double kBackLeftCanCoderMagOffset = 0.169433734375;
+    public static final double kBackRightCanCoderMagOffset =0.1416015625;
 
     public static final int kGyroChannel = 30;
 
