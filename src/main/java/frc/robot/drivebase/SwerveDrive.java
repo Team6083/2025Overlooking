@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstant;
 
 public class SwerveDrive extends SubsystemBase {
-  public final SwerveModule frontLeft;
-  public final SwerveModule frontRight;
-  public final SwerveModule backLeft;
-  public final SwerveModule backRight;
+  private final SwerveModule frontLeft;
+  private final SwerveModule frontRight;
+  private final SwerveModule backLeft;
+  private final SwerveModule backRight;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
@@ -32,7 +32,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> publisher = NetworkTableInstance
-  .getDefault().getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
+      .getDefault().getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
 
   private final Pose2d poseA = new Pose2d();
   private Pose2d poseB = new Pose2d();
@@ -40,20 +40,6 @@ public class SwerveDrive extends SubsystemBase {
       .getDefault().getStructArrayTopic("MyPoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
-    // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
-    Translation2d frontLeftLocation = new Translation2d(
-        DriveBaseConstant.kRobotLength.div(2),
-        DriveBaseConstant.kRobotWidth.div(2));
-    Translation2d frontRightLocation = new Translation2d(
-        DriveBaseConstant.kRobotLength.div(2),
-        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
-    Translation2d backLeftLocation = new Translation2d(
-        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
-        DriveBaseConstant.kRobotWidth.div(2));
-    Translation2d backRightLocation = new Translation2d(
-        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
-        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
-
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
@@ -93,6 +79,20 @@ public class SwerveDrive extends SubsystemBase {
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
 
+    // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
+    Translation2d frontLeftLocation = new Translation2d(
+        DriveBaseConstant.kRobotLength.div(2),
+        DriveBaseConstant.kRobotWidth.div(2));
+    Translation2d frontRightLocation = new Translation2d(
+        DriveBaseConstant.kRobotLength.div(2),
+        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
+    Translation2d backLeftLocation = new Translation2d(
+        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstant.kRobotWidth.div(2));
+    Translation2d backRightLocation = new Translation2d(
+        DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
+        DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
+        
     // 定義 Kinematics 與 Odometry
     kinematics = new SwerveDriveKinematics(
         frontLeftLocation,
@@ -122,7 +122,7 @@ public class SwerveDrive extends SubsystemBase {
    *                      using the wpi function to set the speed of the swerve
    */
 
-  // CHECKSTYLE.OFF: MemberName
+  // CHECKSTYLE.OFF: ParameterNameCheck
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     swerveModuleStates = kinematics.toSwerveModuleStates(
         fieldRelative
@@ -130,7 +130,7 @@ public class SwerveDrive extends SubsystemBase {
                 xSpeed, ySpeed, rot,
                 gyro.getRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot));
-    // CHECKSTYLE.ON: MemberName
+    // CHECKSTYLE.On: ParameterNameCheck
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveBaseConstant.kMaxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
