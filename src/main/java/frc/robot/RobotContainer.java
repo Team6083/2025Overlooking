@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
@@ -20,10 +21,12 @@ public class RobotContainer {
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final SendableChooser<Command> autChooser;
+  private final PowerDistribution powerDistribution;
 
   public RobotContainer() {
+    powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem();
-    climberSubsystem = new ClimberSubsystem();
+    climberSubsystem = new ClimberSubsystem(powerDistribution);
     rampSubsystem = new RampSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     autChooser = AutoBuilder.buildAutoChooser();
