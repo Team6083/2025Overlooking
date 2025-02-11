@@ -5,8 +5,8 @@ public class Constants {
   public static final class ClimberConstant {
     public static final int kClimberSetpoint = 40;
     public static final double kClimbDownSpeed = -0.35;
-    public static final Boolean kclimberMotorInverted = false;
-    public static final Boolean kclimberEncoderInverted = true;
+    public static final Boolean kClimberMotorInverted = false;
+    public static final Boolean kClimberEncoderInverted = true;
   }
 
   public static final class CoralShooterConstant {
