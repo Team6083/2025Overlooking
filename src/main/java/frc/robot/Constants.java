@@ -12,7 +12,7 @@ public class Constants {
     public static final double kPTranslation = 0.08;
     public static final double kITranslation = 0;
     public static final double kDTranslation = 0;
-    public static final double kPRotation = 1;
+    public static final double kPRotation = 0.18;
     public static final double kIRotation = 0;
     public static final double kDRotation = 0;
     public static final double kDrivebaseRadius = 0.3;
@@ -120,11 +120,10 @@ public class Constants {
     public static final int kBackRightCanCoder = 2;
 
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = -0.02539071875;
-    public static final double kFrontRightCanCoderMagOffset =-0.410888984375;
-    public static final double kBackLeftCanCoderMagOffset = 0.169433734375;
-    public static final double kBackRightCanCoderMagOffset =0.1416015625;
-
+    public static final double kFrontLeftCanCoderMagOffset = -0.029296984375;
+    public static final double kFrontRightCanCoderMagOffset =-0.413818078125;
+    public static final double kBackLeftCanCoderMagOffset = 0.177001734375;
+    public static final double kBackRightCanCoderMagOffset =0.143310078125;
     public static final int kGyroChannel = 30;
 
     // whether gyro is under the robot
