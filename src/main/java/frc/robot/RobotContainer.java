@@ -12,13 +12,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.subsystems.AlgaeIntakeSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
 public class RobotContainer {
-  private final ClimberSubsystem climberSubsystem;
-  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
@@ -27,8 +23,6 @@ public class RobotContainer {
 
   public RobotContainer() {
     coralShooterSubsystem = new CoralShooterSubsystem();
-    climberSubsystem = new ClimberSubsystem();
-    algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
@@ -36,9 +30,6 @@ public class RobotContainer {
     autChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("AutoChooser", autChooser);
-    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
-    SmartDashboard.putData("ClimberSubsystem", climberSubsystem);
-
     configureBindings();
   }
 
