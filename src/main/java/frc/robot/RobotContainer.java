@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
 public class RobotContainer {
@@ -20,12 +21,15 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
+  private final PowerDistribution powerDistribution;
 
   public RobotContainer() {
-    coralShooterSubsystem = new CoralShooterSubsystem();
+    powerDistribution = new PowerDistribution();
+    coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+
     autChooser = AutoBuilder.buildAutoChooser();
     autChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
