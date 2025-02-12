@@ -7,7 +7,6 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.TagTrackingConstant;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -96,25 +95,6 @@ public class TagTracking {
     distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
     return distance;
     // CHECKSTYLE.ON: LocalVariableName
-  }
-
-  public double getHorizontalDistanceByCt() {
-    double horDis = Math.sqrt(
-        (Math.pow(getCt()[2] 
-        + TagTrackingConstant.kCamToRampDistance, 2.0) 
-        + Math.pow(getCt()[0], 2.0)));
-    SmartDashboard.putNumber("Robottotagdistance", horDis);
-    return horDis;
-  }
-
-  public double getHorDistanceByCal() {
-    double pitch = getTy();
-    double yaw = getTx();
-    double y = TagTrackingConstant.kCamHeight
-        * (1 / Math.tan(Math.toRadians(pitch + TagTrackingConstant.kCamPitch)));
-    double x = y * Math.tan(Math.toRadians(yaw));
-    double horDistance = Math.sqrt(Math.pow(y, 2.0) + Math.pow(x, 2.0));
-    return horDistance;
   }
 
   public Pose2d getTagPose2d() {
