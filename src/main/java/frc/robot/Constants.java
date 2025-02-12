@@ -36,7 +36,6 @@ public class Constants {
   public static final class ModuleConstant {
     // 定義輪子的半徑，單位是公尺
     public static final Distance kWheelRadius = Meters.of(0.064);
-    public static final Distance kWheelGearRate = Meters.of(1);
 
     // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
     public static final double kMaxModuleDriveVoltage = 12.0;
