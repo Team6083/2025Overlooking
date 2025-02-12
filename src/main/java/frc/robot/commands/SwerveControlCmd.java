@@ -39,11 +39,11 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // CHECKSTYLE.OFF: MemberName
+    // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
     double rotSpeed;
-    // CHECKSTYLE.ON: MemberName
+    // CHECKSTYLE.ON: LocalVariableName
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
