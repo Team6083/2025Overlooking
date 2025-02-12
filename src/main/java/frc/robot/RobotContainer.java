@@ -26,7 +26,7 @@ public class RobotContainer {
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
-    climberSubsystem = new ClimberSubsystem(powerDistribution);
+    climberSubsystem = new ClimberSubsystem();
     rampSubsystem = new RampSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     autChooser = AutoBuilder.buildAutoChooser();
