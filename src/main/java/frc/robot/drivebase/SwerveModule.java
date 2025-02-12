@@ -130,7 +130,6 @@ public class SwerveModule extends SubsystemBase {
 
   // CHECKSTYLE.OFF: LineLength
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
-    // CHECKSTYLE.ON: LineLength
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(currentRotation2d);
@@ -140,6 +139,7 @@ public class SwerveModule extends SubsystemBase {
         currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
   }
+  // CHECKSTYLE.ON: LineLength
 
   public void setDesiredState(SwerveModuleState desiredState) {
     var moduleState = optimizeOutputVoltage(desiredState, getRotation2d());
