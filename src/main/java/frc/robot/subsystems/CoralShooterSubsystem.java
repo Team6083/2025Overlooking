@@ -53,7 +53,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
       return;
     }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
-    }
   }
 
   public void coralShooterStop() { // Motor stop
