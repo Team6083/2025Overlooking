@@ -1,4 +1,4 @@
-package frc.robot.vision;
+package frc.robot.Vision;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -42,7 +42,8 @@ public class TagTracking {
    * Set desired limelight operation mode. 0 is vision processor. 1 is Driver
    * Camera (Increases exposure, disables vision processing)
    * 
-   * @param camMode set 0 plz
+   * @param CamMode set 0 plz
+   * 
    */
   public void setCamMode() {
     if (isCamOn) {
@@ -57,6 +58,7 @@ public class TagTracking {
    * blink. 3 is force on.
    * 
    * @param ledMode set 0 or 1 plz
+   * 
    */
   private void setLedMode(int ledMode) {
     table.getEntry("ledMode").setNumber(ledMode);
@@ -66,6 +68,7 @@ public class TagTracking {
    * Set desired limelight pipeline.
    * 
    * @param pipeline in this game let's set 0
+   * 
    */
   private void setPipeline(int pipeline) {
     table.getEntry("pipeline").setNumber(pipeline);
@@ -75,6 +78,7 @@ public class TagTracking {
    * Returns the x offset between the tag and crosshair.
    * 
    * @return x offset
+   * 
    */
   public double getTx() {
     tx = table.getEntry("tx").getDouble(0);
@@ -85,6 +89,7 @@ public class TagTracking {
    * Returns the y offset between the tag and crosshair.
    * 
    * @return y offset
+   * 
    */
   public double getTy() {
     ty = table.getEntry("ty").getDouble(0);
@@ -95,6 +100,7 @@ public class TagTracking {
    * Returns 1 if a tag is detected. 0 if none.
    * 
    * @return 0 or 1
+   * 
    */
   public double getTv() {
     tv = table.getEntry("tv").getDouble(0);
@@ -102,9 +108,10 @@ public class TagTracking {
   }
 
   /**
-   * Returns the fiducial tag's ID (double)
+   * Returns the fiducial tag's ID (double);
    * 
    * @return tag ID
+   * 
    */
   public double getTID() {
     id = table.getEntry("tid").getDouble(0);
