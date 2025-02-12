@@ -27,15 +27,10 @@ public class SwerveDrive extends SubsystemBase {
 
   private final AHRS gyro;
 
-
-
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
       .getDefault().getStructArrayTopic("States", SwerveModuleState.struct).publish();
 
-  private  Pose2d poseA;
-  private Pose2d poseB ;
-  private Rotation2d rotation2d;
   private final StructArrayPublisher<Pose2d> field2dPublisher = NetworkTableInstance
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
@@ -92,7 +87,7 @@ public class SwerveDrive extends SubsystemBase {
     Translation2d backRightLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
         DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
-        
+
     // 定義 Kinematics 與 Odometry
     kinematics = new SwerveDriveKinematics(
         frontLeftLocation,
@@ -106,10 +101,6 @@ public class SwerveDrive extends SubsystemBase {
         getSwerveModulePosition());
 
     resetPose2dAndEncoder();
-    double x = 0;
-    double y = 0;
-    poseA = new Pose2d(x,y,rotation2d);
-
   }
 
   /**
@@ -208,10 +199,13 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    poseA = getPose2d();
-    field2dPublisher.set(new Pose2d[] { poseA, poseB });
-    updateOdometry();
+    field2dPublisher.set(
+        new Pose2d[] { getPose2d(),
+            new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
+    
+    updateOdometry();
+
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
