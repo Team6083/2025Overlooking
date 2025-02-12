@@ -10,17 +10,15 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstant;
-import frc.robot.lib.PowerDistribution;
+
 
 public class ClimberSubsystem extends SubsystemBase {
   private final VictorSP climberMotor;
   private final PIDController climberPID;
   private final Encoder climberEncoder;
-  private final PowerDistribution powerDistribution;
 
   /** Creates a new ClimberSubsystem. */
-  public ClimberSubsystem(PowerDistribution powerDistribution) {
-    this.powerDistribution = powerDistribution;
+  public ClimberSubsystem() {
     climberMotor = new VictorSP(43);
     climberPID = new PIDController(0.08, 0, 0);
     climberEncoder = new Encoder(0, 0);
@@ -29,10 +27,6 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   private void climbUp() {
-    if (powerDistribution.isClimberOverCurrent()) {
-      climberMotor.set(0);
-      return;
-    }
     climberMotor.set(climberPID.calculate(climberEncoder.get()));
   }
 
@@ -41,10 +35,6 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   private void climbDown() {
-    if (powerDistribution.isClimberOverCurrent()) {
-      climberMotor.set(0);
-      return;
-    }
     climberMotor.set(ClimberConstant.kClimbDownSpeed);
   }
 
