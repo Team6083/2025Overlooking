@@ -26,7 +26,6 @@ public class TagTracking {
 
   public TagTracking() {
     table = NetworkTableInstance.getDefault().getTable("lyly");
-    setCamMode();
     setLedMode(0);
     setPipeline(0);
     try {
