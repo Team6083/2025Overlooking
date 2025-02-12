@@ -38,114 +38,59 @@ public class TagTracking {
     }
   }
 
-  /**
-   * Set desired limelight operation mode. 0 is vision processor. 1 is Driver
-   * Camera (Increases exposure, disables vision processing)
-   * @param setCamMode set 0 plz
-   * 
-   */
   public void setCamMode() {
     if (isCamOn) {
       table.getEntry("camMode").setNumber(0);
-    } else {
+     
+   *  else {
       table.getEntry("camMode").setNumber(1);
     }
   }
 
-  /**
-   * Set desired green light state. 0 is default. 1 is force off. 2 is force
-   * blink. 3 is force on.
-   * @param ledMode set 0 or 1 plz
-   * 
-   */
   private void setLedMode(int ledMode) {
     table.getEntry("ledMode").setNumber(ledMode);
   }
 
-  /**
-   * Set desired limelight pipeline.
-   * @param pipeline in this game let's set 0
-   * 
-   */
+ 
   private void setPipeline(int pipeline) {
     table.getEntry("pipeline").setNumber(pipeline);
   }
 
-  /**
-   * Returns the x offset between the tag and crosshair.
-   * @return x offset
+   
    * 
-   */
   public double getTx() {
     tx = table.getEntry("tx").getDouble(0);
     return tx;
   }
 
-  /**
-   * Returns the y offset between the tag and crosshair.
-   * @return y offset
-   * 
-   */
+  
   public double getTy() {
     ty = table.getEntry("ty").getDouble(0);
-    return ty;
+     
+   * eturn ty;
   }
 
-  /**
-   * Returns 1 if a tag is detected. 0 if none.
-   * 
-   * @return 0 or 1
-   * 
-   */
+ 
   public double getTv() {
     tv = table.getEntry("tv").getDouble(0);
     return tv;
   }
 
-  /**
-   * Returns the fiducial tag's ID (double);
+   
    * 
-   * @return tag ID
-   * 
-   */
   public double getTID() {
     id = table.getEntry("tid").getDouble(0);
     return id;
   }
 
-  /**
-   * Returns a double array of botpose in target space. The former 3 refers to
-   * translation, while the latter 3 refers to rotation (in the sequence of roll,
-   * pitch, yaw) In target space, (0,0,0) is the centre of the tag, x+ points to
-   * the right side (when you're facing the tag), y+ points down, z+ points to
-   * front.
-   * 
-   * @return x, y, z, roll, pitch, yaw
-   */
+  
   public double[] getBT() {
     bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
     return bt;
-  }
-
-  /**
-   * Returns a double array of campose in target space. The former 3 refers to
-   * translation, while the latter 3 refers to rotation (in the sequence of roll,
-   * pitch, yaw) In target space, (0,0,0) is the centre of the tag, x+ points to
-   * the right side (when you're facing the tag), y+ points down, z+ points to
-   * front.
+  } 
    * 
-   * @return x, y, z, roll, pitch, yaw
-   */
-  public double[] getCT() {
-    ct = table.getEntry("camerapose_targetspace").getDoubleArray(new double[6]);
-    return ct;
-  }
 
-  /**
-   * Returns bot to tag's direct distance.
-   * 
-   * @return distance (double)
-   */
+  
   public double getDistance() {
     // readValue();
     double targetHeight = getBT()[1]; // botpose in targetspace y
@@ -163,12 +108,7 @@ public class TagTracking {
     return horDis;
   }
 
-  /**
-   * Not yet experimented. Return shooter to goal angle degree by calculating with
-   * tx and ty.
-   * 
-   * @return shooter to goal angle (degree)
-   */
+  
   public double getHorDistanceByCal() {
     double pitch = getTy();
     double yaw = getTx();
@@ -179,11 +119,7 @@ public class TagTracking {
     return horDistance;
   }
 
-  /**
-   * Gets the tag's pose in 2 dimension
-   * 
-   * @return tagPose
-   */
+
   public Pose2d getTagPose2d() {
     if (getTv() == 1) {
       Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTID());
@@ -194,11 +130,7 @@ public class TagTracking {
     }
   }
 
-  /**
-   * Gets the tag's pose in 3 dimension
-   * 
-   * @return tagPose
-   */
+  
   public Pose3d getTagPose3d() {
     if (getTv() == 1) {
       Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTID());
