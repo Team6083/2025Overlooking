@@ -55,7 +55,7 @@ public class TagTracking {
     table.getEntry("pipeline").setNumber(pipeline);
   }
 
-  public double[] getCT() {
+  public double[] getCt() {
     ct = table.getEntry("camtran").getDoubleArray(new double[6]);
     return ct;
   }
@@ -76,7 +76,7 @@ public class TagTracking {
     return tv;
   }
 
-  public double getTID() {
+  public double getTid() {
     id = table.getEntry("tid").getDouble(0);
     return id;
   }
