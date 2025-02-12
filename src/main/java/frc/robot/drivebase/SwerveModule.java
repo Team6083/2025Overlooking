@@ -128,8 +128,9 @@ public class SwerveModule extends SubsystemBase {
         getDriveDistance(), getRotation2d());
   }
 
+  // CHECKSTYLE.OFF: LineLength
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
-     // CHECKSTYLE.SUPPRESS: LineLength
+  // CHECKSTYLE.ON: LineLength
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(currentRotation2d);
