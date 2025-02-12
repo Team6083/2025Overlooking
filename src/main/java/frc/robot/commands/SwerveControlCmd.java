@@ -39,9 +39,12 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // CHECKSTYLE.OFF: MemberName
     double xSpeed;
     double ySpeed;
     double rotSpeed;
+    // CHECKSTYLE.ON: MemberName
+
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
           * drivebaseMaxSpeed * magnification;
@@ -65,7 +68,7 @@ public class SwerveControlCmd extends Command {
     }
 
     swerveDrive.drive(
-         xSpeed,  ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
+        xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
   }
 
   // Called once the command ends or is interrupted.
