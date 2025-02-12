@@ -155,7 +155,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   // 更新機器人的場地相對位置
-  public void updateOdometry() {
+  private void updateOdometry() {
     odometry.update(
         gyro.getRotation2d(),
         getSwerveModulePosition());
