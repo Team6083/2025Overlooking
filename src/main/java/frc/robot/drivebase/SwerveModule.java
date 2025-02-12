@@ -130,7 +130,7 @@ public class SwerveModule extends SubsystemBase {
 
   // CHECKSTYLE.OFF: LineLength
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
-  // CHECKSTYLE.ON: LineLength
+    // CHECKSTYLE.ON: LineLength
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(currentRotation2d);
