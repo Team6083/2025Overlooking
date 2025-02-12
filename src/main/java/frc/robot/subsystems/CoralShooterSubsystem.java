@@ -40,8 +40,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
 
   public void coralShooterFastOn() { // Motor on Fast
-  if(powerDistribution.isCoralShooterOverCurrent()){
-      coralShooterMotor.setVoltage(0);
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
       return;
     }
     setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);

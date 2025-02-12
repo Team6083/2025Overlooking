@@ -20,7 +20,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
-    coralShooterSubsystem = new CoralShooterSubsystem();
+    coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     autChooser = AutoBuilder.buildAutoChooser();
     autChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
