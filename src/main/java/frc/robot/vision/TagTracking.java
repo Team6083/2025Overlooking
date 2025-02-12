@@ -33,7 +33,7 @@ public class TagTracking {
     setPipeline(0);
     try {
       layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
-    } catch (IOException err) {
+    } catch (IOException err) {s
       throw new RuntimeException();
     }
   }
@@ -41,8 +41,7 @@ public class TagTracking {
   /**
    * Set desired limelight operation mode. 0 is vision processor. 1 is Driver
    * Camera (Increases exposure, disables vision processing)
-   * 
-   * @param CamMode set 0 plz
+   * @param setCamMode set 0 plz
    * 
    */
   public void setCamMode() {
@@ -56,7 +55,6 @@ public class TagTracking {
   /**
    * Set desired green light state. 0 is default. 1 is force off. 2 is force
    * blink. 3 is force on.
-   * 
    * @param ledMode set 0 or 1 plz
    * 
    */
@@ -66,7 +64,6 @@ public class TagTracking {
 
   /**
    * Set desired limelight pipeline.
-   * 
    * @param pipeline in this game let's set 0
    * 
    */
@@ -76,7 +73,6 @@ public class TagTracking {
 
   /**
    * Returns the x offset between the tag and crosshair.
-   * 
    * @return x offset
    * 
    */
@@ -87,7 +83,6 @@ public class TagTracking {
 
   /**
    * Returns the y offset between the tag and crosshair.
-   * 
    * @return y offset
    * 
    */
