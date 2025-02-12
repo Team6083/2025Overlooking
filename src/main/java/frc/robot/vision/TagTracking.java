@@ -88,17 +88,21 @@ public class TagTracking {
 
   public double getDistance() {
     // readValue();
+    // CHECKSTYLE.OFF: LocalVariableName
     double targetHeight = getBt()[1]; // botpose in targetspace y
     double xDis = getBt()[0];
     double zDis = getBt()[2];
     double horDis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(zDis, 2));
     distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
     return distance;
+    // CHECKSTYLE.ON: LocalVariableName
   }
 
   public double getHorizontalDistanceByCt() {
     double horDis = Math.sqrt(
-        (Math.pow(getCt()[2] + TagTrackingConstant.kCamToRampDistance, 2.0) + Math.pow(getCt()[0], 2.0)));
+        (Math.pow(getCt()[2] 
+        + TagTrackingConstant.kCamToRampDistance, 2.0) 
+        + Math.pow(getCt()[0], 2.0)));
     SmartDashboard.putNumber("Robottotagdistance", horDis);
     return horDis;
   }
@@ -115,9 +119,9 @@ public class TagTracking {
 
   public Pose2d getTagPose2d() {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTid());
-      Pose2d tagPose2d = tag_Pose3d.isPresent()
-          ? tag_Pose3d.get().toPose2d()
+      Optional<Pose3d> tagPose3d = layout.getTagPose((int) getTid());
+      Pose2d tagPose2d = tagPose3d.isPresent()
+          ? tagPose3d.get().toPose2d()
           : new Pose2d();
       return tagPose2d;
     } else {
@@ -127,8 +131,8 @@ public class TagTracking {
 
   public Pose3d getTagPose3d() {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTid());
-      Pose3d tagPose = tag_Pose3d.isPresent() ? tag_Pose3d.get() : new Pose3d();
+      Optional<Pose3d> tagPose3d = layout.getTagPose((int) getTid());
+      Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
       return tagPose;
     } else {
       return new Pose3d();
@@ -137,8 +141,8 @@ public class TagTracking {
 
   public Pose2d getDesiredTagPose2d(double index) {
     if (getTv() == 1) {
-      Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) index);
-      Pose2d tagPose2d = tag_Pose3d.isPresent() ? tag_Pose3d.get().toPose2d() : new Pose2d();
+      Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
+      Pose2d tagPose2d = tagPose3d.isPresent() ? tagPose3d.get().toPose2d() : new Pose2d();
       return tagPose2d;
     } else {
       return new Pose2d();
