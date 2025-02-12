@@ -42,7 +42,7 @@ public class TagTracking {
     if (isCamOn) {
       table.getEntry("camMode").setNumber(0);
      
-   *  else {
+   } else {
       table.getEntry("camMode").setNumber(1);
     }
   }
