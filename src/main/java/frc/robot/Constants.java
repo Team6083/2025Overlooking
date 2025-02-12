@@ -49,12 +49,9 @@ public class Constants {
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
 
-    // 設定 turningMotor 轉動到目標角度的速度比例，當此值越大轉動速度越慢
-    public static final double kMaxSpeedTurningDegree = 180.0;
-
-    // 設定 rotPID 的參數
+    // 設定 rotPID 的參數（180 是最大誤差角度）
     public static final double kPRotationController = kMaxModuleTurningVoltage
-        / kMaxSpeedTurningDegree;
+        / 180;
 
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.0;
