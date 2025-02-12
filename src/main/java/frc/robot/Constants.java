@@ -100,8 +100,6 @@ public class Constants {
     public static final double kBackLeftCanCoderMagOffset = 0.165771;
     public static final double kBackRightCanCoderMagOffset = 0.127930;
 
-    public static final int kGyroChannel = 30;
-
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
     public static final double kGyroOffSet = 0.0;

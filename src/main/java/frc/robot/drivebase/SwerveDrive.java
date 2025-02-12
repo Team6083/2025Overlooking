@@ -28,16 +28,17 @@ public class SwerveDrive extends SubsystemBase {
 
   private final AHRS gyro;
 
-  private final Field2d field2d;
+
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
-  private final StructArrayPublisher<SwerveModuleState> publisher = NetworkTableInstance
-      .getDefault().getStructArrayTopic("MyStates", SwerveModuleState.struct).publish();
+  private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("States", SwerveModuleState.struct).publish();
 
-  private final Pose2d poseA = new Pose2d();
-  private Pose2d poseB = new Pose2d();
-  private final StructArrayPublisher<Pose2d> arrayPublisher = NetworkTableInstance
-      .getDefault().getStructArrayTopic("MyPoseArray", Pose2d.struct).publish();
+  private  Pose2d poseA;
+  private Pose2d poseB ;
+  private Rotation2d rotation2d;
+  private final StructArrayPublisher<Pose2d> field2dPublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
     // 初始化 Swerve 模組
@@ -106,8 +107,10 @@ public class SwerveDrive extends SubsystemBase {
         getSwerveModulePosition());
 
     resetPose2dAndEncoder();
+    double x = 0;
+    double y = 0;
+    poseA = new Pose2d(x,y,rotation2d);
 
-    field2d = new Field2d();
   }
 
   /**
@@ -206,11 +209,10 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    poseB = getPose2d();
-    arrayPublisher.set(new Pose2d[] { poseA, poseB });
+    poseA = getPose2d();
+    field2dPublisher.set(new Pose2d[] { poseA, poseB });
     updateOdometry();
-    field2d.setRobotPose(getPose2d());
-    publisher.set(swerveModuleStates);
+    swervePublisher.set(swerveModuleStates);
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
