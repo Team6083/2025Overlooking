@@ -112,7 +112,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     Command cmd = run(this::moveDown);
     return cmd;
   }
-  public Command stopMoveCmd(){
+
+  public Command stopMoveCmd() {
     Command cmd = run(this::stopMove);
     return cmd;
   }
