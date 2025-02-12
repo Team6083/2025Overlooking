@@ -5,6 +5,8 @@
 package frc.robot.drivebase;
 
 import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Minutes;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -20,6 +22,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ModuleConstant;
@@ -96,20 +100,19 @@ public class SwerveModule extends SubsystemBase {
   // to get the single swerveModule speed and the turning rate
   public SwerveModuleState getState() {
     return new SwerveModuleState(
-        ReturnLinearVelocity(), getRotation2d());
+        getDriveRate().in(MetersPerSecond), getRotation2d());
   }
 
   // to get the drive distance
-  public double ReturnDistance() {
-    return (driveEncoder.getPosition() / 6.75)
-        * (2.0 * Math.PI * ModuleConstant.kWheelRadius.in(Meters));
-
+  public Distance getDriveDistance() {
+    return ModuleConstant.kWheelRadius.times(2.0 * Math.PI)
+        .times(driveEncoder.getPosition() / 6.75);
   }
 
   // calculate the rate of the drive
-  public double ReturnLinearVelocity() {
-    return driveEncoder.getVelocity() * 1 / 60.0 / 6.75 * 2.0 * Math.PI
-        * ModuleConstant.kWheelRadius.in(Meters);
+  public LinearVelocity getDriveRate() {
+    return Meters.per(Minutes).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
+        * ModuleConstant.kWheelRadius.in(Meters));
   }
 
   // to get rotation of turning motor
@@ -122,7 +125,7 @@ public class SwerveModule extends SubsystemBase {
   // to the get the position by wpi function
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
-        ReturnDistance(), getRotation2d());
+        getDriveDistance(), getRotation2d());
   }
 
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
@@ -150,8 +153,8 @@ public class SwerveModule extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber(name + "_ModuleDistance", ReturnDistance());
-    SmartDashboard.putNumber(name + "_ModuleVelocity", ReturnLinearVelocity());
+    SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
+    SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
     SmartDashboard.putNumber(name + "_ModuleRotation", getRotation2d().getDegrees());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
