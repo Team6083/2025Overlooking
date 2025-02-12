@@ -4,40 +4,31 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.AlgaeIntakeSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.CoralShooterSubsystem;
-import frc.robot.subsystems.RampSubsystem;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
-  private final ClimberSubsystem climberSubsystem;
-  private final RampSubsystem rampSubsystem;
-  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final CoralShooterSubsystem coralShooterSubsystem;
-  private final SendableChooser<Command> autChooser;
+
+  CommandXboxController joy;
+  ElevatorSubsystem elevatorSubsystem;
 
   public RobotContainer() {
-    coralShooterSubsystem = new CoralShooterSubsystem();
-    climberSubsystem = new ClimberSubsystem();
-    rampSubsystem = new RampSubsystem();
-    algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
-    autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("Donothing", Commands.none());
-    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("AutoChooser", autChooser);
-    SmartDashboard.putData("ALGAElntakeSubsystem", algaeIntakeSubsystem);
-    SmartDashboard.putData("RampSubsystem", rampSubsystem);
-    SmartDashboard.putData("ClimberSubsystem", climberSubsystem);
+    joy = new CommandXboxController(0);
+    elevatorSubsystem = new ElevatorSubsystem();
 
     configureBindings();
   }
 
   private void configureBindings() {
+    joy.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
+    joy.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
+    joy.pov(45).whileTrue(elevatorSubsystem.toSecFloorCmd());
+    joy.pov(90).whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    joy.pov(135).whileTrue(elevatorSubsystem.toTopFloorCmd());
+    joy.a().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+    joy.b().whileTrue(elevatorSubsystem.stopMoveCmd());
   }
 
   public Command getAutonomousCommand() {
