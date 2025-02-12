@@ -29,8 +29,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
 
     distanceSensor = new DistanceSensor(Port.kOnboard);
-    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
-    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
+    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
+    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
   private void setMotorSpeed(double speed) {
@@ -48,7 +48,12 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void coralShooterSlowOn() { // Motor on Slow
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+    }
   }
 
   public void coralShooterStop() { // Motor stop

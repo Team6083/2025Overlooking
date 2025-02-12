@@ -8,7 +8,8 @@ public class Constants {
     public static final int kShooterRightMotorChannel = 2;
     public static final double kShooterMotorFastSpeed = 4;
     public static final double kShooterMotorSlowSpeed = 4;
-    public static final Boolean kCoralShooterMotorInverted = false;
+    public static final Boolean kCoralShooterRightMotorInverted = false;
+    public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
 
   public static final class PowerDistributionConstant {
