@@ -41,8 +41,8 @@ public class TagTracking {
   public void setCamMode() {
     if (isCamOn) {
       table.getEntry("camMode").setNumber(0);
-     
-   } else {
+
+    } else {
       table.getEntry("camMode").setNumber(1);
     }
   }
@@ -51,49 +51,41 @@ public class TagTracking {
     table.getEntry("ledMode").setNumber(ledMode);
   }
 
- 
   private void setPipeline(int pipeline) {
     table.getEntry("pipeline").setNumber(pipeline);
   }
 
-   
   public double[] getCT() {
     ct = table.getEntry("camtran").getDoubleArray(new double[6]);
     return ct;
   }
+
   public double getTx() {
     tx = table.getEntry("tx").getDouble(0);
     return tx;
   }
 
-  
   public double getTy() {
     ty = table.getEntry("ty").getDouble(0);
-     
-   return ty;
+
+    return ty;
   }
 
- 
   public double getTv() {
     tv = table.getEntry("tv").getDouble(0);
     return tv;
   }
 
-   
-    
   public double getTID() {
     id = table.getEntry("tid").getDouble(0);
     return id;
   }
 
-  
   public double[] getBT() {
     bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
     return bt;
-  } 
-   
+  }
 
-  
   public double getDistance() {
     // readValue();
     double targetHeight = getBT()[1]; // botpose in targetspace y
@@ -111,7 +103,6 @@ public class TagTracking {
     return horDis;
   }
 
-  
   public double getHorDistanceByCal() {
     double pitch = getTy();
     double yaw = getTx();
@@ -121,7 +112,6 @@ public class TagTracking {
     double horDistance = Math.sqrt(Math.pow(y, 2.0) + Math.pow(x, 2.0));
     return horDistance;
   }
-
 
   public Pose2d getTagPose2d() {
     if (getTv() == 1) {
@@ -133,7 +123,6 @@ public class TagTracking {
     }
   }
 
-  
   public Pose3d getTagPose3d() {
     if (getTv() == 1) {
       Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTID());
