@@ -25,7 +25,7 @@ public class TagTracking {
   private boolean isCamOn = true;
 
   public TagTracking() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
+    table = NetworkTableInstance.getDefault().getTable("lyly");
     setCamMode();
     setLedMode(0);
     setPipeline(0);
@@ -33,15 +33,6 @@ public class TagTracking {
       layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
     } catch (IOException err) {
       throw new RuntimeException();
-    }
-  }
-
-  public void setCamMode() {
-    if (isCamOn) {
-      table.getEntry("camMode").setNumber(0);
-
-    } else {
-      table.getEntry("camMode").setNumber(1);
     }
   }
 
