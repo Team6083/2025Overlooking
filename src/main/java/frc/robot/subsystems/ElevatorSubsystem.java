@@ -13,6 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
@@ -28,7 +29,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private Distance targetHeight;
 
   public ElevatorSubsystem() {
-    elevatorMotor = new WPI_VictorSPX(3);
+    elevatorMotor = new WPI_VictorSPX(16);
     elevatorMotor.setInverted(true);
     encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
@@ -50,8 +51,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public Distance truthHeigh() {
-    return targetHeight.plus(ElevatorConstant.kStartedOffest);
+  public Distance truthHeight() {
+    return targetHeight.plus(ElevatorConstant.kStartedOffset);
   }
 
   public void moveUp() {
@@ -127,13 +128,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     Distance currentHeight = Millimeters.of(encoder.getDistance())
-        .plus(ElevatorConstant.kStartedOffest);
+        .plus(ElevatorConstant.kStartedOffset);
     elevatorPID.setSetpoint(targetHeight.in(Millimeters));
     double output = elevatorPID.calculate(currentHeight.in(Millimeters));
     output = MathUtil.clamp(output, -1.0, 1.0);
+    SmartDashboard.putNumber("SetPoint", targetHeight.in(Millimeters));
+    SmartDashboard.putNumber("Encoder", encoder.getDistance());
+    SmartDashboard.putNumber("Output", output);
 
-    if ((output >= 0 && !limitSwitchUp.get())
-        || ((output <= 0 && !limitSwitchDown.get()))) {
+    if ((output >= 0)
+        || ((output <= 0))) {
       elevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       stopMove();
