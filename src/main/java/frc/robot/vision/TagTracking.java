@@ -33,7 +33,7 @@ public class TagTracking {
     setPipeline(0);
     try {
       layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
-    } catch (IOException err) {s
+    } catch (IOException err) {
       throw new RuntimeException();
     }
   }
