@@ -57,7 +57,10 @@ public class TagTracking {
   }
 
    
-   * 
+  public double[] getCT() {
+    ct = table.getEntry("camtran").getDoubleArray(new double[6]);
+    return ct;
+  }
   public double getTx() {
     tx = table.getEntry("tx").getDouble(0);
     return tx;
@@ -67,7 +70,7 @@ public class TagTracking {
   public double getTy() {
     ty = table.getEntry("ty").getDouble(0);
      
-   * eturn ty;
+   return ty;
   }
 
  
@@ -77,7 +80,7 @@ public class TagTracking {
   }
 
    
-   * 
+    
   public double getTID() {
     id = table.getEntry("tid").getDouble(0);
     return id;
@@ -88,7 +91,7 @@ public class TagTracking {
     bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
     return bt;
   } 
-   * 
+   
 
   
   public double getDistance() {
