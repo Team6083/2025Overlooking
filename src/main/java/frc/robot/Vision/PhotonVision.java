@@ -12,14 +12,14 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 
-public class TagTrackingPhotonVIsion extends SubsystemBase {
+public class PhotonVision extends SubsystemBase {
   /** Creates a new TagTrackingPhotonVIsion. */
   // Query the latest result from PhotonVision
   PhotonCamera camera;
   PhotonPipelineResult result;
   PhotonTrackedTarget target;
 
-  public TagTrackingPhotonVIsion() {
+  public PhotonVision() {
     camera = new PhotonCamera("photonvision");
     result = camera.getLatestResult();
     target = result.getBestTarget();
@@ -49,18 +49,9 @@ public class TagTrackingPhotonVIsion extends SubsystemBase {
     return target.getSkew();
   }
 
-  public int getID() {
-    return target.getFiducialId();
-  }
-
   public Transform3d bestCameraToTarget() {
     return target.getBestCameraToTarget();
   }
-
-  public Transform3d alternateCameraToTarget() {
-    return target.getAlternateCameraToTarget();
-  }
-
 
   @Override
   public void periodic() {
