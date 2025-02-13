@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.DistanceSensorInterface;
+import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
@@ -19,13 +20,17 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterLeftMotor;
   private VictorSPX coralShooterRightMotor;
   private DistanceSensorInterface distanceSensor;
+  private PowerDistribution powerDistribution;
 
-  public CoralShooterSubsystem() {
+
+  public CoralShooterSubsystem(PowerDistribution powerDistribution) {
+    this.powerDistribution = powerDistribution;
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
+
     distanceSensor = new DistanceSensor(Port.kOnboard);
-    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
-    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
+    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
+    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
   private void setMotorSpeed(double speed) {
@@ -33,11 +38,20 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
   }
 
+
   public void coralShooterFastOn() { // Motor on Fast
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
   public void coralShooterSlowOn() { // Motor on Slow
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
