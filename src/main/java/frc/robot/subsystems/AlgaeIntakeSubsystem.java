@@ -4,16 +4,13 @@
 
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Millimeters;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AlgaeIntakeConstant;
-import frc.robot.lib.Powerdistribution;
+import frc.robot.lib.PowerDistribution;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
@@ -65,17 +62,29 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setUpIntake() { 
+    if(powerDistribution.isAlgaeRotateOverCurrent()){
+      rotateIntakeMotor.setVoltage(0);
+      
+    }
     rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeRotateVoltage);
     rotateIntakeMotor.set(algaeMotorUpPID.calculate(algaeRotateEncoder.get()));
   }
 
 
   public void setDownIntake() {
+    if(powerDistribution.isAlgaeRotateOverCurrent()){
+      rotateIntakeMotor.setVoltage(0);
+      
+    }
     rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeRotateVoltage);
     rotateIntakeMotor.set(algaeMotorDownPID.calculate(algaeRotateEncoder.get()));
   }
 
   public void stopRotateIntakeMotor() {
+    if(powerDistribution.isAlgaeRotateOverCurrent()){
+      rotateIntakeMotor.setVoltage(0);
+      
+    }
     rotateIntakeMotor.setVoltage(0);
   }
 
