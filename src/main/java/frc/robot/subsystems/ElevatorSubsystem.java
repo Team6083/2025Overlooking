@@ -55,7 +55,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     return targetHeight.plus(ElevatorConstant.kStartedOffset);
   }
 
-  public Distance getCurrentHeight(){
+  public Distance getCurrentHeight() {
     return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kStartedOffset);
   }
 
@@ -116,7 +116,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     Command cmd = run(this::moveDown);
     return cmd;
   }
-  public Command stopMoveCmd(){
+  
+  public Command stopMoveCmd() {
     Command cmd = run(this::stopMove);
     return cmd;
   }
