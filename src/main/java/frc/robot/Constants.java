@@ -26,4 +26,5 @@ public class Constants {
     public static final double kClimberMotorMaxCurrent = 40;
     public static final double kRampMotorMaxCurrent = 40;
   }
+
 }
