@@ -2,12 +2,11 @@ package frc.robot;
 
 public class Constants {
   public static final class CoralShooterConstant {
-    public static final int kOnboard = 0;
-    public static final double kDistanceRange = 4;
+    public static final double kDistanceRange = 3.5;
     public static final int kShooterLeftMotorChannel = 1;
     public static final int kShooterRightMotorChannel = 2;
-    public static final double kShooterMotorFastSpeed = 4;
-    public static final double kShooterMotorSlowSpeed = 4;
+    public static final double kShooterMotorFastSpeed = 0.8;
+    public static final double kShooterMotorSlowSpeed = 0.3;
     public static final Boolean kCoralShooterMotorInverted = false;
   }
 
