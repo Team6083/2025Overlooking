@@ -16,37 +16,21 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSP intakeMotor;
   private final VictorSP rotateIntakeMotor;
-  private final PIDController algaeMotorUpPID;
-  private final PIDController algaeMotorDownPID;
-  private final Encoder algaeEncoder;
+  private final PIDController algaeRotatePID;
+  private final PIDController algaeFrontPID;
+  private final Encoder algaeFrontEncoder;
   private final Encoder algaeRotateEncoder;
   private final PowerDistribution powerDistribution;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
-    algaeMotorUpPID = new PIDController(0, 0, 0);
-    algaeMotorDownPID = new PIDController(0, 0, 0);
+    algaeRotatePID = new PIDController(0, 0, 0);
+    algaeFrontPID = new PIDController(0, 0, 0);
     intakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateIntakeMotor = new VictorSP(AlgaeIntakeConstant.kIntakeRotateMotorChannal);
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
-    algaeEncoder = new Encoder(0, 1);
+    algaeFrontEncoder = new Encoder(0, 1);
     algaeRotateEncoder = new Encoder(0, 0);
-  }
-
-  public double getUpIntakeSetpoint() {
-    return algaeMotorUpPID.getSetpoint();
-  }
-
-  public double getDownIntakeSetpoint() {
-    return algaeMotorUpPID.getSetpoint();
-  }
-
-  public void setUpIntakeSetpoint() {
-    algaeMotorUpPID.setSetpoint(AlgaeIntakeConstant.kUpIntakeSetpoint);
-  }
-
-  public void setDownIntakeSetpoint() {
-    algaeMotorDownPID.setSetpoint(AlgaeIntakeConstant.kDownIntakeSetpoint);
   }
 
   public void setIntakeMotor() {
@@ -58,25 +42,51 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setReIntake() {
+    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
+      intakeMotor.setVoltage(0);
+
+    }
     intakeMotor.setVoltage(AlgaeIntakeConstant.kReIntakeVoltage);
   }
 
-  public void setUpIntake() {
-    if (powerDistribution.isAlgaeRotateOverCurrent()) {
-      rotateIntakeMotor.setVoltage(0);
+  public void stopIntakeMotor() {
+    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
+      intakeMotor.setVoltage(0);
 
     }
-    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeRotateVoltage);
-    rotateIntakeMotor.set(algaeMotorUpPID.calculate(algaeRotateEncoder.get()));
+    intakeMotor.setVoltage(0);
   }
 
-  public void setDownIntake() {
+  public double getRotateIntakeSetpoint() {
+    return algaeRotatePID.getSetpoint();
+  }
+
+  public double getFrontIntakeSetpoint() {
+    return algaeFrontPID.getSetpoint();
+  }
+
+  public void setRotateIntakeSetpoint() {
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpIntakeSetpoint);
+  }
+
+  public void setFrontIntakeSetpoint() {
+    algaeFrontPID.setSetpoint(AlgaeIntakeConstant.kDownIntakeSetpoint);
+  }
+
+  public void setRotateIntake() {
     if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.setVoltage(0);
 
     }
-    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeRotateVoltage);
-    rotateIntakeMotor.set(algaeMotorDownPID.calculate(algaeRotateEncoder.get()));
+    rotateIntakeMotor.set(algaeRotatePID.calculate(algaeRotateEncoder.get()));
+  }
+
+  public void setFrontIntake() {
+    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
+      intakeMotor.setVoltage(0);
+
+    }
+    intakeMotor.set(algaeFrontPID.calculate(algaeFrontEncoder.get()));
   }
 
   public void stopRotateIntakeMotor() {
@@ -92,26 +102,26 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public double getIntakeShooter() {
-    return algaeEncoder.get();
+    return algaeFrontEncoder.get();
   }
 
   public Command setUpIntakeCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
+    Command cmd = runEnd(this::setRotateIntake, this::stopRotateIntakeMotor);
     return cmd;
   }
 
   public Command setDownIntakeCmd() {
-    Command cmd = runEnd(this::setDownIntake, this::stopRotateIntakeMotor);
+    Command cmd = runEnd(this::setFrontIntake, this::stopRotateIntakeMotor);
     return cmd;
   }
 
-  public Command setIntakeMotorCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
+  public Command setIntakeMotorCmd() { // 吸入 algae 的 cmd
+    Command cmd = runEnd(this::setIntakeMotor, this::stopIntakeMotor);
     return cmd;
   }
 
-  public Command setReIntakeMotorCmd() {
-    Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
+  public Command setReIntakeMotorCmd() { // 吐出 algae 的 cmd
+    Command cmd = runEnd(this::setIntakeMotor, this::stopIntakeMotor);
     return cmd;
   }
 
