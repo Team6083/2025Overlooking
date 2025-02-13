@@ -82,6 +82,10 @@ public class TagTracking {
     return getDesiredTagPose3d(getTid());
   }
 
+  public Pose2d getDesiredTagPose2d(double index) {
+    return getDesiredTagPose3d(index).toPose2d();
+  }
+
   public Pose3d getDesiredTagPose3d(double index) {
     if (getTv() == 1) {
       Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
@@ -90,9 +94,5 @@ public class TagTracking {
     } else {
       return new Pose3d();
     }
-  }
-
-  public Pose2d getDesiredTagPose2d(double index) {
-    return getDesiredTagPose3d(index).toPose2d();
   }
 }
