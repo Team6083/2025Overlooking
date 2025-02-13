@@ -5,7 +5,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;   
+import edu.wpi.first.networktables.NetworkTableInstance;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -23,8 +23,6 @@ public class TagTracking {
       throw new RuntimeException();
     }
   }
-
-  
 
   private void setLedMode(int ledMode) {
     table.getEntry("ledMode").setNumber(ledMode);
@@ -74,8 +72,9 @@ public class TagTracking {
     double distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
     return distance;
     // CHECKSTYLE.ON: LocalVariableName
-
   }
+  
+
   public Pose2d getTagPose2d() {
     if (getTv() == 1) {
       Optional<Pose3d> tag_Pose3d = layout.getTagPose((int) getTid());
@@ -91,7 +90,7 @@ public class TagTracking {
       Optional<Pose3d> tagPose3d = layout.getTagPose((int) getTid());
       Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
       return tagPose;
-      } else {
+    } else {
       return new Pose3d();
     }
   }
