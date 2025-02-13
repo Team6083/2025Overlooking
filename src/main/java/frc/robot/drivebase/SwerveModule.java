@@ -99,22 +99,19 @@ public class SwerveModule extends SubsystemBase {
   // to get the single swerveModule speed and the turning rate
   public SwerveModuleState getState() {
     return new SwerveModuleState(
-
-        returnLinearVelocity(), getRotation2d());
+        getDriveRate().in(MetersPerSecond), getRotation2d());
   }
 
   // to get the drive distance
-  public double returnDistance() {
-    return (driveEncoder.getPosition() / 6.75)
-        * (2.0 * Math.PI * ModuleConstant.kWheelRadius.in(Meters));
-
+  public Distance getDriveDistance() {
+    return ModuleConstant.kWheelRadius.times(2.0 * Math.PI)
+        .times(driveEncoder.getPosition() / 6.75);
   }
 
   // calculate the rate of the drive
-  public double returnLinearVelocity() {
-    return driveEncoder.getVelocity() * 1 / 60.0 / 6.75 * 2.0 * Math.PI
-        * ModuleConstant.kWheelRadius.in(Meters);
-
+  public LinearVelocity getDriveRate() {
+    return Meters.per(Minutes).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
+        * ModuleConstant.kWheelRadius.in(Meters));
   }
 
   // to get rotation of turning motor
@@ -127,9 +124,7 @@ public class SwerveModule extends SubsystemBase {
   // to the get the position by wpi function
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
-
-        returnDistance(), getRotation2d());
-
+        getDriveDistance(), getRotation2d());
   }
 
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
@@ -157,9 +152,8 @@ public class SwerveModule extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    SmartDashboard.putNumber(name + "_ModuleDistance", returnDistance());
-    SmartDashboard.putNumber(name + "_ModuleVelocity", returnLinearVelocity());
+    SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
+    SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
     SmartDashboard.putNumber(name + "_ModuleRotation", getRotation2d().getDegrees());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);

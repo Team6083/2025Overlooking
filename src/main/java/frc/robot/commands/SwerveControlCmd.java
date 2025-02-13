@@ -39,24 +39,25 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xspeed;
-    double yspeed;
+    // CHECKSTYLE.OFF: LocalVariableName
+    double xSpeed;
+    double ySpeed;
     double rotSpeed;
     // CHECKSTYLE.ON: LocalVariableName
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
-      xspeed = -xLimiter.calculate(mainController.getLeftY())
+      xSpeed = -xLimiter.calculate(mainController.getLeftY())
           * drivebaseMaxSpeed * magnification;
 
     } else {
-      xspeed = 0;
+      xSpeed = 0;
     }
     if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
-      yspeed = -yLimiter.calculate(mainController.getLeftX())
+      ySpeed = -yLimiter.calculate(mainController.getLeftX())
           * drivebaseMaxSpeed * magnification;
 
     } else {
-      yspeed = 0;
+      ySpeed = 0;
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = rotLimiter.calculate(mainController.getRightX())
@@ -67,9 +68,7 @@ public class SwerveControlCmd extends Command {
     }
 
     swerveDrive.drive(
-
-        xspeed, yspeed, rotSpeed, SwerveControlConstant.kFieldRelative);
-
+        xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
   }
 
   // Called once the command ends or is interrupted.
