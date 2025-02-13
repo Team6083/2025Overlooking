@@ -30,33 +30,53 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "elevator"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral station to reaf"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorTopFloorCmd"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "algaeIntakeCmd"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "put down algae 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "algaereintake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "to coral station 2"
+            "name": "carolShooterCmd"
           }
         }
       ]

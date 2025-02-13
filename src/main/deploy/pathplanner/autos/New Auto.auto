@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "leave starting line"
+                  "pathName": "leave starting line 2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": null
+                  "name": "elevatorTopFloorCmd"
                 }
               }
             ]
@@ -26,51 +26,100 @@
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "to coral station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "to reaf"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              }
-            ]
+            "name": "carolShooterCmd"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "elevator"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeIntakeCmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "put down algae"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaereintake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "to reaf"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeIntakeCmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "put down algae 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaereintake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "to reaf 2"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaeIntakeCmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "put down algae 3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "algaereintake"
+                }
+              }
+            ]
           }
         }
       ]
