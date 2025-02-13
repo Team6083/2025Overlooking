@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.763012295081966,
-        "y": 6.248719262295082
+        "x": 6.15,
+        "y": 3.923
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.251017685692089,
-        "y": 6.230461128836955
+        "x": 6.545286885245901,
+        "y": 3.923104508196721
       },
       "isLocked": false,
-      "linkedName": "123"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.514344262295082,
-        "y": 5.373616803278688
+        "x": 6.9768442622950815,
+        "y": 3.923
       },
       "prevControl": {
-        "x": 5.201106824184666,
-        "y": 5.267554404733438
+        "x": 5.9768442622950815,
+        "y": 3.923
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "april"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,22 +33,22 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 9.2,
-    "maxAngularVelocity": 90.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -118.2497354949743
+    "rotation": 179.99074996919984
   },
   "reversed": false,
-  "folder": null,
+  "folder": "put down algae",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 179.97830672148825
   },
   "useDefaultConstraints": true
 }

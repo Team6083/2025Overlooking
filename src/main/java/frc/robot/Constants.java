@@ -14,7 +14,7 @@ public class Constants {
     public static final double kDTranslation = 1;
     public static final double kPRotation = 5;
     public static final double kIRotation = 0;
-    public static final double kDRotation = 0;
+    public static final double kDRotation = 0.6;
     public static final double kDrivebaseRadius = 0.3;
 
   }

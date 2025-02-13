@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.280824677419553,
-        "y": 5.049254083154617
+        "x": 6.174669558456576,
+        "y": 5.013366774135068
       },
       "isLocked": false,
       "linkedName": "april"
     },
     {
       "anchor": {
-        "x": 1.7621926229508196,
-        "y": 7.039907786885245
+        "x": 2.3975409836065573,
+        "y": 6.93201844262295
       },
       "prevControl": {
-        "x": 1.5204261669558559,
-        "y": 7.18348716880835
+        "x": 2.179175186591599,
+        "y": 7.053740990632848
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": null,
