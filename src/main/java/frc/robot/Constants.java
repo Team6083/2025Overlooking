@@ -24,12 +24,14 @@ public class Constants {
   public static final class PowerDistributionConstant {
     // TODO:確認編號
     // Motor channel
-    public static final int kCoralShooterRightMotorCurrentChannel = 7;
-    public static final int kCoralShooterLeftMotorCurrentChannel = 7;
+    public static final int kCoralShooterRightMotorCurrentChannel = 17;
+    public static final int kCoralShooterLeftMotorCurrentChannel = 16;
     public static final int kAlgaeIntakeMotorCurrentChannel = 7;
     public static final int kAlgaeRotateMotorCurrentChannel = 7;
     public static final int kClimberMotorCurrentChannel = 7;
     public static final int kRampMotorCurrentChannel = 7;
+    public static final int kElevatorMotorCurrentChannel = 2;
+    // 2 elevator
 
     // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
@@ -37,6 +39,7 @@ public class Constants {
     public static final double kAlgaeRotateMotorMaxCurrent = 40;
     public static final double kClimberMotorMaxCurrent = 40;
     public static final double kRampMotorMaxCurrent = 40;
+    public static final double kElevatorMotorMaxCurrent = 40;
   }
 
   public static final class ModuleConstant {

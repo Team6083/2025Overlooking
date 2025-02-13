@@ -63,6 +63,13 @@ public class PowerDistribution {
     return current;
   }
 
+  public double elevatorCurrent() {
+    double current = powerDistribution
+        .getCurrent(PowerDistributionConstant.kElevatorMotorCurrentChannel);
+    SmartDashboard.putNumber("elevatorCurrent", current);
+    return current;
+  }
+
   public boolean isCoralShooterOverCurrent() {
     boolean isRightMotorOverCurrent = 
         coralShooterRightCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
@@ -100,5 +107,12 @@ public class PowerDistribution {
     SmartDashboard.putBoolean("isRampOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
+
+  public boolean isElevatorOverCurrent() {
+    boolean isOverCurrent = 
+        elevatorCurrent() > PowerDistributionConstant.kElevatorMotorMaxCurrent;
+    SmartDashboard.putBoolean("isElevatorOverCurrent", isOverCurrent);
+    return isOverCurrent;
+  } 
 
 }

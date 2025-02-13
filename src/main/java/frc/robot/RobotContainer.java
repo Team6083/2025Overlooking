@@ -49,6 +49,12 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    mainController.x().whileTrue(swerveDrive.runEnd(
+        () -> swerveDrive.drive(0, 0.5, 0, false),
+        () -> swerveDrive.stop()));
+    mainController.y().whileTrue(swerveDrive.runEnd(
+        () -> swerveDrive.drive(0.5, 0, 0, false),
+        () -> swerveDrive.stop()));
     mainController.back().whileTrue(swerveDrive.gyroResetCmd());
     mainController.pov(0).whileTrue(intakeCommand);
   }
