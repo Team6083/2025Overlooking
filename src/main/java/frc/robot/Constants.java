@@ -61,16 +61,16 @@ public class Constants {
 
   public static final class DriveBaseConstant {
     // driveMotor channel
-    public static final int kFrontLeftDriveMotorChannel = 19;
-    public static final int kFrontRightDriveMotorChannel = 11;
-    public static final int kBackLeftDriveMotorChannel = 16;
-    public static final int kBackRightDriveMotorChannel = 2;
+    public static final int kFrontLeftDriveMotorChannel = 21;
+    public static final int kFrontRightDriveMotorChannel = 22;
+    public static final int kBackLeftDriveMotorChannel = 24;
+    public static final int kBackRightDriveMotorChannel = 23;
 
     // turningMotor channel
-    public static final int kFrontLeftTurningMotorChannel = 23;
-    public static final int kFrontRightTurningMotorChannel = 10;
-    public static final int kBackLeftTurningMotorChannel = 15;
-    public static final int kBackRightTurningMotorChannel = 21;
+    public static final int kFrontLeftTurningMotorChannel = 25;
+    public static final int kFrontRightTurningMotorChannel = 26;
+    public static final int kBackLeftTurningMotorChannel = 28;
+    public static final int kBackRightTurningMotorChannel = 27;
 
     // driveMotor inverted
     public static final boolean kFrontLeftDriveMotorInverted = false;
@@ -85,10 +85,10 @@ public class Constants {
     public static final boolean kBackRightTurningMotorInverted = true;
 
     // turning CANcoder ID
-    public static final int kFrontLeftCanCoder = 0;
-    public static final int kFrontRightCanCoder = 1;
-    public static final int kBackLeftCanCoder = 3;
-    public static final int kBackRightCanCoder = 2;
+    public static final int kFrontLeftCanCoder = 3;
+    public static final int kFrontRightCanCoder = 4;
+    public static final int kBackLeftCanCoder = 6;
+    public static final int kBackRightCanCoder = 5;
 
     // turning encoder magnet offset value
     public static final double kFrontLeftCanCoderMagOffset = 0.020752;
