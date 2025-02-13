@@ -4,57 +4,76 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.DistanceSensorInterface;
+import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
 
-  private VictorSP coralShooterMotor;
+  private VictorSPX coralShooterLeftMotor;
+  private VictorSPX coralShooterRightMotor;
   private DistanceSensorInterface distanceSensor;
+  private PowerDistribution powerDistribution;
 
-  public CoralShooterSubsystem() {
-    coralShooterMotor = new VictorSP(CoralShooterConstant.kShooterMotorChannel);
+
+  public CoralShooterSubsystem(PowerDistribution powerDistribution) {
+    this.powerDistribution = powerDistribution;
+    coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
+    coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
+
     distanceSensor = new DistanceSensor(Port.kOnboard);
+    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
+    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
-  private void setMotorVoltage(double voltage) { // 設定電壓
-    coralShooterMotor.setVoltage(voltage);
+  private void setMotorSpeed(double speed) {
+    coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
   }
 
-  public void coralShooterOn() { // 正轉
-    setMotorVoltage(CoralShooterConstant.kShooterMotorSpeed);
+
+  public void coralShooterFastOn() { // Motor on Fast
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
+    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
-  public void coralShooterStop() { // 停止
-    setMotorVoltage(0.0);
+  public void coralShooterSlowOn() { // Motor on Slow
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
+    setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
-  public boolean isGetCoral() {
-    if (distanceSensor.isGetTarget()) { // 碰到目標
+  public void coralShooterStop() { // Motor stop
+    setMotorSpeed(0.0);
+  }
+
+  public boolean isGetTarget() {
+    if (distanceSensor.isGetTarget()) {
       return distanceSensor.getTargetDistance() <= CoralShooterConstant.kDistanceRange
           && distanceSensor.getTargetDistance() > 0;
     }
     return false;
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  public Command coralShooterShootOnCmd() { // 正轉
-    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
+  public Command coralShooterFastOnCmd() { // Motor on
+    Command cmd = runEnd(this::coralShooterFastOn, this::coralShooterStop);
     return cmd;
   }
 
-  public Command coralShooterStopCmd() { // 停止
-    Command cmd = runOnce(this::coralShooterStop);
+  public Command coralShooterSlowOnCmd() {
+    Command cmd = runEnd(this::coralShooterSlowOnCmd, this::coralShooterStop);
     return cmd;
   }
 
