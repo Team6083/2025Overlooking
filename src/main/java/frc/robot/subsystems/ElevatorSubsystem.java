@@ -36,6 +36,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
+  public void resetEncoder(){
+    encoder.reset();
+  }
+
   public void moveToHeight(Distance newTargetHeight) {
     if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) {
       newTargetHeight = ElevatorConstant.kMaxHeight;
