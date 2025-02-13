@@ -103,6 +103,7 @@ public class SwerveDrive extends SubsystemBase {
     resetPose2dAndEncoder();
   }
 
+  // CHECKSTYLE.OFF: ParameterNameCheck
   /**
    * Method to drive the robot using joystick info.
    *
@@ -114,18 +115,14 @@ public class SwerveDrive extends SubsystemBase {
    * 
    *                      using the wpi function to set the speed of the swerve
    */
-
-  // CHECKSTYLE.OFF: ParameterNameCheck
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-    swerveModuleStates = kinematics.toSwerveModuleStates(
-        fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                xSpeed, ySpeed, rot,
-                gyro.getRotation2d())
-            : new ChassisSpeeds(xSpeed, ySpeed, rot));
     // CHECKSTYLE.On: ParameterNameCheck
-    SwerveDriveKinematics.desaturateWheelSpeeds(
-        swerveModuleStates, DriveBaseConstant.kMaxSpeed);
+    swerveModuleStates = kinematics.toSwerveModuleStates(
+        fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, gyro.getRotation2d())
+            : new ChassisSpeeds(xSpeed, ySpeed, rot));
+
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DriveBaseConstant.kMaxSpeed);
+
     frontLeft.setDesiredState(swerveModuleStates[0]);
     frontRight.setDesiredState(swerveModuleStates[1]);
     backLeft.setDesiredState(swerveModuleStates[2]);
@@ -148,17 +145,14 @@ public class SwerveDrive extends SubsystemBase {
 
   // 重設機器人的位置與角度
   public void resetPose() {
-    odometry.resetPosition(
-        gyro.getRotation2d(),
-        getSwerveModulePosition(),
-        new Pose2d(0, 0, new Rotation2d(0)));
+    var zeroPose = new Pose2d(0, 0, new Rotation2d(0));
+
+    odometry.resetPosition(gyro.getRotation2d(), getSwerveModulePosition(), zeroPose);
   }
 
   // 更新機器人的場地相對位置
   private void updateOdometry() {
-    odometry.update(
-        gyro.getRotation2d(),
-        getSwerveModulePosition());
+    odometry.update(gyro.getRotation2d(), getSwerveModulePosition());
   }
 
   // 重置所有輪子的 Encoder 與機器人位置
@@ -177,10 +171,10 @@ public class SwerveDrive extends SubsystemBase {
 
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
-    return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
-        + ((DriveBaseConstant.kGyroInverted)
-            ? (360.0 - gyro.getRotation2d().getDegrees())
-            : gyro.getRotation2d().getDegrees()));
+    var gyroReading = gyro.getRotation2d().getDegrees();
+    var gyroDegree = DriveBaseConstant.kGyroInverted ? (360.0 - gyroReading) : gyroReading;
+
+    return Rotation2d.fromDegrees(gyroDegree + DriveBaseConstant.kGyroOffSet);
   }
 
   public void stop() {
@@ -199,18 +193,15 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
-    field2dPublisher.set(
-        new Pose2d[] { getPose2d(),
-            new Pose2d(0, 0, new Rotation2d(0)) });
+    field2dPublisher.set(new Pose2d[] { getPose2d(), new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
-    
+
     updateOdometry();
 
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("poseX", getPose2d().getX());
     SmartDashboard.putNumber("poseY", getPose2d().getY());
-    SmartDashboard.putNumber("poseRotationDegree",
-        getPose2d().getRotation().getDegrees());
+    SmartDashboard.putNumber("poseRotationDegree", getPose2d().getRotation().getDegrees());
   }
 
   public Command gyroResetCmd() {

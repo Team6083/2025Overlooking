@@ -35,6 +35,7 @@ public class RobotContainer {
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
     swerveDrive = new SwerveDrive();
+
     mainController = new CommandXboxController(0);
     elevatorController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
@@ -47,6 +48,7 @@ public class RobotContainer {
     autChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("AutoChooser", autChooser);
+
     configureBindings();
   }
 
@@ -55,7 +57,7 @@ public class RobotContainer {
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    
+
     mainController.pov(0).whileTrue(intakeCommand);
 
     elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -68,19 +70,15 @@ public class RobotContainer {
 
     elevatorController.pov(0).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveUpCmd(), 
-            elevatorSubsystem.manualMoveCmd(0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveUpCmd(),
+            elevatorSubsystem.manualMoveCmd(0.5),
+            () -> !elevatorSubsystem.isManualControl()));
 
     elevatorController.pov(180).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveDownCmd(), 
-            elevatorSubsystem.manualMoveCmd(-0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveDownCmd(),
+            elevatorSubsystem.manualMoveCmd(-0.5),
+            () -> !elevatorSubsystem.isManualControl()));
   }
 
   public Command getAutonomousCommand() {

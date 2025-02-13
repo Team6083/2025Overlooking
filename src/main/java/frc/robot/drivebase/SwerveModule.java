@@ -36,6 +36,7 @@ public class SwerveModule extends SubsystemBase {
   private final RelativeEncoder driveEncoder;
   public final PIDController rotController;
   private final String name;
+
   private double turningMotorVoltage;
   private double driveMotorVoltage;
 
@@ -74,8 +75,7 @@ public class SwerveModule extends SubsystemBase {
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
     configDriveMotor.signals.primaryEncoderVelocityPeriodMs(20);
     configDriveMotor.inverted(driveInverted);
-    driveMotor.configure(
-        configDriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveMotor.configure(configDriveMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     SparkMaxConfig configTurningMotor = new SparkMaxConfig();
     configTurningMotor.smartCurrentLimit(20);
@@ -83,8 +83,7 @@ public class SwerveModule extends SubsystemBase {
     configTurningMotor.idleMode(IdleMode.kBrake);
     configTurningMotor.voltageCompensation(ModuleConstant.kMaxModuleTurningVoltage);
     configTurningMotor.inverted(turningInverted);
-    turningMotor.configure(
-        configTurningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    turningMotor.configure(configTurningMotor, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     resetAllEncoder();
   }
 
@@ -99,43 +98,37 @@ public class SwerveModule extends SubsystemBase {
 
   // to get the single swerveModule speed and the turning rate
   public SwerveModuleState getState() {
-    return new SwerveModuleState(
-        getDriveRate().in(MetersPerSecond), getRotation2d());
+    return new SwerveModuleState(getDriveRate().in(MetersPerSecond), getRotation2d());
   }
 
   // to get the drive distance
   public Distance getDriveDistance() {
-    return ModuleConstant.kWheelRadius.times(2.0 * Math.PI)
-        .times(driveEncoder.getPosition() / 6.75);
+    return ModuleConstant.kWheelRadius.times(2.0 * Math.PI).times(driveEncoder.getPosition() / 6.75);
   }
 
   // calculate the rate of the drive
   public LinearVelocity getDriveRate() {
-    return Meters.per(Minutes).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
-        * ModuleConstant.kWheelRadius.in(Meters));
+    return Meters.per(Minutes)
+        .of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI * ModuleConstant.kWheelRadius.in(Meters));
   }
 
   // to get rotation of turning motor
   public Rotation2d getRotation2d() {
-    return new Rotation2d(
-        Math.toRadians(
-            turningEncoder.getAbsolutePosition().getValueAsDouble() * 360.0));
+    return new Rotation2d(Math.toRadians(turningEncoder.getAbsolutePosition().getValueAsDouble() * 360.0));
   }
 
   // to the get the position by wpi function
   public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(
-        getDriveDistance(), getRotation2d());
+    return new SwerveModulePosition(getDriveDistance(), getRotation2d());
   }
 
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
-    SwerveModuleState desiredState = new SwerveModuleState(
-        goalState.speedMetersPerSecond, goalState.angle);
+    SwerveModuleState desiredState = new SwerveModuleState(goalState.speedMetersPerSecond, goalState.angle);
     desiredState.optimize(currentRotation2d);
-    driveMotorVoltage = desiredState.speedMetersPerSecond
-        * ModuleConstant.kDesireSpeedToMotorVoltage;
-    turningMotorVoltage = rotController.calculate(
-        currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
+
+    driveMotorVoltage = desiredState.speedMetersPerSecond * ModuleConstant.kDesireSpeedToMotorVoltage;
+    turningMotorVoltage = rotController.calculate(currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
+
     return new double[] { driveMotorVoltage, turningMotorVoltage };
   }
 

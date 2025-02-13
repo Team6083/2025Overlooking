@@ -46,7 +46,7 @@ public class SwerveControlCmd extends Command {
     if (mainController.b().getAsBoolean()) {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
-    
+
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
@@ -54,28 +54,24 @@ public class SwerveControlCmd extends Command {
     // CHECKSTYLE.ON: LocalVariableName
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
-      xSpeed = -xLimiter.calculate(mainController.getLeftY())
-          * drivebaseMaxSpeed * magnification;
-
+      xSpeed = -xLimiter.calculate(mainController.getLeftY()) * drivebaseMaxSpeed * magnification;
     } else {
       xSpeed = 0;
     }
-    if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
-      ySpeed = -yLimiter.calculate(mainController.getLeftX())
-          * drivebaseMaxSpeed * magnification;
 
+    if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
+      ySpeed = -yLimiter.calculate(mainController.getLeftX()) * drivebaseMaxSpeed * magnification;
     } else {
       ySpeed = 0;
     }
-    if (Math.abs(mainController.getRightX()) > minJoystickInput) {
-      rotSpeed = rotLimiter.calculate(mainController.getRightX())
-          * drivebaseMaxSpeed * 1.2;
 
+    if (Math.abs(mainController.getRightX()) > minJoystickInput) {
+      rotSpeed = rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * 1.2;
     } else {
       rotSpeed = 0;
     }
-    swerveDrive.drive(
-        xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
+
+    swerveDrive.drive(xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
 
     SmartDashboard.putNumber("LeftX()", mainController.getLeftX());
     SmartDashboard.putNumber("LeftY", mainController.getLeftY());
@@ -83,7 +79,6 @@ public class SwerveControlCmd extends Command {
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
     SmartDashboard.putNumber("rotSpeed", rotSpeed);
-
   }
 
   // Called once the command ends or is interrupted.
