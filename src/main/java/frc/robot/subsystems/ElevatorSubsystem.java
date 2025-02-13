@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   }
 
-  public void resetEncoder(){
+  public void resetEncoder() {
     encoder.reset();
   }
 
