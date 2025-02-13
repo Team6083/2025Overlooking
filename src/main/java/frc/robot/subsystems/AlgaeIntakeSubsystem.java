@@ -66,22 +66,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setRotateIntakeSetpoint() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpIntakeSetpoint);
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.krotateIntakeSetpoint);
   }
 
   public void setFrontIntakeSetpoint() {
-    algaeFrontPID.setSetpoint(AlgaeIntakeConstant.kDownIntakeSetpoint);
+    algaeFrontPID.setSetpoint(AlgaeIntakeConstant.kfrontIntakeSetpoint);
   }
 
-  public void setRotateIntake() {
-    if (powerDistribution.isAlgaeRotateOverCurrent()) {
-      rotateIntakeMotor.setVoltage(0);
-
-    }
-    rotateIntakeMotor.set(algaeRotatePID.calculate(algaeRotateEncoder.get()));
-  }
-
-  public void setFrontIntake() {
+  public void getFrontIntakeSpeed() {  // 用來測量轉速
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
       intakeMotor.setVoltage(0);
 
@@ -89,7 +81,25 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor.set(algaeFrontPID.calculate(algaeFrontEncoder.get()));
   }
 
-  public void stopRotateIntakeMotor() {
+  public void setUpRotateIntake() {
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
+      rotateIntakeMotor.setVoltage(0);
+
+    }
+    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeRotateVoltage);
+  }
+
+  public void setDownRotateIntake() {
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
+      rotateIntakeMotor.setVoltage(0);
+
+    }
+    rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeRotateVoltage);
+  }
+
+
+
+  public void stopRotateIntake() {
     if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.setVoltage(0);
 
@@ -105,13 +115,18 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return algaeFrontEncoder.get();
   }
 
-  public Command setUpIntakeCmd() {
-    Command cmd = runEnd(this::setRotateIntake, this::stopRotateIntakeMotor);
+  public Command setUpRotateIntakeCmd() { // rotateMotor 角度向上轉的 cmd
+    Command cmd = runEnd(this::setUpRotateIntake, this::stopRotateIntake);
     return cmd;
   }
 
-  public Command setDownIntakeCmd() {
-    Command cmd = runEnd(this::setFrontIntake, this::stopRotateIntakeMotor);
+  public Command setDownRotateIntakeCmd() { // rotateMotor 角度向下轉的 cmd
+    Command cmd = runEnd(this::setDownRotateIntake, this::stopRotateIntake);
+    return cmd;
+  }
+
+  public Command getFrontIntakeSpeedCmd() {
+    Command cmd = runEnd(this::getFrontIntakeSpeed, this::stopIntakeMotor);
     return cmd;
   }
 
@@ -128,6 +143,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    rotateIntakeMotor.set(algaeRotatePID.calculate(algaeRotateEncoder.get()));
+    intakeMotor.set(algaeFrontPID.calculate(algaeFrontEncoder.get()));
 
   }
 }
