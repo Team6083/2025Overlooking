@@ -10,10 +10,10 @@ public class Constants {
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0; 
 
-    // TODO:確認馬達編號
+    // TODO: 確認馬達編號
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
-    // TODO:微調
+    // TODO: 微調
     public static final double kShooterMotorFastSpeed = 0.1;
     public static final double kShooterMotorSlowSpeed = 0.05;
 
