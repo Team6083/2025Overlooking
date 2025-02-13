@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,6 +29,8 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveJoystickCmd(swerveDrive, mainController);
+
+    
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("DoNothing", Commands.none());
     autoChooser.addOption("123456", Commands.none());

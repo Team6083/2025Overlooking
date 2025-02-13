@@ -49,7 +49,7 @@ public class SwerveJoystickCmd extends Command {
       ySpeed = 0;
     }
     if (Math.abs(mainController.getRightX()) > 0.1) {
-      rotSpeed = rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * 1.2;
+      rotSpeed = -rotLimiter.calculate(mainController.getRightX()) * drivebaseMaxSpeed * 1.2;
     } else {
       rotSpeed = 0;
     }

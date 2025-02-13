@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,6 +55,15 @@ public class SwerveDrive extends SubsystemBase {
   private final StructArrayPublisher <SwerveModuleState> publisher;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
+private  Pose2d poseA ;
+private Pose2d poseB ;
+private Rotation2d rotation2d;
+
+StructPublisher<Pose2d> publisher2d = NetworkTableInstance.getDefault()
+  .getStructTopic("MyPose", Pose2d.struct).publish();
+StructArrayPublisher<Pose2d> arrayPublisher = NetworkTableInstance.getDefault()
+  .getStructArrayTopic("MyPoseArray", Pose2d.struct).publish();
+
 
   public SwerveDrive() {
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
@@ -91,6 +101,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putData("frontRight", frontRight);
     SmartDashboard.putData("backLeft", backLeft);
     SmartDashboard.putData("backRight", backRight);
+    
 
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
@@ -232,6 +243,7 @@ public class SwerveDrive extends SubsystemBase {
   // 重置陀螺儀的角度
   public void resetGyro() {
     gyro.reset();
+    
   }
   
 
@@ -305,14 +317,22 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
+        double x = 8.763;
+        double y = 6.249;
+        poseB = new Pose2d(x,y,rotation2d);
   }
 
   @Override
   public void periodic() {
+    
+    poseB = getPose2d();
+    
+    arrayPublisher.set(new Pose2d[] {poseA, poseB});
     updateOdometry();
     field2d.setRobotPose(getPose2d());
     putDashboard();
   }
+
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);

@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 5.514344262295082,
+        "y": 5.373616803278688
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.657534203198547,
-        "y": 6.831941468754045
+        "x": 6.280824677419553,
+        "y": 5.049254083154617
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "april"
     },
     {
       "anchor": {
-        "x": 3.560348360655738,
-        "y": 5.8171618852459
+        "x": 1.7621926229508196,
+        "y": 7.039907786885245
       },
       "prevControl": {
-        "x": 3.6197607889252685,
-        "y": 6.444079807209028
-      },
-      "nextControl": {
-        "x": 3.499961391553884,
-        "y": 5.179960641572762
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.0,
-        "y": 5.0
-      },
-      "prevControl": {
-        "x": 2.310359231189031,
-        "y": 5.089329906480785
+        "x": 1.5204261669558559,
+        "y": 7.18348716880835
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -118.2497354949743
   },
   "useDefaultConstraints": true
 }

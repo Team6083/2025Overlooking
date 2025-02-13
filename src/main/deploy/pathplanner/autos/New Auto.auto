@@ -11,15 +11,9 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "tag"
+            "pathName": "New New New Path"
           }
         }
       ]

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.482171571075273,
-        "y": 5.30316244182405
+        "x": 6.4441557396736915,
+        "y": 5.739875272454232
       },
       "isLocked": false,
       "linkedName": "april"
     },
     {
       "anchor": {
-        "x": 8.931000000000001,
-        "y": 5.373616803278688
+        "x": 8.763012295081966,
+        "y": 6.248719262295082
       },
       "prevControl": {
-        "x": 8.10444083331413,
-        "y": 5.428211189006756
+        "x": 7.994801380289749,
+        "y": 6.086509469723624
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,9 +33,9 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 9.2,
+    "maxAngularVelocity": 90.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.7448812969422
+    "rotation": -118.2497354949743
   },
   "useDefaultConstraints": true
 }
