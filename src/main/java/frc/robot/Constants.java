@@ -39,9 +39,9 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final Distance kInitialHeight = Millimeters.of(0.0);
-    public static final Distance kLowestHeight = Millimeters.of(0.0);
-    public static final Distance kStartedOffset = Millimeters.of(0.0);
+    public static final Distance kHeightOffset = Millimeters.of(50.0);
+    public static final Distance kInitialHeight = Millimeters.of(90.0);
+    public static final Distance kLowestHeight = Millimeters.of(50.0);
     public static final Distance kSecFloor = Millimeters.of(500);
     public static final Distance kTrdFloor = Millimeters.of(1000);
     public static final Distance kTopFloor = Millimeters.of(1500);

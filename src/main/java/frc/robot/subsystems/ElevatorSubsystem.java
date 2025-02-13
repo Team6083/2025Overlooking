@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,9 +22,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_VictorSPX elevatorMotor;
   private final Encoder encoder;
   private final PIDController elevatorPID;
-  private final DigitalInput limitSwitchUp;
-  private final DigitalInput limitSwitchDown;
-  private boolean isButtonControl = false;
   private Distance targetHeight;
 
   public ElevatorSubsystem() {
@@ -34,8 +30,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    limitSwitchUp = new DigitalInput(9);
-    limitSwitchDown = new DigitalInput(8);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
@@ -51,12 +45,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public Distance truthHeight() {
-    return targetHeight.plus(ElevatorConstant.kStartedOffset);
-  }
-
   public Distance getCurrentHeight() {
-    return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kStartedOffset);
+    return Millimeters.of(
+        encoder.getDistance() * ElevatorConstant.kEncoderDistancePerPulse)
+        .plus(ElevatorConstant.kHeightOffset);
   }
 
   public void moveUp() {
@@ -116,18 +108,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     Command cmd = run(this::moveDown);
     return cmd;
   }
-  
+
   public Command stopMoveCmd() {
     Command cmd = run(this::stopMove);
     return cmd;
-  }
-
-  public void setButtonControl(boolean controlMode) {
-    this.isButtonControl = controlMode;
-  }
-
-  public boolean isButtonControl() {
-    return this.isButtonControl;
   }
 
   @Override
