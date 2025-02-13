@@ -73,15 +73,18 @@ public class TagTracking {
     return distance;
     // CHECKSTYLE.ON: LocalVariableName
   }
-  
 
   public Pose2d getTagPose2d() {
     return getTagPose3d().toPose2d();
   }
 
   public Pose3d getTagPose3d() {
+    return getDesiredTagPose3d(getTid());
+  }
+
+  public Pose3d getDesiredTagPose3d(double index) {
     if (getTv() == 1) {
-      Optional<Pose3d> tagPose3d = layout.getTagPose((int) getTid());
+      Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
       Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
       return tagPose;
     } else {
@@ -90,12 +93,6 @@ public class TagTracking {
   }
 
   public Pose2d getDesiredTagPose2d(double index) {
-    if (getTv() == 1) {
-      Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
-      Pose2d tagPose2d = tagPose3d.isPresent() ? tagPose3d.get().toPose2d() : new Pose2d();
-      return tagPose2d;
-    } else {
-      return new Pose2d();
-    }
+    return getDesiredTagPose3d(index).toPose2d();
   }
 }
