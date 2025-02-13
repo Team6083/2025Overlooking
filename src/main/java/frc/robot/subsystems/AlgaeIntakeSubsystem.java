@@ -49,10 +49,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeMotorDownPID.setSetpoint(AlgaeIntakeConstant.kDownIntakeSetpoint);
   }
 
-  public void setIntakeMotor() { 
-    if(powerDistribution.isAlgaeIntakeOverCurrent()){
+  public void setIntakeMotor() {
+    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
       intakeMotor.setVoltage(0);
-      
+
     }
     intakeMotor.setVoltage(AlgaeIntakeConstant.kIntakeVoltage);
   }
@@ -61,29 +61,28 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor.setVoltage(AlgaeIntakeConstant.kReIntakeVoltage);
   }
 
-  public void setUpIntake() { 
-    if(powerDistribution.isAlgaeRotateOverCurrent()){
+  public void setUpIntake() {
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.setVoltage(0);
-      
+
     }
     rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kUpIntakeRotateVoltage);
     rotateIntakeMotor.set(algaeMotorUpPID.calculate(algaeRotateEncoder.get()));
   }
 
-
   public void setDownIntake() {
-    if(powerDistribution.isAlgaeRotateOverCurrent()){
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.setVoltage(0);
-      
+
     }
     rotateIntakeMotor.setVoltage(AlgaeIntakeConstant.kDownIntakeRotateVoltage);
     rotateIntakeMotor.set(algaeMotorDownPID.calculate(algaeRotateEncoder.get()));
   }
 
   public void stopRotateIntakeMotor() {
-    if(powerDistribution.isAlgaeRotateOverCurrent()){
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.setVoltage(0);
-      
+
     }
     rotateIntakeMotor.setVoltage(0);
   }
@@ -95,7 +94,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public double getIntakeShooter() {
     return algaeEncoder.get();
   }
-
 
   public Command setUpIntakeCmd() {
     Command cmd = runEnd(this::setUpIntake, this::stopRotateIntakeMotor);
@@ -120,7 +118,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-   
 
   }
 }
