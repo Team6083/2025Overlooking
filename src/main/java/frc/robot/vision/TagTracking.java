@@ -76,13 +76,7 @@ public class TagTracking {
   
 
   public Pose2d getTagPose2d() {
-    if (getTv() == 1) {
-      Optional<Pose3d> tagPose3d = layout.getTagPose((int) getTid());
-      Pose2d tagPose2d = tagPose3d.isPresent() ? tagPose3d.get().toPose2d() : new Pose2d();
-      return tagPose2d;
-    } else {
-      return new Pose2d();
-    }
+    getTagPose3d().toPose2d();
   }
 
   public Pose3d getTagPose3d() {
