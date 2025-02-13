@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -23,12 +25,18 @@ public class RobotContainer {
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
+  private final Command intakeCommand;
+
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+
+    intakeCommand = new SequentialCommandGroup(
+        coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
+        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
     autChooser = AutoBuilder.buildAutoChooser();
     autChooser.setDefaultOption("DoNothing", Commands.none());
@@ -42,6 +50,7 @@ public class RobotContainer {
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().whileTrue(swerveDrive.gyroResetCmd());
+    mainController.pov(0).whileTrue(intakeCommand);
   }
 
   public Command getAutonomousCommand() {
@@ -49,9 +58,3 @@ public class RobotContainer {
   }
 
 }
-
-  
-        
-                 
-                
-         
