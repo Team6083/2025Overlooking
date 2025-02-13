@@ -76,7 +76,7 @@ public class TagTracking {
   
 
   public Pose2d getTagPose2d() {
-    getTagPose3d().toPose2d();
+    return getTagPose3d().toPose2d();
   }
 
   public Pose3d getTagPose3d() {
