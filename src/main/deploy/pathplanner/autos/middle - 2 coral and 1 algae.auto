@@ -73,7 +73,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "to coral shooter 3"
+                  "pathName": "to coral station 3"
                 }
               }
             ]
@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "coral station to reef"
+                  "pathName": "right coral station to reef"
                 }
               }
             ]

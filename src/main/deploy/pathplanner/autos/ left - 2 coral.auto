@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - leave starting line"
+                  "pathName": "left - leave starting line"
                 }
               },
               {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "to coral station"
+                  "pathName": "to coral station 4"
                 }
               },
               {
@@ -51,7 +51,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 3.0
           }
         },
         {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right coral station to reef"
+                  "pathName": "left coral station to reef"
                 }
               },
               {

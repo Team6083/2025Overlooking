@@ -3,7 +3,9 @@
   "robotLength": 0.7,
   "holonomicMode": true,
   "pathFolders": [
+    "leave starting line",
     "put down algae",
+    "to coral station",
     "to reef"
   ],
   "autoFolders": [],
