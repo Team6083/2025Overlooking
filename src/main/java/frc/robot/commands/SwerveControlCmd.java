@@ -39,18 +39,18 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // CHECKSTYLE.OFF: LocalVariableName
-    double xSpeed;
-    double ySpeed;
-    double rotSpeed;
-    // CHECKSTYLE.ON: LocalVariableName
-
     if (mainController.a().getAsBoolean()) {
       magnification = SwerveControlConstant.kSlowMagnification;
     }
     if (mainController.b().getAsBoolean()) {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
+    
+    // CHECKSTYLE.OFF: LocalVariableName
+    double xSpeed;
+    double ySpeed;
+    double rotSpeed;
+    // CHECKSTYLE.ON: LocalVariableName
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
@@ -73,7 +73,6 @@ public class SwerveControlCmd extends Command {
     } else {
       rotSpeed = 0;
     }
-
     swerveDrive.drive(
         xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
   }
