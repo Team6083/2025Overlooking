@@ -123,8 +123,8 @@ public class Constants {
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kMagnification = 2;
-    public static final double kHighMagnification = 2;
+    public static final double kDefaultMagnification = 2;
+    public static final double kHighMagnification = 1;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
