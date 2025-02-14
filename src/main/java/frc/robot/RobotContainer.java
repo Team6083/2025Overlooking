@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +22,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
-  private final SendableChooser<Command> autChooser;
+  private final SendableChooser<Command> autoChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController elevatorController;
@@ -43,10 +44,15 @@ public class RobotContainer {
         coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
-    autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("DoNothing", Commands.none());
+    NamedCommands.registerCommand("coralShooterSlowOn",
+        coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("toSecFloorCmd",
+        elevatorSubsystem.toSecFloorCmd());
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("AutoChooser", autChooser);
+    SmartDashboard.putData("AutoChooser", autoChooser);
     configureBindings();
   }
 
@@ -55,7 +61,7 @@ public class RobotContainer {
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    
+
     mainController.pov(0).whileTrue(intakeCommand);
 
     elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -68,19 +74,15 @@ public class RobotContainer {
 
     elevatorController.pov(0).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveUpCmd(), 
-            elevatorSubsystem.manualMoveCmd(0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveUpCmd(),
+            elevatorSubsystem.manualMoveCmd(0.5),
+            () -> !elevatorSubsystem.isManualControl()));
 
     elevatorController.pov(180).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveDownCmd(), 
-            elevatorSubsystem.manualMoveCmd(-0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveDownCmd(),
+            elevatorSubsystem.manualMoveCmd(-0.5),
+            () -> !elevatorSubsystem.isManualControl()));
   }
 
   public Command getAutonomousCommand() {
