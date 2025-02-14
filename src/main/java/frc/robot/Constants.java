@@ -123,7 +123,7 @@ public class Constants {
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
     public static final int kIntakeMotorChannel = 2;
-    public static final int kIntakeRotateMotorChannal = 1;
+    public static final int kIntakeRotateMotorChannel = 1;
 
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 34;
@@ -152,7 +152,7 @@ public class Constants {
 
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = false;
-    public static final Boolean krotateIntakeMotorInverted = false;
+    public static final Boolean kRotateIntakeMotorInverted = false;
   }
 
   public static final class SwerveControlConstant {

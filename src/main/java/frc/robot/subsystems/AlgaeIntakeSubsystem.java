@@ -28,7 +28,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID = new PIDController(AlgaeIntakeConstant.rotMotorPIDkD,
         AlgaeIntakeConstant.rotMotorPIDkI, AlgaeIntakeConstant.rotMotorPIDkD);
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
-    rotateIntakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeRotateMotorChannal);
+    rotateIntakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeRotateMotorChannel);
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     algaeRotateEncoder = new Encoder(AlgaeIntakeConstant.kAlgaeEncoderChannelA,
         AlgaeIntakeConstant.kAlgaeEncoderChannelB);
