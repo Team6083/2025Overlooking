@@ -132,25 +132,25 @@ public class Constants {
     public static final int kalgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeVoltage = 6.0;
-    public static final double kReIntakeVoltage = 3.0;
+    public static final double kIntakeSpeed = 0.5;
+    public static final double kReIntakeSpeed = 0.1;
 
     // AlgaeRotate 的電壓
-    public static final double kUpIntakeRotateVoltage = 12;
-    public static final double kDownIntakeRotateVoltage = -12;
+    public static final double kUpIntakeRotateSpeed = 0.1;
+    public static final double kDownIntakeRotateSpeed = -0.1;
 
     // Algae Rotate&Front PID
-    public static final double rotMotorPIDkP = 0.8;
+    public static final double rotMotorPIDkP = 0.01;
     public static final double rotMotorPIDkI = 0;
     public static final double rotMotorPIDkD = 0;
-    public static final double frontMotorPIDkP = 0.8;
+    public static final double frontMotorPIDkP = 0.01;
     public static final double frontMotorPIDkI = 0;
     public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int kUprotateIntakeSetpoint = 130;
-    public static final int kDownrotateIntakeSetpoint = 30;
-    public static final int kfrontIntakeSetpoint = 30;
+    public static final int kUprotateIntakeSetpoint = 90;
+    public static final int kDownrotateIntakeSetpoint = 0;
+    public static final int kfrontIntakeSetpoint = 0;
 
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = false;
