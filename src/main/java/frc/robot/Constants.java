@@ -56,10 +56,10 @@ public class Constants {
     public static final double kMinOutput = -0.5;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kSecFloor = Millimeters.of(810);
+    public static final Distance kSecFloor = Millimeters.of(780);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
-    public static final Distance kStepHeight = Millimeters.of(10);
+    public static final Distance kStepHeight = Millimeters.of(1);
 
     public static final double kEncoderDistancePerPulse 
         = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
