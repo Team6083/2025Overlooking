@@ -48,7 +48,7 @@ public class SwerveControlCmd extends Command {
     if (mainController.a().getAsBoolean()) {
       magnification = SwerveControlConstant.kSlowMagnification;
     }
-    if(mainController.b().getAsBoolean()){
+    if (mainController.b().getAsBoolean()) {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
 
