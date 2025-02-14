@@ -72,7 +72,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   /**
    * Get up encoder rate.
    * 
-   * 
+   
    * @return rate/2048 (double)
    */
 
