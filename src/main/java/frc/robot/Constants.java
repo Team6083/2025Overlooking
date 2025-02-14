@@ -126,10 +126,8 @@ public class Constants {
     public static final int kIntakeRotateMotorChannal = 1;
 
     // Algae Encoder Channel
-    public static final int kalgaeEncoderChannelA = 3;
-    public static final int kalgaeEncoderChannelB = 4;
-    public static final int kalgaeFrontEncoderChannelA = 1;
-    public static final int kalgaeFrontEncoderChannelB = 2;
+    public static final int kalgaeEncoderChannelA = 34;
+    public static final int kalgaeEncoderChannelB = 35;
 
     // Algae 吸入、吐出的電壓
     public static final double kIntakeSpeed = 0.5;
