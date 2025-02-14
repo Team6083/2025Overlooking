@@ -100,11 +100,10 @@ public class Constants {
 
     // TODO:
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = 0.020752;
-    public static final double kFrontRightCanCoderMagOffset = 0.085205;
-    public static final double kBackLeftCanCoderMagOffset = 0.165771;
-    public static final double kBackRightCanCoderMagOffset = 0.127930;
-
+    public static final double kFrontLeftCanCoderMagOffset = 0.460938 ;
+    public static final double kFrontRightCanCoderMagOffset =0.081055;
+    public static final double kBackLeftCanCoderMagOffset = -0.349365;
+    public static final double kBackRightCanCoderMagOffset =-0.362793;
     // TODO:
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
@@ -137,5 +136,16 @@ public class Constants {
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
   }
+  public static final class AutoConstants {
+    public static final double kPTranslation = 3.6;
+    public static final double kITranslation = 0.15;
+    public static final double kDTranslation = 1;
+    public static final double kPRotation = 5;
+    public static final double kIRotation = 0;
+    public static final double kDRotation = 0.6;
+    public static final double kDrivebaseRadius = 0.3;
+
+  }
+
 
 }
