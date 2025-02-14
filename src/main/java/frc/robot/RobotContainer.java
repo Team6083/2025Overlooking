@@ -24,7 +24,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
-  private final CommandXboxController ElevatorController;
+  private final CommandXboxController elevatorController;
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
@@ -36,7 +36,7 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
-    ElevatorController = new CommandXboxController(1);
+    elevatorController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
@@ -57,15 +57,15 @@ public class RobotContainer {
     mainController.back().whileTrue(swerveDrive.gyroResetCmd());
     mainController.pov(0).whileTrue(intakeCommand);
 
-    ElevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    ElevatorController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
-    ElevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
-    ElevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
-    ElevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
+    elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    elevatorController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    elevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
+    elevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
+    elevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
 
-    ElevatorController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
+    elevatorController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
 
-    ElevatorController.pov(0).whileTrue(
+    elevatorController.pov(0).whileTrue(
         Commands.either(
             elevatorSubsystem.moveUpCmd(), 
             elevatorSubsystem.manualMoveCmd(0.5), 
@@ -73,7 +73,7 @@ public class RobotContainer {
         )
     );
 
-    ElevatorController.pov(180).whileTrue(
+    elevatorController.pov(180).whileTrue(
         Commands.either(
             elevatorSubsystem.moveDownCmd(), 
             elevatorSubsystem.manualMoveCmd(-0.5), 

@@ -128,9 +128,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command manualMoveCmd(double power) {
     return run(() -> {
-        if (manualControl) {
-            elevatorMotor.set(ControlMode.PercentOutput, power);
-        }
+      if (manualControl) {
+        elevatorMotor.set(ControlMode.PercentOutput, power);
+      }
     }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
   }
 
@@ -138,7 +138,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
-    if(!manualControl) {
+    if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
