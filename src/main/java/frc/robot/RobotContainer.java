@@ -63,7 +63,7 @@ public class RobotContainer {
 
     // mainController.x().onTrue(intakeCommand);
     // mainController.y().onTrue(coralShooterSubsystem.coralShooterStopCmd());
-    // mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
     coController.y().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     coController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());

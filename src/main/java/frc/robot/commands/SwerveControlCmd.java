@@ -40,10 +40,10 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (mainController.a().getAsBoolean()) {
+    if (mainController.x().getAsBoolean()) {
       magnification = SwerveControlConstant.kSlowMagnification;
     }
-    if (mainController.b().getAsBoolean()) {
+    if (mainController.y().getAsBoolean()) {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
     
