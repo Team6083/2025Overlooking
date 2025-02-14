@@ -43,7 +43,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
 
     }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 1);
+    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+        AlgaeIntakeConstant.kIntakeVoltage);
   }
 
   public void setReIntake() {
@@ -51,7 +52,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
 
     }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 1);
+    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+        AlgaeIntakeConstant.kReIntakeVoltage);
   }
 
   public void stopIntakeMotor() {
@@ -79,10 +81,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public double getIntakeMotorRotate() {
     return algaeRotateEncoder.getDistance();
-  }
-
-  public double getIntakeShooter() {
-    return algaeFrontEncoder.getRate();
   }
 
   public Command getFrontIntakeSpeedCmd() {

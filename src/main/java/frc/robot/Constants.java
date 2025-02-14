@@ -118,6 +118,8 @@ public class Constants {
     // Algae Encoder Channel
     public static final int kalgaeEncoderChannelA = 3;
     public static final int kalgaeEncoderChannelB = 4;
+    public static final int kalgaeFrontEncoderChannelA = 1;
+    public static final int kalgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
     public static final double kIntakeVoltage = 6.0;
