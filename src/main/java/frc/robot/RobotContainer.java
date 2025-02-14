@@ -16,12 +16,15 @@ import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.CoralShooterSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
+  private final ElevatorSubsystem elevatorSubsystem;
   private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
+  private final CommandXboxController elevatorController;
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
@@ -30,8 +33,10 @@ public class RobotContainer {
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
+    elevatorSubsystem = new ElevatorSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
+    elevatorController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
@@ -51,6 +56,30 @@ public class RobotContainer {
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().whileTrue(swerveDrive.gyroResetCmd());
     mainController.pov(0).whileTrue(intakeCommand);
+
+    elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    elevatorController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    elevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
+    elevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
+    elevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
+
+    elevatorController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
+
+    elevatorController.pov(0).whileTrue(
+        Commands.either(
+            elevatorSubsystem.moveUpCmd(), 
+            elevatorSubsystem.manualMoveCmd(0.5), 
+            () -> !elevatorSubsystem.isManualControl()
+        )
+    );
+
+    elevatorController.pov(180).whileTrue(
+        Commands.either(
+            elevatorSubsystem.moveDownCmd(), 
+            elevatorSubsystem.manualMoveCmd(-0.5), 
+            () -> !elevatorSubsystem.isManualControl()
+        )
+    );
   }
 
   public Command getAutonomousCommand() {
