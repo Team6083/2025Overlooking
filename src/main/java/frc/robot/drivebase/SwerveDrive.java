@@ -288,7 +288,7 @@ public class SwerveDrive extends SubsystemBase {
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
-
+     
     updateOdometry();
 
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());

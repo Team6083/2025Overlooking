@@ -8,7 +8,7 @@ import edu.wpi.first.units.measure.LinearVelocity;
 
 public class Constants {
   public static final class CoralShooterConstant {
-    public static final double kDistanceRange = 4.0;
+    public static final double kDistanceRange = 4.0; 
 
     // TODO: 確認馬達編號
     public static final int kShooterLeftMotorChannel = 31;
