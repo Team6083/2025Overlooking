@@ -19,8 +19,8 @@ public class Constants {
 
   public static final class PowerDistributionConstant {
     // Motor channel
-    public static final int kCoralShooterRightMotorCurrentChannel = 7;
-    public static final int kCoralShooterLeftMotorCurrentChannel = 7;
+    public static final int kCoralShooterRightMotorCurrentChannel = 0;
+    public static final int kCoralShooterLeftMotorCurrentChannel = 1;
     public static final int kAlgaeIntakeMotorCurrentChannel = 7;
     public static final int kAlgaeRotateMotorCurrentChannel = 7;
     public static final int kClimberMotorCurrentChannel = 7;
