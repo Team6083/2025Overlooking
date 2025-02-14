@@ -41,7 +41,7 @@ public class Constants {
   }
 
   public static final class ElevatorConstant {
-    public static final double kP = 0.0003;
+    public static final double kP = 0.06;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
@@ -50,10 +50,10 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1150);
+    public static final Distance kMaxHeight = Millimeters.of(1000);
 
-    public static final double kMaxOutput = 1.0;
-    public static final double kMinOutput = -1.0;
+    public static final double kMaxOutput = 0.8;
+    public static final double kMinOutput = -0.5;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kSecFloor = Millimeters.of(810);
@@ -159,7 +159,7 @@ public class Constants {
     public static final int kAlgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeFastSpeed = 0.5;
+    public static final double kIntakeFastSpeed = 0.3;
     public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = 0.1;
 

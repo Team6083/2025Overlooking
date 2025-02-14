@@ -16,7 +16,7 @@ import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
-import frc.robot.subsystems.AlgaeIntakeSubsystem;
+// import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -24,8 +24,8 @@ public class RobotContainer {
   private final PowerDistribution powerDistribution;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
-  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final SendableChooser<Command> autChooser;
+  // private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  // private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController coController;
@@ -37,7 +37,7 @@ public class RobotContainer {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
-    algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
+    // algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     coController = new CommandXboxController(1);
@@ -47,12 +47,12 @@ public class RobotContainer {
         coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
-    autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("DoNothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autChooser);
+    // autChooser = AutoBuilder.buildAutoChooser();
+    // autChooser.setDefaultOption("DoNothing", Commands.none());
+    // SmartDashboard.putData("AutoChooser", autChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
-    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
+    // SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
     configureBindings();
   }
@@ -61,15 +61,17 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    mainController.x().onTrue(intakeCommand);
-    mainController.y().onTrue(coralShooterSubsystem.coralShooterStopCmd());
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    // mainController.x().onTrue(intakeCommand);
+    // mainController.y().onTrue(coralShooterSubsystem.coralShooterStopCmd());
+    // mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
+    coController.y().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     coController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
     coController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     coController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
 
-    coController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
+    mainController.a().onTrue(elevatorSubsystem.switchManualControlCmd(true));
+    mainController.b().onTrue(elevatorSubsystem.switchManualControlCmd(false));
 
     mainController.pov(0).whileTrue(
         Commands.either(
@@ -83,12 +85,13 @@ public class RobotContainer {
             elevatorSubsystem.manualMoveCmd(-0.5),
             () -> !elevatorSubsystem.isManualControl()));
 
-    mainController.leftTrigger().whileTrue(
-        algaeIntakeSubsystem.intakeCmd(
-            mainController.getLeftTriggerAxis()));
-    mainController.leftBumper().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.povLeft().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
-    mainController.povRight().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
+    mainController.start().onTrue(elevatorSubsystem.elevatorReset());
+    // mainController.leftTrigger().whileTrue(
+    //     algaeIntakeSubsystem.intakeCmd(
+    //         mainController.getLeftTriggerAxis()));
+    // mainController.leftBumper().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // mainController.povLeft().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
+    // mainController.povRight().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
 
     // 測完之後希望可以做到
     // mainController.leftTrigger().onTrue(algaeIntakeSubsystem.autoIntakeCmd()

@@ -28,7 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(ElevatorConstant.kElevatorMotorChannel);
     elevatorMotor.setInverted(true);
-    encoder = new Encoder(1, 2);
+    encoder = new Encoder(2, 3);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     manualControl = false;
@@ -52,8 +52,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public void switchManualControl() {
-    manualControl = !manualControl;
+  public void setManualControl(boolean manualControlOn) {
+    this.manualControl = manualControlOn;
   }
 
   public boolean isManualControl() {
@@ -122,8 +122,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command switchManualControlCmd() {
-    return runOnce(this::switchManualControl);
+  public Command switchManualControlCmd(boolean manualControl) {
+    Command cmd = runOnce(() -> {
+      setManualControl(manualControl);
+      SmartDashboard.putBoolean("asdadsad", manualControl);
+    });
+    cmd.setName("switchManualControl");
+    return cmd;
   }
 
   public Command manualMoveCmd(double power) {
@@ -132,6 +137,12 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorMotor.set(ControlMode.PercentOutput, power);
       }
     }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
+  }
+
+  public Command elevatorReset(){
+    Command cmd = run(this::resetEncoder);
+    cmd.setName("elevatorReset");
+    return cmd;
   }
 
   @Override
@@ -144,11 +155,13 @@ public class ElevatorSubsystem extends SubsystemBase {
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       elevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
+    } else {
+      targetHeight = currentHeight;
     }
 
-    SmartDashboard.putNumber("ElevatorSetPoint", targetHeight.in(Millimeters));
-    SmartDashboard.putNumber("Encoder", encoder.getDistance());
-    SmartDashboard.putNumber("currentHeight", currentHeight.in(Millimeters));
-    SmartDashboard.putBoolean("isManualControl", isManualControl());
+    SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
+    SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
+    SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
+    SmartDashboard.putData("ElevatorPID", elevatorPID);
   }
 }
