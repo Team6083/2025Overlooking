@@ -35,6 +35,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     algaeFrontEncoder = new Encoder(0, 1);
     algaeRotateEncoder = new Encoder(0, 0);
+    algaeRotateEncoder.setDistancePerPulse(360.0 / 2048);
   }
 
   public void setIntakeMotor() {
@@ -42,7 +43,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
 
     }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 10);
+    intakeMotor.set(VictorSPXControlMode.PercentOutput, 1);
   }
 
   public void setReIntake() {
@@ -50,12 +51,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
 
     }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 10);
+    intakeMotor.set(VictorSPXControlMode.PercentOutput, 1);
   }
 
   public void stopIntakeMotor() {
 
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 10);
+    intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
   public void setUpRotateIntakeSetpoint() {
@@ -66,32 +67,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownrotateIntakeSetpoint);
   }
 
-
-
   private double getFrontIntakeSpeed() { // 用來測量轉速
     algaeFrontPID.setSetpoint(AlgaeIntakeConstant.kfrontIntakeSetpoint);
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-
-    }
     return algaeFrontEncoder.getRate();
 
-  }
-
-  public void setUpRotateIntake() {
-    if (powerDistribution.isAlgaeRotateOverCurrent()) {
-      rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-
-    }
-    rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 10);
-  }
-
-  public void setDownRotateIntake() {
-    if (powerDistribution.isAlgaeRotateOverCurrent()) {
-      rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-
-    }
-    rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 10);
   }
 
   public void stopRotateIntake() {
@@ -99,21 +78,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public double getIntakeMotorRotate() {
-    return algaeRotateEncoder.get();
+    return algaeRotateEncoder.getDistance();
   }
 
   public double getIntakeShooter() {
-    return algaeFrontEncoder.get() / 2048;
-  }
-
-  public Command setUpRotateIntakeCmd() { // rotateMotor 角度向上轉的 cmd
-    Command cmd = runEnd(this::setUpRotateIntake, this::stopRotateIntake);
-    return cmd;
-  }
-
-  public Command setDownRotateIntakeCmd() { // rotateMotor 角度向下轉的 cmd
-    Command cmd = runEnd(this::setDownRotateIntake, this::stopRotateIntake);
-    return cmd;
+    return algaeFrontEncoder.getRate();
   }
 
   public Command getFrontIntakeSpeedCmd() {
@@ -134,6 +103,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (powerDistribution.isAlgaeRotateOverCurrent()) {
+      rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+
+    }
     double output = algaeRotatePID.calculate(algaeRotateEncoder.get() / 2048);
     rotateIntakeMotor.set(ControlMode.PercentOutput, output);
 
