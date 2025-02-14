@@ -153,42 +153,47 @@ public class Constants {
     public static final int kIntakeRotateMotorChannal = 1;
 
     // Algae Encoder Channel
-    public static final int kalgaeEncoderChannelA = 3;
-    public static final int kalgaeEncoderChannelB = 4;
-    public static final int kalgaeFrontEncoderChannelA = 1;
-    public static final int kalgaeFrontEncoderChannelB = 2;
+    public static final int kAlgaeEncoderChannelA = 3;
+    public static final int kAlgaeEncoderChannelB = 4;
+    public static final int kAlgaeFrontEncoderChannelA = 1;
+    public static final int kAlgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeSpeed = 0.5;
+    public static final double kIntakeFastSpeed = 0.5;
+    public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = 0.1;
 
     // AlgaeRotate 的電壓
     public static final double kUpIntakeRotateSpeed = 0.1;
     public static final double kDownIntakeRotateSpeed = -0.1;
 
-    // Algae Rotate&Front PID
+    // Algae Rotate & Front PID
     public static final double rotMotorPIDkP = 0.01;
     public static final double rotMotorPIDkI = 0;
     public static final double rotMotorPIDkD = 0;
-    public static final double frontMotorPIDkP = 0.01;
-    public static final double frontMotorPIDkI = 0;
-    public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int kUprotateIntakeSetpoint = 90;
-    public static final int kDownrotateIntakeSetpoint = 0;
-    public static final int kfrontIntakeSetpoint = 0;
+    public static final int kUpRotateIntakeSetpoint = 90;
+    public static final int kDownRotateIntakeSetpoint = 0;
 
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = false;
-    public static final Boolean krotateIntakeMotorInverted = false;
+    public static final Boolean kRotateIntakeMotorInverted = false;
+    public static final Boolean kAlgaeEncoderInverted = false;
+
+    // Algae Current Limit
+    public static final double kIntakeCurrentLimit = 10;
+
+    // Algae Encoder
+    public static final double kDistancePerPulse = 360.0 / 2048;
+    public static final double kRotateEncoderOffset = 0.0;
   }
 
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
     public static final double kDefaultMagnification = 2;
-    public static final double kSlowMagnification = 1;
+    public static final double kSlowMagnification = 0.5;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
