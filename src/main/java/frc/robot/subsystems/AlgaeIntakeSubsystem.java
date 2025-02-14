@@ -30,8 +30,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateIntakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeRotateMotorChannal);
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
-    algaeRotateEncoder = new Encoder(AlgaeIntakeConstant.kalgaeEncoderChannelA,
-        AlgaeIntakeConstant.kalgaeEncoderChannelB);
+    algaeRotateEncoder = new Encoder(AlgaeIntakeConstant.kAlgaeEncoderChannelA,
+        AlgaeIntakeConstant.kAlgaeEncoderChannelB);
     algaeRotateEncoder.setDistancePerPulse(360.0 / 2048);
   }
 
@@ -59,11 +59,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setUpRotateIntakeSetpoint() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUprotateIntakeSetpoint);
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpRotateIntakeSetpoint);
   }
 
   public void setDownRotateIntakeSetpoint() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownrotateIntakeSetpoint);
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownRotateIntakeSetpoint);
   }
 
   public void stopRotateIntake() {
@@ -89,10 +89,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     if (powerDistribution.isAlgaeRotateOverCurrent()) {
       rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+      double output = algaeRotatePID.calculate(algaeRotateEncoder.get() / 2048);
+      rotateIntakeMotor.set(ControlMode.PercentOutput, output);
 
     }
-    double output = algaeRotatePID.calculate(algaeRotateEncoder.get() / 2048);
-    rotateIntakeMotor.set(ControlMode.PercentOutput, output);
 
     SmartDashboard.putNumber("algaeIntakeMotorVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeIntakeRotateMotorVoltage", rotateIntakeMotor.getMotorOutputVoltage());

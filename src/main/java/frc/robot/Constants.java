@@ -126,8 +126,8 @@ public class Constants {
     public static final int kIntakeRotateMotorChannal = 1;
 
     // Algae Encoder Channel
-    public static final int kalgaeEncoderChannelA = 34;
-    public static final int kalgaeEncoderChannelB = 35;
+    public static final int kAlgaeEncoderChannelA = 34;
+    public static final int kAlgaeEncoderChannelB = 35;
 
     // Algae 吸入、吐出的電壓
     public static final double kIntakeSpeed = 0.5;
@@ -146,9 +146,9 @@ public class Constants {
     public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int kUprotateIntakeSetpoint = 90;
-    public static final int kDownrotateIntakeSetpoint = 0;
-    public static final int kfrontIntakeSetpoint = 0;
+    public static final int kUpRotateIntakeSetpoint = 90;
+    public static final int kDownRotateIntakeSetpoint = 0;
+    public static final int kFrontIntakeSetpoint = 0;
 
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = false;
