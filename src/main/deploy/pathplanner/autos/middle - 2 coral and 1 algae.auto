@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "leave starting line 2"
+                  "pathName": "middle - leave starting line "
                 }
               },
               {
@@ -61,65 +61,53 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "to reaf"
-          }
-        },
-        {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIntakeCmd"
+                  "name": "elevator"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "put down algae 2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "algaereintake"
+                  "pathName": "to coral shooter 3"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "to reaf 2"
+            "waitTime": 3.0
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIntakeCmd"
+                  "name": "elevator"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "put down algae 3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "algaereintake"
+                  "pathName": "coral station to reef"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "carolShooterCmd"
           }
         }
       ]
