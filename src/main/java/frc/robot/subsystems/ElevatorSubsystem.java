@@ -38,6 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void resetEncoder() {
     encoder.reset();
+    targetHeight = getCurrentHeight();
   }
 
   public void moveToHeight(Distance newTargetHeight) {

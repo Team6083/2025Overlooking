@@ -16,12 +16,15 @@ import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.CoralShooterSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
+  private final ElevatorSubsystem elevatorSubsystem;
   private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
+  private final CommandXboxController ElevatorController;
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
@@ -30,8 +33,10 @@ public class RobotContainer {
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
+    elevatorSubsystem = new ElevatorSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
+    ElevatorController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
@@ -51,6 +56,12 @@ public class RobotContainer {
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().whileTrue(swerveDrive.gyroResetCmd());
     mainController.pov(0).whileTrue(intakeCommand);
+
+    ElevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    ElevatorController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    ElevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
+    ElevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
+    ElevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
   }
 
   public Command getAutonomousCommand() {
