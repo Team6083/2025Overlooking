@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
@@ -61,6 +63,13 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public Command coralShooterSlowOnCmd() {
     Command cmd = runEnd(this::coralShooterSlowOnCmd, this::coralShooterStop);
     return cmd;
+  }
+
+  public void periodic() {
+    SmartDashboard.putNumber("coralShooterLeftMotorSpeed",
+        coralShooterLeftMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("coralShooterRightMotorSpeed",
+        coralShooterRightMotor.getMotorOutputVoltage());
   }
 
 }
