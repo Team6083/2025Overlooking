@@ -73,8 +73,10 @@ public class PowerDistribution {
   }
 
   public boolean isCoralShooterOverCurrent() {
-    boolean isRightMotorOverCurrent = coralShooterRightCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
-    boolean isLeftMotorOverCurrent = coralShooterLeftCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isRightMotorOverCurrent = coralShooterRightCurrent() 
+      > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isLeftMotorOverCurrent = coralShooterLeftCurrent() 
+      > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
     SmartDashboard.putBoolean("isCoralShooterOverCurrent",
         isLeftMotorOverCurrent || isRightMotorOverCurrent);
     return isLeftMotorOverCurrent || isRightMotorOverCurrent;
