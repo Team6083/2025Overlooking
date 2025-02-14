@@ -66,12 +66,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownrotateIntakeSetpoint);
   }
 
-  /**
-   * Get up encoder rate.
-   * 
-   *
-   * @return rate/2048 (double)
-   */
+
 
   private double getFrontIntakeSpeed() { // 用來測量轉速
     algaeFrontPID.setSetpoint(AlgaeIntakeConstant.kfrontIntakeSetpoint);
