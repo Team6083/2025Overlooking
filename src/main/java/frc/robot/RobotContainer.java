@@ -24,7 +24,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
-  private final CommandXboxController elevatorController;
+  private final CommandXboxController coController;
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
@@ -36,7 +36,7 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
-    elevatorController = new CommandXboxController(1);
+    coController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
@@ -52,21 +52,21 @@ public class RobotContainer {
 
   private void configureBindings() {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
-    mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    mainController.x().whileTrue(swerveDrive.setTurningDegreeCmd(90));
+    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     
-    mainController.pov(0).whileTrue(intakeCommand);
+    mainController.b().onTrue(intakeCommand);
+    mainController.a().onTrue(coralShooterSubsystem.coralShooterStopCmd());
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
-    elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    elevatorController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
-    elevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
-    elevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
-    elevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
+    coController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    coController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    coController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
 
-    elevatorController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
+    coController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
 
-    elevatorController.pov(0).whileTrue(
+    coController.pov(0).whileTrue(
         Commands.either(
             elevatorSubsystem.moveUpCmd(), 
             elevatorSubsystem.manualMoveCmd(0.5), 
@@ -74,7 +74,7 @@ public class RobotContainer {
         )
     );
 
-    elevatorController.pov(180).whileTrue(
+    coController.pov(180).whileTrue(
         Commands.either(
             elevatorSubsystem.moveDownCmd(), 
             elevatorSubsystem.manualMoveCmd(-0.5), 
