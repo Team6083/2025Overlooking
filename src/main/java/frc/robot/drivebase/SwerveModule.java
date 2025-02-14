@@ -4,6 +4,7 @@
 
 package frc.robot.drivebase;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Minutes;
@@ -154,7 +155,7 @@ public class SwerveModule extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
     SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
-    SmartDashboard.putNumber(name + "_ModuleRotation", getRotation2d().getDegrees());
+    SmartDashboard.putNumber(name + "get_ModuleRotation", getRotation2d().getDegrees());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
     SmartDashboard.putData(name + "_rotController", rotController);

@@ -8,7 +8,7 @@ import edu.wpi.first.units.measure.LinearVelocity;
 
 public class Constants {
   public static final class CoralShooterConstant {
-    public static final double kDistanceRange = 4.0; 
+    public static final double kDistanceRange = 4.0;
 
     // TODO: 確認馬達編號
     public static final int kShooterLeftMotorChannel = 31;
@@ -90,23 +90,23 @@ public class Constants {
 
     // TODO:
     // turningMotor inverted
-    public static final boolean kFrontLeftTurningMotorInverted = false;
-    public static final boolean kFrontRightTurningMotorInverted = false;
-    public static final boolean kBackLeftTuringMotorInverted = false;
-    public static final boolean kBackRightTurningMotorInverted = false;
+    public static final boolean kFrontLeftTurningMotorInverted = true;
+    public static final boolean kFrontRightTurningMotorInverted = true;
+    public static final boolean kBackLeftTuringMotorInverted = true;
+    public static final boolean kBackRightTurningMotorInverted = true;
 
     // turning CANcoder ID
-    public static final int kFrontLeftCanCoder = 3;
-    public static final int kFrontRightCanCoder = 4;
-    public static final int kBackLeftCanCoder = 6;
-    public static final int kBackRightCanCoder = 5;
+    public static final int kFrontLeftCanCoder = 6;
+    public static final int kFrontRightCanCoder = 3;
+    public static final int kBackLeftCanCoder = 5;
+    public static final int kBackRightCanCoder = 4;
 
     // TODO:
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = 0.108154;
-    public static final double kFrontRightCanCoderMagOffset = -0.001709;
-    public static final double kBackLeftCanCoderMagOffset = 0.078125;
-    public static final double kBackRightCanCoderMagOffset = 0.412109;
+    public static final double kFrontLeftCanCoderMagOffset = 0.069092;
+    public static final double kFrontRightCanCoderMagOffset = 0.369141;
+    public static final double kBackLeftCanCoderMagOffset = 0.401855;
+    public static final double kBackRightCanCoderMagOffset = -0.010254;
 
     // TODO:
     // whether gyro is under the robot
