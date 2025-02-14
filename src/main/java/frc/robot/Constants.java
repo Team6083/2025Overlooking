@@ -136,7 +136,8 @@ public class Constants {
     public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int krotateIntakeSetpoint = 130;
+    public static final int kUprotateIntakeSetpoint = 130;
+    public static final int kDownrotateIntakeSetpoint = 30;
     public static final int kfrontIntakeSetpoint = 30;
 
     // Algae Inverted
