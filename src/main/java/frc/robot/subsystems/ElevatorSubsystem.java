@@ -26,7 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private boolean manualControl;
 
   public ElevatorSubsystem() {
-    elevatorMotor = new WPI_VictorSPX(33);
+    elevatorMotor = new WPI_VictorSPX(ElevatorConstant.kElevatorMotorChannel);
     elevatorMotor.setInverted(true);
     encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
@@ -141,7 +141,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     if(!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
-      output = MathUtil.clamp(output, -1.0, 1.0);
+      output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       elevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
     }

@@ -49,10 +49,15 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
+    public static final int kElevatorMotorChannel = 33;
+
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
     public static final Distance kMaxHeight = Millimeters.of(1150);
+
+    public static final double kMaxOutput = 1.0;
+    public static final double kMinOutput = -1.0;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kSecFloor = Millimeters.of(810);
