@@ -66,7 +66,7 @@ public class Constants {
     public static final Distance kStepHeight = Millimeters.of(10);
 
     public static final double kEncoderDistancePerPulse 
-    = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
+        = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
 
   }
 
