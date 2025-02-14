@@ -19,44 +19,44 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
-  private final SendableChooser<Command> autChooser;
-  private final SwerveDrive swerveDrive;
-  private final SwerveControlCmd swerveJoystickCmd;
+  // private final SendableChooser<Command> autChooser;
+  // private final SwerveDrive swerveDrive;
+  // private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final PowerDistribution powerDistribution;
 
-  private final Command intakeCommand;
+  // private final Command intakeCommand;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
-    swerveDrive = new SwerveDrive();
+    // swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
-    swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+    // swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    intakeCommand = new SequentialCommandGroup(
-        coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
-        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
+    // intakeCommand = new SequentialCommandGroup(
+    //     coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
+    //     new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
-    autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("DoNothing", Commands.none());
-    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("AutoChooser", autChooser);
+    // autChooser = AutoBuilder.buildAutoChooser();
+    // autChooser.setDefaultOption("DoNothing", Commands.none());
+    // SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
+    // SmartDashboard.putData("AutoChooser", autChooser);
     configureBindings();
   }
 
   private void configureBindings() {
-    swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
-    mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
-    mainController.x().whileTrue(swerveDrive.runEnd(
-        () -> swerveDrive.drive(0, 0.5, 0, false),
-        () -> swerveDrive.stop()));
-    mainController.y().whileTrue(swerveDrive.runEnd(
-        () -> swerveDrive.drive(0.5, 0, 0, false),
-        () -> swerveDrive.stop()));
-    mainController.back().whileTrue(swerveDrive.gyroResetCmd());
-    mainController.pov(0).whileTrue(intakeCommand);
+    // swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    // mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
+    // mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    // mainController.x().whileTrue(swerveDrive.runEnd(
+    //     () -> swerveDrive.drive(0, 0.5, 0, false),
+    //     () -> swerveDrive.stop()));
+    // mainController.y().whileTrue(swerveDrive.runEnd(
+    //     () -> swerveDrive.drive(0.5, 0, 0, false),
+    //     () -> swerveDrive.stop()));
+    // mainController.back().whileTrue(swerveDrive.gyroResetCmd());
+    // mainController.pov(0).whileTrue(intakeCommand);
   }
 
   public Command getAutonomousCommand() {

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.SwerveControlConstant;
@@ -66,9 +67,16 @@ public class SwerveControlCmd extends Command {
     } else {
       rotSpeed = 0;
     }
-
     swerveDrive.drive(
         xSpeed, ySpeed, rotSpeed, SwerveControlConstant.kFieldRelative);
+
+    SmartDashboard.putNumber("LeftX()", mainController.getLeftX());
+    SmartDashboard.putNumber("LeftY", mainController.getLeftY());
+    SmartDashboard.putNumber("RightX", mainController.getRightX());
+    SmartDashboard.putNumber("xSpeed", xSpeed);
+    SmartDashboard.putNumber("ySpeed", ySpeed);
+    SmartDashboard.putNumber("rotSpeed", rotSpeed);
+
   }
 
   // Called once the command ends or is interrupted.
