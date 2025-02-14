@@ -29,7 +29,6 @@ public class Constants {
     public static final int kAlgaeRotateMotorCurrentChannel = 7;
     public static final int kClimberMotorCurrentChannel = 7;
     public static final int kRampMotorCurrentChannel = 7;
-
     public static final int kElevatorMotorCurrentChannel = 2;
 
     // Motor Max Current
@@ -95,16 +94,16 @@ public class Constants {
 
   public static final class DriveBaseConstant {
     // driveMotor channel
-    public static final int kFrontLeftDriveMotorChannel = 34;
-    public static final int kFrontRightDriveMotorChannel = 31;
-    public static final int kBackLeftDriveMotorChannel = 33;
-    public static final int kBackRightDriveMotorChannel = 32;
+    public static final int kFrontLeftDriveMotorChannel = 24;
+    public static final int kFrontRightDriveMotorChannel = 21;
+    public static final int kBackLeftDriveMotorChannel = 23;
+    public static final int kBackRightDriveMotorChannel = 22;
 
     // turningMotor channel
-    public static final int kFrontLeftTurningMotorChannel = 38;
-    public static final int kFrontRightTurningMotorChannel = 35;
-    public static final int kBackLeftTurningMotorChannel = 37;
-    public static final int kBackRightTurningMotorChannel = 36;
+    public static final int kFrontLeftTurningMotorChannel = 28;
+    public static final int kFrontRightTurningMotorChannel = 25;
+    public static final int kBackLeftTurningMotorChannel = 27;
+    public static final int kBackRightTurningMotorChannel = 26;
 
     // TODO:
     // driveMotor inverted
@@ -121,17 +120,17 @@ public class Constants {
     public static final boolean kBackRightTurningMotorInverted = true;
 
     // turning CANcoder ID
-    public static final int kFrontLeftCanCoder = 3;
-    public static final int kFrontRightCanCoder = 4;
-    public static final int kBackLeftCanCoder = 6;
-    public static final int kBackRightCanCoder = 5;
+    public static final int kFrontLeftCanCoder = 6;
+    public static final int kFrontRightCanCoder = 3;
+    public static final int kBackLeftCanCoder = 5;
+    public static final int kBackRightCanCoder = 4;
 
     // TODO:
     // turning encoder magnet offset value
-    public static final double kFrontLeftCanCoderMagOffset = 0.020752;
-    public static final double kFrontRightCanCoderMagOffset = 0.085205;
-    public static final double kBackLeftCanCoderMagOffset = 0.165771;
-    public static final double kBackRightCanCoderMagOffset = 0.127930;
+    public static final double kFrontLeftCanCoderMagOffset = 0.069092;
+    public static final double kFrontRightCanCoderMagOffset = 0.369141;
+    public static final double kBackLeftCanCoderMagOffset = 0.401855;
+    public static final double kBackRightCanCoderMagOffset = -0.010254;
 
     // TODO:
     // whether gyro is under the robot

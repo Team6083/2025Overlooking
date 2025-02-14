@@ -20,7 +20,7 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
-  private final SwerveModule backRight;
+  public final SwerveModule backRight;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
