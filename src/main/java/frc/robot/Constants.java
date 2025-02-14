@@ -1,7 +1,9 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Millimeters;
 
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
@@ -9,14 +11,11 @@ import edu.wpi.first.units.measure.LinearVelocity;
 public class Constants {
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-
-    // TODO: 確認馬達編號
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
     // TODO: 微調
-    public static final double kShooterMotorFastSpeed = 0.1;
-    public static final double kShooterMotorSlowSpeed = 0.05;
-
+    public static final double kShooterMotorFastSpeed = 0.2;
+    public static final double kShooterMotorSlowSpeed = 0.08;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
@@ -24,14 +23,16 @@ public class Constants {
   public static final class PowerDistributionConstant {
     // TODO:確認編號
     // Motor channel
-    public static final int kCoralShooterRightMotorCurrentChannel = 17;
-    public static final int kCoralShooterLeftMotorCurrentChannel = 16;
+    public static final int kCoralShooterRightMotorCurrentChannel = 0;
+    public static final int kCoralShooterLeftMotorCurrentChannel = 1;
     public static final int kAlgaeIntakeMotorCurrentChannel = 7;
     public static final int kAlgaeRotateMotorCurrentChannel = 7;
     public static final int kClimberMotorCurrentChannel = 7;
     public static final int kRampMotorCurrentChannel = 7;
     public static final int kElevatorMotorCurrentChannel = 2;
     // 2 elevator
+
+    public static final int kElevatorMotorCurrentChannel = 2;
 
     // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
@@ -40,6 +41,32 @@ public class Constants {
     public static final double kClimberMotorMaxCurrent = 40;
     public static final double kRampMotorMaxCurrent = 40;
     public static final double kElevatorMotorMaxCurrent = 40;
+  }
+
+  public static final class ElevatorConstant {
+    public static final double kP = 0.0003;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+
+    public static final int kElevatorMotorChannel = 33;
+
+    public static final Distance kHeightOffset = Millimeters.of(430.0);
+
+    public static final Distance kLowestHeight = Millimeters.of(430.0);
+    public static final Distance kMaxHeight = Millimeters.of(1150);
+
+    public static final double kMaxOutput = 1.0;
+    public static final double kMinOutput = -1.0;
+
+    public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kSecFloor = Millimeters.of(810);
+    public static final Distance kTrdFloor = Millimeters.of(1210);
+    public static final Distance kTopFloor = Millimeters.of(1830);
+    public static final Distance kStepHeight = Millimeters.of(10);
+
+    public static final double kEncoderDistancePerPulse 
+        = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
+
   }
 
   public static final class ModuleConstant {
@@ -123,11 +150,48 @@ public class Constants {
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
   }
 
+  public static final class AlgaeIntakeConstant {
+    // AlgaeMotor Channel
+    public static final int kIntakeMotorChannel = 2;
+    public static final int kIntakeRotateMotorChannal = 1;
+
+    // Algae Encoder Channel
+    public static final int kalgaeEncoderChannelA = 3;
+    public static final int kalgaeEncoderChannelB = 4;
+    public static final int kalgaeFrontEncoderChannelA = 1;
+    public static final int kalgaeFrontEncoderChannelB = 2;
+
+    // Algae 吸入、吐出的電壓
+    public static final double kIntakeSpeed = 0.5;
+    public static final double kReIntakeSpeed = 0.1;
+
+    // AlgaeRotate 的電壓
+    public static final double kUpIntakeRotateSpeed = 0.1;
+    public static final double kDownIntakeRotateSpeed = -0.1;
+
+    // Algae Rotate&Front PID
+    public static final double rotMotorPIDkP = 0.01;
+    public static final double rotMotorPIDkI = 0;
+    public static final double rotMotorPIDkD = 0;
+    public static final double frontMotorPIDkP = 0.01;
+    public static final double frontMotorPIDkI = 0;
+    public static final double frontMotorPIDkD = 0;
+
+    // Algae setpoint
+    public static final int kUprotateIntakeSetpoint = 90;
+    public static final int kDownrotateIntakeSetpoint = 0;
+    public static final int kfrontIntakeSetpoint = 0;
+
+    // Algae Inverted
+    public static final Boolean kIntakeMotorInverted = false;
+    public static final Boolean krotateIntakeMotorInverted = false;
+  }
+
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kMagnification = 2;
-    public static final double kHighMagnification = 2;
+    public static final double kDefaultMagnification = 2;
+    public static final double kSlowMagnification = 1;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
@@ -140,5 +204,4 @@ public class Constants {
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
   }
-
 }

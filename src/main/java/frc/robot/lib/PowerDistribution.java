@@ -19,6 +19,8 @@ public class PowerDistribution {
     SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", false);
     SmartDashboard.putBoolean("isClimberOverCurrent", false);
     SmartDashboard.putBoolean("isRampOverCurrent", false);
+    SmartDashboard.putBoolean("isElevatorOverCurrent", false);
+
   }
 
   public double coralShooterRightCurrent() {
@@ -71,48 +73,43 @@ public class PowerDistribution {
   }
 
   public boolean isCoralShooterOverCurrent() {
-    boolean isRightMotorOverCurrent = 
-        coralShooterRightCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
-    boolean isLeftMotorOverCurrent =  
-        coralShooterLeftCurrent() > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isRightMotorOverCurrent = coralShooterRightCurrent() 
+        > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
+    boolean isLeftMotorOverCurrent = coralShooterLeftCurrent() 
+        > PowerDistributionConstant.kCoralShooterMotorMaxCurrent;
     SmartDashboard.putBoolean("isCoralShooterOverCurrent",
         isLeftMotorOverCurrent || isRightMotorOverCurrent);
     return isLeftMotorOverCurrent || isRightMotorOverCurrent;
   }
 
   public boolean isAlgaeIntakeOverCurrent() {
-    boolean isOverCurrent = 
-        algaeIntakeCurrent() > PowerDistributionConstant.kAlgaeIntakeMotorMaxCurrent;
+    boolean isOverCurrent = algaeIntakeCurrent() > PowerDistributionConstant.kAlgaeIntakeMotorMaxCurrent;
     SmartDashboard.putBoolean("isAlgaeIntakeOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
 
   public boolean isAlgaeRotateOverCurrent() {
-    boolean isOverCurrent = 
-        algaeRotateCurrent() > PowerDistributionConstant.kAlgaeRotateMotorMaxCurrent;
+    boolean isOverCurrent = algaeRotateCurrent() > PowerDistributionConstant.kAlgaeRotateMotorMaxCurrent;
     SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
 
   public boolean isClimberOverCurrent() {
-    boolean isOverCurrent = 
-        climberCurrent() > PowerDistributionConstant.kClimberMotorMaxCurrent;
+    boolean isOverCurrent = climberCurrent() > PowerDistributionConstant.kClimberMotorMaxCurrent;
     SmartDashboard.putBoolean("isClimberOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
 
   public boolean isRampOverCurrent() {
-    boolean isOverCurrent = 
-        rampCurrent() > PowerDistributionConstant.kRampMotorMaxCurrent;
+    boolean isOverCurrent = rampCurrent() > PowerDistributionConstant.kRampMotorMaxCurrent;
     SmartDashboard.putBoolean("isRampOverCurrent", isOverCurrent);
     return isOverCurrent;
   }
 
   public boolean isElevatorOverCurrent() {
-    boolean isOverCurrent = 
-        elevatorCurrent() > PowerDistributionConstant.kElevatorMotorMaxCurrent;
+    boolean isOverCurrent = elevatorCurrent() > PowerDistributionConstant.kElevatorMotorMaxCurrent;
     SmartDashboard.putBoolean("isElevatorOverCurrent", isOverCurrent);
     return isOverCurrent;
-  } 
 
+  }
 }
