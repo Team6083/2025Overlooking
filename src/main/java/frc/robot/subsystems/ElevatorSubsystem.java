@@ -148,5 +148,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     
     SmartDashboard.putNumber("ElevatorSetPoint", targetHeight.in(Millimeters));
     SmartDashboard.putNumber("Encoder", encoder.getDistance());
+    SmartDashboard.putNumber("currentHeight", currentHeight.in(Millimeters));
+    SmartDashboard.putBoolean("isManualControl", isManualControl());
   }
 }
