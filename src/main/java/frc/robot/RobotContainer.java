@@ -45,11 +45,10 @@ public class RobotContainer {
         coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
-        NamedCommands.registerCommand("coralShooterSlowOn",
-         coralShooterSubsystem.coralShooterSlowOnCmd());
-         NamedCommands.registerCommand("toSecFloorCmd", 
-         elevatorSubsystem.toSecFloorCmd());
-
+    NamedCommands.registerCommand("coralShooterSlowOn",
+        coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("toSecFloorCmd",
+        elevatorSubsystem.toSecFloorCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("DoNothing", Commands.none());
@@ -63,7 +62,7 @@ public class RobotContainer {
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(90));
     mainController.b().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    
+
     mainController.pov(0).whileTrue(intakeCommand);
 
     elevatorController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -76,19 +75,15 @@ public class RobotContainer {
 
     elevatorController.pov(0).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveUpCmd(), 
-            elevatorSubsystem.manualMoveCmd(0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveUpCmd(),
+            elevatorSubsystem.manualMoveCmd(0.5),
+            () -> !elevatorSubsystem.isManualControl()));
 
     elevatorController.pov(180).whileTrue(
         Commands.either(
-            elevatorSubsystem.moveDownCmd(), 
-            elevatorSubsystem.manualMoveCmd(-0.5), 
-            () -> !elevatorSubsystem.isManualControl()
-        )
-    );
+            elevatorSubsystem.moveDownCmd(),
+            elevatorSubsystem.manualMoveCmd(-0.5),
+            () -> !elevatorSubsystem.isManualControl()));
   }
 
   public Command getAutonomousCommand() {
