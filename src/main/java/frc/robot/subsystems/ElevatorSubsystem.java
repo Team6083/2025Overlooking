@@ -145,7 +145,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
     }
-    
+
     SmartDashboard.putNumber("ElevatorSetPoint", targetHeight.in(Millimeters));
     SmartDashboard.putNumber("Encoder", encoder.getDistance());
     SmartDashboard.putNumber("currentHeight", currentHeight.in(Millimeters));
