@@ -33,6 +33,7 @@ public class Constants {
     public static final int kRampMotorCurrentChannel = 7;
 
     public static final int kElevatorMotorCurrentChannel = 2;
+
     // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
     public static final double kAlgaeIntakeMotorMaxCurrent = 40;
@@ -48,12 +49,14 @@ public class Constants {
     public static final double kD = 0.0;
 
     public static final Distance kHeightOffset = Millimeters.of(50.0);
-    public static final Distance kInitialHeight = Millimeters.of(90.0);
+
     public static final Distance kLowestHeight = Millimeters.of(50.0);
+    public static final Distance kMaxHeight = Millimeters.of(2000);
+
+    public static final Distance kInitialHeight = Millimeters.of(90.0);
     public static final Distance kSecFloor = Millimeters.of(500);
     public static final Distance kTrdFloor = Millimeters.of(1000);
     public static final Distance kTopFloor = Millimeters.of(1500);
-    public static final Distance kMaxHeight = Millimeters.of(2000);
     public static final Distance kStepHeight = Millimeters.of(10);
 
     public static final double kEncoderDistancePerPulse = 1.0 / 2048.0;
