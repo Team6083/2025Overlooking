@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Encoder;
@@ -72,6 +71,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   /**
    * Get up encoder rate.
+   * 
    * 
    * @return rate/2048 (double)
    */
