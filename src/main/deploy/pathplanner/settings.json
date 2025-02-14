@@ -3,9 +3,9 @@
   "robotLength": 0.7,
   "holonomicMode": true,
   "pathFolders": [
-    "inside to middle",
+    "left to reef",
     "middle to reef",
-    "outside to reaf"
+    "right to reef"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
