@@ -62,17 +62,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUprotateIntakeSetpoint);
   }
 
-
   public void setDownRotateIntakeSetpoint() {
     algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownrotateIntakeSetpoint);
   }
 
-
-
   /**
    * Get up encoder rate.
    * 
-   
+   *
    * @return rate/2048 (double)
    */
 
@@ -83,7 +80,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
     }
     return algaeFrontEncoder.getRate();
-    
+
   }
 
   public void setUpRotateIntake() {
