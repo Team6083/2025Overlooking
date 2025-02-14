@@ -125,7 +125,7 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(AutoConstants.kPTranslation, AutoConstants.kITranslation, AutoConstants.kDTranslation),
+      new PIDConstants(AutoConstants.kPTranslation, AutoConstants.kITranslation, AutoConstants.kDTranslation),
             new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
@@ -287,7 +287,7 @@ public class SwerveDrive extends SubsystemBase {
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
-     
+
     updateOdometry();
 
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
