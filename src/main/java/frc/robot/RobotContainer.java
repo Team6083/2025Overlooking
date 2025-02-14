@@ -16,7 +16,7 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
-  private final SendableChooser<Command> autChooser;
+  private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
     coralShooterSubsystem = new CoralShooterSubsystem();
@@ -24,10 +24,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralShooterInWithAutoStopCmd",
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
-    autChooser = AutoBuilder.buildAutoChooser();
-    autChooser.setDefaultOption("DoNothing", Commands.none());
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("DoNothing", Commands.none());
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("AutoChooser", autChooser);
+    SmartDashboard.putData("AutoChooser", autoChooser);
     configureBindings();
   }
 
