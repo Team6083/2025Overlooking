@@ -124,7 +124,7 @@ public class Constants {
 
     // 變速的放大倍率
     public static final double kDefaultMagnification = 2;
-    public static final double kHighMagnification = 1;
+    public static final double kSlowMagnification = 1;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;

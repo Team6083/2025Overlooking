@@ -46,7 +46,7 @@ public class SwerveControlCmd extends Command {
     // CHECKSTYLE.ON: LocalVariableName
 
     if (mainController.a().getAsBoolean()) {
-      magnification = SwerveControlConstant.kDefaultMagnification;
+      magnification = SwerveControlConstant.kSlowMagnification;
     }
     if(mainController.b().getAsBoolean()){
       magnification = SwerveControlConstant.kDefaultMagnification;
