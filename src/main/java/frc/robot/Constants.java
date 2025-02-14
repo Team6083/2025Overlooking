@@ -30,9 +30,6 @@ public class Constants {
     public static final int kClimberMotorCurrentChannel = 7;
     public static final int kRampMotorCurrentChannel = 7;
     public static final int kElevatorMotorCurrentChannel = 2;
-    // 2 elevator
-
-    public static final int kElevatorMotorCurrentChannel = 2;
 
     // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
