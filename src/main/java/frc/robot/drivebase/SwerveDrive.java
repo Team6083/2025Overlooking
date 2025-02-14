@@ -1,9 +1,7 @@
 package frc.robot.drivebase;
 
 import java.io.IOException;
-
 import org.json.simple.parser.ParseException;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.config.PIDConstants;
