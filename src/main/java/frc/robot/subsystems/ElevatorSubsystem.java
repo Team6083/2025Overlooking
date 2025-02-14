@@ -50,9 +50,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Distance getCurrentHeight() {
-    return Millimeters.of(
-        encoder.getDistance() * ElevatorConstant.kEncoderDistancePerPulse)
-        .plus(ElevatorConstant.kHeightOffset);
+    return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
 
   public void moveUp() {
@@ -113,18 +111,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command stopMoveCmd() {
-    Command cmd = run(this::stopMove);
-    return cmd;
-  }
-
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
     elevatorPID.setSetpoint(targetHeight.in(Millimeters));
     double output = elevatorPID.calculate(currentHeight.in(Millimeters));
     output = MathUtil.clamp(output, -1.0, 1.0);
-    SmartDashboard.putNumber("SetPoint", targetHeight.in(Millimeters));
+    SmartDashboard.putNumber("ElevatorSetPoint", targetHeight.in(Millimeters));
     SmartDashboard.putNumber("Encoder", encoder.getDistance());
     SmartDashboard.putNumber("Output", output);
 
