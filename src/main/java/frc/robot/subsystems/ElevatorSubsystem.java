@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private Distance targetHeight;
 
   public ElevatorSubsystem() {
-    elevatorMotor = new WPI_VictorSPX(16);
+    elevatorMotor = new WPI_VictorSPX(33);
     elevatorMotor.setInverted(true);
     encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
