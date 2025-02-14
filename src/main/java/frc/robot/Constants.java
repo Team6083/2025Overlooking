@@ -1,5 +1,6 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Millimeters;
@@ -48,18 +49,18 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final Distance kHeightOffset = Millimeters.of(50.0);
+    public static final Distance kHeightOffset = Millimeters.of(430.0);
 
-    public static final Distance kLowestHeight = Millimeters.of(50.0);
-    public static final Distance kMaxHeight = Millimeters.of(2000);
+    public static final Distance kLowestHeight = Millimeters.of(430.0);
+    public static final Distance kMaxHeight = Millimeters.of(1150);
 
-    public static final Distance kInitialHeight = Millimeters.of(90.0);
-    public static final Distance kSecFloor = Millimeters.of(500);
-    public static final Distance kTrdFloor = Millimeters.of(1000);
-    public static final Distance kTopFloor = Millimeters.of(1500);
+    public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kSecFloor = Millimeters.of(810);
+    public static final Distance kTrdFloor = Millimeters.of(1210);
+    public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(10);
 
-    public static final double kEncoderDistancePerPulse = 1.0 / 2048.0;
+    public static final double kEncoderDistancePerPulse = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
 
   }
 
