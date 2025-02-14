@@ -18,8 +18,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import java.io.IOException;
-import org.json.simple.parser.ParseException;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.config.PIDConstants;
@@ -27,6 +25,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
+import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
@@ -117,29 +116,19 @@ public class SwerveDrive extends SubsystemBase {
     try {
       config = RobotConfig.fromGUISettings();
     } catch (Exception e) {
-      // Handle exception as needed
       e.printStackTrace();
       return;
     }
     AutoBuilder.configure(
-        this::getPose2d, // Robot pose suppier
-        this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-        this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE
-                                                              // ChassisSpeeds
-        new PPHolonomicDriveController( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-            new PIDConstants(AutoConstants.kPTranslation, AutoConstants.kITranslation, AutoConstants.kDTranslation), // Translation
-                                                                                                                     // PID
-                                                                                                                     // constants
-            new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation) // Rotation
-                                                                                                           // PID
-        ),
+        this::getPose2d,
+        this::resetPose,
+        this::getRobotRelativeSpeeds,
+        (speeds, feedforwards) -> driveRobotRelative(speeds),
+        new PPHolonomicDriveController(
+            new PIDConstants(AutoConstants.kPTranslation, AutoConstants.kITranslation, AutoConstants.kDTranslation),
+            new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
-          // Boolean supplier that controls when the path will be mirrored for the red
-          // alliance
-          // This will flip the path being followed to the red side of the field.
-          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
           var alliance = DriverStation.getAlliance();
           if (alliance.isPresent()) {
             return alliance.get() == DriverStation.Alliance.Red;
