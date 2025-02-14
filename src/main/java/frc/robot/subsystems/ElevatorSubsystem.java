@@ -23,6 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Encoder encoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
+  private boolean manualControl;
 
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(33);
@@ -30,6 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder = new Encoder(1, 2);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+    manualControl = false;
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
@@ -48,6 +50,14 @@ public class ElevatorSubsystem extends SubsystemBase {
       newTargetHeight = ElevatorConstant.kLowestHeight;
     }
     targetHeight = newTargetHeight;
+  }
+
+  public void switchManualControl() {
+    manualControl = !manualControl;
+  }
+
+  public boolean isManualControl() {
+    return manualControl;
   }
 
   public Distance getCurrentHeight() {
@@ -112,16 +122,31 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
+  public Command switchManualControlCmd() {
+    return runOnce(this::switchManualControl);
+  }
+
+  public Command manualMoveCmd(double power) {
+    return run(() -> {
+        if (manualControl) {
+            elevatorMotor.set(ControlMode.PercentOutput, power);
+        }
+    }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
+  }
+
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
-    elevatorPID.setSetpoint(targetHeight.in(Millimeters));
-    double output = elevatorPID.calculate(currentHeight.in(Millimeters));
-    output = MathUtil.clamp(output, -1.0, 1.0);
+
+    if(!manualControl) {
+      elevatorPID.setSetpoint(targetHeight.in(Millimeters));
+      double output = elevatorPID.calculate(currentHeight.in(Millimeters));
+      output = MathUtil.clamp(output, -1.0, 1.0);
+      elevatorMotor.set(ControlMode.PercentOutput, output);
+      SmartDashboard.putNumber("Output", output);
+    }
+    
     SmartDashboard.putNumber("ElevatorSetPoint", targetHeight.in(Millimeters));
     SmartDashboard.putNumber("Encoder", encoder.getDistance());
-    SmartDashboard.putNumber("Output", output);
-
-    elevatorMotor.set(ControlMode.PercentOutput, output);
   }
 }

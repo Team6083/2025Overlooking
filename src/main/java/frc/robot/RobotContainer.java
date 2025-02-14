@@ -62,6 +62,24 @@ public class RobotContainer {
     ElevatorController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
     ElevatorController.pov(0).whileTrue(elevatorSubsystem.moveUpCmd());
     ElevatorController.pov(180).whileTrue(elevatorSubsystem.moveDownCmd());
+
+    ElevatorController.rightBumper().onTrue(elevatorSubsystem.switchManualControlCmd());
+
+    ElevatorController.pov(0).whileTrue(
+        Commands.either(
+            elevatorSubsystem.moveUpCmd(), 
+            elevatorSubsystem.manualMoveCmd(0.5), 
+            () -> !elevatorSubsystem.isManualControl()
+        )
+    );
+
+    ElevatorController.pov(180).whileTrue(
+        Commands.either(
+            elevatorSubsystem.moveDownCmd(), 
+            elevatorSubsystem.manualMoveCmd(-0.5), 
+            () -> !elevatorSubsystem.isManualControl()
+        )
+    );
   }
 
   public Command getAutonomousCommand() {
