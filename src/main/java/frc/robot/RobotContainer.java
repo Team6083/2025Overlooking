@@ -35,8 +35,8 @@ public class RobotContainer {
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
-    coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
-    new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
+        coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
+        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
     autChooser = AutoBuilder.buildAutoChooser();
     autChooser.setDefaultOption("DoNothing", Commands.none());
