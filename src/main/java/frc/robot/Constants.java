@@ -56,6 +56,7 @@ public class Constants {
     public static final double kMinOutput = -0.5;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kGetCarolHeight = Millimeters.of(485);
     public static final Distance kSecFloor = Millimeters.of(780);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);

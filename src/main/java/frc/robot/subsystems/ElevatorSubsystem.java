@@ -71,6 +71,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void moveDown() {
     moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
   }
+  public void toGetCarolHeight() {
+    moveToHeight(ElevatorConstant.kGetCarolHeight);
+  }
 
   public void toSecFloor() {
     moveToHeight(ElevatorConstant.kSecFloor);
@@ -90,6 +93,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void stopMove() {
     elevatorMotor.set(ControlMode.PercentOutput, 0);
+  }
+  public Command toGetCarolHeightCmd() {
+    Command cmd = run(this::toGetCarolHeight);
+    return cmd;
   }
 
   public Command toSecFloorCmd() {

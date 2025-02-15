@@ -69,6 +69,7 @@ public class RobotContainer {
     coController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
     coController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     coController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
+    coController.rightBumper().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
 
     mainController.a().onTrue(elevatorSubsystem.switchManualControlCmd(true));
     mainController.b().onTrue(elevatorSubsystem.switchManualControlCmd(false));
