@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.AlgaeIntakeConstant;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -63,12 +62,6 @@ public class RobotContainer {
             mainController.povRight()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-
-    mainController.y().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(0.5));
-    mainController.a().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.5));
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
   public Command getAutonomousCommand() {
