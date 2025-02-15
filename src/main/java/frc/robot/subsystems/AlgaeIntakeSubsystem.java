@@ -51,7 +51,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
-  public void setIntakeSlowOn() {
+  public void setIntakeMotorSlowOn() {
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
@@ -144,8 +144,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("isMannualControl", isMannualControl);
   }
 
-  public Command intakeCmd(double intakeSpeed) {
+  public Command setIntakeMotorFastOnCmd() {
     Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
+    cmd.setName("setIntakeCmd");
+    return cmd;
+  }
+
+  public Command setIntakeMotorSlowOnCmd() {
+    Command cmd = runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor);
     cmd.setName("setIntakeCmd");
     return cmd;
   }
@@ -153,7 +159,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command autoIntakeCmd() { // 吸入 algae 的 cmd
     Command cmd = run(this::setIntakeMotorFastOn)
         .until(this::isOverLimit)
-        .andThen(this.runEnd(this::setIntakeSlowOn, this::stopIntakeMotor));
+        .andThen(this.runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor));
     cmd.setName("setAutoIntakeCmd");
     return cmd;
   }
