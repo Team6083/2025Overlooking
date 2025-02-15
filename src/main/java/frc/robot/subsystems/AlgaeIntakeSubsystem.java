@@ -73,30 +73,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return powerDistribution.algaeIntakeCurrent() <= AlgaeIntakeConstant.kIntakeCurrentLimit;
   }
 
-  // public void setUpRotateIntakeSetpoint() {
-  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpRotateIntakeSetpoint);
-  // }
-
-  // public void setDownRotateIntakeSetpoint() {
-  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownRotateIntakeSetpoint);
-  // }
-
-  // public void setRotateMotorUp() {
-  // if (powerDistribution.isAlgaeRotateOverCurrent()) {
-  // intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-  // }
-  // intakeMotor.set(VictorSPXControlMode.PercentOutput,
-  // AlgaeIntakeConstant.kUpIntakeRotateSpeed);
-  // }
-
-  // public void setRotateMotorDown() {
-  // if (powerDistribution.isAlgaeRotateOverCurrent()) {
-  // intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-  // }
-  // intakeMotor.set(VictorSPXControlMode.PercentOutput,
-  // AlgaeIntakeConstant.kDownIntakeRotateSpeed);
-  // }
-
   public void manualSetRotate(double speed) {
     rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, speed);
 
@@ -105,11 +81,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void stopRotateIntake() {
     rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
-
-  // public double getIntakeMotorRotate() {
-  // return algaeRotateEncoder.getDistance() +
-  // AlgaeIntakeConstant.kRotateEncoderOffset;
-  // }
 
   public void setMaunnalControl(boolean maunnalControlOn) {
     this.isMannualControl = maunnalControlOn;
