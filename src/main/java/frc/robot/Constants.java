@@ -15,7 +15,7 @@ public class Constants {
     public static final int kShooterRightMotorChannel = 32;
 
     public static final double kShooterMotorFastSpeed = 0.2;
-    public static final double kShooterMotorSlowSpeed = 0.12;
+    public static final double kShooterMotorSlowSpeed = 0.18;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
@@ -54,7 +54,7 @@ public class Constants {
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
-    public static final Distance kSecFloor = Millimeters.of(780);
+    public static final Distance kSecFloor = Millimeters.of(800);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(1);
@@ -72,7 +72,7 @@ public class Constants {
     public static final double kMaxModuleTurningVoltage = 12.0;
 
     // 設定 Motor 的 closedLoopRampRate 之時距
-    public static final double kDriveClosedLoopRampRate = 0.1; // 1 second 1 unit
+    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
     public static final double kTurningClosedLoopRampRate = 0.1;
 
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
@@ -187,8 +187,8 @@ public class Constants {
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kDefaultMagnification = 0.5;
-    public static final double kFastMagnification = 2;
+    public static final double kDefaultMagnification = 1;
+    public static final double kSlowMagnification = 0.75;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
