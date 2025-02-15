@@ -9,8 +9,6 @@ import edu.wpi.first.units.measure.LinearVelocity;
 public class Constants {
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-
-    // TODO: 確認馬達編號
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
     // TODO: 微調
@@ -104,6 +102,7 @@ public class Constants {
     public static final double kFrontRightCanCoderMagOffset = 0.369141;
     public static final double kBackLeftCanCoderMagOffset = 0.401855;
     public static final double kBackRightCanCoderMagOffset = -0.010254;
+
     // TODO:
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
@@ -136,7 +135,6 @@ public class Constants {
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
   }
-
   public static final class AutoConstants {
     public static final double kPTranslation = 3.6;
     public static final double kITranslation = 0.15;
@@ -147,5 +145,4 @@ public class Constants {
     public static final double kDrivebaseRadius = 0.3;
 
   }
-
 }
