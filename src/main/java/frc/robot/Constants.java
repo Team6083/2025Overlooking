@@ -15,7 +15,7 @@ public class Constants {
     public static final int kShooterRightMotorChannel = 32;
     // TODO: 微調
     public static final double kShooterMotorFastSpeed = 0.2;
-    public static final double kShooterMotorSlowSpeed = 0.08;
+    public static final double kShooterMotorSlowSpeed = 0.12;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
