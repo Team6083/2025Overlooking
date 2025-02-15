@@ -87,6 +87,7 @@ public class RobotContainer {
         algaeIntakeSubsystem.intakeCmd(
             mainController.getLeftTriggerAxis()));
     mainController.leftBumper().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.autoIntakeCmd());
     // mainController.povLeft().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
     // mainController.povRight().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
     // mainController.a().whileTrue(
@@ -100,8 +101,10 @@ public class RobotContainer {
                   algaeIntakeSubsystem.downRotatePIDCmd(),
                   algaeIntakeSubsystem.manualSetRotateCmd(0.5),
                   () -> !algaeIntakeSubsystem.getIsMaunnalControl()));
-      mainController.a()
+      
       }
+      
+
 
     // 測完之後希望可以做到
     // mainController.leftTrigger().onTrue(algaeIntakeSubsystem.autoIntakeCmd()
@@ -115,4 +118,3 @@ public class RobotContainer {
     return Commands.print("No autonomous command configured");
   }
 
-}
