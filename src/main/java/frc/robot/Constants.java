@@ -54,7 +54,7 @@ public class Constants {
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
-    public static final Distance kSecFloor = Millimeters.of(800);
+    public static final Distance kSecFloor = Millimeters.of(810);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(1);
@@ -152,7 +152,7 @@ public class Constants {
     public static final int kAlgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeFastSpeed = 0.3;
+    public static final double kIntakeFastSpeed = 0.5;
     public static final double kIntakeSlowSpeed = 0.2;
     public static final double kReIntakeSpeed = -0.3;
 
