@@ -154,8 +154,8 @@ public class Constants {
     public static final int kIntakeRotateMotorChannal = 1;
 
     // Algae Encoder Channel
-    public static final int kAlgaeEncoderChannelA = 3;
-    public static final int kAlgaeEncoderChannelB = 4;
+    public static final int kAlgaeEncoderChannelA = 0;
+    public static final int kAlgaeEncoderChannelB = 1;
     public static final int kAlgaeFrontEncoderChannelA = 1;
     public static final int kAlgaeFrontEncoderChannelB = 2;
 
@@ -188,6 +188,8 @@ public class Constants {
     // Algae Encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
+    public static final double output = 0.2;
+
   }
 
   public static final class SwerveControlConstant {
