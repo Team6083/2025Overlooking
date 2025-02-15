@@ -23,7 +23,6 @@ public class SwerveControlCmd extends Command {
   // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
 
-  // max magnification is 2.0
   private double magnification = SwerveControlConstant.kDefaultMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
@@ -40,13 +39,11 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (mainController.a().getAsBoolean()) {
-      magnification = SwerveControlConstant.kSlowMagnification;
-    }
-    if (mainController.b().getAsBoolean()) {
+    if (mainController.leftBumper().getAsBoolean()) {
+      magnification = SwerveControlConstant.kFastMagnification;
+    } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
-    
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;

@@ -13,16 +13,14 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
-    // TODO: 微調
+
     public static final double kShooterMotorFastSpeed = 0.2;
-    public static final double kShooterMotorSlowSpeed = 0.08;
+    public static final double kShooterMotorSlowSpeed = 0.12;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
 
   public static final class PowerDistributionConstant {
-    // TODO:確認編號
-    // Motor channel
     public static final int kCoralShooterRightMotorCurrentChannel = 0;
     public static final int kCoralShooterLeftMotorCurrentChannel = 1;
     public static final int kAlgaeIntakeMotorCurrentChannel = 7;
@@ -31,7 +29,6 @@ public class Constants {
     public static final int kRampMotorCurrentChannel = 7;
     public static final int kElevatorMotorCurrentChannel = 2;
 
-    // Motor Max Current
     public static final double kCoralShooterMotorMaxCurrent = 40;
     public static final double kAlgaeIntakeMotorMaxCurrent = 40;
     public static final double kAlgaeRotateMotorMaxCurrent = 40;
@@ -41,7 +38,7 @@ public class Constants {
   }
 
   public static final class ElevatorConstant {
-    public static final double kP = 0.0003;
+    public static final double kP = 0.06;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
@@ -50,16 +47,17 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1150);
+    public static final Distance kMaxHeight = Millimeters.of(1000);
 
-    public static final double kMaxOutput = 1.0;
-    public static final double kMinOutput = -1.0;
+    public static final double kMaxOutput = 0.8;
+    public static final double kMinOutput = -0.5;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kSecFloor = Millimeters.of(810);
+    public static final Distance kGetCarolHeight = Millimeters.of(485);
+    public static final Distance kSecFloor = Millimeters.of(780);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
-    public static final Distance kStepHeight = Millimeters.of(10);
+    public static final Distance kStepHeight = Millimeters.of(1);
 
     public static final double kEncoderDistancePerPulse 
         = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
@@ -105,14 +103,12 @@ public class Constants {
     public static final int kBackLeftTurningMotorChannel = 27;
     public static final int kBackRightTurningMotorChannel = 26;
 
-    // TODO:
     // driveMotor inverted
     public static final boolean kFrontLeftDriveMotorInverted = false;
     public static final boolean kFrontRightDriveMotorInverted = true;
     public static final boolean kBackLeftDriveMotorInverted = false;
     public static final boolean kBackRightDriveMotorInverted = true;
 
-    // TODO:
     // turningMotor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
     public static final boolean kFrontRightTurningMotorInverted = true;
@@ -125,14 +121,12 @@ public class Constants {
     public static final int kBackLeftCanCoder = 5;
     public static final int kBackRightCanCoder = 4;
 
-    // TODO:
     // turning encoder magnet offset value
     public static final double kFrontLeftCanCoderMagOffset = 0.069092;
     public static final double kFrontRightCanCoderMagOffset = 0.369141;
     public static final double kBackLeftCanCoderMagOffset = 0.401855;
     public static final double kBackRightCanCoderMagOffset = -0.010254;
 
-    // TODO:
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
     public static final double kGyroOffSet = 0.0;
@@ -149,46 +143,53 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
-    public static final int kIntakeMotorChannel = 2;
-    public static final int kIntakeRotateMotorChannal = 1;
+    public static final int kIntakeMotorChannel = 34;
+    public static final int kIntakeRotateMotorChannel = 35;
 
     // Algae Encoder Channel
-    public static final int kalgaeEncoderChannelA = 3;
-    public static final int kalgaeEncoderChannelB = 4;
-    public static final int kalgaeFrontEncoderChannelA = 1;
-    public static final int kalgaeFrontEncoderChannelB = 2;
+    public static final int kAlgaeEncoderChannelA = 0;
+    public static final int kAlgaeEncoderChannelB = 1;
+    public static final int kAlgaeFrontEncoderChannelA = 1;
+    public static final int kAlgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeSpeed = 0.5;
+    public static final double kIntakeFastSpeed = 0.3;
+    public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = 0.1;
 
     // AlgaeRotate 的電壓
     public static final double kUpIntakeRotateSpeed = 0.1;
     public static final double kDownIntakeRotateSpeed = -0.1;
 
-    // Algae Rotate&Front PID
+    // Algae Rotate & Front PID
     public static final double rotMotorPIDkP = 0.01;
     public static final double rotMotorPIDkI = 0;
     public static final double rotMotorPIDkD = 0;
-    public static final double frontMotorPIDkP = 0.01;
-    public static final double frontMotorPIDkI = 0;
-    public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int kUprotateIntakeSetpoint = 90;
-    public static final int kDownrotateIntakeSetpoint = 0;
-    public static final int kfrontIntakeSetpoint = 0;
+    public static final int kUpRotateIntakeSetpoint = 90;
+    public static final int kDownRotateIntakeSetpoint = 0;
 
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = false;
-    public static final Boolean krotateIntakeMotorInverted = false;
+    public static final Boolean kRotateIntakeMotorInverted = false;
+    public static final Boolean kAlgaeEncoderInverted = false;
+
+    // Algae Current Limit
+    public static final double kIntakeCurrentLimit = 10;
+
+    // Algae Encoder
+    public static final double kDistancePerPulse = 360.0 / 2048;
+    public static final double kRotateEncoderOffset = 0.0;
+    public static final double output = 0.2;
+
   }
 
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kDefaultMagnification = 2;
-    public static final double kSlowMagnification = 1;
+    public static final double kDefaultMagnification = 0.5;
+    public static final double kFastMagnification = 2;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;

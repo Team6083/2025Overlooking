@@ -34,7 +34,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   private void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
-    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, -speed);
+    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
   public void coralShooterFastOn() { // Motor on Fast
@@ -67,11 +67,19 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public Command coralShooterFastOnCmd() { // Motor on
     Command cmd = runEnd(this::coralShooterFastOn, this::coralShooterStop);
+    cmd.setName("coralShooterFastOn");
     return cmd;
   }
 
   public Command coralShooterSlowOnCmd() {
-    Command cmd = runEnd(this::coralShooterSlowOnCmd, this::coralShooterStop);
+    Command cmd = runEnd(this::coralShooterSlowOn, this::coralShooterStop);
+    cmd.setName("coralShooterSlowOn");
+    return cmd;
+  }
+
+  public Command coralShooterStopCmd() {
+    Command cmd = runOnce(this::coralShooterStop);
+    cmd.setName("coralShooterStop");
     return cmd;
   }
 
@@ -80,6 +88,5 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("isGetTarget", isGetTarget());
   }
-
 
 }
