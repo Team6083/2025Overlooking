@@ -143,12 +143,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public Command intakeCmd(double intakeSpeed) {
-    Command cmd;
-    if (intakeSpeed > 0.8) {
-      cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
-    } else {
-      cmd = runEnd(this::setIntakeSlowOn, this::stopIntakeMotor);
-    }
+    Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
     cmd.setName("setIntakeCmd");
     return cmd;
   }
