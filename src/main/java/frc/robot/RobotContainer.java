@@ -62,6 +62,11 @@ public class RobotContainer {
             mainController.povRight()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
+    mainController.y().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(0.3));
+    mainController.a().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.3));
+    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
   public Command getAutonomousCommand() {
