@@ -156,5 +156,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
+  public Command manualUpRotateCmd(){
+    return manualSetRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
+  }
+  public Command manualDownRotateCmd(){
+    return manualSetRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+  }
 
 }
