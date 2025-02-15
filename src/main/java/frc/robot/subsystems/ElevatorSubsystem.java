@@ -131,19 +131,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command moveUpCmd() {
-      return this.run(this::moveUp);
+    return this.run(this::moveUp);
   }
 
   public Command moveDownCmd() {
-      return this.run(this::moveDown);
+    return this.run(this::moveDown);
   }
 
   public Command switchManualControlCmd(boolean manualControl) {
-  Command cmd = runOnce(() -> {
-  setManualControl(manualControl);
-  });
-  cmd.setName("switchManualControl");
-  return cmd;
+    Command cmd = runOnce(() -> {
+      setManualControl(manualControl);
+    });
+    cmd.setName("switchManualControl");
+    return cmd;
   }
 
   public Command elevatorReset() {
