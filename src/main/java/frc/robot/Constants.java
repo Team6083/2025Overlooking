@@ -153,7 +153,7 @@ public class Constants {
 
     // Algae 吸入、吐出的電壓
     public static final double kIntakeFastSpeed = 0.3;
-    public static final double kIntakeSlowSpeed = 0.2;
+    public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = -0.3;
 
     // AlgaeRotate 的電壓
