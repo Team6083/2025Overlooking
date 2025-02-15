@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ElevatorConstant;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -71,6 +74,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void moveDown() {
     moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
   }
+
   public void toGetCarolHeight() {
     moveToHeight(ElevatorConstant.kGetCarolHeight);
   }
@@ -94,6 +98,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void stopMove() {
     elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
+
   public Command toGetCarolHeightCmd() {
     Command cmd = run(this::toGetCarolHeight);
     return cmd;
@@ -119,25 +124,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command moveUpCmd() {
-    Command cmd = run(this::moveUp);
-    return cmd;
-  }
-
-  public Command moveDownCmd() {
-    Command cmd = run(this::moveDown);
-    return cmd;
-  }
-
-  public Command switchManualControlCmd(boolean manualControl) {
-    Command cmd = runOnce(() -> {
-      setManualControl(manualControl);
-      SmartDashboard.putBoolean("asdadsad", manualControl);
-    });
-    cmd.setName("switchManualControl");
-    return cmd;
-  }
-
   public Command manualMoveCmd(double power) {
     return run(() -> {
       if (manualControl) {
@@ -146,7 +132,32 @@ public class ElevatorSubsystem extends SubsystemBase {
     }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
   }
 
-  public Command elevatorReset(){
+  public Command moveUpCmd(Supplier<Boolean> manualControl) {
+    if (manualControl.get() == null || !manualControl.get()) {
+      return this.run(this::moveUp);
+    } else {
+      return this.manualMoveCmd(0.5);
+    }
+  }
+
+  public Command moveDownCmd(Supplier<Boolean> manualControl) {
+    if (manualControl.get() == null || !manualControl.get()) {
+      return this.run(this::moveDown);
+    } else {
+      return this.manualMoveCmd(-0.5);
+    }
+  }
+
+  // public Command switchManualControlCmd(boolean manualControl) {
+  // Command cmd = runOnce(() -> {
+  // setManualControl(manualControl);
+  // SmartDashboard.putBoolean("asdadsad", manualControl);
+  // });
+  // cmd.setName("switchManualControl");
+  // return cmd;
+  // }
+
+  public Command elevatorReset() {
     Command cmd = run(this::resetEncoder);
     cmd.setName("elevatorReset");
     return cmd;

@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -28,7 +25,6 @@ public class RobotContainer {
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
-  private final CommandXboxController coController;
   private final CommandXboxController mainController;
 
   private final Command intakeCommand;
@@ -40,7 +36,6 @@ public class RobotContainer {
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
-    coController = new CommandXboxController(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     intakeCommand = new SequentialCommandGroup(
@@ -57,64 +52,25 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    // mainController.x().onTrue(intakeCommand);
-    // mainController.y().onTrue(coralShooterSubsystem.coralShooterStopCmd());
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
-    coController.y().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
-    coController.a().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    coController.b().whileTrue(elevatorSubsystem.toTrdFloorCmd());
-    coController.x().whileTrue(elevatorSubsystem.toTopFloorCmd());
-    coController.rightBumper().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
 
-    // mainController.a().onTrue(elevatorSubsystem.switchManualControlCmd(true));
-    // mainController.b().onTrue(elevatorSubsystem.switchManualControlCmd(false));
-
-    mainController.pov(0).whileTrue(
-        Commands.either(
-            elevatorSubsystem.moveUpCmd(),
-            elevatorSubsystem.manualMoveCmd(0.5),
-            () -> !elevatorSubsystem.isManualControl()));
-
-    mainController.pov(180).whileTrue(
-        Commands.either(
-            elevatorSubsystem.moveDownCmd(),
-            elevatorSubsystem.manualMoveCmd(-0.5),
-            () -> !elevatorSubsystem.isManualControl()));
+    mainController.leftTrigger().whileTrue(elevatorSubsystem.moveDownCmd(()-> mainController.povRight().getAsBoolean()));
+    mainController.rightTrigger().whileTrue(elevatorSubsystem.moveUpCmd(()-> mainController.povRight().getAsBoolean()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    mainController.leftTrigger().whileTrue(
-        algaeIntakeSubsystem.intakeCmd(
-            mainController.getLeftTriggerAxis()));
-    mainController.leftBumper().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.autoIntakeCmd());
-    // mainController.povLeft().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
-    // mainController.povRight().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
-    // mainController.a().whileTrue(
-      mainController.pov(180).whileTrue(
-        Commands.either(
-            algaeIntakeSubsystem.upRotatePIDCmd(),
-            algaeIntakeSubsystem.manualSetRotateCmd(0.5),
-            () -> !algaeIntakeSubsystem.getIsMaunnalControl()));
-            mainController.pov(180).whileTrue(
-        Commands.either(
-                  algaeIntakeSubsystem.downRotatePIDCmd(),
-                  algaeIntakeSubsystem.manualSetRotateCmd(0.5),
-                  () -> !algaeIntakeSubsystem.getIsMaunnalControl()));
-      
-      }
-      
 
-
-    // 測完之後希望可以做到
-    // mainController.leftTrigger().onTrue(algaeIntakeSubsystem.autoIntakeCmd()
-    // .alongWith(algaeIntakeSubsystem.downRotatePIDCmd()));
-    // mainController.leftBumper()
-    //     .whileTrue(algaeIntakeSubsystem.reIntakeCmd()
-    //         .alongWith(algaeIntakeSubsystem.upRotatePIDCmd()));
+    mainController.y().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
+    mainController.x().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.intakeCmd(0.5));
+    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    
   }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
-
+}

@@ -150,8 +150,8 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
-    public static final int kIntakeMotorChannel = 2;
-    public static final int kIntakeRotateMotorChannal = 1;
+    public static final int kIntakeMotorChannel = 34;
+    public static final int kIntakeRotateMotorChannel = 35;
 
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 0;
@@ -195,8 +195,8 @@ public class Constants {
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kDefaultMagnification = 2;
-    public static final double kSlowMagnification = 0.5;
+    public static final double kDefaultMagnification = 0.5;
+    public static final double kFastMagnification = 2;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
