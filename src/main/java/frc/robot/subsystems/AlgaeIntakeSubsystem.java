@@ -75,13 +75,13 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return powerDistribution.algaeIntakeCurrent() <= AlgaeIntakeConstant.kIntakeCurrentLimit;
   }
 
-  public void setUpRotateIntakeSetpoint() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpRotateIntakeSetpoint);
-  }
+  // public void setUpRotateIntakeSetpoint() {
+  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpRotateIntakeSetpoint);
+  // }
 
-  public void setDownRotateIntakeSetpoint() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownRotateIntakeSetpoint);
-  }
+  // public void setDownRotateIntakeSetpoint() {
+  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kDownRotateIntakeSetpoint);
+  // }
 
   // public void setRotateMotorUp() {
   // if (powerDistribution.isAlgaeRotateOverCurrent()) {
@@ -108,9 +108,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public double getIntakeMotorRotate() {
-    return algaeRotateEncoder.getDistance() + AlgaeIntakeConstant.kRotateEncoderOffset;
-  }
+  // public double getIntakeMotorRotate() {
+  // return algaeRotateEncoder.getDistance() +
+  // AlgaeIntakeConstant.kRotateEncoderOffset;
+  // }
 
   public void setMaunnalControl(boolean maunnalControlOn) {
     this.isMannualControl = maunnalControlOn;
@@ -125,16 +126,17 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (powerDistribution.isAlgaeRotateOverCurrent()) {
-      rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
+    // if (powerDistribution.isAlgaeRotateOverCurrent()) {
+    // rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    // }
 
-    double output = algaeRotatePID.calculate(getIntakeMotorRotate());
-    output = MathUtil.clamp(output, -AlgaeIntakeConstant.output, AlgaeIntakeConstant.output);
-    rotateIntakeMotor.set(ControlMode.PercentOutput, output);
+    // double output = algaeRotatePID.calculate(getIntakeMotorRotate());
+    // output = MathUtil.clamp(output, -AlgaeIntakeConstant.output,
+    // AlgaeIntakeConstant.output);
+    // rotateIntakeMotor.set(ControlMode.PercentOutput, output);
 
     SmartDashboard.putNumber("algaeRotateDistance", algaeRotateEncoder.getDistance());
-    SmartDashboard.putNumber("algaeRotateCurrent", getIntakeMotorRotate());
+    // SmartDashboard.putNumber("algaeRotateCurrent", getIntakeMotorRotate());
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeRotateVoltage", rotateIntakeMotor.getMotorOutputVoltage());
     SmartDashboard.putBoolean("isOverLimit", isOverLimit());
@@ -162,17 +164,17 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command upRotatePIDCmd() {
-    Command cmd = run(this::setUpRotateIntakeSetpoint);
-    cmd.setName("setUpRotateIntakeSetpoint");
-    return cmd;
-  }
+  // public Command upRotatePIDCmd() {
+  // Command cmd = run(this::setUpRotateIntakeSetpoint);
+  // cmd.setName("setUpRotateIntakeSetpoint");
+  // return cmd;
+  // }
 
-  public Command downRotatePIDCmd() {
-    Command cmd = run(this::setDownRotateIntakeSetpoint);
-    cmd.setName("setDownRotateIntakeSetpoint");
-    return cmd;
-  }
+  // public Command downRotatePIDCmd() {
+  // Command cmd = run(this::setDownRotateIntakeSetpoint);
+  // cmd.setName("setDownRotateIntakeSetpoint");
+  // return cmd;
+  // }
 
   public Command manualSetRotateCmd(double speed) { // 吐出 algae 的 cmd
     Command cmd = runEnd(() -> manualSetRotate(speed), this::stopIntakeMotor);
