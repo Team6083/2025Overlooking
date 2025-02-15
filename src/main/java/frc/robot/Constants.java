@@ -203,7 +203,7 @@ public class Constants {
     public static final Boolean kFieldRelative = true;
   }
   public static final class AutoConstants {
-    public static final double kPTranslation = 3.6;
+    public static final double kPTranslation = 4;
     public static final double kITranslation = 0.15;
     public static final double kDTranslation = 1;
     public static final double kPRotation = 5;
