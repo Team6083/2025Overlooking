@@ -7,10 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.AlgaeIntakeConstant;
-import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -55,19 +52,19 @@ public class RobotContainer {
 
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.moveDownCmd(),
             elevatorSubsystem.manualMoveCmd(-0.5),
+            elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.moveUpCmd(),
             elevatorSubsystem.manualMoveCmd(0.5),
+            elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
-            
+
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
-    mainController.y().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
+    mainController.y().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(0.5));
+    mainController.x().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.5));
     mainController.a().whileTrue(algaeIntakeSubsystem.intakeCmd(0.5));
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
   }
