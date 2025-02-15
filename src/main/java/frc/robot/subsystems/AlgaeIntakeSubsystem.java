@@ -7,14 +7,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AlgaeIntakeConstant;
 import frc.robot.lib.PowerDistribution;
 
@@ -86,22 +84,22 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   // public void setRotateMotorUp() {
-  //   if (powerDistribution.isAlgaeRotateOverCurrent()) {
-  //     intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-  //   }
-  //   intakeMotor.set(VictorSPXControlMode.PercentOutput,
-  //       AlgaeIntakeConstant.kUpIntakeRotateSpeed);
+  // if (powerDistribution.isAlgaeRotateOverCurrent()) {
+  // intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+  // }
+  // intakeMotor.set(VictorSPXControlMode.PercentOutput,
+  // AlgaeIntakeConstant.kUpIntakeRotateSpeed);
   // }
 
   // public void setRotateMotorDown() {
-  //   if (powerDistribution.isAlgaeRotateOverCurrent()) {
-  //     intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-  //   }
-  //   intakeMotor.set(VictorSPXControlMode.PercentOutput,
-  //       AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+  // if (powerDistribution.isAlgaeRotateOverCurrent()) {
+  // intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+  // }
+  // intakeMotor.set(VictorSPXControlMode.PercentOutput,
+  // AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   // }
 
-  public void manualSetRotate(double speed){
+  public void manualSetRotate(double speed) {
     rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, speed);
 
   }
@@ -114,12 +112,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return algaeRotateEncoder.getDistance() + AlgaeIntakeConstant.kRotateEncoderOffset;
   }
 
-  public void setMaunnalControl(boolean maunnalControlOn){
+  public void setMaunnalControl(boolean maunnalControlOn) {
     this.isMannualControl = maunnalControlOn;
 
   }
 
-  public boolean getIsMaunnalControl(){
+  public boolean getIsMaunnalControl() {
     return isMannualControl;
 
   }
@@ -132,7 +130,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     }
 
     double output = algaeRotatePID.calculate(getIntakeMotorRotate());
-    output = MathUtil.clamp(output,- AlgaeIntakeConstant.output,AlgaeIntakeConstant.output);
+    output = MathUtil.clamp(output, -AlgaeIntakeConstant.output, AlgaeIntakeConstant.output);
     rotateIntakeMotor.set(ControlMode.PercentOutput, output);
 
     SmartDashboard.putNumber("algaeRotateDistance", algaeRotateEncoder.getDistance());
@@ -186,6 +184,5 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
-
 
 }

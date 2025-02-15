@@ -35,7 +35,7 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
-    
+
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
@@ -53,8 +53,10 @@ public class RobotContainer {
     mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
 
-    mainController.leftTrigger().whileTrue(elevatorSubsystem.moveDownCmd(()-> mainController.povRight().getAsBoolean()));
-    mainController.rightTrigger().whileTrue(elevatorSubsystem.moveUpCmd(()-> mainController.povRight().getAsBoolean()));
+    mainController.leftTrigger()
+        .whileTrue(elevatorSubsystem.moveDownCmd(() -> mainController.povRight().getAsBoolean()));
+    mainController.rightTrigger()
+        .whileTrue(elevatorSubsystem.moveUpCmd(() -> mainController.povRight().getAsBoolean()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
@@ -62,7 +64,6 @@ public class RobotContainer {
     mainController.x().whileTrue(algaeIntakeSubsystem.downRotatePIDCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.intakeCmd(0.5));
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    
   }
 
   public Command getAutonomousCommand() {
