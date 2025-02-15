@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +37,12 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+
+    NamedCommands.registerCommand("CoralShooter",
+     coralShooterSubsystem.coralShooterSlowOnCmd());
+     NamedCommands.registerCommand("ElevatortoSecFloor", 
+     elevatorSubsystem.toSecFloorCmd());
+   
     
 
     
