@@ -54,10 +54,16 @@ public class RobotContainer {
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
 
     mainController.leftTrigger()
-        .whileTrue(elevatorSubsystem.moveDownCmd(() -> mainController.povRight().getAsBoolean()));
+        .whileTrue(Commands.either(
+            elevatorSubsystem.moveDownCmd(),
+            elevatorSubsystem.manualMoveCmd(-0.5),
+            mainController.povRight()));
     mainController.rightTrigger()
-        .whileTrue(elevatorSubsystem.moveUpCmd(() -> mainController.povRight().getAsBoolean()));
-
+        .whileTrue(Commands.either(
+            elevatorSubsystem.moveUpCmd(),
+            elevatorSubsystem.manualMoveCmd(0.5),
+            mainController.povRight()));
+            
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     mainController.y().whileTrue(algaeIntakeSubsystem.upRotatePIDCmd());

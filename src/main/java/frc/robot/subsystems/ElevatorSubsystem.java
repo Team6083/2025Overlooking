@@ -130,30 +130,21 @@ public class ElevatorSubsystem extends SubsystemBase {
     }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
   }
 
-  public Command moveUpCmd(Supplier<Boolean> manualControl) {
-    if (manualControl.get() == null || !manualControl.get()) {
+  public Command moveUpCmd() {
       return this.run(this::moveUp);
-    } else {
-      return this.manualMoveCmd(0.5);
-    }
   }
 
-  public Command moveDownCmd(Supplier<Boolean> manualControl) {
-    if (manualControl.get() == null || !manualControl.get()) {
+  public Command moveDownCmd() {
       return this.run(this::moveDown);
-    } else {
-      return this.manualMoveCmd(-0.5);
-    }
   }
 
-  // public Command switchManualControlCmd(boolean manualControl) {
-  // Command cmd = runOnce(() -> {
-  // setManualControl(manualControl);
-  // SmartDashboard.putBoolean("asdadsad", manualControl);
-  // });
-  // cmd.setName("switchManualControl");
-  // return cmd;
-  // }
+  public Command switchManualControlCmd(boolean manualControl) {
+  Command cmd = runOnce(() -> {
+  setManualControl(manualControl);
+  });
+  cmd.setName("switchManualControl");
+  return cmd;
+  }
 
   public Command elevatorReset() {
     Command cmd = run(this::resetEncoder);
