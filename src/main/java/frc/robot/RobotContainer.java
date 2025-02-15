@@ -64,8 +64,8 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     mainController.y().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(0.5));
-    mainController.x().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.5));
-    mainController.a().whileTrue(algaeIntakeSubsystem.intakeCmd(0.5));
+    mainController.a().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.5));
+    mainController.x().whileTrue(algaeIntakeSubsystem.intakeCmd(0.5));
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
   }
 
