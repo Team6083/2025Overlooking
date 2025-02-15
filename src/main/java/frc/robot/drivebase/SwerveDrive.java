@@ -1,5 +1,12 @@
 package frc.robot.drivebase;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 import com.studica.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -11,16 +18,20 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
+import java.io.IOException;
+import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
-  public final SwerveModule backRight;
+  private final SwerveModule backRight;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
@@ -101,6 +112,30 @@ public class SwerveDrive extends SubsystemBase {
         getSwerveModulePosition());
 
     resetPose2dAndEncoder();
+    RobotConfig config;
+    try {
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
+    AutoBuilder.configure(
+        this::getPose2d,
+        this::resetPose,
+        this::getRobotRelativeSpeeds,
+        (speeds, feedforwards) -> driveRobotRelative(speeds),
+        new PPHolonomicDriveController(
+            new PIDConstants(3.6, 0.15, 1.0),
+            new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
+        config,
+        () -> {
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
   }
 
   /**
@@ -114,6 +149,30 @@ public class SwerveDrive extends SubsystemBase {
    * 
    *                      using the wpi function to set the speed of the swerve
    */
+
+  public void resetPose(Pose2d pose) {
+    odometry.resetPosition(
+        gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition()
+        },
+        pose);
+  }
+
+  public ChassisSpeeds getRobotRelativeSpeeds() {
+    return kinematics.toChassisSpeeds(
+        frontLeft.getState(),
+        frontRight.getState(),
+        backLeft.getState(),
+        backRight.getState());
+  }
+
+  public void driveRobotRelative(ChassisSpeeds speeds) {
+    drive(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond, false);
+  }
 
   // CHECKSTYLE.OFF: ParameterNameCheck
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
@@ -197,13 +256,38 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
+  public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
+    RobotConfig config;
+    config = RobotConfig.fromGUISettings();
+
+    PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+    return new FollowPathCommand(
+        path,
+        this::getPose2d,
+        this::getRobotRelativeSpeeds,
+        (speeds, feedforwards) -> driveRobotRelative(speeds),
+        new PPHolonomicDriveController(
+            new PIDConstants(5.0, 0.0, 0.0),
+            new PIDConstants(5.0, 0.0, 0.0)),
+        config,
+        () -> {
+
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
+  }
+
   @Override
   public void periodic() {
     field2dPublisher.set(
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
-    
+
     updateOdometry();
 
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
