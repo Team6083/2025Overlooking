@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +26,6 @@ public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  // private final SendableChooser<Command> autChooser;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController coController;
@@ -46,13 +46,9 @@ public class RobotContainer {
     intakeCommand = new SequentialCommandGroup(
         coralShooterSubsystem.coralShooterFastOnCmd().until(coralShooterSubsystem::isGetTarget),
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
-
-    // autChooser = AutoBuilder.buildAutoChooser();
-    // autChooser.setDefaultOption("DoNothing", Commands.none());
-    // SmartDashboard.putData("AutoChooser", autChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
-    // SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
+    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
     configureBindings();
   }
