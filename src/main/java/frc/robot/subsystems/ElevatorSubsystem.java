@@ -123,11 +123,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command manualMoveCmd(double power) {
-    return run(() -> {
-      if (manualControl) {
-        elevatorMotor.set(ControlMode.PercentOutput, power);
-      }
-    }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
+    return runEnd(() -> {
+      elevatorMotor.set(ControlMode.PercentOutput, power);
+      manualControl = true;
+      
+    }, () -> {
+      elevatorMotor.set(ControlMode.PercentOutput, 0);
+      manualControl = false;
+    });
   }
 
   public Command moveUpCmd() {
