@@ -9,18 +9,24 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.vision.TagTracking;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   public final SwerveModule backRight;
+  public final TagTracking tagTracking = new TagTracking();
+  private final PIDController TxTrackingController;
+  private final PIDController TyTagTrackingController;
+  private final PIDController TxncTrackingController;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
@@ -73,6 +79,15 @@ public class SwerveDrive extends SubsystemBase {
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
+    
+    TxTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TxTrackingController.enableContinuousInput(-180.0, 180.0);
+
+    TyTagTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TyTagTrackingController.enableContinuousInput(-180.0, 180.0);
+
+    TxncTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TxncTrackingController.enableContinuousInput(-180.0, 180.0);
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
     Translation2d frontLeftLocation = new Translation2d(
@@ -100,7 +115,7 @@ public class SwerveDrive extends SubsystemBase {
         gyro.getRotation2d(),
         getSwerveModulePosition());
 
-    resetPose2dAndEncoder();
+    // 設定 SwerveDrive 的 PID 控制器
   }
 
   /**
@@ -212,6 +227,14 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
   }
+  public void TagTracking() {
+   if (tagTracking.getTv() == 1) {
+      drive(TxTrackingController.calculate(tagTracking.getTx(), 0), 
+            TyTagTrackingController.calculate(tagTracking.getTy(), 0),
+            TxncTrackingController.calculate(tagTracking.getTxnc(), 0),
+              false);
+    }
+   }
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
@@ -222,6 +245,11 @@ public class SwerveDrive extends SubsystemBase {
   public Command setTurningDegreeCmd(double degree) {
     Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
     cmd.setName("setTurningDegreeCmd");
+    return cmd;
+  }
+  public Command TagTrackingCmd() {
+    Command cmd = this.runOnce(this::TagTracking);
+    cmd.setName("TagTrackingCmd");
     return cmd;
   }
 }
