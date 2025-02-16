@@ -19,6 +19,7 @@ import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
   private final CoralShooterSubsystem coralShooterSubsystem;
@@ -27,7 +28,8 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
-   private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
+  
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -38,15 +40,20 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    NamedCommands.registerCommand("CoralShooter",
-     coralShooterSubsystem.coralShooterSlowOnCmd());
-     NamedCommands.registerCommand("ElevatortoSecFloor", 
-     elevatorSubsystem.toSecFloorCmd());
-   
-     
+    NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
+     (elevatorSubsystem.toSecFloorCmd()).until(() -> elevatorSubsystem.
+     toSecFloorCmd().isFinished()).andThen(coralShooterSubsystem.coralShooterSlowOnCmd()));
 
-    
-    
+
+     
+    NamedCommands.registerCommand("CoralShooter",
+    coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("ElevatortoSecFloor", 
+    elevatorSubsystem.toSecFloorCmd());
+    NamedCommands.registerCommand("ElevatortoGetCarolHeight",
+    elevatorSubsystem.toGetCarolHeightCmd());
+    NamedCommands.registerCommand("ElevatortoDefaultPosition",
+    elevatorSubsystem.toDefaultPositionCmd());
  
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -58,7 +65,9 @@ public class RobotContainer {
     configureBindings();
   }
 
+
   private void configureBindings() {
+    
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 

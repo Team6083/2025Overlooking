@@ -102,7 +102,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toSecFloorCmd() {
-    Command cmd = run(this::toSecFloor);
+    Command cmd = runOnce(this::toSecFloor);
     return cmd;
   }
 
