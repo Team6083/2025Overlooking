@@ -42,6 +42,9 @@ public class SwerveDrive extends SubsystemBase {
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
       .getDefault().getStructArrayTopic("States", SwerveModuleState.struct).publish();
 
+  private final StructArrayPublisher<SwerveModuleState> swerveCurrentPublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("CurrentStates", SwerveModuleState.struct).publish();
+
   private final StructArrayPublisher<Pose2d> field2dPublisher = NetworkTableInstance
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
@@ -286,7 +289,16 @@ public class SwerveDrive extends SubsystemBase {
     field2dPublisher.set(
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
+
+    SwerveModuleState[] currentState = {
+      frontLeft.getState(),
+      frontRight.getState(),
+      backLeft.getState(),
+      backRight.getState()
+    };
+
     swervePublisher.set(swerveModuleStates);
+    swerveCurrentPublisher.set(currentState);
 
     updateOdometry();
 
