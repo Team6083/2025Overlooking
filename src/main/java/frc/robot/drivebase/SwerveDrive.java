@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.Constants.ModuleConstant;
 import frc.robot.vision.TagTracking;
 
 public class SwerveDrive extends SubsystemBase {
@@ -80,13 +81,13 @@ public class SwerveDrive extends SubsystemBase {
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
     
-    TxTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TxTrackingController = new PIDController(ModuleConstant.TxP,ModuleConstant.TxI , ModuleConstant.TxD);
     TxTrackingController.enableContinuousInput(-180.0, 180.0);
 
-    TyTagTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TyTagTrackingController = new PIDController(ModuleConstant.TyP, ModuleConstant.TyI, ModuleConstant.TyD);
     TyTagTrackingController.enableContinuousInput(-180.0, 180.0);
 
-    TxncTrackingController = new PIDController(0.01, 0.0, 0.0);
+    TxncTrackingController = new PIDController(ModuleConstant.TxncP, ModuleConstant.TxncI, ModuleConstant.TxncD);
     TxncTrackingController.enableContinuousInput(-180.0, 180.0);
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺

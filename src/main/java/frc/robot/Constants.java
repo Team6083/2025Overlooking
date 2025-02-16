@@ -57,6 +57,18 @@ public class Constants {
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.0;
 
+    public static final double TxP = 0.1;
+    public static final double TxI = 0.0;
+    public static final double TxD = 0.0;
+
+    public static final double TyP = 0.1;
+    public static final double TyI = 0.0;
+    public static final double TyD = 0.0;
+
+    public static final double TxncP = 0.1;
+    public static final double TxncI = 0.0;
+    public static final double TxncD = 0.0;
+
     public static final boolean kTurningMotorInverted = true;
   }
 
