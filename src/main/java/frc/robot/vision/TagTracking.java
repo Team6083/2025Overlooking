@@ -51,6 +51,10 @@ public class TagTracking {
     double tv = table.getEntry("tv").getDouble(0);
     return tv;
   }
+  public double getTxnc() {
+    double txnc = table.getEntry("txnc").getDouble(0);
+    return txnc;
+  }
 
   public double getTid() {
     double id = table.getEntry("tid").getDouble(0);
