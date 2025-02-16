@@ -97,7 +97,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toGetCarolHeightCmd() {
-    Command cmd = run(this::toGetCarolHeight);
+    Command cmd = runOnce(this::toGetCarolHeight);
     return cmd;
   }
 
@@ -107,17 +107,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toTrdFloorCmd() {
-    Command cmd = run(this::toTrdFloor);
+    Command cmd = runOnce(this::toTrdFloor);
     return cmd;
   }
 
   public Command toTopFloorCmd() {
-    Command cmd = run(this::toTopFloor);
+    Command cmd = runOnce(this::toTopFloor);
     return cmd;
   }
 
   public Command toDefaultPositionCmd() {
-    Command cmd = run(this::toDefaultPosition);
+    Command cmd = runOnce(this::toDefaultPosition);
     return cmd;
   }
 
