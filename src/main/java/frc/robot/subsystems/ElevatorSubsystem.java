@@ -64,6 +64,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
 
+  public double getCurrentHeightInMillimeters() {
+    return getCurrentHeight().in(Millimeters);
+  }
+
   public void moveUp() {
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
   }
