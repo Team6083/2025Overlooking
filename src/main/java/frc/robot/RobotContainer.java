@@ -27,7 +27,7 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
-   private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -39,17 +39,16 @@ public class RobotContainer {
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     NamedCommands.registerCommand("CoralShooter",
-     coralShooterSubsystem.coralShooterSlowOnCmd());
-     NamedCommands.registerCommand("ElevatortoSecFloor", 
-     elevatorSubsystem.toSecFloorCmd());
-   
-     
+        coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("ElevatortoSecFloor",
+        elevatorSubsystem.toSecFloorCmd());
 
-    
-    
- 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
+
+    autoChooser.addOption("sysIdDynamicCmd", swerveDrive.sysIdDynamicCmd());
+    autoChooser.addOption("sysIdQuasistaticCmd", swerveDrive.sysIdQuasistaticCmd());
+
     SmartDashboard.putData("Autochooser", autoChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
@@ -57,6 +56,7 @@ public class RobotContainer {
     SmartDashboard.putData("SwerveDrive", swerveDrive);
     configureBindings();
   }
+  
 
   private void configureBindings() {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
@@ -70,7 +70,7 @@ public class RobotContainer {
 
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-          
+
             elevatorSubsystem.manualMoveCmd(-0.5),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));

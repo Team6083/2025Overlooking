@@ -21,9 +21,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.VoltageUnit;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ModuleConstant;
 
@@ -147,6 +150,17 @@ public class SwerveModule extends SubsystemBase {
   public void setTurningDegree(double degree) {
     turningMotorVoltage = rotController.calculate(getRotation2d().getDegrees(), degree);
     turningMotor.setVoltage(turningMotorVoltage);
+  }
+
+  public void voltageDrive(Measure<VoltageUnit> volts) {
+    driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
+  }
+
+  public void logMotors(SysIdRoutineLog log) {
+    log.motor(name)
+        .voltage(edu.wpi.first.units.Units.Volts.of(driveMotorVoltage))
+        .linearPosition(getDriveDistance())
+        .linearVelocity(getDriveRate());
   }
 
   @Override

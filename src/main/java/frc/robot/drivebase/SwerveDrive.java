@@ -21,7 +21,11 @@ import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Mechanism;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import java.io.IOException;
@@ -37,6 +41,11 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveOdometry odometry;
 
   private final AHRS gyro;
+
+  public final SysIdRoutine frontLeftSysIdRoutine;
+  public final SysIdRoutine frontRightSysIdRoutine;
+  public final SysIdRoutine backLeftSysIdRoutine;
+  public final SysIdRoutine backRightSysIdRoutine;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -110,6 +119,22 @@ public class SwerveDrive extends SubsystemBase {
         kinematics,
         gyro.getRotation2d(),
         getSwerveModulePosition());
+
+    frontLeftSysIdRoutine = new SysIdRoutine(
+        new Config(),
+        new Mechanism(frontLeft::voltageDrive, frontLeft::logMotors, this));
+
+    frontRightSysIdRoutine = new SysIdRoutine(
+        new Config(),
+        new Mechanism(frontRight::voltageDrive, frontRight::logMotors, this));
+
+    backLeftSysIdRoutine = new SysIdRoutine(
+        new Config(),
+        new Mechanism(backLeft::voltageDrive, backLeft::logMotors, this));
+
+    backRightSysIdRoutine = new SysIdRoutine(
+        new Config(),
+        new Mechanism(backRight::voltageDrive, backRight::logMotors, this));
 
     resetPose2dAndEncoder();
     RobotConfig config;
@@ -279,6 +304,30 @@ public class SwerveDrive extends SubsystemBase {
           return false;
         },
         this);
+  }
+
+  public Command sysIdQuasistaticCmd() {
+    return Commands.parallel(
+        frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        frontRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(frontRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        backLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(backLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        backRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(backRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3));
+  }
+
+  public Command sysIdDynamicCmd() {
+    return Commands.parallel(
+        frontLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        frontRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(frontRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        backLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(backLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
+        backRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
+            .andThen(backRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3));
   }
 
   @Override
