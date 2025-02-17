@@ -27,8 +27,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import java.io.IOException;
-import frc.robot.vision.TagTracking;
 import org.json.simple.parser.ParseException;
+import frc.robot.vision.TagTracking;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
@@ -268,10 +268,10 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void swerveTagTracking() {
-    double xSpeed = tyController.calculate(tagTracking.getTy(), 0);
-    double ySpeed = txController.calculate(tagTracking.getTx(), 0);
+    double xspeed = tyController.calculate(tagTracking.getTy(), 0);
+    double yspeed = txController.calculate(tagTracking.getTx(), 0);
     if (tagTracking.getTv() == 1) {
-      this.drive(xSpeed, ySpeed, 0, false);
+      this.drive(xspeed, yspeed, 0, false);
     } else if (Math.abs(tagTracking.getTy()) <= 2 && tagTracking.getTx() == 0) {
       this.drive(0, 0, 0, false);
     }
@@ -319,7 +319,7 @@ public class SwerveDrive extends SubsystemBase {
         getPose2d().getRotation().getDegrees());
   }
 
-  public void TagTracking() {
+  public void tagTracking() {
     if (tagTracking.getTv() == 1) {
       drive(tyController.calculate(tagTracking.getTy(), 0),
           txController.calculate(tagTracking.getTy()),
