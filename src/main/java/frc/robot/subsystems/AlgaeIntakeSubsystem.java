@@ -139,27 +139,17 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  // public Command upRotatePIDCmd() {
-  // Command cmd = run(this::setUpRotateIntakeSetpoint);
-  // cmd.setName("setUpRotateIntakeSetpoint");
-  // return cmd;
-  // }
-
-  // public Command downRotatePIDCmd() {
-  // Command cmd = run(this::setDownRotateIntakeSetpoint);
-  // cmd.setName("setDownRotateIntakeSetpoint");
-  // return cmd;
-  // }
-
   public Command manualSetRotateCmd(double speed) { // 吐出 algae 的 cmd
     Command cmd = runEnd(() -> manualSetRotate(speed), this::stopRotate);
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
-  public Command manualUpRotateCmd(){
+
+  public Command manualUpRotateCmd() {
     return manualSetRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
   }
-  public Command manualDownRotateCmd(){
+
+  public Command manualDownRotateCmd() {
     return manualSetRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
