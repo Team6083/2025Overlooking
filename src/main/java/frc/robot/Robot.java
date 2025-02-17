@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
+  // CHECKSTYLE.OFF: MemberName
   private final RobotContainer m_robotContainer;
+  // CHECKSTYLE.ON: MemberName
 
   private boolean saveLogs = false;
 
