@@ -6,21 +6,18 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.ElevatorConstant;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
@@ -31,7 +28,6 @@ public class RobotContainer {
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
-  
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -43,20 +39,18 @@ public class RobotContainer {
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
-    new SequentialCommandGroup(
-      elevatorSubsystem.toSecFloorCmd(), coralShooterSubsystem.coralShooterSlowOnCmd()));
-
-
+        new SequentialCommandGroup(
+            elevatorSubsystem.toSecFloorCmd(), coralShooterSubsystem.coralShooterSlowOnCmd()));
 
     NamedCommands.registerCommand("CoralShooter",
-    coralShooterSubsystem.coralShooterSlowOnCmd());
-    NamedCommands.registerCommand("ElevatortoSecFloor", 
-    elevatorSubsystem.toSecFloorCmd());
+        coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("ElevatortoSecFloor",
+        elevatorSubsystem.toSecFloorCmd());
     NamedCommands.registerCommand("ElevatortoGetCarolHeight",
-    elevatorSubsystem.toGetCarolHeightCmd());
+        elevatorSubsystem.toGetCarolHeightCmd());
     NamedCommands.registerCommand("ElevatortoDefaultPosition",
-    elevatorSubsystem.toDefaultPositionCmd());
- 
+        elevatorSubsystem.toDefaultPositionCmd());
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("Autochooser", autoChooser);
@@ -67,9 +61,8 @@ public class RobotContainer {
     configureBindings();
   }
 
-
   private void configureBindings() {
-    
+
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -81,7 +74,7 @@ public class RobotContainer {
 
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-          
+
             elevatorSubsystem.manualMoveCmd(-0.5),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
