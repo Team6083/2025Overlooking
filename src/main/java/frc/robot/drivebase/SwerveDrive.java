@@ -80,14 +80,20 @@ public class SwerveDrive extends SubsystemBase {
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
-    
-    TxTrackingController = new PIDController(ModuleConstant.TxP,ModuleConstant.TxI , ModuleConstant.TxD);
+
+    TxTrackingController = new PIDController(ModuleConstant.TxP,
+        ModuleConstant.TxI,
+        ModuleConstant.TxD);
     TxTrackingController.enableContinuousInput(-180.0, 180.0);
 
-    TyTagTrackingController = new PIDController(ModuleConstant.TyP, ModuleConstant.TyI, ModuleConstant.TyD);
+    TyTagTrackingController = new PIDController(ModuleConstant.TyP,
+        ModuleConstant.TyI,
+        ModuleConstant.TyD);
     TyTagTrackingController.enableContinuousInput(-180.0, 180.0);
 
-    TxncTrackingController = new PIDController(ModuleConstant.TxncP, ModuleConstant.TxncI, ModuleConstant.TxncD);
+    TxncTrackingController = new PIDController(ModuleConstant.TxncP,
+        ModuleConstant.TxncI,
+        ModuleConstant.TxncD);
     TxncTrackingController.enableContinuousInput(-180.0, 180.0);
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
@@ -116,7 +122,6 @@ public class SwerveDrive extends SubsystemBase {
         gyro.getRotation2d(),
         getSwerveModulePosition());
 
-    // 設定 SwerveDrive 的 PID 控制器
   }
 
   /**
@@ -219,7 +224,7 @@ public class SwerveDrive extends SubsystemBase {
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
     swervePublisher.set(swerveModuleStates);
-    
+
     updateOdometry();
 
     SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
@@ -228,14 +233,15 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
   }
+
   public void TagTracking() {
-   if (tagTracking.getTv() == 1) {
-      drive(TxTrackingController.calculate(tagTracking.getTx(), 0), 
-            TyTagTrackingController.calculate(tagTracking.getTy(), 0),
-            TxncTrackingController.calculate(tagTracking.getTxnc(), 0),
-              false);
+    if (tagTracking.getTv() == 1) {
+      drive(TxTrackingController.calculate(tagTracking.getTx(), 0),
+          TyTagTrackingController.calculate(tagTracking.getTy(), 0),
+          TxncTrackingController.calculate(tagTracking.getTxnc(), 0),
+          false);
     }
-   }
+  }
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
@@ -248,8 +254,9 @@ public class SwerveDrive extends SubsystemBase {
     cmd.setName("setTurningDegreeCmd");
     return cmd;
   }
+
   public Command TagTrackingCmd() {
-    Command cmd = this.runOnce(this::TagTracking);
+    Command cmd = this.runEnd(this::TagTracking, this::stop);
     cmd.setName("TagTrackingCmd");
     return cmd;
   }
