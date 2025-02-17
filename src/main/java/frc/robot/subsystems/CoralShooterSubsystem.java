@@ -16,7 +16,6 @@ import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
-
   private VictorSPX coralShooterLeftMotor;
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;
@@ -59,7 +58,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public boolean isGetTarget() {
     if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange
-        && distanceSensor.getRange() > 0 && distanceSensor.getRange() < 4.0) {
+        && distanceSensor.getRange() > 0) {
       return true;
     }
     return false;
