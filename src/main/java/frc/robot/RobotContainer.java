@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.ElevatorConstant;
 import frc.robot.commands.SwerveControlCmd;
@@ -43,8 +44,10 @@ public class RobotContainer {
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
     NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
-    new SequentialCommandGroup(
-      elevatorSubsystem.toSecFloorCmd(), coralShooterSubsystem.coralShooterSlowOnCmd()));
+                new SequentialCommandGroup(
+                        elevatorSubsystem.toSecFloorCmd(),
+                        new WaitUntilCommand(() -> elevatorSubsystem.getCurrentHeight() == ElevatorConstant.kSecFloor),
+                        coralShooterSubsystem.coralShooterSlowOnCmd()));
 
 
 
