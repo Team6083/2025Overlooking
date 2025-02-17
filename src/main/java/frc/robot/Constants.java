@@ -202,6 +202,7 @@ public class Constants {
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
   }
+
   public static final class AutoConstants {
     public static final double kPTranslation = 4;
     public static final double kITranslation = 0.15;
