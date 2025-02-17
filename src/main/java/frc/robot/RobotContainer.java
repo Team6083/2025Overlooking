@@ -49,13 +49,11 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("CoralShooter",
         coralShooterSubsystem.coralShooterSlowOnCmd());
-        
+
     NamedCommands.registerCommand("CoralShooterStop",
         coralShooterSubsystem.coralShooterStopCmd());
 
-    NamedCommands.registerCommand("toSecFloor", new SequentialCommandGroup(
-        new WaitUntilCommand(() -> elevatorSubsystem.getCurrentHeight() == ElevatorConstant.kSecFloor),
-        elevatorSubsystem.toSecFloorCmd()));
+    NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());
 
     NamedCommands.registerCommand("ElevatortoDefaultPosition", new SequentialCommandGroup(
         new WaitUntilCommand(() -> elevatorSubsystem.getCurrentHeight() == ElevatorConstant.kInitialHeight),
