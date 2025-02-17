@@ -179,13 +179,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command manualMoveUpCmd(){
+  public Command manualMoveUpCmd() {
     Command cmd = manualMoveCmd(ElevatorConstant.kManualUpPower);
     cmd.setName("manualMoveUp");
     return cmd;
   }
 
-  public Command manualMoveDownCmd(){
+  public Command manualMoveDownCmd() {
     Command cmd = manualMoveCmd(ElevatorConstant.kManualDownPower);
     cmd.setName("manualMoveDown");
     return cmd;
