@@ -38,19 +38,6 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
-        new SequentialCommandGroup(
-            elevatorSubsystem.toSecFloorCmd(), coralShooterSubsystem.coralShooterSlowOnCmd()));
-
-    NamedCommands.registerCommand("CoralShooter",
-        coralShooterSubsystem.coralShooterSlowOnCmd());
-    NamedCommands.registerCommand("ElevatortoSecFloor",
-        elevatorSubsystem.toSecFloorCmd());
-    NamedCommands.registerCommand("ElevatortoGetCarolHeight",
-        elevatorSubsystem.toGetCarolHeightCmd());
-    NamedCommands.registerCommand("ElevatortoDefaultPosition",
-        elevatorSubsystem.toDefaultPositionCmd());
-
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("Autochooser", autoChooser);
