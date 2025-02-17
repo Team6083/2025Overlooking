@@ -267,14 +267,13 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void swerveTagTracking() {
-    double xspeed = tyController.calculate(tagTracking.getTy(), 0);
-    double yspeed = txController.calculate(tagTracking.getTx(), 0);
+    // CHECKSTYLE.OFF: MemberName
     if (tagTracking.getTv() == 1) {
-      this.drive(xspeed, yspeed, 0, false);
-    } else if (Math.abs(tagTracking.getTy()) <= 2 && tagTracking.getTx() == 0) {
-      this.drive(0, 0, 0, false);
+    double xSpeed = tyController.calculate(tagTracking.getTy(), 0);
+    double ySpeed = txController.calculate(tagTracking.getTx(), 0);
+      this.drive(xSpeed, ySpeed, 0, false);
     }
-
+    // CHECKSTYLE.ON: MemberName
   }
 
   public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
@@ -316,9 +315,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
-  }
-
-  
+  }  
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
@@ -333,7 +330,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command swerveTagTrackingCmd() {
-    Command cmd = this.run(this::swerveTagTracking);
+    Command cmd = this.runEnd(this::swerveTagTracking, this::stop);
     cmd.setName("swerveTagTracking");
     return cmd;
   }
