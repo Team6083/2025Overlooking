@@ -29,7 +29,6 @@ import frc.robot.vision.TagTracking;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
-
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
@@ -319,14 +318,7 @@ public class SwerveDrive extends SubsystemBase {
         getPose2d().getRotation().getDegrees());
   }
 
-  public void tagTracking() {
-    if (tagTracking.getTv() == 1) {
-      drive(tyController.calculate(tagTracking.getTy(), 0),
-          txController.calculate(tagTracking.getTy()),
-          txController.calculate(tagTracking.getTy()),
-          false);
-    }
-  }
+  
 
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
