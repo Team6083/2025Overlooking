@@ -9,7 +9,6 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
 import com.revrobotics.ColorSensorV3.MainControl;
 import com.studica.frc.AHRS;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,8 +27,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import java.io.IOException;
-import org.json.simple.parser.ParseException;
 import frc.robot.vision.TagTracking;
+import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
@@ -273,10 +272,10 @@ public class SwerveDrive extends SubsystemBase {
     double ySpeed = txController.calculate(tagTracking.getTx(), 0);
     if (tagTracking.getTv() == 1) {
       this.drive(xSpeed, ySpeed, 0, false);
-    }else if(Math.abs(tagTracking.getTy())<=2 && tagTracking.getTx() == 0){
+    } else if (Math.abs(tagTracking.getTy()) <= 2 && tagTracking.getTx() == 0) {
       this.drive(0, 0, 0, false);
     }
-    
+
   }
 
   public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
