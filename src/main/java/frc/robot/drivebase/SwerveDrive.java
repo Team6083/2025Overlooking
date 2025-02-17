@@ -8,6 +8,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
 import com.studica.frc.AHRS;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.vision.TagTracking;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
@@ -37,6 +39,10 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveOdometry odometry;
 
   private final AHRS gyro;
+
+  private final PIDController txController;
+  private final PIDController tyController;
+  private final TagTracking tagTracking;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -84,6 +90,10 @@ public class SwerveDrive extends SubsystemBase {
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
+
+    txController = new PIDController(0.1, 0, 0);
+    tyController = new PIDController(0.1, 0, 0);
+    tagTracking = new TagTracking();
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
     Translation2d frontLeftLocation = new Translation2d(
@@ -256,6 +266,17 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
+  public void swerveTagTracking() {
+    double xspeed = tyController.calculate(tagTracking.getTy(), 0);
+    double yspeed = txController.calculate(tagTracking.getTx(), 0);
+    if (tagTracking.getTv() == 1) {
+      this.drive(xspeed, yspeed, 0, false);
+    } else if (Math.abs(tagTracking.getTy()) <= 2 && tagTracking.getTx() == 0) {
+      this.drive(0, 0, 0, false);
+    }
+
+  }
+
   public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
     RobotConfig config;
     config = RobotConfig.fromGUISettings();
@@ -297,6 +318,8 @@ public class SwerveDrive extends SubsystemBase {
         getPose2d().getRotation().getDegrees());
   }
 
+  
+
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
     cmd.setName("gyroResetCmd");
@@ -306,6 +329,12 @@ public class SwerveDrive extends SubsystemBase {
   public Command setTurningDegreeCmd(double degree) {
     Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
     cmd.setName("setTurningDegreeCmd");
+    return cmd;
+  }
+
+  public Command swerveTagTrackingCmd() {
+    Command cmd = this.run(this::swerveTagTracking);
+    cmd.setName("swerveTagTracking");
     return cmd;
   }
 }
