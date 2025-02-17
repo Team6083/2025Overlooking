@@ -16,7 +16,6 @@ import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
-
   private VictorSPX coralShooterLeftMotor;
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;

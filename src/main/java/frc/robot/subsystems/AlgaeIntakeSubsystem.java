@@ -21,7 +21,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PIDController algaeRotatePID;
   private final Encoder rotateEncoder;
   private final PowerDistribution powerDistribution;
-  private boolean isMannualControl = false;
+  private boolean isManualControl = false;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -82,35 +82,24 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public void setMaunnalControl(boolean maunnalControlOn) {
-    this.isMannualControl = maunnalControlOn;
+  public void setManualControl(boolean maunnalControlOn) {
+    this.isManualControl = maunnalControlOn;
 
   }
 
   public boolean getIsMaunnalControl() {
-    return isMannualControl;
+    return isManualControl;
 
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // if (powerDistribution.isAlgaeRotateOverCurrent()) {
-    // rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    // }
-
-    // double output = algaeRotatePID.calculate(getIntakeMotorRotate());
-    // output = MathUtil.clamp(output, -AlgaeIntakeConstant.output,
-    // AlgaeIntakeConstant.output);
-    // rotateIntakeMotor.set(ControlMode.PercentOutput, output);
-
     SmartDashboard.putNumber("algaeRotateDistance", rotateEncoder.getDistance());
-    // SmartDashboard.putNumber("algaeRotateCurrent", getIntakeMotorRotate());
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
     SmartDashboard.putBoolean("isOverLimit", isOverLimit());
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
-    SmartDashboard.putBoolean("isMannualControl", isMannualControl);
+    SmartDashboard.putBoolean("isManualControl", isManualControl);
   }
 
   public Command setIntakeMotorFastOnCmd() {
