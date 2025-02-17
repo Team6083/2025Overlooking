@@ -1,0 +1,94 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left - leave starting line"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorTopFloorCmd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "carolShooterCmd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algaereintake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef to processor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "algaereintake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "processor to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
