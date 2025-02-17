@@ -16,7 +16,7 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
 
-  private boolean saveLogs = true;
+  private boolean saveLogs = false;
 
   public Robot() {
     m_robotContainer = new RobotContainer();

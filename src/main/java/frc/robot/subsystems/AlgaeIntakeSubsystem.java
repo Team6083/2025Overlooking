@@ -69,11 +69,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public Boolean isOverLimit() {
-    return powerDistribution.algaeIntakeCurrent() <= AlgaeIntakeConstant.kIntakeCurrentLimit;
-  }
-
-  public void manualSetRotate(double speed) {
+  public void setRotate(double speed) {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, speed);
 
   }
@@ -82,22 +78,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public void setManualControl(boolean maunnalControlOn) {
-    this.isManualControl = maunnalControlOn;
-
-  }
-
-  public boolean getIsMaunnalControl() {
-    return isManualControl;
-
-  }
-
   @Override
   public void periodic() {
     SmartDashboard.putNumber("algaeRotateDistance", rotateEncoder.getDistance());
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
-    SmartDashboard.putBoolean("isOverLimit", isOverLimit());
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
     SmartDashboard.putBoolean("isManualControl", isManualControl);
   }
@@ -114,32 +99,24 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command autoIntakeCmd() { // 吸入 algae 的 cmd
-    Command cmd = run(this::setIntakeMotorFastOn)
-        .until(this::isOverLimit)
-        .andThen(this.runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor));
-    cmd.setName("setAutoIntakeCmd");
-    return cmd;
-  }
-
   public Command reIntakeCmd() { // 吐出 algae 的 cmd
     Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
     cmd.setName("setReIntakeMotorCmd");
     return cmd;
   }
 
-  public Command manualSetRotateCmd(double speed) { // 吐出 algae 的 cmd
-    Command cmd = runEnd(() -> manualSetRotate(speed), this::stopRotate);
+  public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
+    Command cmd = runEnd(() -> setRotate(speed), this::stopRotate);
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
 
-  public Command manualUpRotateCmd() {
-    return manualSetRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
+  public Command rotateUpCmd() {
+    return setRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
   }
 
-  public Command manualDownRotateCmd() {
-    return manualSetRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+  public Command rotateDownCmd() {
+    return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
 }

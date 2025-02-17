@@ -43,6 +43,13 @@ public class Constants {
     public static final double kD = 0.0;
 
     public static final int kElevatorMotorChannel = 33;
+    public static final boolean kMotorInverted = false;
+
+    public static final int kEncoderChannelA = 2;
+    public static final int kEncoderChannelB = 3;
+
+    public static final double kManualUpPower = 0.5;
+    public static final double kManualDownPower = -0.5;
 
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
