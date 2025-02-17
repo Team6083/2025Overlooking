@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
-import java.util.function.Supplier;
 
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
@@ -98,36 +97,39 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toGetCarolHeightCmd() {
-    Command cmd = run(this::toGetCarolHeight);
+    Command cmd = runOnce(this::toGetCarolHeight);
     return cmd;
   }
 
   public Command toSecFloorCmd() {
-    Command cmd = run(this::toSecFloor);
+    Command cmd = runOnce(this::toSecFloor);
     return cmd;
   }
 
   public Command toTrdFloorCmd() {
-    Command cmd = run(this::toTrdFloor);
+    Command cmd = runOnce(this::toTrdFloor);
     return cmd;
   }
 
   public Command toTopFloorCmd() {
-    Command cmd = run(this::toTopFloor);
+    Command cmd = runOnce(this::toTopFloor);
     return cmd;
   }
 
   public Command toDefaultPositionCmd() {
-    Command cmd = run(this::toDefaultPosition);
+    Command cmd = runOnce(this::toDefaultPosition);
     return cmd;
   }
 
   public Command manualMoveCmd(double power) {
-    return run(() -> {
-      if (manualControl) {
-        elevatorMotor.set(ControlMode.PercentOutput, power);
-      }
-    }).finallyDo(() -> elevatorMotor.set(ControlMode.PercentOutput, 0));
+    return runEnd(() -> {
+      elevatorMotor.set(ControlMode.PercentOutput, power);
+      manualControl = true;
+      
+    }, () -> {
+      elevatorMotor.set(ControlMode.PercentOutput, 0);
+      manualControl = false;
+    });
   }
 
   public Command moveUpCmd() {

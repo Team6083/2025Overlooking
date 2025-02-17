@@ -4,11 +4,14 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.AlgaeIntakeConstant;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -24,6 +27,7 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
+  private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -34,6 +38,22 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
+    NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
+        new SequentialCommandGroup(
+            elevatorSubsystem.toSecFloorCmd(), coralShooterSubsystem.coralShooterSlowOnCmd()));
+
+    NamedCommands.registerCommand("CoralShooter",
+        coralShooterSubsystem.coralShooterSlowOnCmd());
+    NamedCommands.registerCommand("ElevatortoSecFloor",
+        elevatorSubsystem.toSecFloorCmd());
+    NamedCommands.registerCommand("ElevatortoGetCarolHeight",
+        elevatorSubsystem.toGetCarolHeightCmd());
+    NamedCommands.registerCommand("ElevatortoDefaultPosition",
+        elevatorSubsystem.toDefaultPositionCmd());
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    SmartDashboard.putData("Autochooser", autoChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
@@ -42,6 +62,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -53,6 +74,7 @@ public class RobotContainer {
 
     mainController.leftTrigger()
         .whileTrue(Commands.either(
+
             elevatorSubsystem.manualMoveCmd(-0.5),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
@@ -63,15 +85,14 @@ public class RobotContainer {
             mainController.povRight()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-
-    mainController.y().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(0.5));
-    mainController.a().whileTrue(algaeIntakeSubsystem.manualSetRotateCmd(-0.5));
+    mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
   }
 }

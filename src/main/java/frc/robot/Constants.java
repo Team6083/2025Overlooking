@@ -15,7 +15,7 @@ public class Constants {
     public static final int kShooterRightMotorChannel = 32;
 
     public static final double kShooterMotorFastSpeed = 0.2;
-    public static final double kShooterMotorSlowSpeed = 0.12;
+    public static final double kShooterMotorSlowSpeed = 0.18;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
   }
@@ -54,26 +54,25 @@ public class Constants {
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
-    public static final Distance kSecFloor = Millimeters.of(780);
+    public static final Distance kSecFloor = Millimeters.of(810);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(1);
 
-    public static final double kEncoderDistancePerPulse 
-        = 1.0 / 2048.0 * Inches.of(1.214 * Math.PI).in(Millimeters);
-
+    public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
+        * Inches.of(1.214 * Math.PI).in(Millimeters);
   }
 
   public static final class ModuleConstant {
     // 定義輪子的半徑，單位是公尺
-    public static final Distance kWheelRadius = Meters.of(0.064);
+    public static final Distance kWheelRadius = Meters.of(0.0508);
 
     // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
     public static final double kMaxModuleDriveVoltage = 12.0;
     public static final double kMaxModuleTurningVoltage = 12.0;
 
     // 設定 Motor 的 closedLoopRampRate 之時距
-    public static final double kDriveClosedLoopRampRate = 0.1; // 1 second 1 unit
+    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
     public static final double kTurningClosedLoopRampRate = 0.1;
 
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
@@ -143,8 +142,8 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
-    public static final int kIntakeMotorChannel = 34;
-    public static final int kIntakeRotateMotorChannel = 35;
+    public static final int kIntakeMotorChannel = 35;
+    public static final int kIntakeRotateMotorChannel = 34;
 
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 0;
@@ -153,13 +152,14 @@ public class Constants {
     public static final int kAlgaeFrontEncoderChannelB = 2;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeFastSpeed = 0.3;
+
+    public static final double kIntakeFastSpeed = 0.5;
     public static final double kIntakeSlowSpeed = 0.1;
-    public static final double kReIntakeSpeed = 0.1;
+    public static final double kReIntakeSpeed = -0.3;
 
     // AlgaeRotate 的電壓
-    public static final double kUpIntakeRotateSpeed = 0.1;
-    public static final double kDownIntakeRotateSpeed = -0.1;
+    public static final double kUpIntakeRotateSpeed = 0.5;
+    public static final double kDownIntakeRotateSpeed = -0.4;
 
     // Algae Rotate & Front PID
     public static final double rotMotorPIDkP = 0.01;
@@ -171,8 +171,8 @@ public class Constants {
     public static final int kDownRotateIntakeSetpoint = 0;
 
     // Algae Inverted
-    public static final Boolean kIntakeMotorInverted = false;
-    public static final Boolean kRotateIntakeMotorInverted = false;
+    public static final Boolean kIntakeMotorInverted = true;
+    public static final Boolean kRotateMotorInverted = false;
     public static final Boolean kAlgaeEncoderInverted = false;
 
     // Algae Current Limit
@@ -188,8 +188,8 @@ public class Constants {
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kDefaultMagnification = 0.5;
-    public static final double kFastMagnification = 2;
+    public static final double kDefaultMagnification = 1;
+    public static final double kSlowMagnification = 0.75;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
@@ -201,5 +201,16 @@ public class Constants {
     // fieldRelative
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
+  }
+
+  public static final class AutoConstants {
+    public static final double kPTranslation = 4;
+    public static final double kITranslation = 0.15;
+    public static final double kDTranslation = 1;
+    public static final double kPRotation = 5;
+    public static final double kIRotation = 0;
+    public static final double kDRotation = 0.6;
+    public static final double kDrivebaseRadius = 0.3;
+
   }
 }

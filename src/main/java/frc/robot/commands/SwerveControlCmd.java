@@ -40,7 +40,7 @@ public class SwerveControlCmd extends Command {
   @Override
   public void execute() {
     if (mainController.leftBumper().getAsBoolean()) {
-      magnification = SwerveControlConstant.kFastMagnification;
+      magnification = SwerveControlConstant.kSlowMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }
@@ -65,7 +65,7 @@ public class SwerveControlCmd extends Command {
       ySpeed = 0;
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
-      rotSpeed = rotLimiter.calculate(mainController.getRightX())
+      rotSpeed = -rotLimiter.calculate(mainController.getRightX())
           * drivebaseMaxSpeed * 1.2;
 
     } else {
