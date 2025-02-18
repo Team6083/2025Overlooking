@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,35 +22,37 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;
   private PowerDistribution powerDistribution;
+  private DutyCycleEncoder shooterEncoder;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-
+    shooterEncoder = new DutyCycleEncoder(CoralShooterConstant.kShooterEncoderChannel);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
     coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
-  private void setMotorSpeed(double speed) {
-    coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
-    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
+  public double getEncoder() {
+    return shooterEncoder.get() * 360;
+  }
+
+  public void setMotorSpeed(double speed) {
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, 0);
+      coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    } else {
+      coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
+      coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    }
   }
 
   public void coralShooterFastOn() { // Motor on Fast
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
   public void coralShooterSlowOn() { // Motor on Slow
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
