@@ -144,7 +144,7 @@ public class SwerveModule extends SubsystemBase {
   public void setDesiredState(SwerveModuleState desiredState) {
     var moduleState = optimizeOutputVoltage(desiredState, getRotation2d());
     driveMotor.setVoltage(moduleState[0]);
-    turningMotor.setVoltage(moduleState[1]);
+    turningMotor.setVoltage(0);
   }
 
   public void setTurningDegree(double degree) {
