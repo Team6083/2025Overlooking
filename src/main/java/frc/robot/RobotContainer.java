@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Millimeters;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -41,9 +43,12 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
+    NamedCommands.registerCommand("ElevatorSecFloorWithCoralShooterSlowOn",
         new SequentialCommandGroup(
-            elevatorSubsystem.toSecFloorCmd().withTimeout(2.5),
+            elevatorSubsystem.toSecFloorCmd()
+                .until(() -> elevatorSubsystem.getCurrentHeight()
+                    .minus(ElevatorConstant.kSecFloor)
+                    .abs(Millimeters) < 5),
             coralShooterSubsystem.coralShooterSlowOnCmd()));
 
     NamedCommands.registerCommand("CoralShooter",
@@ -54,7 +59,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("ElevatortoDefaultPosition",
+    NamedCommands.registerCommand("ElevatorToDefaultPosition",
         elevatorSubsystem.toDefaultPositionCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();

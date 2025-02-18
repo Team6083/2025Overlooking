@@ -11,15 +11,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "1m"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "ElevatorSecFloorWithCoralShooterSlowOn"
+            "name": "CoralShooter"
           }
         },
         {
