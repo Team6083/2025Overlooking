@@ -52,10 +52,8 @@ public class RobotContainer {
             coralShooterSubsystem.coralShooterSlowOnCmd()));
 
     NamedCommands.registerCommand("CoralShooter",
-        coralShooterSubsystem.coralShooterSlowOnCmd());
-
-    NamedCommands.registerCommand("CoralShooterStop",
-        coralShooterSubsystem.coralShooterStopCmd());
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(3)
+            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());
 
