@@ -54,9 +54,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("ElevatortoDefaultPosition", new SequentialCommandGroup(
-        new WaitUntilCommand(() -> elevatorSubsystem.getCurrentHeight() == ElevatorConstant.kInitialHeight),
-        elevatorSubsystem.toDefaultPositionCmd()));
+    NamedCommands.registerCommand("ElevatortoDefaultPosition",
+        elevatorSubsystem.toDefaultPositionCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
