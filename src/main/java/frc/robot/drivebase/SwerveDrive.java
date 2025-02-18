@@ -317,8 +317,8 @@ public class SwerveDrive extends SubsystemBase {
 
   public Command sysIdDynamicCmd() {
     return new SequentialCommandGroup(
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3),
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(3)
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(2),
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(2)
     );
   }
 
