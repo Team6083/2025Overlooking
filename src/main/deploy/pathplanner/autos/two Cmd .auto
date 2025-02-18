@@ -11,33 +11,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "1m"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ElevatorSecFloorWithCoralShooterSlowOn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToDefaultPosition"
           }
         }
       ]
