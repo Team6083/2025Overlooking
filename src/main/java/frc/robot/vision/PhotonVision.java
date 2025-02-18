@@ -5,12 +5,13 @@
 package frc.robot.vision;
 
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
-
 
 public class PhotonVision extends SubsystemBase {
   /** Creates a new TagTrackingPhotonVIsion. */
@@ -55,6 +56,9 @@ public class PhotonVision extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("yaw", getYaw());
+    SmartDashboard.putNumber("pitch", getPitch());
+    SmartDashboard.putNumber("area", getArea());
+    SmartDashboard.putNumber("skew", getSkew());
   }
 }
