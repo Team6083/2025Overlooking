@@ -46,6 +46,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ElevatorSecFloorWithCoralShooterSlowOn",
         new SequentialCommandGroup(
             elevatorSubsystem.toSecFloorCmd()
+                .repeatedly()
                 .until(() -> elevatorSubsystem.getCurrentHeight()
                     .minus(ElevatorConstant.kSecFloor)
                     .abs(Millimeters) < 5),
@@ -56,7 +57,6 @@ public class RobotContainer {
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());
-
     NamedCommands.registerCommand("ElevatorToDefaultPosition",
         elevatorSubsystem.toDefaultPositionCmd());
 
