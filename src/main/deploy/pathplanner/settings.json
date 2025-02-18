@@ -3,14 +3,17 @@
   "robotLength": 0.7,
   "holonomicMode": true,
   "pathFolders": [
-    "leave",
+    "to coral station",
     "left - leave",
+    "middle - leave",
     "right - leave",
     "test",
     "to reef",
     "way points"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "2 coral"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 1.2,
   "defaultMaxAngVel": 540.0,

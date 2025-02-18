@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.394467213114754,
-        "y": 5.33765368852459
+        "x": 5.142725409836065,
+        "y": 5.469518442622951
       },
       "prevControl": {
-        "x": 6.053790983606557,
-        "y": 5.2897028688524586
+        "x": 5.802049180327868,
+        "y": 5.421567622950819
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 12"
+      "linkedName": "reef 11"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "middle - leave",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

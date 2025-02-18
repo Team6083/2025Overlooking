@@ -17,16 +17,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": "ElevatorSecFloorWithCoralShooterSlowOn"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "carolShooterCmd"
           }
         },
         {
@@ -42,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevator"
+                  "name": "ElevatorToDefaultPosition"
                 }
               }
             ]
@@ -51,7 +45,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 2.0
           }
         },
         {
@@ -61,28 +55,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right coral station to reef"
+                  "pathName": "left - coral station to reef(9)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": "ElevatorSecFloorWithCoralShooterSlowOn"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "carolShooterCmd"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }

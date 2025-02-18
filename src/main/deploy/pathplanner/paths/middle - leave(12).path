@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.678,
-        "y": 0.579
+        "x": 7.600204918032786,
+        "y": 4.00701844262295
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.469467213114754,
-        "y": 1.1299692622950817
+        "x": 7.01280737704918,
+        "y": 4.570440573770491
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "middle"
     },
     {
       "anchor": {
-        "x": 3.8240778688524584,
-        "y": 2.5565061475409836
+        "x": 5.394467213114754,
+        "y": 5.33765368852459
       },
       "prevControl": {
-        "x": 3.5004098360655727,
-        "y": 1.6933913934426221
+        "x": 6.257581967213115,
+        "y": 5.0499487704918025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "leef5"
+      "linkedName": "reef 12"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 1.2,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.99999999999999
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": "to reef",
+  "folder": "middle - leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.51425574563688
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
