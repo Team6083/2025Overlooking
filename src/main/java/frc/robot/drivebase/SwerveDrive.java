@@ -22,6 +22,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -42,10 +45,7 @@ public class SwerveDrive extends SubsystemBase {
 
   private final AHRS gyro;
 
-  public final SysIdRoutine frontLeftSysIdRoutine;
-  public final SysIdRoutine frontRightSysIdRoutine;
-  public final SysIdRoutine backLeftSysIdRoutine;
-  public final SysIdRoutine backRightSysIdRoutine;
+  public final SysIdRoutine sysIdRoutine;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -120,21 +120,23 @@ public class SwerveDrive extends SubsystemBase {
         gyro.getRotation2d(),
         getSwerveModulePosition());
 
-    frontLeftSysIdRoutine = new SysIdRoutine(
-        new Config(),
-        new Mechanism(frontLeft::voltageDrive, frontLeft::logMotors, this));
-
-    frontRightSysIdRoutine = new SysIdRoutine(
-        new Config(),
-        new Mechanism(frontRight::voltageDrive, frontRight::logMotors, this));
-
-    backLeftSysIdRoutine = new SysIdRoutine(
-        new Config(),
-        new Mechanism(backLeft::voltageDrive, backLeft::logMotors, this));
-
-    backRightSysIdRoutine = new SysIdRoutine(
-        new Config(),
-        new Mechanism(backRight::voltageDrive, backRight::logMotors, this));
+        sysIdRoutine = new SysIdRoutine(
+          new Config(),
+          new Mechanism(
+              (voltage) -> {
+                  frontLeft.voltageDrive(voltage);
+                  frontRight.voltageDrive(voltage);
+                  backLeft.voltageDrive(voltage);
+                  backRight.voltageDrive(voltage);
+              },
+              (log) -> {
+                  frontLeft.logMotors(log);
+                  frontRight.logMotors(log);
+                  backLeft.logMotors(log);
+                  backRight.logMotors(log);
+              },
+              this)
+      );
 
     resetPose2dAndEncoder();
     RobotConfig config;
@@ -307,27 +309,17 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command sysIdQuasistaticCmd() {
-    return Commands.parallel(
-        frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        frontRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(frontRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        backLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(backLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        backRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(backRightSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3));
+    return new SequentialCommandGroup(
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3),
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse).withTimeout(3)
+    );
   }
 
   public Command sysIdDynamicCmd() {
-    return Commands.parallel(
-        frontLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(frontLeftSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        frontRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(frontRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        backLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(backLeftSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3),
-        backRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3)
-            .andThen(backRightSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse)).withTimeout(3));
+    return new SequentialCommandGroup(
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(3),
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(3)
+    );
   }
 
   @Override
