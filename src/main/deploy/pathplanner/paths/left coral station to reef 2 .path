@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.8720286885245896,
-        "y": 2.5325307377049184
+        "x": 3.8240778688524584,
+        "y": 2.5565061475409836
       },
       "prevControl": {
-        "x": 3.548360655737704,
-        "y": 1.669415983606557
+        "x": 3.5004098360655727,
+        "y": 1.6933913934426221
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "leef5"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.52411099675425
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": "to reef",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.51425574563687
+    "rotation": 53.51425574563688
   },
   "useDefaultConstraints": true
 }

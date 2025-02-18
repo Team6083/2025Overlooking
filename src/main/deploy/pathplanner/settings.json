@@ -3,6 +3,9 @@
   "robotLength": 0.7,
   "holonomicMode": true,
   "pathFolders": [
+    "left - leave",
+    "test",
+    "to reef",
     "way points"
   ],
   "autoFolders": [],
