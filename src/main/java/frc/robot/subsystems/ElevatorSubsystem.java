@@ -25,8 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Encoder rightEncoder;
   private final PIDController leftElevatorPID;
   private final PIDController rightElevatorPID;
-  private Distance leftTargetHeight;
-  private Distance rightTargetHeight;
+  private Distance targetHeight;
   private boolean manualControl;
 
   public ElevatorSubsystem() {
@@ -43,17 +42,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     manualControl = false;
     leftEncoder.reset();
     rightEncoder.reset();
-    leftTargetHeight = ElevatorConstant.kInitialHeight;
-    rightTargetHeight = ElevatorConstant.kInitialHeight;
+    targetHeight = ElevatorConstant.kInitialHeight;
 
   }
 
   public void resetEncoder() {
     leftEncoder.reset();
     rightEncoder.reset();
-    leftTargetHeight = getLeftCurrentHeight();
-    rightTargetHeight = getRightCurrentHeight();
-
+    targetHeight = getCurrentHeight();
   }
 
   public void moveToHeight(Distance newTargetHeight) {
@@ -62,8 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else if (newTargetHeight.lt(ElevatorConstant.kLowestHeight)) {
       newTargetHeight = ElevatorConstant.kLowestHeight;
     }
-    leftTargetHeight = newTargetHeight;
-    rightTargetHeight = newTargetHeight;
+    targetHeight = newTargetHeight;
   }
 
   public void setManualControl(boolean manualControlOn) {
@@ -74,22 +69,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     return manualControl;
   }
 
-  public Distance getLeftCurrentHeight() {
-    return Millimeters.of(leftEncoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
-  }
-
-  public Distance getRightCurrentHeight() {
-    return Millimeters.of(rightEncoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
+  public Distance getCurrentHeight() {
+    return Millimeters.of((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0)
+        .plus(ElevatorConstant.kHeightOffset);
   }
 
   public void moveUp() {
-    leftTargetHeight = leftTargetHeight.plus(ElevatorConstant.kStepHeight);
-    rightTargetHeight = rightTargetHeight.plus(ElevatorConstant.kStepHeight);
+    targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
   }
 
   public void moveDown() {
-    leftTargetHeight = leftTargetHeight.minus(ElevatorConstant.kStepHeight);
-    rightTargetHeight = rightTargetHeight.minus(ElevatorConstant.kStepHeight);
+    targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
   }
 
   public void toGetCarolHeight() {
@@ -144,10 +134,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command manualMoveCmd(double power) {
     return runEnd(() -> {
       rightElevatorMotor.set(ControlMode.PercentOutput, power);
+      leftElevatorMotor.set(ControlMode.PercentOutput, power);
       manualControl = true;
 
     }, () -> {
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+      leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       manualControl = false;
     });
   }
@@ -176,30 +168,28 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Distance leftCurrentHeight = getLeftCurrentHeight();
-    Distance rightCurrentHeight = getRightCurrentHeight();
+    Distance currentHeight = getCurrentHeight();
 
     if (!manualControl) {
-      leftElevatorPID.setSetpoint(leftTargetHeight.in(Millimeters));
-      double leftOutput = leftElevatorPID.calculate(leftCurrentHeight.in(Millimeters));
+      leftElevatorPID.setSetpoint(targetHeight.in(Millimeters));
+      double leftOutput = leftElevatorPID.calculate(currentHeight.in(Millimeters));
       leftOutput = MathUtil.clamp(leftOutput, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       leftElevatorMotor.set(ControlMode.PercentOutput, leftOutput);
       SmartDashboard.putNumber("LeftOutput", leftOutput);
-      rightElevatorPID.setSetpoint(rightTargetHeight.in(Millimeters));
-      double rightOutput = rightElevatorPID.calculate(rightCurrentHeight.in(Millimeters));
+      rightElevatorPID.setSetpoint(targetHeight.in(Millimeters));
+      double rightOutput = rightElevatorPID.calculate(currentHeight.in(Millimeters));
       rightOutput = MathUtil.clamp(rightOutput, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       rightElevatorMotor.set(ControlMode.PercentOutput, rightOutput);
       SmartDashboard.putNumber("RightOutput", rightOutput);
 
     } else {
-      leftTargetHeight = leftCurrentHeight;
-      rightTargetHeight = rightCurrentHeight;
+      targetHeight = currentHeight;
     }
 
     SmartDashboard.putNumber("ElevatorLeftEncoder", leftEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorRightEncoder", rightEncoder.getDistance());
-    SmartDashboard.putNumber("ElevatorLeftCurrentHeight", leftCurrentHeight.in(Millimeters));
-    SmartDashboard.putNumber("ElevatorRightCurrentHeight", rightCurrentHeight.in(Millimeters));
+    SmartDashboard.putNumber("ElevatorLeftCurrentHeight", currentHeight.in(Millimeters));
+    SmartDashboard.putNumber("ElevatorRightCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", leftElevatorPID);
   }
