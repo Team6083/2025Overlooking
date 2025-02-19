@@ -1,6 +1,6 @@
-package frc.robot.lib;
+package frc.robot.lib.sensor.distance;
 
-public interface DistanceSensorInterface {
+public interface DistanceSensor {
   public double getTargetDistance();
 
   public boolean isGetTarget();
