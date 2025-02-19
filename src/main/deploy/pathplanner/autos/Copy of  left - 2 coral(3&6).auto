@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - leave(3)"
+                  "pathName": "right - leave(4)"
                 }
               },
               {
@@ -48,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "to coral station 4"
+                  "pathName": "reef (4) to coral station "
                 }
               },
               {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }

@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "middle - leave (12)"
+                  "pathName": "right - leave(3)"
                 }
               },
               {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(11) to coral station"
+                  "pathName": "reef (3) to coral station "
                 }
               },
               {
@@ -51,7 +51,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 3.0
           }
         },
         {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left - coral station to reef(9)"
+                  "pathName": "right - coral station to reef(5)"
                 }
               },
               {
@@ -83,6 +83,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.142725409836065,
-        "y": 5.469518442622951
+        "x": 5.1067622950819676,
+        "y": 2.5445184426229503
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.596475409836065,
-        "y": 5.791518442622952
+        "x": 4.435844262295082,
+        "y": 1.6697254098360645
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "reef 4"
     },
     {
       "anchor": {
-        "x": 1.6662909836065571,
-        "y": 7.423514344262295
+        "x": 1.67827868852459,
+        "y": 0.5785348360655734
       },
       "prevControl": {
-        "x": 3.1190409836065562,
-        "y": 6.7312643442622955
+        "x": 2.865061475409836,
+        "y": 0.8182889344262299
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -50.19442890773478
+    "rotation": 52.30575953331088
   },
   "reversed": false,
-  "folder": null,
+  "folder": "to coral station",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": true
 }

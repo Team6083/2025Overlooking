@@ -17,10 +17,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": "toSecFloor"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
           }
         },
         {
@@ -30,13 +36,19 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.5
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "to coral station 4"
+                  "pathName": "reef (3) to coral station "
                 }
               },
               {
@@ -61,7 +73,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - coral station to reef(5)"
+                  "pathName": "left coral station to reef"
                 }
               },
               {
@@ -83,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }
