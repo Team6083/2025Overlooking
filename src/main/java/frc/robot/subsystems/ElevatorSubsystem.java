@@ -92,6 +92,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     moveToHeight(ElevatorConstant.kInitialHeight);
   }
 
+  public void toGetSecAlgae() {
+    moveToHeight(ElevatorConstant.kGetSecAlgaeHeight);
+  }
+
   public void stopMove() {
     elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
