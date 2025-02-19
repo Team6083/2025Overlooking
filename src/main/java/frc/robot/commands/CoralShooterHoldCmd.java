@@ -23,12 +23,12 @@ public class CoralShooterHoldCmd extends Command {
     this.coralShooterSubsystem = coralShooterSubsystem;
     addRequirements(this.coralShooterSubsystem);
     pidController.enableContinuousInput(0, 360);
-    encoderTargetDegree = coralShooterSubsystem.getEncoder();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    encoderTargetDegree = coralShooterSubsystem.getEncoder();
     // record which degree the motor should be kept in
   }
 
@@ -36,7 +36,7 @@ public class CoralShooterHoldCmd extends Command {
   @Override
   public void execute() {
     double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
-    speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.5, 0.5);
+    speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.2, 0.2);
     coralShooterSubsystem.setMotorSpeed(speed);
     SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
     SmartDashboard.putNumber("HoldSpeed", speed);
