@@ -53,7 +53,7 @@ public class RobotContainer {
             coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(3)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
-    NamedCommands.registerCommand("CoralShooter",
+    NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(3)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
