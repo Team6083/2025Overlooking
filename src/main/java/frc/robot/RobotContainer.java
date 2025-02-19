@@ -50,11 +50,11 @@ public class RobotContainer {
                 .until(() -> elevatorSubsystem.getCurrentHeight()
                     .minus(ElevatorConstant.kSecFloor)
                     .abs(Millimeters) < 5),
-            coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(3)
+            coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(1.5)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(3)
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.5)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("toSecFloor", elevatorSubsystem.toSecFloorCmd());

@@ -5,7 +5,7 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -17,14 +17,20 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorSecFloorWithCoralShooterSlowOn"
+                  "name": "toSecFloor"
                 }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -45,11 +51,11 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 3.0
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -61,10 +67,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorSecFloorWithCoralShooterSlowOn"
+                  "name": "toSecFloor"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorToDefaultPosition"
           }
         }
       ]
