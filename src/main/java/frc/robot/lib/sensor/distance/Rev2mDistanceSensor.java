@@ -1,12 +1,11 @@
 package frc.robot.lib.sensor.distance;
 
 import com.revrobotics.Rev2mDistanceSensor.Port;
-
 import edu.wpi.first.hal.SimDevice;
+import edu.wpi.first.hal.SimDevice.Direction;
 import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.hal.SimDevice.Direction;
 
 public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Sendable {
 
