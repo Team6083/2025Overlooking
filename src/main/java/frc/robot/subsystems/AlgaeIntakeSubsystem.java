@@ -95,7 +95,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   }
 
-
   @Override
   public void periodic() {
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
