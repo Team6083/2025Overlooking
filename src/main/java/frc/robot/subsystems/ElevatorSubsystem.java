@@ -27,8 +27,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem() {
     elevatorMotor = new WPI_VictorSPX(ElevatorConstant.kElevatorMotorChannel);
-    elevatorMotor.setInverted(true);
-    encoder = new Encoder(2, 3);
+    elevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
+    encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     manualControl = false;
@@ -96,64 +96,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public Command toGetCarolHeightCmd() {
-    Command cmd = runOnce(this::toGetCarolHeight);
-    return cmd;
-  }
-
-  public Command toSecFloorCmd() {
-    Command cmd = runOnce(this::toSecFloor);
-    return cmd;
-  }
-
-  public Command toTrdFloorCmd() {
-    Command cmd = runOnce(this::toTrdFloor);
-    return cmd;
-  }
-
-  public Command toTopFloorCmd() {
-    Command cmd = runOnce(this::toTopFloor);
-    return cmd;
-  }
-
-  public Command toDefaultPositionCmd() {
-    Command cmd = runOnce(this::toDefaultPosition);
-    return cmd;
-  }
-
-  public Command manualMoveCmd(double power) {
-    return runEnd(() -> {
-      elevatorMotor.set(ControlMode.PercentOutput, power);
-      manualControl = true;
-      
-    }, () -> {
-      elevatorMotor.set(ControlMode.PercentOutput, 0);
-      manualControl = false;
-    });
-  }
-
-  public Command moveUpCmd() {
-    return this.run(this::moveUp);
-  }
-
-  public Command moveDownCmd() {
-    return this.run(this::moveDown);
-  }
-
-  public Command switchManualControlCmd(boolean manualControl) {
-    Command cmd = runOnce(() -> {
-      setManualControl(manualControl);
-    });
-    cmd.setName("switchManualControl");
-    return cmd;
-  }
-
-  public Command elevatorReset() {
-    Command cmd = run(this::resetEncoder);
-    cmd.setName("elevatorReset");
-    return cmd;
-  }
-
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
@@ -172,5 +114,86 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+  }
+
+  public Command toGetCarolHeightCmd() {
+    Command cmd = runOnce(this::toGetCarolHeight);
+    cmd.setName("toGetCarolHeight");
+    return cmd;
+  }
+
+  public Command toSecFloorCmd() {
+    Command cmd = runOnce(this::toSecFloor);
+    cmd.setName("toSecFloor");
+    return cmd;
+  }
+
+  public Command toTrdFloorCmd() {
+    Command cmd = runOnce(this::toTrdFloor);
+    cmd.setName("toTrdFloor");
+    return cmd;
+  }
+
+  public Command toTopFloorCmd() {
+    Command cmd = runOnce(this::toTopFloor);
+    cmd.setName("toTopFloor");
+    return cmd;
+  }
+
+  public Command toDefaultPositionCmd() {
+    Command cmd = runOnce(this::toDefaultPosition);
+    cmd.setName("toDefaultPosition");
+    return cmd;
+  }
+
+  public Command moveUpCmd() {
+    Command cmd = run(this::moveUp);
+    cmd.setName("moveUp");
+    return cmd;
+  }
+
+  public Command moveDownCmd() {
+    Command cmd = run(this::moveDown);
+    cmd.setName("moveDown");
+    return cmd;
+  }
+
+  public Command switchManualControlCmd(boolean manualControl) {
+    Command cmd = runOnce(() -> {
+      setManualControl(manualControl);
+    });
+    cmd.setName("switchManualControl");
+    return cmd;
+  }
+
+  public Command manualMoveCmd(double power) {
+    Command cmd = runEnd(() -> {
+      elevatorMotor.set(ControlMode.PercentOutput, power);
+      manualControl = true;
+
+    }, () -> {
+      elevatorMotor.set(ControlMode.PercentOutput, 0);
+      manualControl = false;
+    });
+    cmd.setName("manualMove");
+    return cmd;
+  }
+
+  public Command manualMoveUpCmd() {
+    Command cmd = manualMoveCmd(ElevatorConstant.kManualUpPower);
+    cmd.setName("manualMoveUp");
+    return cmd;
+  }
+
+  public Command manualMoveDownCmd() {
+    Command cmd = manualMoveCmd(ElevatorConstant.kManualDownPower);
+    cmd.setName("manualMoveDown");
+    return cmd;
+  }
+
+  public Command elevatorReset() {
+    Command cmd = run(this::resetEncoder);
+    cmd.setName("elevatorReset");
+    return cmd;
   }
 }
