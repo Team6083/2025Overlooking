@@ -65,8 +65,7 @@ public class Constants {
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(1);
-    public static final Distance kGetSecAlgaeHeight = Millimeters.of(677);
-    
+    public static final Distance kGetSecAlgaeHeight = Millimeters.of(700);
 
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters);
@@ -147,7 +146,7 @@ public class Constants {
 
     // 最大轉速需要實際測試看看
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
-    
+  }
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
@@ -222,5 +221,4 @@ public class Constants {
     public static final double kDrivebaseRadius = 0.3;
 
   }
-}
 }

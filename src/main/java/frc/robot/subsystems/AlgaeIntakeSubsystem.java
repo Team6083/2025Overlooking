@@ -86,11 +86,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kUpRotateIntakeSetpoint);
   }
 
-  public void getCurrentAngle(){
+  public void getCurrentAngle() {
     rotateEncoder.get();
   }
 
-  public void moveRotateToAngle(){
+  public void moveRotateToAngle() {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
 
   }
