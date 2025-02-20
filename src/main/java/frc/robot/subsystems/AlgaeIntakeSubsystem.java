@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AlgaeIntakeConstant;
 import frc.robot.lib.PowerDistribution;
@@ -91,14 +92,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public double getCurrentAngle() {
     return rotateEncoder.get();
   }
+
   public double getSetpoint() {
     return algaeRotatePID.getSetpoint();
   }
-
-  // public void moveRotateToAngle() {
-  // rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
-
-  // }
 
   @Override
   public void periodic() {
@@ -148,11 +145,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  // public Command moveRotateToAngleCmd() {
-  // Command cmd = runEnd(this::m, this::stopRotate);
-  // return cmd;
-  // }
-
   public Command manualRotateUpCmd() {
     return setRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
   }
@@ -170,6 +162,15 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command rotateDownPIDCmd() {
     Command cmd = runOnce(this::setDownRotateSetpoint);
     cmd.setName("rotateDownPID");
+    return cmd;
+  }
+
+  public Command autoStopRotateCmd(Command command) {
+    Command cmd = new SequentialCommandGroup(
+        command.repeatedly()
+            .until(() -> algaeRotatePID.getError() < 5),
+        runOnce(this::stopRotate));
+    cmd.setName("autoStopRotateCmd");
     return cmd;
   }
 }

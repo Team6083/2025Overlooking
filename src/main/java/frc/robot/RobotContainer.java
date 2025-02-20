@@ -50,18 +50,22 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
+    
     mainController.a().onTrue(new SequentialCommandGroup(
-                
-               
-                new RunCommand(() -> algaeIntakeSubsystem.moveRotateToAngleCmd()),
-                // 電梯上升，還需定位到 677
-                new InstantCommand(() -> elevatorSubsystem.toSecFloorCmd()),
-                // 開始 reIntake
-                new InstantCommand(() -> algaeIntakeSubsystem.reIntakeCmd()),
-                // 角度往上一點把 algae 頂出來
-                new InstantCommand(() -> algaeIntakeSubsystem.setIntakeMotorSlowOnCmd())
-            ));
+      algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.rotateDownPIDCmd()),
+      elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
+      algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)
+      ));
+
+    // new RunCommand(() -> algaeIntakeSubsystem.moveRotateToAngleCmd()),
+    // // 電梯上升，還需定位到 677
+    // new InstantCommand(() -> elevatorSubsystem.toSecFloorCmd()),
+    // // 開始 reIntake
+    // new InstantCommand(() -> algaeIntakeSubsystem.reIntakeCmd()),
+    // // 角度往上一點把 algae 頂出來
+    // new InstantCommand(() -> algaeIntakeSubsystem.setIntakeMotorSlowOnCmd())
+    // ));
+
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
@@ -89,8 +93,8 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
