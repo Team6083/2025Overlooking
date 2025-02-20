@@ -40,7 +40,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
-
   }
 
   public void coralShooterFastOn() { // Motor on Fast
