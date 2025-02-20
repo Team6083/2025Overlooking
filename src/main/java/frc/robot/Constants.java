@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Millimeters;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 
@@ -219,5 +221,12 @@ public class Constants {
     public static final double kDRotation = 0.6;
     public static final double kDrivebaseRadius = 0.3;
 
+  }
+
+  public static final class ClimberConstant {
+    public static final int kClimberMotorChannel = 30;
+    public static final boolean kClimberMotorInverted = false;
+    public static final double kClimbUpSpeed = 0.5;
+    public static final double kClimbDownSpeed = 0.5;
   }
 }
