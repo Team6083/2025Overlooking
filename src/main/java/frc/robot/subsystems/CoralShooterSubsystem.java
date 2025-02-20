@@ -33,23 +33,19 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   private void setMotorSpeed(double speed) {
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      coralShooterLeftMotor.set(VictorSPXControlMode.Disabled, speed);
+      coralShooterRightMotor.set(VictorSPXControlMode.Disabled, speed);
+    }
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
   public void coralShooterFastOn() { // Motor on Fast
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
   public void coralShooterSlowOn() { // Motor on Slow
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
