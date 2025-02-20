@@ -44,12 +44,12 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
-    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     configureBindings();
   }
 
   private void configureBindings() {
     // SwerveDrive
+    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
