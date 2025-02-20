@@ -88,12 +88,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     moveToHeight(ElevatorConstant.kTopFloor);
   }
 
-  public void toDefaultPosition() {
-    moveToHeight(ElevatorConstant.kInitialHeight);
-  }
-
   public void toGetSecAlgae() {
     moveToHeight(ElevatorConstant.kGetSecAlgaeHeight);
+  }
+
+  public void toDefaultPosition() {
+    moveToHeight(ElevatorConstant.kInitialHeight);
   }
 
   public void stopMove() {
@@ -141,6 +141,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command toTopFloorCmd() {
     Command cmd = runOnce(this::toTopFloor);
     cmd.setName("toTopFloor");
+    return cmd;
+  }
+
+  public Command toGetSecAlgaeCmd(){
+    Command cmd = runOnce(this::toGetSecAlgae);
+    cmd.setName("toGetSecAlgae");
     return cmd;
   }
 

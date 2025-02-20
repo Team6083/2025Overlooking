@@ -151,7 +151,7 @@ public class Constants {
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
     public static final int kIntakeMotorChannel = 35;
-    public static final int kIntakeRotateMotorChannel = 34;
+    public static final int kRotateMotorChannel = 34;
 
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 0;
@@ -189,7 +189,8 @@ public class Constants {
     // Algae Encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
-    public static final double output = 0.2;
+    public static final double expectedZero = 0.0;
+    public static final double fullRange = 360;
 
   }
 
