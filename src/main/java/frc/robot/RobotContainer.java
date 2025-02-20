@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.SwerveControlCmd;
@@ -50,20 +48,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
+    mainController.y().onTrue(algaeIntakeSubsystem.rotateDownPIDCmd());
     mainController.a().onTrue(new SequentialCommandGroup(
-        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.rotateDownPIDCmd()),
         elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
         algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)));
-
-    // new RunCommand(() -> algaeIntakeSubsystem.moveRotateToAngleCmd()),
-    // // 電梯上升，還需定位到 677
-    // new InstantCommand(() -> elevatorSubsystem.toSecFloorCmd()),
-    // // 開始 reIntake
-    // new InstantCommand(() -> algaeIntakeSubsystem.reIntakeCmd()),
-    // // 角度往上一點把 algae 頂出來
-    // new InstantCommand(() -> algaeIntakeSubsystem.setIntakeMotorSlowOnCmd())
-    // ));
 
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
