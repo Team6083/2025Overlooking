@@ -62,34 +62,33 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    mainController.a().onTrue(swerveDrive.swerveTagTrackingCmd());
-    // swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    // mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    // mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
-    // mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    // mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
-    // mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
 
-    // mainController.leftTrigger()
-    //     .whileTrue(Commands.either(
+    mainController.leftTrigger()
+        .whileTrue(Commands.either(
 
-    //         elevatorSubsystem.manualMoveCmd(-0.5),
-    //         elevatorSubsystem.moveDownCmd(),
-    //         mainController.povRight()));
-    // mainController.rightTrigger()
-    //     .whileTrue(Commands.either(
-    //         elevatorSubsystem.manualMoveCmd(0.5),
-    //         elevatorSubsystem.moveUpCmd(),
-    //         mainController.povRight()));
+            elevatorSubsystem.manualMoveCmd(-0.5),
+            elevatorSubsystem.moveDownCmd(),
+            mainController.povRight()));
+    mainController.rightTrigger()
+        .whileTrue(Commands.either(
+            elevatorSubsystem.manualMoveCmd(0.5),
+            elevatorSubsystem.moveUpCmd(),
+            mainController.povRight()));
 
-    // mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    // mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
-    // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    // mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
+    mainController.start().onTrue(elevatorSubsystem.elevatorReset());
+    mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
+    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
   public Command getAutonomousCommand() {
