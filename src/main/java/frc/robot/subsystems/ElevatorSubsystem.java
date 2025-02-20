@@ -36,12 +36,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftEncoder = new Encoder(2, 3);
     rightEncoder = new Encoder(4, 5);
     leftEncoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
-    leftEncoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
+    rightEncoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     leftElevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    manualControl = false;
+
     leftEncoder.reset();
     rightEncoder.reset();
+
+    manualControl = false;
     targetHeight = ElevatorConstant.kInitialHeight;
 
   }
