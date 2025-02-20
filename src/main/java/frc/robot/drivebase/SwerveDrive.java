@@ -24,7 +24,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.Constants.ModuleConstant;
+import frc.robot.vision.PhotonVision;
 import java.io.IOException;
+
+import javax.security.auth.login.FailedLoginException;
+
 import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
@@ -32,6 +37,7 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
+  private final PhotonVision photonVision;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
@@ -84,6 +90,8 @@ public class SwerveDrive extends SubsystemBase {
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
+
+    photonVision = new PhotonVision();
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
     Translation2d frontLeftLocation = new Translation2d(
@@ -256,6 +264,15 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
+  public void leftFollowReef() {
+    if (photonVision.hasTarget() == true && photonVision.getYaw() < 0) {
+      this.drive(0, ModuleConstant.txRightSpeed, 0, false);
+    }
+    if (photonVision.hasTarget() == true && photonVision.getYaw() > 0) {
+      this.drive(0, ModuleConstant.txLeftSpeed, 0, false);
+    }
+  }
+
   public Command followPathCommand(String pathName) throws FileVersionException, IOException, ParseException {
     RobotConfig config;
     config = RobotConfig.fromGUISettings();
@@ -306,6 +323,12 @@ public class SwerveDrive extends SubsystemBase {
   public Command setTurningDegreeCmd(double degree) {
     Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
     cmd.setName("setTurningDegreeCmd");
+    return cmd;
+  }
+
+  public Command leftFollowReefCmd() {
+    Command cmd = this.runEnd(() -> leftFollowReef(), () -> stop()).until(() -> photonVision.getYaw() == 0);
+    cmd.setName("leftFollowReefCmd");
     return cmd;
   }
 }
