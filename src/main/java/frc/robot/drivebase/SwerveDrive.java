@@ -264,10 +264,12 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
-  public void awayFromReef() {
+  public void leftawayfromcoral() {
     if (photonVision.hasTarget() == true && photonVision.getYaw() < 0) {
       this.drive(0, ModuleConstant.txRightSpeed, 0, false);
     }
+  }
+  public void rightawayfromcorral(){
     if (photonVision.hasTarget() == true && photonVision.getYaw() > 0) {
       this.drive(0, ModuleConstant.txLeftSpeed, 0, false);
     }
@@ -327,8 +329,15 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command leftFollowReefCmd() {
-    Command cmd = this.runEnd(() -> awayFromReef(), () -> stop()).until(() -> photonVision.getYaw() == 0);
+    Command cmd = this.runEnd(() -> leftawayfromcoral(),
+     () -> stop()).until(() -> photonVision.getYaw() == 0);
     cmd.setName("leftFollowReefCmd");
     return cmd;
+  }
+  public Command rightFollowReefCmd(){
+    Command cmd = this.runEnd(() -> rightawayfromcorral(),
+    () -> stop()).until(() -> photonVision.getYaw() == 0);
+   cmd.setName("leftFollowReefCmd");
+   return cmd;
   }
 }
