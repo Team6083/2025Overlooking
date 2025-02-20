@@ -50,12 +50,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    
+
     mainController.a().onTrue(new SequentialCommandGroup(
-      algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.rotateDownPIDCmd()),
-      elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
-      algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)
-      ));
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.rotateDownPIDCmd()),
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
+        algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)));
 
     // new RunCommand(() -> algaeIntakeSubsystem.moveRotateToAngleCmd()),
     // // 電梯上升，還需定位到 677
