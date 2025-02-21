@@ -335,7 +335,7 @@ public class SwerveDrive extends SubsystemBase {
   public Command rightFollowReefCmd(){
     Command cmd = this.runEnd(() -> rightAwayFromCorral(),
     () -> stop()).until(() -> photonVision.getYaw() == 0);
-   cmd.setName("leftFollowReefCmd");
+   cmd.setName("RightFollowReefCmd");
    return cmd;
   }
 }
