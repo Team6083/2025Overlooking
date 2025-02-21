@@ -37,7 +37,7 @@ public class SwerveTagTracking extends Command {
     if (tagTracking.getTv() == 1) {
       xSpeed = tyController.calculate(tagTracking.getTy(), 0);
       ySpeed = txController.calculate(tagTracking.getTx(), 0);
-      swerveDrive.drive(xSpeed, ySpeed, 0, false);
+      // swerveDrive.drive(xSpeed, ySpeed, 0, false);
     } else {
       xSpeed = 0;
       ySpeed = 0;
@@ -48,6 +48,8 @@ public class SwerveTagTracking extends Command {
     SmartDashboard.putNumber("tv", tagTracking.getTv());
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
+    SmartDashboard.putData("tyController",tyController);
+    SmartDashboard.putData("txController",txController);
   }
 
   // Called once the command ends or is interrupted.

@@ -14,7 +14,7 @@ public class TagTracking {
   private final AprilTagFieldLayout layout;
 
   public TagTracking() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
+    table = NetworkTableInstance.getDefault().getTable("limelight-lyly");
     setLedMode(0);
     setPipeline(0);
     try {

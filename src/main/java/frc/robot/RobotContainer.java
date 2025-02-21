@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.SwerveControlCmd;
+import frc.robot.commands.SwerveTagTracking;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -28,6 +29,7 @@ public class RobotContainer {
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
+  private final SwerveTagTracking swerveTagTracking;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -37,6 +39,7 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+    swerveTagTracking = new SwerveTagTracking(swerveDrive);
 
     NamedCommands.registerCommand("ElevatorSecFloorwithCoralShooterSlowOn",
         new SequentialCommandGroup(
@@ -63,6 +66,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    mainController.a().whileTrue(swerveTagTracking);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
@@ -84,10 +88,10 @@ public class RobotContainer {
             mainController.povRight()));
 
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
+    // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    // mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
