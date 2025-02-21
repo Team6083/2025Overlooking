@@ -28,8 +28,6 @@ import frc.robot.Constants.ModuleConstant;
 import frc.robot.vision.PhotonVision;
 import java.io.IOException;
 
-import javax.security.auth.login.FailedLoginException;
-
 import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
@@ -264,12 +262,12 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setTurningDegree(degree);
   }
 
-  public void leftawayfromcoral() {
+  public void leftAwayFromCoral() {
     if (photonVision.hasTarget() == true && photonVision.getYaw() < 0) {
       this.drive(0, ModuleConstant.txRightSpeed, 0, false);
     }
   }
-  public void rightawayfromcorral(){
+  public void rightAwayFromCorral(){
     if (photonVision.hasTarget() == true && photonVision.getYaw() > 0) {
       this.drive(0, ModuleConstant.txLeftSpeed, 0, false);
     }
@@ -329,13 +327,13 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command leftFollowReefCmd() {
-    Command cmd = this.runEnd(() -> leftawayfromcoral(),
+    Command cmd = this.runEnd(() -> leftAwayFromCoral(),
      () -> stop()).until(() -> photonVision.getYaw() == 0);
     cmd.setName("leftFollowReefCmd");
     return cmd;
   }
   public Command rightFollowReefCmd(){
-    Command cmd = this.runEnd(() -> rightawayfromcorral(),
+    Command cmd = this.runEnd(() -> rightAwayFromCorral(),
     () -> stop()).until(() -> photonVision.getYaw() == 0);
    cmd.setName("leftFollowReefCmd");
    return cmd;
