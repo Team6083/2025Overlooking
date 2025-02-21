@@ -59,7 +59,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ElevatorToSecFloor",
         elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("ElevatorToGetCoralHeight", 
+    NamedCommands.registerCommand("ElevatorToGetCoralHeight",
         elevatorSubsystem.toGetCarolHeightCmd());
 
     NamedCommands.registerCommand("ElevatorToDefaultPosition",
