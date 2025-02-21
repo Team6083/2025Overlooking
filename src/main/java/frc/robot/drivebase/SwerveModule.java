@@ -144,7 +144,7 @@ public class SwerveModule extends SubsystemBase {
   public void setDesiredState(SwerveModuleState desiredState) {
     var moduleState = optimizeOutputVoltage(desiredState, getRotation2d());
     driveMotor.setVoltage(moduleState[0]);
-    turningMotor.setVoltage(0);
+    turningMotor.setVoltage(moduleState[1]);
   }
 
   public void setTurningDegree(double degree) {
@@ -153,6 +153,10 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void voltageDrive(Measure<VoltageUnit> volts) {
+    rotController.setP(0);
+    rotController.setI(0);
+    rotController.setD(0);
+    driveMotor.set(0);
     driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
   }
 
@@ -161,7 +165,7 @@ public class SwerveModule extends SubsystemBase {
         .voltage(edu.wpi.first.units.Units.Volts.of(driveMotorVoltage))
         .linearPosition(getDriveDistance())
         .linearVelocity(getDriveRate());
-        
+
   }
 
   @Override
