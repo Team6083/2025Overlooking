@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.Meter;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.drivebase.SwerveDrive;
 
@@ -39,7 +40,9 @@ public class SwerveToReef extends Command {
   public void execute() {
     double output = ySpeedController.calculate(swerveDrive.getPose2d().getMeasureY().in(Meter));
     output = MathUtil.clamp(output, 0.1, 0.1);
-    swerveDrive.drive(0, output, 0, false);
+    // swerveDrive.drive(0, output, 0, false);
+    SmartDashboard.putData("ToReefPIDController",ySpeedController);
+    SmartDashboard.putNumber("ToReefOutput",output);
   }
 
   // Called once the command ends or is interrupted.

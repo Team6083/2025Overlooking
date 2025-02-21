@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.vision.TagTracking;
@@ -16,6 +17,7 @@ public class SwerveTagTracking extends Command {
   TagTracking tagTracking = new TagTracking();
   PIDController txController = new PIDController(0.01, 0, 0);
   PIDController tyController = new PIDController(0.01, 0, 0);
+
   public SwerveTagTracking(SwerveDrive swerveDrive) {
     this.swerveDrive = swerveDrive;
     addRequirements(swerveDrive);
@@ -24,16 +26,28 @@ public class SwerveTagTracking extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double xSpeed;
+    double ySpeed;
     if (tagTracking.getTv() == 1) {
-      double xSpeed = tyController.calculate(tagTracking.getTy(), 0);
-      double ySpeed = txController.calculate(tagTracking.getTx(), 0);
-        swerveDrive.drive(xSpeed, ySpeed, 0, false);
-      }
+      xSpeed = tyController.calculate(tagTracking.getTy(), 0);
+      ySpeed = txController.calculate(tagTracking.getTx(), 0);
+      swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    } else {
+      xSpeed = 0;
+      ySpeed = 0;
+    }
+    // swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    SmartDashboard.putNumber("tx", tagTracking.getTx());
+    SmartDashboard.putNumber("ty", tagTracking.getTy());
+    SmartDashboard.putNumber("tv", tagTracking.getTv());
+    SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
+    SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
   }
 
   // Called once the command ends or is interrupted.
