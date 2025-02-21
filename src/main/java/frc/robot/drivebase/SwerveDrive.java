@@ -310,15 +310,15 @@ public class SwerveDrive extends SubsystemBase {
 
   public Command sysIdQuasistaticCmd() {
     return new SequentialCommandGroup(
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(3),
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse).withTimeout(3)
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(5),
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse).withTimeout(5)
     );
   }
 
   public Command sysIdDynamicCmd() {
     return new SequentialCommandGroup(
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(2),
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(2)
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(5),
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(5)
     );
   }
 

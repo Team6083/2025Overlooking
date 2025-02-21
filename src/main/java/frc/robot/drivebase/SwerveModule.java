@@ -153,7 +153,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void voltageDrive(Measure<VoltageUnit> volts) {
-    driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts) / 3);
+    driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
   }
 
   public void logMotors(SysIdRoutineLog log) {
