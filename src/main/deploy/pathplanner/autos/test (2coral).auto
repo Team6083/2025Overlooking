@@ -11,51 +11,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ElevatorSecFloorWithCoralShooterSlowOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToDefaultPosition"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "reef(11) to coral station"
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "left - coral station to reef(9)"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorSecFloorWithCoralShooterSlowOn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.5
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToDefaultPosition"
           }
         }
       ]
