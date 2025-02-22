@@ -36,6 +36,7 @@ public class SwerveControlCmd extends Command {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
     Preferences.initDouble("RateLimit", 1);
+    Preferences.initDouble("magnification", 1);
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
@@ -58,6 +59,8 @@ public class SwerveControlCmd extends Command {
     xLimiter.reset(Preferences.getDouble("RateLimit", 1));
     yLimiter.reset(Preferences.getDouble("RateLimit", 1));
     rotLimiter.reset(Preferences.getDouble("RateLimit", 1));
+    magnification = Preferences.getDouble("magnification", 1);
+
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
           * drivebaseMaxSpeed * magnification;
