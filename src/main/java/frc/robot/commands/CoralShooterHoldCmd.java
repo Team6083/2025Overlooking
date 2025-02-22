@@ -40,7 +40,7 @@ public class CoralShooterHoldCmd extends Command {
     SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
     SmartDashboard.putNumber("HoldSpeed", speed);
     SmartDashboard.putNumber("CoralShooterEncoder", encoderCurrentDegree);
-    SmartDashboard.putData("coralHoldPID",pidController);
+    SmartDashboard.putData("coralHoldPID", pidController);
   }
 
   // Called once the command ends or is interrupted.
