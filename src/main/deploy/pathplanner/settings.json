@@ -15,7 +15,8 @@
     "2 coral"
   ],
   "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 1.2,
+
+  "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,

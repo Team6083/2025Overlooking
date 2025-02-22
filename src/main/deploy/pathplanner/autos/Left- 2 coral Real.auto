@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -36,6 +36,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -43,12 +49,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "reef(11) to coral station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorToDefaultPosition"
                 }
               }
             ]
@@ -73,7 +73,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -94,7 +94,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToDefaultPosition"
+            "name": "ErDown"
           }
         }
       ]

@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": null
                 }
               }
             ]
@@ -26,13 +26,13 @@
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "elevator"
+            "name": null
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaeIntakeCmd"
+                  "name": null
                 }
               },
               {
@@ -54,7 +54,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "algaereintake"
+                  "name": null
                 }
               }
             ]
@@ -67,7 +67,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevator"
+                  "name": null
                 }
               },
               {
@@ -92,7 +92,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevator"
+                  "name": null
                 }
               },
               {
@@ -107,7 +107,7 @@
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": null
           }
         }
       ]

@@ -17,6 +17,7 @@
               {
                 "type": "named",
                 "data": {
+
                   "name": "ElevatorToSecFloor"
                 }
               }
@@ -74,6 +75,7 @@
                 "type": "named",
                 "data": {
                   "name": "elevatorTopFloorCmd"
+
                 }
               }
             ]
@@ -88,8 +90,65 @@
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": null
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.5
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef (4) to coral station "
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left coral station to reef"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+>>>>>>> 1f991ddef763ff79a41d48c3b87b15e6fd06aa44
         }
       ]
     }

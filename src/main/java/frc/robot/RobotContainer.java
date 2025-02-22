@@ -6,6 +6,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.util.jar.Attributes.Name;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -58,13 +60,16 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralShooterIn",
         coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> coralShooterSubsystem.isGetTarget()));
 
-    NamedCommands.registerCommand("ElevatorToSecFloor",
+    NamedCommands.registerCommand("CoralShooterIn2",
+        coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> !coralShooterSubsystem.isGetTarget()));
+
+    NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
 
     NamedCommands.registerCommand("ElevatorToGetCoralHeight",
         elevatorSubsystem.toGetCarolHeightCmd());
 
-    NamedCommands.registerCommand("ElevatorToDefaultPosition",
+    NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();

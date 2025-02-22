@@ -17,28 +17,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterWithStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToDefaultPosition"
           }
         }
       ]
