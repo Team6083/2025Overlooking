@@ -61,6 +61,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn2"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
