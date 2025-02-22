@@ -156,7 +156,7 @@ public class SwerveModule extends SubsystemBase {
     rotController.setP(0);
     rotController.setI(0);
     rotController.setD(0);
-    driveMotor.set(0);
+    // driveMotor.set(0);
     driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
   }
 

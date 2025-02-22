@@ -120,23 +120,22 @@ public class SwerveDrive extends SubsystemBase {
         gyro.getRotation2d(),
         getSwerveModulePosition());
 
-        sysIdRoutine = new SysIdRoutine(
-          new Config(),
-          new Mechanism(
-              (voltage) -> {
-                  frontLeft.voltageDrive(voltage);
-                  frontRight.voltageDrive(voltage);
-                  backLeft.voltageDrive(voltage);
-                  backRight.voltageDrive(voltage);
-              },
-              (log) -> {
-                  frontLeft.logMotors(log);
-                  frontRight.logMotors(log);
-                  backLeft.logMotors(log);
-                  backRight.logMotors(log);
-              },
-              this)
-      );
+    sysIdRoutine = new SysIdRoutine(
+        new Config(),
+        new Mechanism(
+            (voltage) -> {
+              frontLeft.voltageDrive(voltage);
+              frontRight.voltageDrive(voltage);
+              backLeft.voltageDrive(voltage);
+              backRight.voltageDrive(voltage);
+            },
+            (log) -> {
+              frontLeft.logMotors(log);
+              frontRight.logMotors(log);
+              backLeft.logMotors(log);
+              backRight.logMotors(log);
+            },
+            this));
 
     resetPose2dAndEncoder();
     RobotConfig config;
@@ -309,17 +308,17 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command sysIdQuasistaticCmd() {
-    return new SequentialCommandGroup(
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).withTimeout(5),
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse).withTimeout(5)
-    );
+    Command cmd = new SequentialCommandGroup(
+        setTurningDegreeCmd(0),
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward));
+    return cmd;
   }
 
   public Command sysIdDynamicCmd() {
-    return new SequentialCommandGroup(
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).withTimeout(5),
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).withTimeout(5)
-    );
+    Command cmd = new SequentialCommandGroup(
+        setTurningDegreeCmd(0),
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward));
+    return cmd;
   }
 
   @Override
