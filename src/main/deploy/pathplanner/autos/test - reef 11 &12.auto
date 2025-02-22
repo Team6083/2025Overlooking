@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "left - leave(11)"
+            "pathName": "left - leave(12)"
           }
         },
         {
@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "reef(11) to coral station"
+            "pathName": "reef(12) to coral station"
           }
         },
         {
@@ -31,13 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "left - coral station to reef(9)"
+            "pathName": "coral station to reef(11)"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "2 coral",
+  "folder": "test",
   "choreoAuto": false
 }

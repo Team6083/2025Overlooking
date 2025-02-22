@@ -17,28 +17,28 @@
               {
                 "type": "named",
                 "data": {
-                  "name": null
+                  "name": "ErToSec"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": null
+            "waitTime": 0.3
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "CoralShooterWithStop"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "ErDown"
           }
         },
         {
@@ -48,22 +48,16 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef to processor"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
+                  "pathName": "reef (3) to coral station "
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": null
+            "waitTime": 2.0
           }
         },
         {
@@ -73,22 +67,40 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": null
+                  "pathName": "coral station to reef(4)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": null
+                  "name": "ErToSec"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }

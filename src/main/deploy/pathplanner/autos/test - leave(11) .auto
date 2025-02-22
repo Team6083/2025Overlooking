@@ -27,6 +27,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "2 coral",
+  "folder": "test",
   "choreoAuto": false
 }

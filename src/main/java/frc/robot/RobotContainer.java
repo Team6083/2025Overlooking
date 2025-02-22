@@ -66,9 +66,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("ElevatorToGetCoralHeight",
-        elevatorSubsystem.toGetCarolHeightCmd());
-
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 

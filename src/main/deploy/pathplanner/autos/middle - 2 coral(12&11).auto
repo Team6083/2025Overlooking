@@ -11,69 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "middle - leave (2) "
+                  "pathName": "middle - leave(12)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "put down algae"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": null
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "to coral station 3"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -82,7 +26,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
           }
         },
         {
@@ -90,30 +40,73 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": null
+                  "pathName": "reef(12) to coral station"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "left - coral station to reef(9)"
+                  "name": "ErDown"
                 }
               }
             ]
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": null
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn2"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral station to reef(11)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 coral",
   "choreoAuto": false
 }
