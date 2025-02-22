@@ -8,42 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.618569911719502,
-        "y": 6.081401577489035
+        "x": 5.4965322352294255,
+        "y": 6.321975074570723
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 5.190676229508196,
-        "y": 5.529456967213114
+        "x": 5.022848360655738,
+        "y": 5.229764344262294
       },
       "prevControl": {
-        "x": 5.409729812483189,
-        "y": 5.649937371370047
+        "x": 5.209164139937378,
+        "y": 5.396456966746539
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 10"
+      "linkedName": "reef 11"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -119.19069737276253
-    },
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.2,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -51,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -121.21840276434648
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": "left - leave",

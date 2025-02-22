@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - leave(4)"
+                  "pathName": "left - leave(12)"
                 }
               },
               {
@@ -26,7 +26,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.3
           }
         },
         {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef (4) to coral station "
+                  "pathName": "reef(12) to coral station"
                 }
               },
               {
@@ -67,13 +67,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - coral station to reef(5)"
+                  "pathName": "coral station to reef(11)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": "ElevatorToSecFloor"
                 }
               }
             ]
@@ -82,13 +82,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.3
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorToDefaultPosition"
           }
         }
       ]

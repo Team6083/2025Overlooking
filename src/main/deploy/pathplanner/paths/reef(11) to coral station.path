@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.166700819672132,
-        "y": 5.5414446721311466
+        "x": 5.022848360655738,
+        "y": 5.229764344262294
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.515520558365417,
-        "y": 6.044825745315155
+        "x": 4.371668099349024,
+        "y": 5.733145417446302
       },
       "isLocked": false,
       "linkedName": "reef 11"
@@ -33,12 +33,12 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.2,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
