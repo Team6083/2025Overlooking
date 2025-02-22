@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.552254098360655,
-        "y": 7.603329918032787
+        "x": 7.600204918032786,
+        "y": 7.555379098360655
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.593237704918033,
-        "y": 7.219723360655738
+        "x": 6.641188524590164,
+        "y": 7.171772540983606
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 5.142725409836065,
-        "y": 5.469518442622951
+        "x": 5.166700819672132,
+        "y": 5.5414446721311466
       },
       "prevControl": {
-        "x": 5.574282786885246,
-        "y": 6.560399590163934
+        "x": 5.5982581967213125,
+        "y": 6.63232581967213
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

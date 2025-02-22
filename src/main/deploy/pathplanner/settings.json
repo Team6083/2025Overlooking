@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.7,
-  "robotLength": 0.7,
+  "robotWidth": 0.86,
+  "robotLength": 0.86,
   "holonomicMode": true,
   "pathFolders": [
     "to coral station",
@@ -14,7 +14,7 @@
   "autoFolders": [
     "2 coral"
   ],
-  "defaultMaxVel": 3.0,
+  "defaultMaxVel": 4.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
@@ -25,7 +25,7 @@
   "driveWheelRadius": 0.0508,
   "driveGearing": 5.143,
   "maxDriveSpeed": 5.45,
-  "driveMotorType": "krakenX60",
+  "driveMotorType": "NEO",
   "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,
   "flModuleX": 0.273,
