@@ -13,7 +13,7 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
-
+    public static final int kShooterEncoderChannel = 4;
     public static final double kShooterMotorFastSpeed = 0.2;
     public static final double kShooterMotorSlowSpeed = 0.18;
     public static final Boolean kCoralShooterRightMotorInverted = false;
@@ -43,6 +43,13 @@ public class Constants {
     public static final double kD = 0.0;
 
     public static final int kElevatorMotorChannel = 33;
+    public static final boolean kMotorInverted = true;
+
+    public static final int kEncoderChannelA = 2;
+    public static final int kEncoderChannelB = 3;
+
+    public static final double kManualUpPower = 0.5;
+    public static final double kManualDownPower = -0.5;
 
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
@@ -202,6 +209,7 @@ public class Constants {
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
   }
+
   public static final class AutoConstants {
     public static final double kPTranslation = 5;
     public static final double kITranslation = 0.15;

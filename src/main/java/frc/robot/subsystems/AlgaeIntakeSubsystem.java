@@ -21,7 +21,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PIDController algaeRotatePID;
   private final Encoder rotateEncoder;
   private final PowerDistribution powerDistribution;
-  private boolean isMannualControl = false;
+  private boolean isManualControl = false;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -69,11 +69,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public Boolean isOverLimit() {
-    return powerDistribution.algaeIntakeCurrent() <= AlgaeIntakeConstant.kIntakeCurrentLimit;
-  }
-
-  public void manualSetRotate(double speed) {
+  public void setRotate(double speed) {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, speed);
 
   }
@@ -82,35 +78,13 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
-  public void setMaunnalControl(boolean maunnalControlOn) {
-    this.isMannualControl = maunnalControlOn;
-
-  }
-
-  public boolean getIsMaunnalControl() {
-    return isMannualControl;
-
-  }
-
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // if (powerDistribution.isAlgaeRotateOverCurrent()) {
-    // rotateIntakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    // }
-
-    // double output = algaeRotatePID.calculate(getIntakeMotorRotate());
-    // output = MathUtil.clamp(output, -AlgaeIntakeConstant.output,
-    // AlgaeIntakeConstant.output);
-    // rotateIntakeMotor.set(ControlMode.PercentOutput, output);
-
     SmartDashboard.putNumber("algaeRotateDistance", rotateEncoder.getDistance());
-    // SmartDashboard.putNumber("algaeRotateCurrent", getIntakeMotorRotate());
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
-    SmartDashboard.putBoolean("isOverLimit", isOverLimit());
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
-    SmartDashboard.putBoolean("isMannualControl", isMannualControl);
+    SmartDashboard.putBoolean("isManualControl", isManualControl);
   }
 
   public Command setIntakeMotorFastOnCmd() {
@@ -125,42 +99,24 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command autoIntakeCmd() { // 吸入 algae 的 cmd
-    Command cmd = run(this::setIntakeMotorFastOn)
-        .until(this::isOverLimit)
-        .andThen(this.runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor));
-    cmd.setName("setAutoIntakeCmd");
-    return cmd;
-  }
-
   public Command reIntakeCmd() { // 吐出 algae 的 cmd
     Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
     cmd.setName("setReIntakeMotorCmd");
     return cmd;
   }
 
-  // public Command upRotatePIDCmd() {
-  // Command cmd = run(this::setUpRotateIntakeSetpoint);
-  // cmd.setName("setUpRotateIntakeSetpoint");
-  // return cmd;
-  // }
-
-  // public Command downRotatePIDCmd() {
-  // Command cmd = run(this::setDownRotateIntakeSetpoint);
-  // cmd.setName("setDownRotateIntakeSetpoint");
-  // return cmd;
-  // }
-
-  public Command manualSetRotateCmd(double speed) { // 吐出 algae 的 cmd
-    Command cmd = runEnd(() -> manualSetRotate(speed), this::stopRotate);
+  public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
+    Command cmd = runEnd(() -> setRotate(speed), this::stopRotate);
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
-  public Command manualUpRotateCmd(){
-    return manualSetRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
+
+  public Command rotateUpCmd() {
+    return setRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
   }
-  public Command manualDownRotateCmd(){
-    return manualSetRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+
+  public Command rotateDownCmd() {
+    return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
 }

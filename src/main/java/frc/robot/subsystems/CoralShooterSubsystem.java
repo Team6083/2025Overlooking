@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,23 +17,27 @@ import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
-
   private VictorSPX coralShooterLeftMotor;
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;
   private PowerDistribution powerDistribution;
+  private DutyCycleEncoder shooterEncoder;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-
+    shooterEncoder = new DutyCycleEncoder(CoralShooterConstant.kShooterEncoderChannel);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
     coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
-  private void setMotorSpeed(double speed) {
+  public double getEncoder() {
+    return shooterEncoder.get() * 360;
+  }
+
+  public void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
@@ -59,7 +64,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public boolean isGetTarget() {
     if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange
-        && distanceSensor.getRange() > 0 && distanceSensor.getRange() < 4.0) {
+        && distanceSensor.getRange() > 0) {
       return true;
     }
     return false;
@@ -87,6 +92,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("isGetTarget", isGetTarget());
+    distanceSensor.setAutomaticMode(true);
   }
 
 }
