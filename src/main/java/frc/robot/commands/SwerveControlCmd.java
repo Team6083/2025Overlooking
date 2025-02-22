@@ -4,7 +4,12 @@
 
 package frc.robot.commands;
 
+import java.util.prefs.PreferenceChangeEvent;
+
+import javax.xml.crypto.dsig.XMLSignatureException;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,6 +35,7 @@ public class SwerveControlCmd extends Command {
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
+    Preferences.initDouble("RateLimit", 1);
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
@@ -49,7 +55,9 @@ public class SwerveControlCmd extends Command {
     double ySpeed;
     double rotSpeed;
     // CHECKSTYLE.ON: LocalVariableName
-
+    xLimiter.reset(Preferences.getDouble("RateLimit", 1));
+    yLimiter.reset(Preferences.getDouble("RateLimit", 1));
+    rotLimiter.reset(Preferences.getDouble("RateLimit", 1));
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
           * drivebaseMaxSpeed * magnification;
