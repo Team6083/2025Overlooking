@@ -21,10 +21,6 @@ import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -308,17 +304,31 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command sysIdQuasistaticCmd() {
-    Command cmd = new SequentialCommandGroup(
-        setTurningDegreeCmd(0),
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward));
-    return cmd;
+    return new Command() {
+      @Override
+      public void initialize() {
+        setTurningDegreeCmd(0);
+      }
+
+      @Override
+      public void execute() {
+        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
+      }
+    };
   }
 
   public Command sysIdDynamicCmd() {
-    Command cmd = new SequentialCommandGroup(
-        setTurningDegreeCmd(0),
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward));
-    return cmd;
+    return new Command() {
+      @Override
+      public void initialize() {
+        setTurningDegreeCmd(0);
+      }
+
+      @Override
+      public void execute() {
+        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward);
+      }
+    };
   }
 
   @Override
