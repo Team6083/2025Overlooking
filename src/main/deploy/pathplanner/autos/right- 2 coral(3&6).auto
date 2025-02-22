@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "toSecFloor"
+                  "name": null
                 }
               }
             ]
@@ -32,7 +32,7 @@
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": null
           }
         },
         {
@@ -54,7 +54,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevator"
+                  "name": null
                 }
               }
             ]
@@ -79,7 +79,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorTopFloorCmd"
+                  "name": null
                 }
               }
             ]
@@ -88,7 +88,7 @@
         {
           "type": "named",
           "data": {
-            "name": "carolShooterCmd"
+            "name": null
           }
         }
       ]

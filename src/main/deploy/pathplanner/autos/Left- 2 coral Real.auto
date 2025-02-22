@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -36,6 +36,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -43,12 +49,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "reef(11) to coral station"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ElevatorToDefaultPosition"
                 }
               }
             ]
@@ -58,18 +58,6 @@
           "type": "wait",
           "data": {
             "waitTime": 2.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterIn2"
           }
         },
         {
@@ -85,7 +73,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -106,7 +94,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToDefaultPosition"
+            "name": "ErDown"
           }
         }
       ]
