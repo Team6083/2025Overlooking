@@ -1,0 +1,44 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left - leave(11)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToSecFloor"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "2 coral",
+  "choreoAuto": false
+}

@@ -9,6 +9,12 @@
           "data": {
             "pathName": "left - leave(11)"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorToSecFloor"
+          }
         }
       ]
     }
