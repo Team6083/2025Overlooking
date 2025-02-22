@@ -59,17 +59,17 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("CoralShooterIn",
         coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> coralShooterSubsystem.isGetTarget()));
-        
+
     NamedCommands.registerCommand("CoralShooterIn2",
         coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> !coralShooterSubsystem.isGetTarget()));
 
-    NamedCommands.registerCommand("ElevatorToSecFloor",
+    NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
 
     NamedCommands.registerCommand("ElevatorToGetCoralHeight",
         elevatorSubsystem.toGetCarolHeightCmd());
 
-    NamedCommands.registerCommand("ElevatorToDefaultPosition",
+    NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();
