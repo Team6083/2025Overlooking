@@ -201,9 +201,9 @@ public class Constants {
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
 
-    public static final double kXLimiterRateLimit = 5.0;
-    public static final double kYLimiterRateLimit = 5.0;
-    public static final double kRotLimiterRateLimit = 5.0;
+    public static final double kXLimiterRateLimit = 0.5;
+    public static final double kYLimiterRateLimit = 0.5;
+    public static final double kRotLimiterRateLimit = 0.5;
 
     // fieldRelative
     // Field - true / Robot - false
