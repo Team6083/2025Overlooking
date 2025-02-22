@@ -41,20 +41,22 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-
     // NamedCommands.registerCommand("ElevatorSecFloorWithCoralShooterSlowOn",
-    //     new SequentialCommandGroup(
-    //         elevatorSubsystem.toSecFloorCmd()
-    //             .repeatedly()
-    //             .until(() -> elevatorSubsystem.getCurrentHeight()
-    //                 .minus(ElevatorConstant.kSecFloor)
-    //                 .abs(Millimeters) < 5),
-    //         coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(1.5)
-    //         .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+    // new SequentialCommandGroup(
+    // elevatorSubsystem.toSecFloorCmd()
+    // .repeatedly()
+    // .until(() -> elevatorSubsystem.getCurrentHeight()
+    // .minus(ElevatorConstant.kSecFloor)
+    // .abs(Millimeters) < 5),
+    // coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(1.5)
+    // .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+
+    NamedCommands.registerCommand("CoralShooterIn",
+        coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> coralShooterSubsystem.isGetTarget()));
 
     NamedCommands.registerCommand("ElevatorToSecFloor",
         elevatorSubsystem.toSecFloorCmd());
@@ -64,7 +66,6 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ElevatorToDefaultPosition",
         elevatorSubsystem.toDefaultPositionCmd());
-
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -77,8 +78,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
-
 
     // SwerveDrive
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
