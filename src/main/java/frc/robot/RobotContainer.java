@@ -44,6 +44,18 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
+
+    // put git data onto Dashboard
+    SmartDashboard.putString("MAVEN_GROUP", BuildConstants.MAVEN_GROUP);
+    SmartDashboard.putString("MAVEN_NAME", BuildConstants.MAVEN_NAME);
+    SmartDashboard.putString("VERSION", BuildConstants.VERSION);
+    SmartDashboard.putNumber("GIT_REVISION", BuildConstants.GIT_REVISION);
+    SmartDashboard.putString("GIT_SHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("GIT_DATE", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("GIT_BRANCH", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
+    SmartDashboard.putNumber("BUILD_UNIX_TIME", BuildConstants.BUILD_UNIX_TIME);
+    SmartDashboard.putNumber("DIRTY", BuildConstants.DIRTY);
     configureBindings();
   }
 
