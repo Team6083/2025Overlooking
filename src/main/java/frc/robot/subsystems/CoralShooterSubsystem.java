@@ -57,11 +57,13 @@ public class CoralShooterSubsystem extends SubsystemBase {
     }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
+
   public void coralin1() {
     while (!isGetTarget()) {
       setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
     }
   }
+
   public void coralin2() {
 
     while (isGetTarget()) {
