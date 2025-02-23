@@ -15,8 +15,10 @@ public class SwerveTagTracking extends Command {
   /** Creates a new SwerveTagTracking. */
   SwerveDrive swerveDrive;
   TagTracking tagTracking = new TagTracking();
-  PIDController txController = new PIDController(0.01, 0, 0);
-  PIDController tyController = new PIDController(0.01, 0, 0);
+  PIDController txController = new PIDController(0.1, 0, 0);
+  PIDController tyController = new PIDController(0.1, 0, 0);
+  double xSpeed;
+  double ySpeed;
 
   public SwerveTagTracking(SwerveDrive swerveDrive) {
     this.swerveDrive = swerveDrive;
@@ -32,8 +34,6 @@ public class SwerveTagTracking extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed;
-    double ySpeed;
     if (tagTracking.getTv() == 1) {
       xSpeed = tyController.calculate(tagTracking.getTy(), 0);
       ySpeed = txController.calculate(tagTracking.getTx(), 0);
@@ -50,6 +50,7 @@ public class SwerveTagTracking extends Command {
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putData("tyController",tyController);
     SmartDashboard.putData("txController",txController);
+    
   }
 
   // Called once the command ends or is interrupted.
