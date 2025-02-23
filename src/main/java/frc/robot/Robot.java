@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
       DataLogManager.start();
       DriverStation.startDataLog(DataLogManager.getLog());
     }
-    
+
     SmartDashboard.putString("MAVEN_NAME", BuildConstants.MAVEN_NAME);
     SmartDashboard.putString("VERSION", BuildConstants.VERSION);
     SmartDashboard.putString("GIT_SHA", BuildConstants.GIT_SHA);
@@ -43,10 +43,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
     if (BuildConstants.DIRTY == 0) {
       SmartDashboard.putString(
-        "DIRTY", "No uncommitted changes? This broccoli is looking fresh and crispy!");
+          "DIRTY", "No uncommitted changes? This broccoli is looking fresh and crispy!");
     } else {
       SmartDashboard.putString(
-        "DIRTY", "Your code smells stronger than overcooked broccoli. Maybe it's time to commit?");
+          "DIRTY", "Your code smells stronger than overcooked broccoli. Maybe it's time to commit?");
     }
   }
 
