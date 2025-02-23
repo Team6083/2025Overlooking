@@ -21,7 +21,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;
   private PowerDistribution powerDistribution;
-   private DutyCycleEncoder shooterEncoder;
+  private DutyCycleEncoder shooterEncoder;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -34,8 +34,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public double getEncoder() {
-     return shooterEncoder.get() * 360;
-   }
+    return shooterEncoder.get() * 360;
+  }
 
   public void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
@@ -57,17 +57,17 @@ public class CoralShooterSubsystem extends SubsystemBase {
     }
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
-  public void coralin1(){
-    while (!isGetTarget()){
-      setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
-      }
-  }
-  public void coralin2(){
-   
-    while(isGetTarget()){
+  public void coralin1() {
+    while (!isGetTarget()) {
       setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
     }
-  } 
+  }
+  public void coralin2() {
+
+    while (isGetTarget()) {
+      setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+    }
+  }
 
   public void coralShooterStop() { // Motor stop
     setMotorSpeed(0.0);
@@ -92,8 +92,9 @@ public class CoralShooterSubsystem extends SubsystemBase {
     cmd.setName("coralShooterSlowOn");
     return cmd;
   }
+
   public Command coralShooterAutoStopCmd() {
-    Command cmd = runEnd(this::coralin1,this::coralin2);
+    Command cmd = runEnd(this::coralin1, this::coralin2);
     cmd.setName("coralShooterAutoStop");
     return cmd;
   }

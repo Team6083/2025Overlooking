@@ -36,7 +36,7 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
-    
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
@@ -54,7 +54,8 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    mainController.rightBumper().whileTrue(Commands.either( coralShooterSubsystem.coralShooterAutoStopCmd(),coralShooterSubsystem.coralShooterSlowOnCmd(),mainController.povRight()));
+    mainController.rightBumper().whileTrue(Commands.either(coralShooterSubsystem.coralShooterAutoStopCmd(),
+        coralShooterSubsystem.coralShooterSlowOnCmd(), mainController.povRight()));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
