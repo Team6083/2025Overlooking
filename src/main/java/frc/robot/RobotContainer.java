@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
@@ -48,6 +49,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    mainController.y().onTrue(algaeIntakeSubsystem.rotateDownPIDCmd());
+    mainController.a().onTrue(new SequentialCommandGroup(
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
+        algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)));
+
     // SwerveDrive
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
@@ -76,8 +82,8 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
