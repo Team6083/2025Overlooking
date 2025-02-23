@@ -76,8 +76,15 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    mainController.y().whileTrue(swerveDrive.runEnd(
+        () -> swerveDrive.drive(0.1, 0, 0, false),
+        () -> swerveDrive.stop()));
+    mainController.a().whileTrue(swerveDrive.runEnd(
+      () -> swerveDrive.drive(0, 0.1, 0, false),
+      () -> swerveDrive.stop()));
+
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
