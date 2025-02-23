@@ -31,21 +31,22 @@ public class Robot extends TimedRobot {
     if (saveLogs) {
       DataLogManager.start();
       DriverStation.startDataLog(DataLogManager.getLog());
-      SmartDashboard.putString("MAVEN_NAME", BuildConstants.MAVEN_NAME);
-      SmartDashboard.putString("VERSION", BuildConstants.VERSION);
-      SmartDashboard.putString("GIT_SHA", BuildConstants.GIT_SHA);
-      SmartDashboard.putString("GIT_DATE", BuildConstants.GIT_DATE);
-      SmartDashboard.putString("GIT_BRANCH", BuildConstants.GIT_BRANCH);
-      SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
-      SmartDashboard.putString("GIT_BRANCH", BuildConstants.GIT_BRANCH);
-      SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
-      if (BuildConstants.DIRTY == 0) {
-        SmartDashboard.putString(
-          "DIRTY", "No uncommitted changes? This broccoli is looking fresh and crispy!");
-      } else {
-        SmartDashboard.putString(
-          "DIRTY", "Your code smells stronger than overcooked broccoli. Maybe it's time to commit?");
-      }
+    }
+    
+    SmartDashboard.putString("MAVEN_NAME", BuildConstants.MAVEN_NAME);
+    SmartDashboard.putString("VERSION", BuildConstants.VERSION);
+    SmartDashboard.putString("GIT_SHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("GIT_DATE", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("GIT_BRANCH", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
+    SmartDashboard.putString("GIT_BRANCH", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("BUILD_DATE", BuildConstants.BUILD_DATE);
+    if (BuildConstants.DIRTY == 0) {
+      SmartDashboard.putString(
+        "DIRTY", "No uncommitted changes? This broccoli is looking fresh and crispy!");
+    } else {
+      SmartDashboard.putString(
+        "DIRTY", "Your code smells stronger than overcooked broccoli. Maybe it's time to commit?");
     }
   }
 
