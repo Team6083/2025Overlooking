@@ -61,13 +61,13 @@ public class CoralShooterSubsystem extends SubsystemBase {
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
-  public void coralshooterDistancesensorIsnotFound() {
+  public void CoralshooterAutoIn() {
     while (!isGetTarget()) {
       setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
     }
   }
 
-  public void coralinDistancesensorIsFound() {
+  public void CoralshooterAutoStop() {
     while (isGetTarget()) {
       setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
     }
@@ -98,7 +98,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public Command coralShooterAutoStopCmd() {
-    Command cmd = runEnd(this::coralshooterDistancesensorIsnotFound, this::coralinDistancesensorIsFound);
+    Command cmd = runEnd(this::CoralshooterAutoIn, this::CoralshooterAutoStop);
     cmd.setName("coralShooterAutoStop");
     return cmd;
   }
