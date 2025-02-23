@@ -4,13 +4,8 @@
 
 package frc.robot;
 
-import static edu.wpi.first.units.Units.Millimeters;
-
-import java.util.jar.Attributes.Name;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,16 +37,6 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
-
-    // NamedCommands.registerCommand("ElevatorSecFloorWithCoralShooterSlowOn",
-    // new SequentialCommandGroup(
-    // elevatorSubsystem.toSecFloorCmd()
-    // .repeatedly()
-    // .until(() -> elevatorSubsystem.getCurrentHeight()
-    // .minus(ElevatorConstant.kSecFloor)
-    // .abs(Millimeters) < 5),
-    // coralShooterSubsystem.coralShooterSlowOnCmd()).withTimeout(1.5)
-    // .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
