@@ -55,10 +55,10 @@ public class RobotContainer {
 
     // CoralShooter
     mainController.rightBumper()
-    .whileTrue(Commands.either(
-      coralShooterSubsystem.coralShooterAutoStopCmd(),
-        coralShooterSubsystem.coralShooterSlowOnCmd(),
-         mainController.povRight()));
+        .whileTrue(Commands.either(
+            coralShooterSubsystem.coralShooterAutoStopCmd(),
+            coralShooterSubsystem.coralShooterSlowOnCmd(),
+            mainController.povRight()));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
