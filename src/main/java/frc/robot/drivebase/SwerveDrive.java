@@ -304,31 +304,12 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public Command sysIdQuasistaticCmd() {
-    return new Command() {
-      @Override
-      public void initialize() {
-        setTurningDegreeCmd(0);
-      }
-
-      @Override
-      public void execute() {
-        sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
-      }
-    };
+   return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).finallyDo(this::stop);
   }
 
   public Command sysIdDynamicCmd() {
-    return new Command() {
-      @Override
-      public void initialize() {
-        setTurningDegreeCmd(0);
-      }
+    return sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).finallyDo(this::stop);
 
-      @Override
-      public void execute() {
-        sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward);
-      }
-    };
   }
 
   @Override

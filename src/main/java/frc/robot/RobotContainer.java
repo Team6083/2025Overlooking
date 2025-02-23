@@ -59,7 +59,7 @@ public class RobotContainer {
   
 
   private void configureBindings() {
-    swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    mainController.y().whileTrue(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
@@ -88,6 +88,7 @@ public class RobotContainer {
     mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.x().whileTrue(swerveDrive.sysIdDynamicCmd());
     mainController.b().whileTrue(swerveDrive.sysIdQuasistaticCmd());
+
     // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
