@@ -54,8 +54,11 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    mainController.rightBumper().whileTrue(Commands.either(coralShooterSubsystem.coralShooterAutoStopCmd(),
-        coralShooterSubsystem.coralShooterSlowOnCmd(), mainController.povRight()));
+    mainController.rightBumper()
+    .whileTrue(Commands.either(
+      coralShooterSubsystem.coralShooterAutoStopCmd(),
+        coralShooterSubsystem.coralShooterSlowOnCmd(),
+         mainController.povRight()));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
