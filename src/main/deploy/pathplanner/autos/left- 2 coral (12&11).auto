@@ -26,7 +26,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.3
+            "waitTime": 0.1
           }
         },
         {
@@ -82,7 +82,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.3
+            "waitTime": 0.1
           }
         },
         {
@@ -101,6 +101,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "2 coral",
+  "folder": "2 coral - L2",
   "choreoAuto": false
 }

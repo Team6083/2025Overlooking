@@ -63,6 +63,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralShooterIn2",
         coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> !coralShooterSubsystem.isGetTarget()));
 
+    NamedCommands.registerCommand("ErToTrd",
+        elevatorSubsystem.toTrdFloorCmd());
+
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
 
