@@ -61,6 +61,18 @@ public class CoralShooterSubsystem extends SubsystemBase {
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
+  public void coralShooterAutoIn() {
+    while (!isGetTarget()) {
+      setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+    }
+  }
+
+  public void coralShooterAutoStop() {
+    while (isGetTarget()) {
+      setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+    }
+  }
+
   public void coralShooterStop() { // Motor stop
     setMotorSpeed(0.0);
   }
@@ -82,6 +94,12 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public Command coralShooterSlowOnCmd() {
     Command cmd = runEnd(this::coralShooterSlowOn, this::coralShooterStop);
     cmd.setName("coralShooterSlowOn");
+    return cmd;
+  }
+
+  public Command coralShooterAutoStopCmd() {
+    Command cmd = runEnd(this::coralShooterAutoIn, this::coralShooterAutoStop);
+    cmd.setName("coralShooterAutoStop");
     return cmd;
   }
 
