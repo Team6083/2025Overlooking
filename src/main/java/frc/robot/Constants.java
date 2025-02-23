@@ -13,11 +13,13 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterLeftMotorChannel = 31;
     public static final int kShooterRightMotorChannel = 32;
-
+    public static final int kShooterEncoderChannel = 4;
     public static final double kShooterMotorFastSpeed = 0.2;
     public static final double kShooterMotorSlowSpeed = 0.18;
     public static final Boolean kCoralShooterRightMotorInverted = false;
     public static final Boolean kCoralShooterLeftMotorInverted = false;
+    public static final double kEncoderFullRange = 360.0;
+    public static final double kEncoderOffset = 0.0;
   }
 
   public static final class PowerDistributionConstant {
@@ -43,7 +45,7 @@ public class Constants {
     public static final double kD = 0.0;
 
     public static final int kElevatorMotorChannel = 33;
-    public static final boolean kMotorInverted = false;
+    public static final boolean kMotorInverted = true;
 
     public static final int kEncoderChannelA = 2;
     public static final int kEncoderChannelB = 3;

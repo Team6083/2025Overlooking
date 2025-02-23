@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,18 +21,26 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterRightMotor;
   private Rev2mDistanceSensor distanceSensor;
   private PowerDistribution powerDistribution;
+  private DutyCycleEncoder shooterEncoder;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
     coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
     coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-
+    shooterEncoder = new DutyCycleEncoder(
+      CoralShooterConstant.kShooterEncoderChannel,
+      CoralShooterConstant.kEncoderFullRange,
+      CoralShooterConstant.kEncoderOffset);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
     coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
   }
 
-  private void setMotorSpeed(double speed) {
+  public double getEncoder() {
+    return shooterEncoder.get(); 
+  }
+
+  public void setMotorSpeed(double speed) {
     coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
     coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
@@ -86,6 +95,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("isGetTarget", isGetTarget());
+    distanceSensor.setAutomaticMode(true);
   }
 
 }
