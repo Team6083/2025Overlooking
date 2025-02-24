@@ -14,7 +14,7 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
   private double encoderTargetDegree = 0;
-  private PIDController pidController = new PIDController(0.003, 0.0, 0.0);
+  private PIDController pidController = new PIDController(0.0035, 0.0, 0.0);
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
@@ -35,7 +35,7 @@ public class CoralShooterHoldCmd extends Command {
   @Override
   public void execute() {
     double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
-    double speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.2, 0.2);
+    double speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
     coralShooterSubsystem.setMotorSpeed(speed);
     SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
     SmartDashboard.putNumber("HoldSpeed", speed);
