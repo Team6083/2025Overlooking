@@ -45,7 +45,6 @@ public class RobotContainer {
     tagTrackingSubsystem = new TagTrackingSubsystem();
     swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
 
-
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
@@ -53,6 +52,7 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
+    SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
     configureBindings();
   }
 
@@ -63,10 +63,18 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     mainController.y().whileTrue(swerveTagTrackingCmd);
 
+    mainController.a().whileTrue(swerveDrive.runEnd(
+        () -> swerveDrive.drive(0.1, 0, 0, false),
+        () -> swerveDrive.stop())
+        );
+    mainController.b().whileTrue(swerveDrive.runEnd(
+      ()->swerveDrive.drive(0, 0.1, 0, false),
+      ()->swerveDrive.stop())
+      );
+
+
     // CoralShooter
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
-    mainController.y().whileTrue(swerveTagTrackingCmd);
-
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
@@ -88,9 +96,9 @@ public class RobotContainer {
 
     // ALgaeIntake
     // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    // mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 

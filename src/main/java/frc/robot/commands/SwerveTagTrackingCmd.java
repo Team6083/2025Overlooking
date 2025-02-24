@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,15 +37,12 @@ public class SwerveTagTrackingCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (tagTracking.getTv() == 1) {
-      xSpeed = tyController.calculate(tagTracking.getTy(), 0);
-      ySpeed = txController.calculate(tagTracking.getTx(), 0);
-      // swerveDrive.drive(xSpeed, ySpeed, 0, false);
-    } else {
-      xSpeed = 0;
-      ySpeed = 0;
-    }
-    // swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
+    ySpeed = txController.calculate(tagTracking.getTx(), 20.9);
+    xSpeed = MathUtil.clamp(xSpeed, -2, 2);
+    ySpeed = MathUtil.clamp(ySpeed, -2, 2);
+    swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    // swerveDrive.drive(0, 0, 0, false);
     SmartDashboard.putNumber("tx", tagTracking.getTx());
     SmartDashboard.putNumber("ty", tagTracking.getTy());
     SmartDashboard.putNumber("tv", tagTracking.getTv());
@@ -52,6 +50,11 @@ public class SwerveTagTrackingCmd extends Command {
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putData("tyController", tyController);
     SmartDashboard.putData("txController", txController);
+    if (tagTracking.getTv() == 0) {
+      swerveDrive.drive(0,0,0.1,false);
+    }
+    swerveDrive.
+    swerveDrive.drive(xSpeed, ySpeed,0 , true);
   }
 
   // Called once the command ends or is interrupted.
@@ -63,6 +66,7 @@ public class SwerveTagTrackingCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return txController.getError() < 0.01 && tyController.getError() < 0.01;
+    return tagTracking.getTv() == 0 ||
+        (txController.getError() < 0.5 && tyController.getError() < 0.5);
   }
 }
