@@ -31,7 +31,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
       CoralShooterConstant.kEncoderOffset);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
-		shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
+    shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
   }
 
   public double getEncoder() {
