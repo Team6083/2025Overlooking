@@ -1,98 +1,98 @@
-package frc.robot.vision;
+// package frc.robot.vision;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import java.io.IOException;
-import java.util.Optional;
+// import edu.wpi.first.apriltag.AprilTagFieldLayout;
+// import edu.wpi.first.apriltag.AprilTagFields;
+// import edu.wpi.first.math.geometry.Pose2d;
+// import edu.wpi.first.math.geometry.Pose3d;
+// import edu.wpi.first.networktables.NetworkTable;
+// import edu.wpi.first.networktables.NetworkTableInstance;
+// import java.io.IOException;
+// import java.util.Optional;
 
-public class TagTracking {
-  private final NetworkTable table;
-  private final AprilTagFieldLayout layout;
+// public class TagTracking {
+//   private final NetworkTable table;
+//   private final AprilTagFieldLayout layout;
 
-  public TagTracking() {
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    setLedMode(0);
-    setPipeline(0);
-    try {
-      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
-    } catch (IOException err) {
-      throw new RuntimeException();
-    }
-  }
+//   public TagTracking() {
+//     // table = NetworkTableInstance.getDefault().getTable("limelight-lyly");
+//     // setLedMode(0);
+//     // setPipeline(0);
+//     // try {
+//     //   layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025Reefscape.m_resourceFile);
+//     // } catch (IOException err) {
+//     //   throw new RuntimeException();
+//     // }
+//   }
 
-  private void setLedMode(int ledMode) {
-    table.getEntry("ledMode").setNumber(ledMode);
-  }
+//   private void setLedMode(int ledMode) {
+//     table.getEntry("ledMode").setNumber(ledMode);
+//   }
 
-  private void setPipeline(int pipeline) {
-    table.getEntry("pipeline").setNumber(pipeline);
-  }
+//   private void setPipeline(int pipeline) {
+//     table.getEntry("pipeline").setNumber(pipeline);
+//   }
 
-  public double[] getCt() {
-    double[] ct = table.getEntry("camtran").getDoubleArray(new double[6]);
-    return ct;
-  }
+//   public double[] getCt() {
+//     double[] ct = table.getEntry("camtran").getDoubleArray(new double[6]);
+//     return ct;
+//   }
 
-  public double getTx() {
-    double tx = table.getEntry("tx").getDouble(0);
-    return tx;
-  }
+//   public double getTx() {
+//     double tx = table.getEntry("tx").getDouble(0);
+//     return tx;
+//   }
 
-  public double getTy() {
-    double ty = table.getEntry("ty").getDouble(0);
-    return ty;
-  }
+//   public double getTy() {
+//     double ty = table.getEntry("ty").getDouble(0);
+//     return ty;
+//   }
 
-  public double getTv() {
-    double tv = table.getEntry("tv").getDouble(0);
-    return tv;
-  }
+//   public double getTv() {
+//     double tv = table.getEntry("tv").getDouble(0);
+//     return tv;
+//   }
 
-  public double getTid() {
-    double id = table.getEntry("tid").getDouble(0);
-    return id;
-  }
+//   public double getTid() {
+//     double id = table.getEntry("tid").getDouble(0);
+//     return id;
+//   }
 
-  public double[] getBt() {
-    double[] bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
-    return bt;
-  }
+//   public double[] getBt() {
+//     double[] bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+//     return bt;
+//   }
 
-  public double getDistance() {
-    // readValue();
-    // CHECKSTYLE.OFF: LocalVariableName
-    double targetHeight = getBt()[1]; // botpose in targetspace y
-    double xDis = getBt()[0];
-    double zDis = getBt()[2];
-    double horDis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(zDis, 2));
-    double distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
-    return distance;
-    // CHECKSTYLE.ON: LocalVariableName
-  }
+//   public double getDistance() {
+//     // readValue();
+//     // CHECKSTYLE.OFF: LocalVariableName
+//     double targetHeight = getBt()[1]; // botpose in targetspace y
+//     double xDis = getBt()[0];
+//     double zDis = getBt()[2];
+//     double horDis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(zDis, 2));
+//     double distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
+//     return distance;
+//     // CHECKSTYLE.ON: LocalVariableName
+//   }
 
-  public Pose2d getTagPose2d() {
-    return getTagPose3d().toPose2d();
-  }
+//   public Pose2d getTagPose2d() {
+//     return getTagPose3d().toPose2d();
+//   }
 
-  public Pose3d getTagPose3d() {
-    return getDesiredTagPose3d(getTid());
-  }
+//   public Pose3d getTagPose3d() {
+//     return getDesiredTagPose3d(getTid());
+//   }
 
-  public Pose3d getDesiredTagPose3d(double index) {
-    if (getTv() == 1) {
-      Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
-      Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
-      return tagPose;
-    } else {
-      return new Pose3d();
-    }
-  }
+//   public Pose3d getDesiredTagPose3d(double index) {
+//     if (getTv() == 1) {
+//       Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
+//       Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
+//       return tagPose;
+//     } else {
+//       return new Pose3d();
+//     }
+//   }
 
-  public Pose2d getDesiredTagPose2d(double index) {
-    return getDesiredTagPose3d(index).toPose2d();
-  }
-}
+//   public Pose2d getDesiredTagPose2d(double index) {
+//     return getDesiredTagPose3d(index).toPose2d();
+//   }
+// }
