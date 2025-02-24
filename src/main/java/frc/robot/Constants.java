@@ -122,8 +122,8 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
-    public static final int kIntakeMotorChannel = 35;
-    public static final int kRotateMotorChannel = 34;
+    public static final int kIntakeMotorChannel = 34;
+    public static final int kRotateMotorChannel = 35;
 
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 5;
