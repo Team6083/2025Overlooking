@@ -77,9 +77,9 @@ public class SwerveControlCmd extends Command {
     SmartDashboard.putNumber("LeftX()", mainController.getLeftX());
     SmartDashboard.putNumber("LeftY", mainController.getLeftY());
     SmartDashboard.putNumber("RightX", mainController.getRightX());
-    SmartDashboard.putNumber("xSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("rotSpeed", rotSpeed);
+    SmartDashboard.putNumber("XSpeed", xSpeed);
+    SmartDashboard.putNumber("YSpeed", ySpeed);
+    SmartDashboard.putNumber("RotSpeed", rotSpeed);
 
   }
 
