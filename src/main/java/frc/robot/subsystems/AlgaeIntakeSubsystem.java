@@ -80,34 +80,34 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("algaeRotateDistance", rotateEncoder.getDistance());
-    SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
-    SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
-    SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
-    SmartDashboard.putBoolean("isManualControl", isManualControl);
+    SmartDashboard.putNumber("AlgaeRotateDistance", rotateEncoder.getDistance());
+    SmartDashboard.putNumber("AlgaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("AlgaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
+    SmartDashboard.putData("AlgaeRotatePID", algaeRotatePID);
+    SmartDashboard.putBoolean("IsManualControl", isManualControl);
   }
 
   public Command setIntakeMotorFastOnCmd() {
     Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
-    cmd.setName("setIntakeCmd");
+    cmd.setName("SetIntakeCmd");
     return cmd;
   }
 
   public Command setIntakeMotorSlowOnCmd() {
     Command cmd = runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor);
-    cmd.setName("setIntakeCmd");
+    cmd.setName("SetIntakeCmd");
     return cmd;
   }
 
   public Command reIntakeCmd() { // 吐出 algae 的 cmd
     Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
-    cmd.setName("setReIntakeMotorCmd");
+    cmd.setName("SetReIntakeMotorCmd");
     return cmd;
   }
 
   public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
     Command cmd = runEnd(() -> setRotate(speed), this::stopRotate);
-    cmd.setName("manualSetRotateCmd");
+    cmd.setName("ManualSetRotateCmd");
     return cmd;
   }
 
