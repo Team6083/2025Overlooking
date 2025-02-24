@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.security.auth.login.FailedLoginException;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,11 +14,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
+import frc.robot.commands.SwerveTagTrackingCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.TagTrackingSubsystem;
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
@@ -27,6 +31,8 @@ public class RobotContainer {
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
+  private final TagTrackingSubsystem tagTrackingSubsystem;
+  private final SwerveTagTrackingCmd swerveTagTrackingCmd;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -36,6 +42,9 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+    tagTrackingSubsystem = new TagTrackingSubsystem();
+    swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
+
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -52,9 +61,11 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    mainController.y().whileTrue(swerveTagTrackingCmd);
 
     // CoralShooter
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    mainController.y().whileTrue(swerveTagTrackingCmd);
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -76,7 +87,7 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
