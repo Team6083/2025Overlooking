@@ -25,8 +25,12 @@ public class TagTrackingSubsystem extends SubsystemBase {
     table = NetworkTableInstance.getDefault().getTable("limelight-lyly");
     setLedMode(0);
     setPipeline(0);
+    try {
       layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025Reefscape.m_resourceFile);
+  } catch (IOException err){
+    throw new RuntimeException();
   }
+}
   private void setLedMode(int ledMode) {
     table.getEntry("ledMode").setNumber(ledMode);
   }

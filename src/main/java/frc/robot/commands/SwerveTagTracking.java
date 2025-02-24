@@ -7,16 +7,16 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.drivebase.SwerveDrive;
+import frc.robot.subsystems.TagTrackingSubsystem;
 
-  public Class SwerveTagTracking extend Command {
+  public class SwerveTagTracking extends Command {
   SwerveDrive swerveDrive;
-  TagTracking tagTracking = new TagTracking();
+  TagTrackingSubsystem tagTracking = new TagTrackingSubsystem();
   PIDController txController = new PIDController(0.1, 0, 0);
   PIDController tyController = new PIDController(0.1, 0, 0);
   double xSpeed;
   double ySpeed;
-
-  
   public SwerveTagTracking(SwerveDrive swerveDrive) {
     this.swerveDrive = swerveDrive;
     addRequirements(swerveDrive);
