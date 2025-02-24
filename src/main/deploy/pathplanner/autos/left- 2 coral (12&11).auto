@@ -48,7 +48,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToDefaultPosition"
+                  "name": "ErDown"
                 }
               }
             ]
@@ -73,7 +73,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
@@ -94,7 +94,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToDefaultPosition"
+            "name": "ErDown"
           }
         }
       ]
