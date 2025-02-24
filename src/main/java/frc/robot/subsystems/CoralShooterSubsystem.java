@@ -25,14 +25,17 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
-    shooterEncoder = new DutyCycleEncoder(CoralShooterConstant.kShooterEncoderChannel);
+    shooterEncoder = new DutyCycleEncoder(
+      CoralShooterConstant.kShooterEncoderChannel,
+      CoralShooterConstant.kEncoderFullRange,
+      CoralShooterConstant.kEncoderOffset);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
 		shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
   }
 
   public double getEncoder() {
-    return shooterEncoder.get() * 360;
+    return shooterEncoder.get(); 
   }
 
   public void setMotorSpeed(double speed) {

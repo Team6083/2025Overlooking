@@ -17,6 +17,8 @@ public class Constants {
     public static final double kShooterMotorSlowSpeed = 0.18;
     public static final Boolean kCoralShooterMotorInverted = false;
     public static final Boolean kCoralShooterEncoderInverted = true;
+    public static final double kEncoderFullRange = 360.0;
+    public static final double kEncoderOffset = 0.0;
   }
 
   public static final class PowerDistributionConstant {
