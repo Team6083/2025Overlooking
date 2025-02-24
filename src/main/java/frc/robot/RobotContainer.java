@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
+import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -55,6 +56,7 @@ public class RobotContainer {
 
     // CoralShooter
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    mainController.rightBumper().and(mainController.pov(90)).onTrue(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -63,7 +65,6 @@ public class RobotContainer {
 
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-
             elevatorSubsystem.manualMoveCmd(-0.5),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
