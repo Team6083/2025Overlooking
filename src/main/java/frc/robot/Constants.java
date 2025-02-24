@@ -122,37 +122,42 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
-    public static final int kIntakeMotorChannel = 2;
-    public static final int kIntakeRotateMotorChannel = 1;
+    public static final int kIntakeMotorChannel = 35;
+    public static final int kRotateMotorChannel = 34;
 
     // Algae Encoder Channel
-    public static final int kAlgaeEncoderChannelA = 34;
-    public static final int kAlgaeEncoderChannelB = 35;
+    public static final int kAlgaeEncoderChannelA = 5;
 
     // Algae 吸入、吐出的電壓
-    public static final double kIntakeSpeed = 0.5;
-    public static final double kReIntakeSpeed = 0.1;
+    public static final double kIntakeFastSpeed = 0.5;
+    public static final double kIntakeSlowSpeed = 0.1;
+    public static final double kReIntakeSpeed = -0.3;
 
     // AlgaeRotate 的電壓
-    public static final double kUpIntakeRotateSpeed = 0.1;
-    public static final double kDownIntakeRotateSpeed = -0.1;
+    public static final double kUpIntakeRotateSpeed = 0.5;
+    public static final double kDownIntakeRotateSpeed = -0.4;
 
-    // Algae Rotate&Front PID
+    // Algae Rotate & Front PID
     public static final double rotMotorPIDkP = 0.01;
     public static final double rotMotorPIDkI = 0;
     public static final double rotMotorPIDkD = 0;
-    public static final double frontMotorPIDkP = 0.01;
-    public static final double frontMotorPIDkI = 0;
-    public static final double frontMotorPIDkD = 0;
 
     // Algae setpoint
-    public static final int kUpRotateIntakeSetpoint = 90;
-    public static final int kDownRotateIntakeSetpoint = 0;
-    public static final int kFrontIntakeSetpoint = 0;
+    public static final double kMaxAngle = 90;
+    public static final double kMinAngle = 0;
+    public static final double kStepAngle = 0.1;
 
     // Algae Inverted
-    public static final Boolean kIntakeMotorInverted = false;
-    public static final Boolean kRotateIntakeMotorInverted = false;
+    public static final Boolean kIntakeMotorInverted = true;
+    public static final Boolean kRotateMotorInverted = false;
+    public static final Boolean kAlgaeEncoderInverted = false;
+
+    // Algae Encoder
+    public static final double kDistancePerPulse = 360.0 / 2048;
+    public static final double kRotateEncoderOffset = 0.0;
+    public static final double expectedZero = 0.0;
+    public static final double fullRange = 360;
+
   }
 
   public static final class SwerveControlConstant {
