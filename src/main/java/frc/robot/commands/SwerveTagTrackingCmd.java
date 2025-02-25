@@ -62,6 +62,6 @@ public class SwerveTagTrackingCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0 ||
-    (txController.getError() < 0.5 && tyController.getError() < 0.5);
+    (txController.getError() < 1 && tyController.getError() < 1);
   }
 }

@@ -67,7 +67,7 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     mainController.y().whileTrue(new SequentialCommandGroup(
         swerveTagTrackingCmd,
-        swerveToReefLeftCmd
+        swerveToReefRightCmd
     ));
 
     // CoralShooter
@@ -93,7 +93,7 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
