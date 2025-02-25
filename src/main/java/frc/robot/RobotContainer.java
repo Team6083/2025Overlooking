@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
+import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
@@ -53,9 +55,11 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
-
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    mainController.rightBumper().and(mainController.pov(90))
+        .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
