@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,6 +39,22 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+
+    NamedCommands.registerCommand("CoralShooterWithStop",
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
+            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+
+    NamedCommands.registerCommand("ErToSec",
+        elevatorSubsystem.toSecFloorCmd());
+
+    NamedCommands.registerCommand("ErToTrd",
+        elevatorSubsystem.toTrdFloorCmd());
+
+    NamedCommands.registerCommand("ErToFour",
+        elevatorSubsystem.toTopFloorCmd());
+
+    NamedCommands.registerCommand("ErDown",
+        elevatorSubsystem.toDefaultPositionCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());

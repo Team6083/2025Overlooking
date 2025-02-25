@@ -11,28 +11,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Copy of right - leave"
+                  "pathName": "left - leave(11)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatortoSecFloor"
+                  "name": "ErToSec"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooter"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "test",
   "choreoAuto": false
 }
