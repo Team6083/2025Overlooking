@@ -58,8 +58,8 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
-    .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-    coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+        .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
