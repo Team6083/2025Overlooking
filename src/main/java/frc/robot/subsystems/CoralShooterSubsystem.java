@@ -17,29 +17,29 @@ import frc.robot.lib.PowerDistribution;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
-  private VictorSPX coralShooterLeftMotor;
-  private VictorSPX coralShooterRightMotor;
+  private VictorSPX coralShooterMotor;
   private Rev2mDistanceSensor distanceSensor;
   private PowerDistribution powerDistribution;
   private DutyCycleEncoder shooterEncoder;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
-    coralShooterLeftMotor = new VictorSPX(CoralShooterConstant.kShooterLeftMotorChannel);
-    coralShooterRightMotor = new VictorSPX(CoralShooterConstant.kShooterRightMotorChannel);
-    shooterEncoder = new DutyCycleEncoder(CoralShooterConstant.kShooterEncoderChannel);
+    coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
+    shooterEncoder = new DutyCycleEncoder(
+      CoralShooterConstant.kShooterEncoderChannel,
+      CoralShooterConstant.kEncoderFullRange,
+      CoralShooterConstant.kEncoderOffset);
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
-    coralShooterRightMotor.setInverted(CoralShooterConstant.kCoralShooterRightMotorInverted);
-    coralShooterLeftMotor.setInverted(CoralShooterConstant.kCoralShooterLeftMotorInverted);
+    coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
+    shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
   }
 
   public double getEncoder() {
-    return shooterEncoder.get() * 360;
+    return shooterEncoder.get(); 
   }
 
   public void setMotorSpeed(double speed) {
-    coralShooterLeftMotor.set(VictorSPXControlMode.PercentOutput, speed);
-    coralShooterRightMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    coralShooterMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
   public void coralShooterFastOn() { // Motor on Fast
@@ -91,7 +91,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
-    SmartDashboard.putBoolean("isGetTarget", isGetTarget());
+    SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     distanceSensor.setAutomaticMode(true);
   }
 

@@ -11,13 +11,14 @@ import edu.wpi.first.units.measure.LinearVelocity;
 public class Constants {
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-    public static final int kShooterLeftMotorChannel = 31;
-    public static final int kShooterRightMotorChannel = 32;
+    public static final int kShooterMotorChannel = 32;
     public static final int kShooterEncoderChannel = 4;
-    public static final double kShooterMotorFastSpeed = 0.2;
-    public static final double kShooterMotorSlowSpeed = 0.18;
-    public static final Boolean kCoralShooterRightMotorInverted = false;
-    public static final Boolean kCoralShooterLeftMotorInverted = false;
+    public static final double kShooterMotorFastSpeed = 0.25;
+    public static final double kShooterMotorSlowSpeed = 0.195;
+    public static final Boolean kCoralShooterMotorInverted = false;
+    public static final Boolean kCoralShooterEncoderInverted = true;
+    public static final double kEncoderFullRange = 360.0;
+    public static final double kEncoderOffset = 0.0;
   }
 
   public static final class PowerDistributionConstant {
