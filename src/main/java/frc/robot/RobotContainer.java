@@ -67,10 +67,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
     // SwerveDrive
-    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
-
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -79,7 +76,7 @@ public class RobotContainer {
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
@@ -95,7 +92,7 @@ public class RobotContainer {
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-
+    
     // ALgaeIntake
     mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
