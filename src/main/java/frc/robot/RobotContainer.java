@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import javax.xml.stream.events.Namespace;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
