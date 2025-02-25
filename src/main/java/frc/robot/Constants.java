@@ -134,6 +134,8 @@ public class Constants {
     public static final double kFrontRightCanCoderMagOffset = 0.369141;
     public static final double kBackLeftCanCoderMagOffset = 0.401855;
     public static final double kBackRightCanCoderMagOffset = -0.010254;
+    public static final String AUCanCoderMagOffset = "AUCanCoderMagOffset";
+    public static final String TWNCanCoderMagOffset = "TWNCanCoderMagOffset";
 
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
