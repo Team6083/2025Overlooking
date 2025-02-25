@@ -14,7 +14,7 @@ public class Constants {
     public static final int kShooterMotorChannel = 32;
     public static final int kShooterEncoderChannel = 4;
     public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kShooterMotorSlowSpeed = 0.18;
+    public static final double kShooterMotorSlowSpeed = 0.195;
     public static final Boolean kCoralShooterMotorInverted = false;
     public static final Boolean kCoralShooterEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
