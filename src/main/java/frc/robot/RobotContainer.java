@@ -24,95 +24,89 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
-  private final PowerDistribution powerDistribution;
-  private final CoralShooterSubsystem coralShooterSubsystem;
-  private final ElevatorSubsystem elevatorSubsystem;
-  private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final SwerveDrive swerveDrive;
-  private final SwerveControlCmd swerveJoystickCmd;
-  private final CommandXboxController mainController;
-  private final SendableChooser<Command> autoChooser;
+    private final PowerDistribution powerDistribution;
+    private final CoralShooterSubsystem coralShooterSubsystem;
+    private final ElevatorSubsystem elevatorSubsystem;
+    private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
+    private final SwerveDrive swerveDrive;
+    private final SwerveControlCmd swerveJoystickCmd;
+    private final CommandXboxController mainController;
+    private final SendableChooser<Command> autoChooser;
 
-  public RobotContainer() {
-    powerDistribution = new PowerDistribution();
-    coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
-    elevatorSubsystem = new ElevatorSubsystem();
-    algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
-    swerveDrive = new SwerveDrive();
-    mainController = new CommandXboxController(0);
-    swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+    public RobotContainer() {
+        powerDistribution = new PowerDistribution();
+        coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
+        elevatorSubsystem = new ElevatorSubsystem();
+        algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
+        swerveDrive = new SwerveDrive();
+        mainController = new CommandXboxController(0);
+        swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
-            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+        NamedCommands.registerCommand("CoralShooterWithStop",
+                coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
+                        .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
-    NamedCommands.registerCommand("CoralShooterIn",
-        coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> coralShooterSubsystem.isGetTarget()));
+        NamedCommands.registerCommand("ErToSec",
+                elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("CoralShooterIn2",
-        coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> !coralShooterSubsystem.isGetTarget()));
+        NamedCommands.registerCommand("ErToTrd",
+                elevatorSubsystem.toTrdFloorCmd());
 
-    NamedCommands.registerCommand("ErToSec",
-        elevatorSubsystem.toSecFloorCmd());
+        NamedCommands.registerCommand("ErToFour",
+                elevatorSubsystem.toTopFloorCmd());
 
-    NamedCommands.registerCommand("ErToTrd",
-        elevatorSubsystem.toTrdFloorCmd());
+        NamedCommands.registerCommand("ErDown",
+                elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.toTopFloorCmd());
+        autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        SmartDashboard.putData("AutoChooser", autoChooser);
+        SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
+        SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
+        SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
+        SmartDashboard.putData("SwerveDrive", swerveDrive);
+        configureBindings();
+    }
 
-    NamedCommands.registerCommand("ErDown",
-        elevatorSubsystem.toDefaultPositionCmd());
+    private void configureBindings() {
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
-    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
-    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
-    SmartDashboard.putData("SwerveDrive", swerveDrive);
-    configureBindings();
-  }
+        // SwerveDrive
+        coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
 
-  private void configureBindings() {
+        swerveDrive.setDefaultCommand(swerveJoystickCmd);
+        mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    // SwerveDrive
-    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
+        // CoralShooter
+        coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
+        mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+        mainController.rightBumper().and(mainController.pov(90))
+                .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+                        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+        // Elevator
+        mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+        mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+        mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+        mainController.leftTrigger()
+                .whileTrue(Commands.either(
+                        elevatorSubsystem.manualMoveCmd(-0.5),
+                        elevatorSubsystem.moveDownCmd(),
+                        mainController.povRight()));
+        mainController.rightTrigger()
+                .whileTrue(Commands.either(
+                        elevatorSubsystem.manualMoveCmd(0.5),
+                        elevatorSubsystem.moveUpCmd(),
+                        mainController.povRight()));
+        mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
-    swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    mainController.back().onTrue(swerveDrive.gyroResetCmd());
+        // ALgaeIntake
+        mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+        mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+        mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+        mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+        algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
+    }
 
-    // CoralShooter
-    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
-    mainController.rightBumper().and(mainController.pov(90))
-        .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
-    // Elevator
-    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
-    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
-    mainController.leftTrigger()
-        .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(-0.5),
-            elevatorSubsystem.moveDownCmd(),
-            mainController.povRight()));
-    mainController.rightTrigger()
-        .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(0.5),
-            elevatorSubsystem.moveUpCmd(),
-            mainController.povRight()));
-    mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-
-    // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
-  }
-
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-  }
+    public Command getAutonomousCommand() {
+        return autoChooser.getSelected();
+    }
 }
