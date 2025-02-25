@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.SwerveTagTrackingCmd;
+import frc.robot.commands.SwerveToReef;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -33,7 +35,8 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
   private final TagTrackingSubsystem tagTrackingSubsystem;
   private final SwerveTagTrackingCmd swerveTagTrackingCmd;
-
+  private final SwerveToReef swerveToReefLeftCmd;
+  private final SwerveToReef swerveToReefRightCmd;
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
@@ -44,6 +47,8 @@ public class RobotContainer {
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
     swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
+    swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
+    swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -61,7 +66,11 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(swerveTagTrackingCmd);
+    mainController.y().whileTrue(new SequentialCommandGroup(
+        swerveTagTrackingCmd,
+        swerveToReefLeftCmd
+    ));
+
 
     mainController.a().whileTrue(swerveDrive.runEnd(
         () -> swerveDrive.drive(0.1, 0, 0, false),

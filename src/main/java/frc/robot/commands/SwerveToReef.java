@@ -12,18 +12,20 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.TagTrackingSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveTagTrackingCmd extends Command {
-  /** Creates a new SwerveTagTrackingCmcd. */
+public class SwerveToReef extends Command {
+  /** Creates a new SwerveTagoTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
   PIDController txController = new PIDController(0.1, 0, 0);
   PIDController tyController = new PIDController(0.1, 0, 0);
   double xSpeed;
   double ySpeed;
+  String leftOrRight;
 
-  public SwerveTagTrackingCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
+  public SwerveToReef(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
+    this.leftOrRight = leftOrRight;
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +40,12 @@ public class SwerveTagTrackingCmd extends Command {
   @Override
   public void execute() {
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
-    ySpeed = txController.calculate(tagTracking.getTx(), 0);
+    if(leftOrRight == "left") {
+      txController.setSetpoint(20.9);
+    } else {
+      txController.setSetpoint(-20.9);
+    }
+    ySpeed = txController.calculate(tagTracking.getTx());
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
@@ -62,6 +69,6 @@ public class SwerveTagTrackingCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0 ||
-    (txController.getError() < 0.5 && tyController.getError() < 0.5);
+        (txController.getError() < 0.5 && tyController.getError() < 0.5);
   }
 }
