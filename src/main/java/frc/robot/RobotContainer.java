@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.xml.stream.events.Namespace;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -48,11 +50,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralShooterIn2",
         coralShooterSubsystem.coralShooterSlowOnCmd().until(() -> !coralShooterSubsystem.isGetTarget()));
 
+    NamedCommands.registerCommand("ErToSec",
+        elevatorSubsystem.toSecFloorCmd());
+
     NamedCommands.registerCommand("ErToTrd",
         elevatorSubsystem.toTrdFloorCmd());
 
-    NamedCommands.registerCommand("ErToSec",
-        elevatorSubsystem.toSecFloorCmd());
+    NamedCommands.registerCommand("ErToFour",
+        elevatorSubsystem.toTopFloorCmd());
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
