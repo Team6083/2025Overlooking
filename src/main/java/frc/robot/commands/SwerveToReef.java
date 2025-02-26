@@ -49,7 +49,7 @@ public class SwerveToReef extends Command {
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
-    // swerveDrive.drive(0, 0, 0, false);
+    
     SmartDashboard.putNumber("tx", tagTracking.getTx());
     SmartDashboard.putNumber("ty", tagTracking.getTy());
     SmartDashboard.putNumber("tv", tagTracking.getTv());
