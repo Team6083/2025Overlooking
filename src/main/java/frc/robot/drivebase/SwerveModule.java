@@ -7,6 +7,7 @@ package frc.robot.drivebase;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Minutes;
+import static edu.wpi.first.units.Units.Seconds;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -25,6 +26,8 @@ import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.VoltageUnit;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -70,7 +73,7 @@ public class SwerveModule extends SubsystemBase {
 
     SparkMaxConfig configDriveMotor = new SparkMaxConfig();
     configDriveMotor.idleMode(IdleMode.kBrake);
-    configDriveMotor.smartCurrentLimit(10, 80);
+    configDriveMotor.smartCurrentLimit(13, 80);
     configDriveMotor.closedLoopRampRate(ModuleConstant.kDriveClosedLoopRampRate);
     configDriveMotor.voltageCompensation(ModuleConstant.kMaxModuleDriveVoltage);
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
@@ -113,8 +116,8 @@ public class SwerveModule extends SubsystemBase {
 
   // calculate the rate of the drive
   public LinearVelocity getDriveRate() {
-    return Meters.per(Minutes).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
-        * ModuleConstant.kWheelRadius.in(Meters));
+    return Meters.per(Seconds).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
+        * ModuleConstant.kWheelRadius.in(Meters)/60);
   }
 
   // to get rotation of turning motor
@@ -133,9 +136,9 @@ public class SwerveModule extends SubsystemBase {
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
-    desiredState.optimize(currentRotation2d);
-    driveMotorVoltage = desiredState.speedMetersPerSecond
-        * ModuleConstant.kDesireSpeedToMotorVoltage;
+        desiredState.optimize(currentRotation2d);
+        driveMotorVoltage = desiredState.speedMetersPerSecond
+            * ModuleConstant.kDesireSpeedToMotorVoltage;
     turningMotorVoltage = rotController.calculate(
         currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
@@ -153,16 +156,20 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void voltageDrive(Measure<VoltageUnit> volts) {
-    rotController.setP(0);
-    rotController.setI(0);
-    rotController.setD(0);
+    // rotController.setP(0);
+    // rotController.setI(0);
+    // rotController.setD(0);
     // driveMotor.set(0);
     driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
   }
 
+  public double getVoltage(){
+    return (driveMotor.getAppliedOutput())*RobotController.getBatteryVoltage();
+  }
+
   public void logMotors(SysIdRoutineLog log) {
     log.motor(name)
-        .voltage(edu.wpi.first.units.Units.Volts.of(driveMotorVoltage))
+        .voltage(edu.wpi.first.units.Units.Volts.of(getVoltage()))
         .linearPosition(getDriveDistance())
         .linearVelocity(getDriveRate());
 
@@ -177,5 +184,6 @@ public class SwerveModule extends SubsystemBase {
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
     SmartDashboard.putData(name + "_rotController", rotController);
+    SmartDashboard.putNumber(name + "EncoderVelocity()", driveEncoder.getVelocity());
   }
 }

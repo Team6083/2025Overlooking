@@ -303,12 +303,21 @@ public class SwerveDrive extends SubsystemBase {
         this);
   }
 
-  public Command sysIdQuasistaticCmd() {
+  public Command sysIdQuasistaticFCmd() {
    return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward).finallyDo(this::stop);
   }
 
-  public Command sysIdDynamicCmd() {
+  public Command sysIdQuasistaticRCmd() {
+    return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse).finallyDo(this::stop);
+   }
+
+  public Command sysIdDynamicFCmd() {
     return sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward).finallyDo(this::stop);
+
+  }
+
+  public Command sysIdDynamicRCmd() {
+    return sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse).finallyDo(this::stop);
 
   }
 

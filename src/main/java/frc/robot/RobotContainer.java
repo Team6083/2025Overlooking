@@ -46,9 +46,6 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
 
-    autoChooser.addOption("sysIdDynamicCmd", swerveDrive.sysIdDynamicCmd());
-    autoChooser.addOption("sysIdQuasistaticCmd", swerveDrive.sysIdQuasistaticCmd());
-
     SmartDashboard.putData("Autochooser", autoChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
@@ -59,35 +56,37 @@ public class RobotContainer {
   
 
   private void configureBindings() {
-    mainController.y().whileTrue(swerveJoystickCmd);
+    mainController.rightBumper().whileTrue(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+    // mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
 
-    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
-    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+    // mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    // mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    // mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
 
-    mainController.leftTrigger()
-        .whileTrue(Commands.either(
+    // mainController.leftTrigger()
+    //     .whileTrue(Commands.either(
 
-            elevatorSubsystem.manualMoveCmd(-0.5),
-            elevatorSubsystem.moveDownCmd(),
-            mainController.povRight()));
-    mainController.rightTrigger()
-        .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(0.5),
-            elevatorSubsystem.moveUpCmd(),
-            mainController.povRight()));
+    //         elevatorSubsystem.manualMoveCmd(-0.5),
+    //         elevatorSubsystem.moveDownCmd(),
+    //         mainController.povRight()));
+    // mainController.rightTrigger()
+    //     .whileTrue(Commands.either(
+    //         elevatorSubsystem.manualMoveCmd(0.5),
+    //         elevatorSubsystem.moveUpCmd(),
+    //         mainController.povRight()));
 
-    mainController.start().onTrue(elevatorSubsystem.elevatorReset());
+    // mainController.start().onTrue(elevatorSubsystem.elevatorReset());
     // mainController.y().whileTrue(algaeIntakeSubsystem.manualUpRotateCmd());
     // mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
     // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     // mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.a().whileTrue(swerveDrive.setTurningDegreeCmd(0));
-    mainController.x().whileTrue(swerveDrive.sysIdDynamicCmd());
-    mainController.b().whileTrue(swerveDrive.sysIdQuasistaticCmd());
+    mainController.leftBumper().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    mainController.x().whileTrue(swerveDrive.sysIdDynamicFCmd());
+    mainController.b().whileTrue(swerveDrive.sysIdDynamicRCmd());
+    mainController.y().whileTrue(swerveDrive.sysIdQuasistaticFCmd());
+    mainController.a().whileTrue(swerveDrive.sysIdQuasistaticRCmd());
 
     // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
