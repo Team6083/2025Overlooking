@@ -41,7 +41,7 @@ public class SwerveToReef extends Command {
     double xSpeed;
     double ySpeed;
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
-    if(leftOrRight == "left") {
+    if (leftOrRight == "left") {
       txController.setSetpoint(20.9);
     } else {
       txController.setSetpoint(-20.9);
