@@ -18,8 +18,6 @@ public class SwerveToReef extends Command {
   TagTrackingSubsystem tagTracking;
   PIDController txController = new PIDController(0.1, 0, 0);
   PIDController tyController = new PIDController(0.1, 0, 0);
-  double xSpeed;
-  double ySpeed;
   String leftOrRight;
 
   public SwerveToReef(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
@@ -39,6 +37,8 @@ public class SwerveToReef extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double xSpeed;
+    double ySpeed;
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
     if(leftOrRight == "left") {
       txController.setSetpoint(20.9);

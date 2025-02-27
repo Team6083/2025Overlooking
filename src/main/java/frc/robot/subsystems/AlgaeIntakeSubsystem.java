@@ -35,7 +35,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
-
     rotateEncoder = new Encoder(AlgaeIntakeConstant.kAlgaeEncoderChannelA,
         AlgaeIntakeConstant.kAlgaeEncoderChannelB);
     rotateEncoder.setDistancePerPulse(AlgaeIntakeConstant.kDistancePerPulse);
