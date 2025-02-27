@@ -68,6 +68,16 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
+    NamedCommands.registerCommand("AprilTagRight",
+        new SequentialCommandGroup(
+            swerveTagTrackingCmd,
+            swerveToReefRightCmd));
+
+    NamedCommands.registerCommand("AprilTagLeft",
+        new SequentialCommandGroup(
+            swerveTagTrackingCmd,
+            swerveToReefLeftCmd));
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
@@ -84,8 +94,8 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     // mainController.y().whileTrue(new SequentialCommandGroup(
-    //     swerveTagTrackingCmd,
-    //     swerveToReefRightCmd
+    // swerveTagTrackingCmd,
+    // swerveToReefRightCmd
     // ));
 
     // CoralShooter
@@ -93,7 +103,7 @@ public class RobotContainer {
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
@@ -109,7 +119,7 @@ public class RobotContainer {
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    
+
     // ALgaeIntake
     mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
