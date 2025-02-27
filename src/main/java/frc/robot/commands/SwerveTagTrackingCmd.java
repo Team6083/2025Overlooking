@@ -45,9 +45,6 @@ public class SwerveTagTrackingCmd extends Command {
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
     // CHECKSTYLE.ON: LocalVariableName
 
-    SmartDashboard.putNumber("tx", tagTracking.getTx());
-    SmartDashboard.putNumber("ty", tagTracking.getTy());
-    SmartDashboard.putNumber("tv", tagTracking.getTv());
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putData("tyController", tyController);

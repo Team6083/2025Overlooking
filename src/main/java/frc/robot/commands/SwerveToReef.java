@@ -41,20 +41,13 @@ public class SwerveToReef extends Command {
     double xSpeed;
     double ySpeed;
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
-    if (leftOrRight == "left") {
-      txController.setSetpoint(20.9);
-    } else {
-      txController.setSetpoint(-20.9);
-    }
+    
     ySpeed = txController.calculate(tagTracking.getTx());
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
     // CHECKSTYLE.ON: LocalVariableName
 
-    SmartDashboard.putNumber("tx", tagTracking.getTx());
-    SmartDashboard.putNumber("ty", tagTracking.getTy());
-    SmartDashboard.putNumber("tv", tagTracking.getTv());
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putData("tyController", tyController);

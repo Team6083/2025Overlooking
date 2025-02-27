@@ -66,10 +66,10 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(new SequentialCommandGroup(
-        swerveTagTrackingCmd,
-        swerveToReefRightCmd
-    ));
+    // mainController.y().whileTrue(new SequentialCommandGroup(
+    //     swerveTagTrackingCmd,
+    //     swerveToReefRightCmd
+    // ));
 
     // CoralShooter
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
