@@ -24,9 +24,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.1
+            "name": "AprilTagLeft"
           }
         },
         {
@@ -80,9 +80,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.1
+            "name": "AprilTagRight"
           }
         },
         {

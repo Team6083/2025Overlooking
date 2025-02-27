@@ -53,7 +53,7 @@ public class RobotContainer {
     swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
     NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
