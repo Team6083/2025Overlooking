@@ -4,24 +4,18 @@
 
 package frc.robot;
 
-import java.util.prefs.Preferences;
+import edu.wpi.first.wpilibj.Preferences;
+
 /** Add your docs here. */
 public class SwerveDriveOffset {
     private double AUCoderMagOffsetFL = Constants.DriveBaseConstant.kFrontLeftCanCoderMagOffset;
-    private double AUCoderMagOffsetFR = Constants.DriveBaseConstant.kFrontRightCanCoderMagOffset;
-    private double AUCoderMagOffsetBL = Constants.DriveBaseConstant.kBackLeftCanCoderMagOffset;
-    private double AUCoderMagOffsetBR = Constants.DriveBaseConstant.kBackRightCanCoderMagOffset;
-    private String AUCoderMagOffset = Constants.DriveBaseConstant.AUCanCoderMagOffset;
-    private Preferences preferences;
+   
     public SwerveDriveOffset(){
-    preferences.putDouble(AUCoderMagOffset, AUCoderMagOffsetFL);
-    preferences.putDouble(AUCoderMagOffset, AUCoderMagOffsetFR);
-    preferences.putDouble(AUCoderMagOffset, AUCoderMagOffsetBL);
-    preferences.putDouble(AUCoderMagOffset, AUCoderMagOffsetBR);
+ Preferences.initDouble(Constants.DriveBaseConstant.AUCanCoderMagOffset, AUCoderMagOffsetFL);
     }
     public void loadPreferences() {
-        if(AUCoderMagOffsetFL!=preferences.getDouble(AUCoderMagOffset, AUCoderMagOffsetFL)){
-            AUCoderMagOffsetFL =preferences.getDouble(AUCoderMagOffset, AUCoderMagOffsetFL);
-        }
-}
+        // Read Preferences for Arm setpoint and kP on entering Teleop
+        AUCoderMagOffsetFL = Preferences.getDouble(Constants.DriveBaseConstant.AUCanCoderMagOffset,  AUCoderMagOffsetFL);
+       
+      }
 }
