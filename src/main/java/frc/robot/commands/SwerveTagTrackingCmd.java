@@ -44,7 +44,7 @@ public class SwerveTagTrackingCmd extends Command {
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
     // CHECKSTYLE.ON: LocalVariableName
-    
+
     SmartDashboard.putNumber("tx", tagTracking.getTx());
     SmartDashboard.putNumber("ty", tagTracking.getTy());
     SmartDashboard.putNumber("tv", tagTracking.getTv());
@@ -63,7 +63,7 @@ public class SwerveTagTrackingCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0 ||
-    (txController.getError() < 1 && tyController.getError() < 1);
+    return tagTracking.getTv() == 0
+        || (txController.getError() < 1 && tyController.getError() < 1);
   }
 }
