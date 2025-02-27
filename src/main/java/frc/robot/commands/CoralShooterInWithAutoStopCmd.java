@@ -23,9 +23,7 @@ public class CoralShooterInWithAutoStopCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (coralShooterSubsystem.isGetTarget()) {
-      coralShooterSubsystem.coralShooterSlowOn();
-    }
+    coralShooterSubsystem.coralShooterSlowOn();
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +35,6 @@ public class CoralShooterInWithAutoStopCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !coralShooterSubsystem.isGetTarget();
+    return coralShooterSubsystem.isGetTarget();
   }
 }
