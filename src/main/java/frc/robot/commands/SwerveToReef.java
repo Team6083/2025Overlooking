@@ -70,7 +70,7 @@ public class SwerveToReef extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0 ||
-        (txController.getError() < 0.5 && tyController.getError() < 0.5);
+    return tagTracking.getTv() == 0
+        || (txController.getError() < 0.5 && tyController.getError() < 0.5);
   }
 }
