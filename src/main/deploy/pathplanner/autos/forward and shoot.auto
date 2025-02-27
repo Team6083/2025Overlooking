@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "back 1 m"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1m(1)"
+            "pathName": "1m"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ElevatortoSecFloor"
+            "name": "ErToSec"
           }
         },
         {
@@ -31,13 +25,13 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralShooter"
+            "name": "ErDown"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "test",
   "choreoAuto": false
 }
