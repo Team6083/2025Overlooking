@@ -19,27 +19,6 @@ public class PowerDistribution {
     SmartDashboard.putBoolean("isAlgaeRotateOverCurrent", false);
     SmartDashboard.putBoolean("isClimberOverCurrent", false);
     SmartDashboard.putBoolean("isRampOverCurrent", false);
-
-    SmartDashboard.putNumber("CurrentBackRightDrive", powerDistribution.getCurrent(1));
-    SmartDashboard.putNumber("CurrentBackRightTurning", powerDistribution.getCurrent(2));
-    SmartDashboard.putNumber("CurrentFrontRightDrive", powerDistribution.getCurrent(7));
-    SmartDashboard.putNumber("CurrentFrontRightTurning", powerDistribution.getCurrent(9));
-    SmartDashboard.putNumber("CurrentFrontLeftDrive", powerDistribution.getCurrent(10));
-    SmartDashboard.putNumber("CurrentFrontLeftTurning", powerDistribution.getCurrent(12));
-    SmartDashboard.putNumber("CurrentBackLeftDrive", powerDistribution.getCurrent(16));
-    SmartDashboard.putNumber("CurrentBackLeftTurning", powerDistribution.getCurrent(19));
-
-  }
-
-  public static void swerveCurrent() {
-    SmartDashboard.putNumber("CurrentBackRightDrive", powerDistribution.getCurrent(1));
-    SmartDashboard.putNumber("CurrentBackRightTurning", powerDistribution.getCurrent(2));
-    SmartDashboard.putNumber("CurrentFrontRightDrive", powerDistribution.getCurrent(7));
-    SmartDashboard.putNumber("CurrentFrontRightTurning", powerDistribution.getCurrent(9));
-    SmartDashboard.putNumber("CurrentFrontLeftDrive", powerDistribution.getCurrent(10));
-    SmartDashboard.putNumber("CurrentFrontLeftTurning", powerDistribution.getCurrent(12));
-    SmartDashboard.putNumber("CurrentBackLeftDrive", powerDistribution.getCurrent(16));
-    SmartDashboard.putNumber("CurrentBackLeftTurning", powerDistribution.getCurrent(19));
   }
 
   public double coralShooterRightCurrent() {

@@ -330,7 +330,7 @@ public class SwerveDrive extends SubsystemBase {
         SmartDashboard.putNumber("TrueCanCoderMagOffset", TrueCanCoderMagOffset);
 
 
-        PowerDistribution.swerveCurrent();
+       
   }
 
   public Command gyroResetCmd() {
