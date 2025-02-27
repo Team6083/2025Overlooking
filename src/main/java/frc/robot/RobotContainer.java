@@ -49,10 +49,21 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    mainController.y().onTrue(algaeIntakeSubsystem.rotateDownPIDCmd());
+
+    mainController.y().onTrue(elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()));
     mainController.a().onTrue(new SequentialCommandGroup(
-        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetCarolHeightCmd()),
-        algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)));
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.moveToAngleCmd()),
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()).alongWith(
+        algaeIntakeSubsystem.reIntakeCmd()).withTimeout(10)));
+
+    // mainController.a().onTrue(new SequentialCommandGroup(
+    // algaeIntakeSubsystem.moveToAngleCmd(),
+    // elevatorSubsystem.toGetSecAlgaeCmd(),
+    // algaeIntakeSubsystem.reIntakeCmd().withTimeout(1)
+    // ));
+
+    mainController.x().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
+    mainController.b().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
 
     // SwerveDrive
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
@@ -82,11 +93,12 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.manualrotateDownCmd());
+    // //
+    // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // //
+    // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
   public Command getAutonomousCommand() {

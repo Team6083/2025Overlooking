@@ -22,7 +22,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final VictorSPX rotateMotor;
   private final PIDController algaeRotatePID;
   private final PowerDistribution powerDistribution;
-  private boolean isManualControl = false;
+  private boolean isManualControl = true;
   private final DutyCycleEncoder rotateEncoder;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
@@ -31,6 +31,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
         AlgaeIntakeConstant.rotMotorPIDkP,
         AlgaeIntakeConstant.rotMotorPIDkI,
         AlgaeIntakeConstant.rotMotorPIDkD);
+    algaeRotatePID.enableContinuousInput(0, 360);
 
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
@@ -38,7 +39,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
         AlgaeIntakeConstant.kAlgaeEncoderChannelA,
         AlgaeIntakeConstant.fullRange,
         AlgaeIntakeConstant.expectedZero);
-        
+
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
@@ -75,7 +76,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void manualSetRotate(double speed) {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, speed);
-
+    algaeRotatePID.setSetpoint(rotateEncoder.get());
   }
 
   public void stopRotate() {
@@ -83,11 +84,17 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setRotateSetpoint(double setpoint) {
+    isManualControl = false;
     algaeRotatePID.setSetpoint(setpoint);
+    setpoint = MathUtil.clamp(setpoint, AlgaeIntakeConstant.kMaxAngle, AlgaeIntakeConstant.kMinAngle);
   }
 
   public double getCurrentAngle() {
     return rotateEncoder.get();
+  }
+
+  public void moveToAngle() {
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle);
   }
 
   @Override
@@ -95,20 +102,27 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
-    SmartDashboard.putBoolean("isManualControl", isManualControl);
+    SmartDashboard.putBoolean("algaeRotateIsManualControl", isManualControl);
     SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
 
     if (!isManualControl) {
-      double output = algaeRotatePID.calculate(getCurrentAngle());
-      output = MathUtil.clamp(output, -0.1, 0.1);
+      double output = -algaeRotatePID.calculate(getCurrentAngle());
+      output = MathUtil.clamp(output, -0.5, 0.5);
       rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
+      SmartDashboard.putNumber("algaeOutput", output);
     } else {
       algaeRotatePID.setSetpoint(getCurrentAngle());
     }
   }
 
+  public Command moveToAngleCmd() {
+    Command cmd = runOnce(this::moveToAngle);
+    cmd.setName("moveToAngleCmd");
+    return cmd;
+  }
+
   public Command setIntakeMotorFastOnCmd() {
-    Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
+    Command cmd = runEnd(this::moveToAngle, this::stopRotate);
     cmd.setName("setIntakeCmd");
     return cmd;
   }
@@ -128,12 +142,13 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
     Command cmd = runEnd(
         () -> {
-          manualSetRotate(speed);
           isManualControl = true;
+          manualSetRotate(speed);
         },
         () -> {
-          stopRotate();
           isManualControl = false;
+          stopRotate();
+
         });
     cmd.setName("manualSetRotateCmd");
     return cmd;
@@ -182,5 +197,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
         runOnce(this::stopRotate));
     cmd.setName("autoStopRotateCmd");
     return cmd;
+
   }
+
+  // public boolean isRotationFinished() {
+  // return algaeRotatePID.getError() < 5;
+  // }
+
 }
