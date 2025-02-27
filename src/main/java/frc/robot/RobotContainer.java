@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
+import frc.robot.commands.SwerveTagTrackingCmd;
+import frc.robot.commands.SwerveToReef;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.TagTrackingSubsystem;
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
@@ -31,6 +34,11 @@ public class RobotContainer {
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
 
+  private final TagTrackingSubsystem tagTrackingSubsystem;
+  private final SwerveTagTrackingCmd swerveTagTrackingCmd;
+  private final SwerveToReef swerveToReefLeftCmd;
+  private final SwerveToReef swerveToReefRightCmd;
+
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
@@ -39,6 +47,10 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
+    tagTrackingSubsystem = new TagTrackingSubsystem();
+    swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
+    swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
+    swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
@@ -63,6 +75,7 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
+    SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
     configureBindings();
   }
 
@@ -70,6 +83,10 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    // mainController.y().whileTrue(new SequentialCommandGroup(
+    //     swerveTagTrackingCmd,
+    //     swerveToReefRightCmd
+    // ));
 
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
