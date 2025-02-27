@@ -7,31 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1m(1)"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatortoSecFloor"
+            "pathName": "left - leave(12)"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0.3
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "CoralShooter"
+            "pathName": "reef(12) to coral station"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.3
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral station to reef(11)"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "test",
   "choreoAuto": false
 }

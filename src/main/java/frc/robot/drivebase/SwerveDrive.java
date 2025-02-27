@@ -88,10 +88,10 @@ public class SwerveDrive extends SubsystemBase {
        
         
 
-    SmartDashboard.putData("frontLeft", frontLeft);
-    SmartDashboard.putData("frontRight", frontRight);
-    SmartDashboard.putData("backLeft", backLeft);
-    SmartDashboard.putData("backRight", backRight);
+    SmartDashboard.putData("FrontLeft", frontLeft);
+    SmartDashboard.putData("FrontRight", frontRight);
+    SmartDashboard.putData("BackLeft", backLeft);
+    SmartDashboard.putData("BackRight", backRight);
 
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
@@ -137,7 +137,7 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(4.5, 0.15, 1.0),
+            new PIDConstants(7, 0.15, 1.0),
             new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
@@ -302,10 +302,10 @@ public class SwerveDrive extends SubsystemBase {
 
     updateOdometry();
 
-    SmartDashboard.putNumber("gyro_heading", gyro.getRotation2d().getDegrees());
-    SmartDashboard.putNumber("poseX", getPose2d().getX());
-    SmartDashboard.putNumber("poseY", getPose2d().getY());
-    SmartDashboard.putNumber("poseRotationDegree",
+    SmartDashboard.putNumber("Gyro_Heading", gyro.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("PoseX", getPose2d().getX());
+    SmartDashboard.putNumber("PoseY", getPose2d().getY());
+    SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
         Preferences.initInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset);
         TrueCanCoderMagOffset=Preferences.getInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset);
