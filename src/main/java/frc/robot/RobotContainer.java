@@ -31,6 +31,7 @@ public class RobotContainer {
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
+  
   private final TagTrackingSubsystem tagTrackingSubsystem;
   private final SwerveTagTrackingCmd swerveTagTrackingCmd;
   private final SwerveToReef swerveToReefLeftCmd;
@@ -71,6 +72,7 @@ public class RobotContainer {
 
     // CoralShooter
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
+
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());

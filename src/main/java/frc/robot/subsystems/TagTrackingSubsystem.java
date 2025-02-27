@@ -27,10 +27,11 @@ public class TagTrackingSubsystem extends SubsystemBase {
     setPipeline(0);
     try {
       layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025Reefscape.m_resourceFile);
-  } catch (IOException err){
-    throw new RuntimeException();
+    } catch (IOException err) {
+      throw new RuntimeException();
+    }
   }
-}
+
   private void setLedMode(int ledMode) {
     table.getEntry("ledMode").setNumber(ledMode);
   }
@@ -102,14 +103,9 @@ public class TagTrackingSubsystem extends SubsystemBase {
   public Pose2d getDesiredTagPose2d(double index) {
     return getDesiredTagPose3d(index).toPose2d();
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("tx", getTx());
-    SmartDashboard.putNumber("ty", getTy());
-    SmartDashboard.putNumber("tv", getTv());
-    SmartDashboard.putNumber("distance", getDistance());
-    SmartDashboard.putNumberArray("ct", getCt());
-    SmartDashboard.putNumberArray("bt", getBt());
   }
 }
