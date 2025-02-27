@@ -26,9 +26,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import frc.robot.lib.PowerDistribution;
-import org.json.simple.parser.ParseException;
 import java.io.IOException;
-
+import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontLeft;
@@ -44,8 +43,8 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveOdometry odometry;
   private int au = 0;
   private int twn = 1;
-  private int WhereCanCoderMagOffset;
-  private int TrueCanCoderMagOffset;
+  private int whereCanCoderMagOffset;
+  private int trueCanCoderMagOffset;
   private final AHRS gyro;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
@@ -85,8 +84,6 @@ public class SwerveDrive extends SubsystemBase {
         DriveBaseConstant.kBackRightDriveMotorInverted,
         DriveBaseConstant.kBackRightTurningMotorInverted,
         kbackRightCanCoderMagOffset, "backRight");
-       
-        
 
     SmartDashboard.putData("FrontLeft", frontLeft);
     SmartDashboard.putData("FrontRight", frontRight);
@@ -307,30 +304,28 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
-        Preferences.initInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset);
-        TrueCanCoderMagOffset=Preferences.getInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset);
-        if (TrueCanCoderMagOffset!=Preferences.getInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset)) {
-          TrueCanCoderMagOffset=Preferences.getInt("WhereCanCoderMagOffset",WhereCanCoderMagOffset);
-        }
-        if (TrueCanCoderMagOffset == au) {
-   kfrontLeftCanCoderMagOffset=DriveBaseConstant.AUkFrontLeftCanCoderMagOffset;
-   kfrontRightCanCoderMagOffset=DriveBaseConstant.AUkFrontRightCanCoderMagOffset;
-   kbackLeftCanCoderMagOffset=DriveBaseConstant.AUkBackLeftCanCoderMagOffset;
-   kbackRightCanCoderMagOffset=DriveBaseConstant.AUkBackRightCanCoderMagOffset;
-        }else if(TrueCanCoderMagOffset == twn) {
-          kfrontLeftCanCoderMagOffset=DriveBaseConstant.TWNkFrontLeftCanCoderMagOffset;
-          kfrontRightCanCoderMagOffset=DriveBaseConstant.TWNkFrontRightCanCoderMagOffset;
-          kbackLeftCanCoderMagOffset=DriveBaseConstant.TWNkBackLeftCanCoderMagOffset;
-          kbackRightCanCoderMagOffset=DriveBaseConstant.TWNkBackRightCanCoderMagOffset;
-        }
-        SmartDashboard.putNumber("fl", kfrontLeftCanCoderMagOffset);
-        SmartDashboard.putNumber("fr", kfrontRightCanCoderMagOffset);
-        SmartDashboard.putNumber("bl", kbackLeftCanCoderMagOffset);
-        SmartDashboard.putNumber("br", kbackRightCanCoderMagOffset);
-        SmartDashboard.putNumber("TrueCanCoderMagOffset", TrueCanCoderMagOffset);
+    Preferences.initInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
+    trueCanCoderMagOffset = Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
+    if (trueCanCoderMagOffset != Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset)) {
+      trueCanCoderMagOffset = Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
+    }
+    if (trueCanCoderMagOffset == au) {
+      kfrontLeftCanCoderMagOffset = DriveBaseConstant.AUkFrontLeftCanCoderMagOffset;
+      kfrontRightCanCoderMagOffset = DriveBaseConstant.AUkFrontRightCanCoderMagOffset;
+      kbackLeftCanCoderMagOffset = DriveBaseConstant.AUkBackLeftCanCoderMagOffset;
+      kbackRightCanCoderMagOffset = DriveBaseConstant.AUkBackRightCanCoderMagOffset;
+    } else if (trueCanCoderMagOffset == twn) {
+      kfrontLeftCanCoderMagOffset = DriveBaseConstant.TWNkFrontLeftCanCoderMagOffset;
+      kfrontRightCanCoderMagOffset = DriveBaseConstant.TWNkFrontRightCanCoderMagOffset;
+      kbackLeftCanCoderMagOffset = DriveBaseConstant.TWNkBackLeftCanCoderMagOffset;
+      kbackRightCanCoderMagOffset = DriveBaseConstant.TWNkBackRightCanCoderMagOffset;
+    }
+    SmartDashboard.putNumber("fl", kfrontLeftCanCoderMagOffset);
+    SmartDashboard.putNumber("fr", kfrontRightCanCoderMagOffset);
+    SmartDashboard.putNumber("bl", kbackLeftCanCoderMagOffset);
+    SmartDashboard.putNumber("br", kbackRightCanCoderMagOffset);
+    SmartDashboard.putNumber("TrueCanCoderMagOffset", trueCanCoderMagOffset);
 
-
-       
   }
 
   public Command gyroResetCmd() {
