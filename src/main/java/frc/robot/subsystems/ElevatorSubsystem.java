@@ -20,7 +20,7 @@ import frc.robot.Constants.ElevatorConstant;
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   private final WPI_VictorSPX leftElevatorMotor;
-  private final WPI_VictorSPX rightlevatorMotor;
+  private final WPI_VictorSPX rightElevatorMotor;
   private final Encoder encoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
@@ -28,12 +28,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem() {
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
-    rightlevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
+    rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
     leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    leftElevatorMotor.follow(rightlevatorMotor);
+    rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
 
     encoder.reset();
@@ -172,10 +172,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, power);
+      rightElevatorMotor.set(ControlMode.PercentOutput, power);
       manualControl = true;
 
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+      rightElevatorMotor.set(ControlMode.PercentOutput, 0);
       manualControl = false;
     });
     cmd.setName("manualMove");
