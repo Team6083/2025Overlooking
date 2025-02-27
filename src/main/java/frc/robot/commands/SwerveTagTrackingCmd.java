@@ -18,8 +18,6 @@ public class SwerveTagTrackingCmd extends Command {
   TagTrackingSubsystem tagTracking;
   PIDController txController = new PIDController(0.1, 0, 0);
   PIDController tyController = new PIDController(0.1, 0, 0);
-  double xSpeed;
-  double ySpeed;
 
   public SwerveTagTrackingCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
@@ -37,11 +35,15 @@ public class SwerveTagTrackingCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // CHECKSTYLE.OFF: LocalVariableName
+    double xSpeed;
+    double ySpeed;
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
     ySpeed = txController.calculate(tagTracking.getTx(), 0);
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    // CHECKSTYLE.ON: LocalVariableName
     
     SmartDashboard.putNumber("tx", tagTracking.getTx());
     SmartDashboard.putNumber("ty", tagTracking.getTy());

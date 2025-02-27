@@ -37,6 +37,7 @@ public class SwerveToReef extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
     xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
@@ -49,7 +50,8 @@ public class SwerveToReef extends Command {
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, 0, false);
-    
+    // CHECKSTYLE.ON: LocalVariableName
+
     SmartDashboard.putNumber("tx", tagTracking.getTx());
     SmartDashboard.putNumber("ty", tagTracking.getTy());
     SmartDashboard.putNumber("tv", tagTracking.getTv());
