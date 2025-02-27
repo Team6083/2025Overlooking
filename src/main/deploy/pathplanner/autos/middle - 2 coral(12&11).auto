@@ -113,6 +113,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "2 coral - L2",
+  "folder": "coral",
   "choreoAuto": false
 }

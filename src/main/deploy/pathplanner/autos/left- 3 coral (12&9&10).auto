@@ -11,63 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - leave(3)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ErToSec"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AprilTagRight"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterWithStop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ErDown"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "reef (3) to coral station "
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral station to reef(4)"
+                  "pathName": "left - leave(12)"
                 }
               },
               {
@@ -92,9 +36,115 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(12) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral station to reef(9)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ErDown"
+            "name": "AprilTagRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(9) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral station to reef(10)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
           }
         }
       ]

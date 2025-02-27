@@ -92,15 +92,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ErDown"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(11) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "2 coral - L2",
+  "folder": "coral",
   "choreoAuto": false
 }

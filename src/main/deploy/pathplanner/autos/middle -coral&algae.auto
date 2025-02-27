@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "reef(2) - algae"
