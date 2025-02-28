@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.982954545462231,
+        "y": 3.8521590909075165
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.971838202321964,
+        "y": 4.12473429303927
+      },
+      "isLocked": false,
+      "linkedName": "reef 2"
+    },
+    {
+      "anchor": {
+        "x": 5.983,
+        "y": 4.0
+      },
+      "prevControl": {
+        "x": 5.991856412791252,
+        "y": 3.6593509022831405
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.2,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 179.343209188937
+  },
+  "reversed": false,
+  "folder": "algae",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

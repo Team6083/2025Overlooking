@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.474217465966014,
-        "y": 5.884517436820372
+        "x": 4.334493162362378,
+        "y": 5.919493092661185
       },
       "isLocked": false,
       "linkedName": "reef 11"
@@ -20,8 +20,8 @@
         "y": 7.423514344262295
       },
       "prevControl": {
-        "x": 2.5911570585303414,
-        "y": 6.338572262326212
+        "x": 2.2771538439399457,
+        "y": 6.58783430817856
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 1.2,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

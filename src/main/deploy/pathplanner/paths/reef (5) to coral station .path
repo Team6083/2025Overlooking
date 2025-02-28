@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.861,
+        "y": 2.6404999999999994
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.0164275432704053,
+        "y": 1.8332882123934469
+      },
+      "isLocked": false,
+      "linkedName": "leef5"
+    },
+    {
+      "anchor": {
+        "x": 1.67827868852459,
+        "y": 0.5785348360655734
+      },
+      "prevControl": {
+        "x": 2.419690454507722,
+        "y": 1.2967768673410904
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.2,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 52.30575953331088
+  },
+  "reversed": false,
+  "folder": "to coral station",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 57.65255650055804
+  },
+  "useDefaultConstraints": true
+}

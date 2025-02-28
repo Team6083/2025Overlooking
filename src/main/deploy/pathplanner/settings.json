@@ -3,20 +3,25 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
+    "algae",
+    "coral station to reef",
     "left - leave",
     "middle - leave",
+    "middle_left - leave",
+    "middle_right leave",
     "right - leave",
     "test",
     "to coral station",
-    "coral station to reef",
     "way points"
   ],
   "autoFolders": [
-    "2 coral - L2",
+    "coral L3",
+    "coral L2",
+    "coral L4",
     "test"
   ],
   "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 2.0,
+  "defaultMaxAccel": 1.2,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,

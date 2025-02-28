@@ -52,9 +52,13 @@ public class RobotContainer {
     swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
     swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
-    NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
-            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+    NamedCommands.registerCommand("CoralShooterIn",
+    new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+    coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+
+    NamedCommands.registerCommand("CoralShooterWithAutoStop",
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
+        .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
@@ -67,6 +71,16 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
+
+    NamedCommands.registerCommand("AprilTagRight",
+        new SequentialCommandGroup(
+            swerveTagTrackingCmd,
+            swerveToReefRightCmd));
+
+    NamedCommands.registerCommand("AprilTagLeft",
+        new SequentialCommandGroup(
+            swerveTagTrackingCmd,
+            swerveToReefLeftCmd));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -84,8 +98,8 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     // mainController.y().whileTrue(new SequentialCommandGroup(
-    //     swerveTagTrackingCmd,
-    //     swerveToReefRightCmd
+    //    swerveTagTrackingCmd,
+    //    swerveToReefRightCmd
     // ));
 
     // CoralShooter
@@ -109,7 +123,7 @@ public class RobotContainer {
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    
+
     // ALgaeIntake
     mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
