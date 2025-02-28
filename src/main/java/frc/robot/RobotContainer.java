@@ -53,12 +53,12 @@ public class RobotContainer {
     swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
     NamedCommands.registerCommand("CoralShooterIn",
-    new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-    coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+        new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterWithAutoStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
-        .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
@@ -74,13 +74,13 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("AprilTagRight",
         new SequentialCommandGroup(
-            new SwerveTagTrackingCmd(swerveDrive,tagTrackingSubsystem),
+            new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
             new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right")));
 
     NamedCommands.registerCommand("AprilTagLeft",
         new SequentialCommandGroup(
-            new SwerveTagTrackingCmd(swerveDrive,tagTrackingSubsystem),
-            new SwerveToReef(swerveDrive,tagTrackingSubsystem,"left")));
+            new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+            new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left")));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -97,22 +97,27 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     // mainController.y().whileTrue(new SequentialCommandGroup(
-    //    swerveTagTrackingCmd,
-    //    swerveToReefRightCmd
+    // swerveTagTrackingCmd,
+    // swerveToReefRightCmd
     // ));
     // mainController.y().whileTrue(swerveToReefLeftCmd);
-  //   mainController.a().whileTrue(new SequentialCommandGroup(
-  //     new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
-  //     swerveToReefLeftCmd
-  //  ));
+    // mainController.a().whileTrue(new SequentialCommandGroup(
+    // new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+    // swerveToReefLeftCmd
+    // ));
+
+    // mainController.y().whileTrue(swerveDrive.runEnd(
+    //     () -> swerveDrive.drive(0.1, 0, 0, false),
+    //     () -> swerveDrive.stop()));
 
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
