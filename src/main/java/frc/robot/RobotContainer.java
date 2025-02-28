@@ -23,12 +23,14 @@ import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.TagTrackingSubsystem;
+import frc.robot.subsystems.preferencesSubsystem;
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  private final preferencesSubsystem preferencesSubsystem;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
@@ -40,6 +42,7 @@ public class RobotContainer {
   private final SwerveToReef swerveToReefRightCmd;
 
   public RobotContainer() {
+    preferencesSubsystem = new preferencesSubsystem();
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
