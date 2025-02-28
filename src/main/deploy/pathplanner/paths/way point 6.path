@@ -23,9 +23,25 @@
         "x": 3.43189521755529,
         "y": 2.944237230755575
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 3.861104782444709,
+        "y": 2.687762769244423
+      },
       "isLocked": false,
       "linkedName": "reef 6"
+    },
+    {
+      "anchor": {
+        "x": 3.7056587837837838,
+        "y": 2.947888513513513
+      },
+      "prevControl": {
+        "x": 3.9231221346543306,
+        "y": 2.8245609374076257
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
