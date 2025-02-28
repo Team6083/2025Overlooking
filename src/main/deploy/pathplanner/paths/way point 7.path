@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 1.0999438188390533
   },
   "reversed": false,
   "folder": "way points",

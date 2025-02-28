@@ -52,13 +52,13 @@ public class RobotContainer {
     swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
     swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
-    // NamedCommands.registerCommand("CoralShooterIn",
-    // new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-    // coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+    NamedCommands.registerCommand("CoralShooterIn",
+    new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+    coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
-    // NamedCommands.registerCommand("CoralShooterWithAutoStop",
-    //     coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
-    //     .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+    NamedCommands.registerCommand("CoralShooterWithAutoStop",
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
+        .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());

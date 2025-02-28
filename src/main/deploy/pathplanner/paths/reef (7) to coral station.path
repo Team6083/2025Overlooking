@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.276858108108108,
-        "y": 2.947888513513513
+        "x": 3.164754098360655,
+        "y": 3.8511782786885242
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.497461789084173,
-        "y": 2.432986213226111
+        "x": 1.6601351351351354,
+        "y": 2.384628378378378
       },
       "isLocked": false,
-      "linkedName": "reef 3"
+      "linkedName": "reef 7"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 1.0407094594594581
       },
       "prevControl": {
-        "x": 1.7385533605638726,
-        "y": 2.002936909667717
+        "x": 0.8904654676520347,
+        "y": 0.9341930131906239
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "to coral station",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 1.0999438188390533
   },
   "useDefaultConstraints": true
 }
