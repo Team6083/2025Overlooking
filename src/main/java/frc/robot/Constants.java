@@ -111,10 +111,15 @@ public class Constants {
     public static final int kBackRightTurningMotorChannel = 26;
 
     // driveMotor inverted
-    public static final boolean kFrontLeftDriveMotorInverted = true;
-    public static final boolean kFrontRightDriveMotorInverted = false;
-    public static final boolean kBackLeftDriveMotorInverted = true;
-    public static final boolean kBackRightDriveMotorInverted = false;
+    public static final boolean TWNkFrontLeftDriveMotorInverted = true;
+    public static final boolean TWNkFrontRightDriveMotorInverted = false;
+    public static final boolean TWNkBackLeftDriveMotorInverted = true;
+    public static final boolean TWNkBackRightDriveMotorInverted = false;
+    public static final boolean AUkFrontLeftDriveMotorInverted = false;
+    public static final boolean AUkFrontRightDriveMotorInverted = true;
+    public static final boolean AUkBackLeftDriveMotorInverted = false;
+    public static final boolean AUkBackRightDriveMotorInverted = true;
+
 
     // turningMotor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;

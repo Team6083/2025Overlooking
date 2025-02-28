@@ -34,10 +34,7 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  public double kfrontLeftCanCoderMagOffset;
-  public double kfrontRightCanCoderMagOffset;
-  public double kbackRightCanCoderMagOffset;
-  public double kbackLeftCanCoderMagOffset;
+ 
   private final preferencesSubsystem preferencesSubsystem;
 
   private final SwerveDriveKinematics kinematics;
@@ -58,28 +55,28 @@ public class SwerveDrive extends SubsystemBase {
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
         DriveBaseConstant.kFrontLeftTurningMotorChannel,
         DriveBaseConstant.kFrontLeftCanCoder,
-        DriveBaseConstant.kFrontLeftDriveMotorInverted,
+        preferencesSubsystem.kFrontLeftDriveMotorInverted,
         DriveBaseConstant.kFrontLeftTurningMotorInverted,
         preferencesSubsystem.kfrontLeftCanCoderMagOffset, "frontLeft");
     frontRight = new SwerveModule(
         DriveBaseConstant.kFrontRightDriveMotorChannel,
         DriveBaseConstant.kFrontRightTurningMotorChannel,
         DriveBaseConstant.kFrontRightCanCoder,
-        DriveBaseConstant.kFrontRightDriveMotorInverted,
+        preferencesSubsystem.kFrontRightDriveMotorInverted,
         DriveBaseConstant.kFrontRightTurningMotorInverted,
         preferencesSubsystem.kfrontLeftCanCoderMagOffset, "frontRight");
     backLeft = new SwerveModule(
         DriveBaseConstant.kBackLeftDriveMotorChannel,
         DriveBaseConstant.kBackLeftTurningMotorChannel,
         DriveBaseConstant.kBackLeftCanCoder,
-        DriveBaseConstant.kBackLeftDriveMotorInverted,
+        preferencesSubsystem.kBackLeftDriveMotorInverted,
         DriveBaseConstant.kBackLeftTuringMotorInverted,
         preferencesSubsystem.kbackLeftCanCoderMagOffset, "backLeft");
     backRight = new SwerveModule(
         DriveBaseConstant.kBackRightDriveMotorChannel,
         DriveBaseConstant.kBackRightTurningMotorChannel,
         DriveBaseConstant.kBackRightCanCoder,
-        DriveBaseConstant.kBackRightDriveMotorInverted,
+        preferencesSubsystem.kBackRightDriveMotorInverted,
         DriveBaseConstant.kBackRightTurningMotorInverted,
         preferencesSubsystem.kbackRightCanCoderMagOffset, "backRight");
 

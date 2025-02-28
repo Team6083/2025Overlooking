@@ -15,6 +15,10 @@ public class preferencesSubsystem extends SubsystemBase {
   public double kfrontRightCanCoderMagOffset;
   public double kbackRightCanCoderMagOffset;
   public double kbackLeftCanCoderMagOffset;
+  public boolean kFrontLeftDriveMotorInverted;
+  public boolean kFrontRightDriveMotorInverted;
+  public boolean kBackLeftDriveMotorInverted;
+  public boolean kBackRightDriveMotorInverted;
   private int au = 0;
   private int twn = 1;
   private int whereCanCoderMagOffset;
@@ -33,16 +37,28 @@ public class preferencesSubsystem extends SubsystemBase {
       kfrontRightCanCoderMagOffset = DriveBaseConstant.AUkFrontRightCanCoderMagOffset;
       kbackLeftCanCoderMagOffset = DriveBaseConstant.AUkBackLeftCanCoderMagOffset;
       kbackRightCanCoderMagOffset = DriveBaseConstant.AUkBackRightCanCoderMagOffset;
+      kFrontLeftDriveMotorInverted = DriveBaseConstant.AUkFrontLeftDriveMotorInverted;
+      kFrontRightDriveMotorInverted = DriveBaseConstant.AUkFrontRightDriveMotorInverted;
+      kBackLeftDriveMotorInverted = DriveBaseConstant.AUkBackLeftDriveMotorInverted;
+      kBackRightDriveMotorInverted = DriveBaseConstant.AUkBackRightDriveMotorInverted;
     } else if (trueCanCoderMagOffset == twn) {
       kfrontLeftCanCoderMagOffset = DriveBaseConstant.TWNkFrontLeftCanCoderMagOffset;
       kfrontRightCanCoderMagOffset = DriveBaseConstant.TWNkFrontRightCanCoderMagOffset;
       kbackLeftCanCoderMagOffset = DriveBaseConstant.TWNkBackLeftCanCoderMagOffset;
       kbackRightCanCoderMagOffset = DriveBaseConstant.TWNkBackRightCanCoderMagOffset;
+      kFrontLeftDriveMotorInverted = DriveBaseConstant.TWNkFrontLeftDriveMotorInverted;
+      kFrontRightDriveMotorInverted = DriveBaseConstant.TWNkFrontRightDriveMotorInverted;
+      kBackLeftDriveMotorInverted = DriveBaseConstant.TWNkBackLeftDriveMotorInverted;
+      kBackRightDriveMotorInverted = DriveBaseConstant.TWNkBackRightDriveMotorInverted;
     }
-    SmartDashboard.putNumber("fl", kfrontLeftCanCoderMagOffset);
-    SmartDashboard.putNumber("fr", kfrontRightCanCoderMagOffset);
-    SmartDashboard.putNumber("bl", kbackLeftCanCoderMagOffset);
-    SmartDashboard.putNumber("br", kbackRightCanCoderMagOffset);
+    SmartDashboard.putNumber("flCanCoderMagOffset", kfrontLeftCanCoderMagOffset);
+    SmartDashboard.putNumber("frCanCoderMagOffset", kfrontRightCanCoderMagOffset);
+    SmartDashboard.putNumber("blCanCoderMagOffset", kbackLeftCanCoderMagOffset);
+    SmartDashboard.putNumber("brCanCoderMagOffset", kbackRightCanCoderMagOffset);
+    SmartDashboard.putBoolean("flDriveMotorInverted", kFrontLeftDriveMotorInverted);
+    SmartDashboard.putBoolean("frDriveMotorInverted", kFrontRightDriveMotorInverted);
+    SmartDashboard.putBoolean("blDriveMotorInverted", kBackLeftDriveMotorInverted);
+    SmartDashboard.putBoolean("brDriveMotorInverted", kBackRightDriveMotorInverted);
     SmartDashboard.putNumber("TrueCanCoderMagOffset", trueCanCoderMagOffset);
   }
 }
