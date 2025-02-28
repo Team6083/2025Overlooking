@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6662909836065571,
-        "y": 7.423514344262295
+        "x": 7.2,
+        "y": 5.049
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.353332751538095,
-        "y": 6.610898274681969
+        "x": 7.63425,
+        "y": 5.14625
       },
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": "middle_left barge"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.38025
       },
       "prevControl": {
-        "x": 3.2908647540983615,
-        "y": 5.9196967213114755
+        "x": 5.19675,
+        "y": 6.17
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": -59.93141717813745
   },
   "reversed": false,
-  "folder": "coral station to reef",
+  "folder": "middle_left - leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.19442890773478
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

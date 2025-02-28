@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 1.6662909836065571,
-        "y": 7.423514344262295
+        "y": 0.6025102459016398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.353332751538095,
-        "y": 6.610898274681969
+        "x": 2.3844487030609907,
+        "y": 1.4404656527976885
       },
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": "right coral station"
     },
     {
       "anchor": {
-        "x": 3.89025,
-        "y": 5.38025
+        "x": 3.6464999999999996,
+        "y": 2.815999999999999
       },
       "prevControl": {
-        "x": 3.2908647540983615,
-        "y": 5.9196967213114755
+        "x": 3.164968960798964,
+        "y": 2.241816850304226
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 10"
+      "linkedName": "reef 6"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.93141717813745
+    "rotation": 60.25511870305776
   },
   "reversed": false,
   "folder": "coral station to reef",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.19442890773478
+    "rotation": 53.74616226255516
   },
   "useDefaultConstraints": true
 }
