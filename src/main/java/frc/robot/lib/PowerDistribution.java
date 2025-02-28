@@ -3,8 +3,8 @@ package frc.robot.lib;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PowerDistributionConstant;
 
-public class PowerDistribution {
-  private static edu.wpi.first.wpilibj.PowerDistribution powerDistribution;
+public class PowerDistribution { 
+  private edu.wpi.first.wpilibj.PowerDistribution powerDistribution;
 
   public PowerDistribution() {
     powerDistribution = new edu.wpi.first.wpilibj.PowerDistribution();
