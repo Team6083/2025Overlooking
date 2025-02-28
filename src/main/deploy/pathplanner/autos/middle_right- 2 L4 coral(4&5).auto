@@ -11,13 +11,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left - leave(12)"
+                  "pathName": "middle_right - leave(4)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToFour"
                 }
               }
             ]
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(12) to coral station"
+                  "pathName": "reef (4) to coral station "
                 }
               },
               {
@@ -67,13 +67,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "coral station to reef(10)"
+                  "pathName": " coral station to reef(5)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToFour"
                 }
               }
             ]
@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(10) to coral station"
+                  "pathName": "reef (5) to coral station "
                 }
               },
               {
@@ -115,42 +115,11 @@
           "data": {
             "name": "CoralShooterIn"
           }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral station to reef(9)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ErToSec"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AprilTagLeft"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterWithStop"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "coral L2",
+  "folder": "coral L4",
   "choreoAuto": false
 }
