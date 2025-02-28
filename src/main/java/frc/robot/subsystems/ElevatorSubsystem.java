@@ -108,6 +108,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
+      rightElevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
     } else {
       targetHeight = currentHeight;
