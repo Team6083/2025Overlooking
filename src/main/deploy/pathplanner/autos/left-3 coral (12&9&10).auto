@@ -55,9 +55,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
+            "name": "CoralShooterIn"
           }
         },
         {
@@ -111,9 +111,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
+            "name": "CoralShooterIn"
           }
         },
         {
@@ -151,6 +151,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "coral",
+  "folder": "coral L2",
   "choreoAuto": false
 }
