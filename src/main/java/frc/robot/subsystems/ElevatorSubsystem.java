@@ -19,18 +19,21 @@ import frc.robot.Constants.ElevatorConstant;
 
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
-  private final WPI_VictorSPX elevatorMotor;
+  private final WPI_VictorSPX leftElevatorMotor;
+  private final WPI_VictorSPX rightElevatorMotor;
   private final Encoder encoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
 
   public ElevatorSubsystem() {
-    elevatorMotor = new WPI_VictorSPX(ElevatorConstant.kElevatorMotorChannel);
-    elevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
+    leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
+    rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
+    leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+    rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
 
     encoder.reset();
@@ -93,7 +96,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void stopMove() {
-    elevatorMotor.set(ControlMode.PercentOutput, 0);
+    leftElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
@@ -104,7 +107,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
-      elevatorMotor.set(ControlMode.PercentOutput, output);
+      leftElevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
     } else {
       targetHeight = currentHeight;
@@ -168,11 +171,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
-      elevatorMotor.set(ControlMode.PercentOutput, power);
+      leftElevatorMotor.set(ControlMode.PercentOutput, power);
+      rightElevatorMotor.set(ControlMode.PercentOutput, power);
       manualControl = true;
 
     }, () -> {
-      elevatorMotor.set(ControlMode.PercentOutput, 0);
+      leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+      rightElevatorMotor.set(ControlMode.PercentOutput, 0);
       manualControl = false;
     });
     cmd.setName("manualMove");

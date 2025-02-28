@@ -100,12 +100,12 @@ public class RobotContainer {
     mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(-0.5),
+            elevatorSubsystem.manualMoveDownCmd(),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(0.5),
+            elevatorSubsystem.manualMoveUpCmd(),
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
