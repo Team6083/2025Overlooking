@@ -72,15 +72,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    // NamedCommands.registerCommand("AprilTagRight",
-    //     new SequentialCommandGroup(
-    //         swerveTagTrackingCmd,
-    //         swerveToReefRightCmd));
+    NamedCommands.registerCommand("AprilTagRight",
+        new SequentialCommandGroup(
+            new SwerveTagTrackingCmd(swerveDrive,tagTrackingSubsystem),
+            new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right")));
 
-    // NamedCommands.registerCommand("AprilTagLeft",
-    //     new SequentialCommandGroup(
-    //         swerveTagTrackingCmd,
-    //         swerveToReefLeftCmd));
+    NamedCommands.registerCommand("AprilTagLeft",
+        new SequentialCommandGroup(
+            new SwerveTagTrackingCmd(swerveDrive,tagTrackingSubsystem),
+            new SwerveToReef(swerveDrive,tagTrackingSubsystem,"left")));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -101,10 +101,11 @@ public class RobotContainer {
     //    swerveTagTrackingCmd,
     //    swerveToReefRightCmd
     // ));
-    mainController.a().whileTrue(new SequentialCommandGroup(
-      new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
-      swerveToReefLeftCmd
-   ));
+    // mainController.y().whileTrue(swerveToReefLeftCmd);
+  //   mainController.a().whileTrue(new SequentialCommandGroup(
+  //     new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+  //     swerveToReefLeftCmd
+  //  ));
 
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));

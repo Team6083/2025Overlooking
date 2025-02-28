@@ -9,24 +9,6 @@
           "data": {
             "pathName": "1m"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ErToSec"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ErDown"
-          }
         }
       ]
     }
