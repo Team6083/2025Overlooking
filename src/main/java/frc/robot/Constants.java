@@ -45,7 +45,7 @@ public class Constants {
 
     public static final int kLeftElevatorMotorChannel = 33;
     public static final int kRightElevatorMotorChannel = 30;
-    public static final boolean kMotorInverted = false;
+    public static final boolean kMotorInverted = true;
 
     public static final int kEncoderChannelA = 2;
     public static final int kEncoderChannelB = 3;
@@ -58,8 +58,8 @@ public class Constants {
     public static final Distance kLowestHeight = Millimeters.of(430.0);
     public static final Distance kMaxHeight = Millimeters.of(1000);
 
-    public static final double kMaxOutput = 0.8;
-    public static final double kMinOutput = -0.5;
+    public static final double kMaxOutput = 0.4;
+    public static final double kMinOutput = -0.3;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
@@ -69,7 +69,7 @@ public class Constants {
     public static final Distance kStepHeight = Millimeters.of(1);
 
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters);
+        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
 
   public static final class ModuleConstant {

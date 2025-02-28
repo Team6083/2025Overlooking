@@ -95,9 +95,9 @@ public class RobotContainer {
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
-    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
-    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.manualMoveDownCmd(),
