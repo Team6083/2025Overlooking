@@ -120,7 +120,6 @@ public class Constants {
     public static final boolean AUkBackLeftDriveMotorInverted = false;
     public static final boolean AUkBackRightDriveMotorInverted = true;
 
-
     // turningMotor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
     public static final boolean kFrontRightTurningMotorInverted = true;
@@ -139,11 +138,10 @@ public class Constants {
     public static final double AUkFrontRightCanCoderMagOffset = 0.369141;
     public static final double AUkBackLeftCanCoderMagOffset = 0.401855;
     public static final double AUkBackRightCanCoderMagOffset = -0.010254;
-    public static final double TWNkFrontLeftCanCoderMagOffset =  -0.031738;
+    public static final double TWNkFrontLeftCanCoderMagOffset = -0.031738;
     public static final double TWNkFrontRightCanCoderMagOffset = -0.409668;
     public static final double TWNkBackLeftCanCoderMagOffset = 0.180908;
     public static final double TWNkBackRightCanCoderMagOffset = 0.141846;
-
 
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;

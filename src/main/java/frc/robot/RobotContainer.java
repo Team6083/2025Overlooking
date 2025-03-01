@@ -23,14 +23,12 @@ import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.TagTrackingSubsystem;
-import frc.robot.subsystems.preferencesSubsystem;
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final preferencesSubsystem preferencesSubsystem;
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
@@ -42,7 +40,7 @@ public class RobotContainer {
   private final SwerveToReef swerveToReefRightCmd;
 
   public RobotContainer() {
-    preferencesSubsystem = new preferencesSubsystem();
+
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
@@ -87,8 +85,8 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
     // mainController.y().whileTrue(new SequentialCommandGroup(
-    //     swerveTagTrackingCmd,
-    //     swerveToReefRightCmd
+    // swerveTagTrackingCmd,
+    // swerveToReefRightCmd
     // ));
 
     // CoralShooter
@@ -96,7 +94,7 @@ public class RobotContainer {
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
@@ -112,7 +110,7 @@ public class RobotContainer {
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
-    
+
     // ALgaeIntake
     mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
