@@ -12,18 +12,20 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.TagTrackingSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Driver extends Command {
-  /** Creates a new SwerveTagoTrackingCmd. */
+public class SwerveToReefRightCmd extends Command {
+  /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
-  PIDController txController = new PIDController(0.05, 0, 0);
+  PIDController txController = new PIDController(0.01, 0, 0);
+  PIDController tyController = new PIDController(0.6, 0, 0);
 
-  public Driver(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
+  public SwerveToReefRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
+      txController.setSetpoint(-19);
+      tyController.setSetpoint(3.9);
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
-    txController.setSetpoint(15.0);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,13 +38,22 @@ public class Driver extends Command {
   @Override
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
+    double xSpeed;
     double ySpeed;
-    ySpeed = txController.calculate(tagTracking.getTx());
-    ySpeed = MathUtil.clamp(ySpeed, -3, 3);
-    swerveDrive.drive(0, ySpeed, 0, false);
+    xSpeed = tyController.calculate(tagTracking.getTy());
+    if (Math.abs(tyController.getError()) < 1) {
+      ySpeed = txController.calculate(tagTracking.getTx());
+    } else {
+      ySpeed = 0;
+    }
+    xSpeed = MathUtil.clamp(xSpeed, -3, 3);
+    ySpeed = MathUtil.clamp(ySpeed, -1, 1);
+    swerveDrive.drive(xSpeed, ySpeed, 0, false);
     // CHECKSTYLE.ON: LocalVariableName
 
+    SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
+    SmartDashboard.putData("tyController", tyController);
     SmartDashboard.putData("txController", txController);
   }
 
@@ -55,6 +66,8 @@ public class Driver extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return tagTracking.getTv() == 0
+    || (Math.abs((txController.getError())) < 0.5 &&
+    Math.abs(tyController.getError()) < 0.5);
   }
 }
