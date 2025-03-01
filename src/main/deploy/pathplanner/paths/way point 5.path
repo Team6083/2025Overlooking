@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 7.555379098360655
+        "x": 7.1857500000000005,
+        "y": 7.5447500000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.174077868852462,
-        "y": 7.519415983606557
+        "x": 5.159827868852462,
+        "y": 7.508786885245902
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 5.03483606557377,
-        "y": 5.25373975409836
+        "x": 3.6464999999999996,
+        "y": 2.815999999999999
       },
       "prevControl": {
-        "x": 5.091161453162674,
-        "y": 5.959684611879291
+        "x": 3.702825387588904,
+        "y": 3.5219448577809302
       },
       "nextControl": {
-        "x": 4.855020491803278,
-        "y": 3.0000512295081974
+        "x": 3.4666844262295076,
+        "y": 0.5623114754098362
       },
       "isLocked": false,
       "linkedName": "reef 6"
     },
     {
       "anchor": {
-        "x": 3.902215909090909,
-        "y": 2.6555681818181824
+        "x": 3.952702702702703,
+        "y": 2.789780405405405
       },
       "prevControl": {
-        "x": 3.7463757451564836,
-        "y": 3.4107935916542473
+        "x": 3.7968625387682775,
+        "y": 3.54500581524147
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,9 +50,9 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 1.1,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },

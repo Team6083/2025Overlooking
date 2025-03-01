@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 7.2,
-        "y": 5.086
+        "y": 3.0109999999999992
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.200514481381846,
-        "y": 5.0375981437148045
+        "x": 6.221181542914805,
+        "y": 3.18315081830533
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "middle_right barge"
     },
     {
       "anchor": {
-        "x": 5.378011363636364,
-        "y": 5.234886363636364
+        "x": 3.952702702702703,
+        "y": 2.789780405405405
       },
       "prevControl": {
-        "x": 5.629647137114765,
-        "y": 5.366326135949643
+        "x": 4.974236793611794,
+        "y": 2.092212223587222
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 12"
+      "linkedName": "leef5"
     }
   ],
   "rotationTargets": [],
@@ -34,21 +34,21 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 1.1,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 57.65255650055804
   },
   "reversed": false,
-  "folder": "left - leave",
+  "folder": "middle_right leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -89.9735345829019
+    "rotation": 179.3135396369327
   },
   "useDefaultConstraints": true
 }
