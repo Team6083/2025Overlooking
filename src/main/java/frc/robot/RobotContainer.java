@@ -82,6 +82,9 @@ public class RobotContainer {
             new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
             new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left")));
 
+    NamedCommands.registerCommand("SetTurningDegree",
+     swerveDrive.setTurningDegreeCmd(0).withTimeout(0.01));
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
