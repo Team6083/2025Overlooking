@@ -87,21 +87,19 @@ public class RobotContainer {
                         new AprilTagAndAutoCmd(swerveDrive),
                         () -> tagTrackingSubsystem.getTv() == 1));
 
+        NamedCommands.registerCommand("SetTurningDegree",
+                swerveDrive.setTurningDegreeCmd(0).withTimeout(0.01));
 
-    NamedCommands.registerCommand("SetTurningDegree",
-     swerveDrive.setTurningDegreeCmd(0).withTimeout(0.01));
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
-    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
-    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
-    SmartDashboard.putData("SwerveDrive", swerveDrive);
-    SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
-    configureBindings();
-  }
-
+        autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        SmartDashboard.putData("AutoChooser", autoChooser);
+        SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
+        SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
+        SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
+        SmartDashboard.putData("SwerveDrive", swerveDrive);
+        SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
+        configureBindings();
+    }
 
     private void configureBindings() {
         // SwerveDrive
