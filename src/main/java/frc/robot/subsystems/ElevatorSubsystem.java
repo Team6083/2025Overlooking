@@ -106,7 +106,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       elevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
-    }else if(encoder.getStopped()==true||targetHeight.in(Millimeters)>ElevatorConstant.kMaxHeight.in(Millimeters)){
+    }else if(encoder.getStopped()==true&&encoder.getRaw()==0||targetHeight.in(Millimeters)>ElevatorConstant.kMaxHeight.in(Millimeters)){
       elevatorMotor.set(ControlMode.PercentOutput, 0);
     } 
     else {
