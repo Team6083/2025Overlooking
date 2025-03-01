@@ -35,7 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
-
+encoder.setReverseDirection(true);
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
 

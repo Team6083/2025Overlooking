@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,6 +19,7 @@ import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.SwerveTagTrackingCmd;
 import frc.robot.commands.SwerveToReef;
+import frc.robot.commands.Driver;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -33,6 +36,7 @@ public class RobotContainer {
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final SendableChooser<Command> autoChooser;
+  private final Joystick Joystick;
 
   private final TagTrackingSubsystem tagTrackingSubsystem;
   private final SwerveTagTrackingCmd swerveTagTrackingCmd;
@@ -46,6 +50,7 @@ public class RobotContainer {
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
+    Joystick = new Joystick(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
     swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
@@ -96,8 +101,9 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    mainController.b().whileTrue(new Driver(swerveDrive, tagTrackingSubsystem));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    // mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     // mainController.y().whileTrue(new SequentialCommandGroup(
     // swerveTagTrackingCmd,
     // swerveToReefRightCmd
@@ -135,9 +141,9 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    //  mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
