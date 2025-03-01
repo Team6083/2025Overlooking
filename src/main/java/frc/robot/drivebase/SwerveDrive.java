@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.PreferencesClass.CanCoderMagOffset;
+import frc.robot.PreferencesClass.DriveMotorInverted;
 import frc.robot.PreferencesClass;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
@@ -39,7 +40,7 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  private final PreferencesClass preferencesClass;
+  
  
 
   private final SwerveDriveKinematics kinematics;
@@ -58,37 +59,37 @@ public class SwerveDrive extends SubsystemBase {
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
-    preferencesClass = new PreferencesClass();
+    
 
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
         DriveBaseConstant.kFrontLeftTurningMotorChannel,
         DriveBaseConstant.kFrontLeftCanCoder,
-        PreferencesClass.DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"),
+       DriveMotorInverted.get("kFrontLeftDriveMotorInverted"),
         DriveBaseConstant.kFrontLeftTurningMotorInverted,
-        CanCoderMagOffset.currentConfig.get("kFrontLeftCanCoderMagOffset"), "frontLeft");
+        CanCoderMagOffset.get("kFrontLeftCanCoderMagOffset"), "frontLeft");
     frontRight = new SwerveModule(
         DriveBaseConstant.kFrontRightDriveMotorChannel,
         DriveBaseConstant.kFrontRightTurningMotorChannel,
         DriveBaseConstant.kFrontRightCanCoder,
-        PreferencesClass.DriveMotorInverted.currentConfig.get("kFrontRightDriveMotorInverted"),
+        DriveMotorInverted.get("kFrontRightDriveMotorInverted"),
         DriveBaseConstant.kFrontRightTurningMotorInverted,
-        CanCoderMagOffset.currentConfig.get("kFrontRightCanCoderMagOffset"), "frontRight");
+        CanCoderMagOffset.get("kFrontRightCanCoderMagOffset"), "frontRight");
     backLeft = new SwerveModule(
         DriveBaseConstant.kBackLeftDriveMotorChannel,
         DriveBaseConstant.kBackLeftTurningMotorChannel,
         DriveBaseConstant.kBackLeftCanCoder,
-        PreferencesClass.DriveMotorInverted.currentConfig.get("kBackLeftDriveMotorInverted"),
+        DriveMotorInverted.get("kBackLeftDriveMotorInverted"),
         DriveBaseConstant.kBackLeftTuringMotorInverted,
-        CanCoderMagOffset.currentConfig.get("kBackLeftCanCoderMagOffset"), "backLeft");
+        CanCoderMagOffset.get("kBackLeftCanCoderMagOffset"), "backLeft");
     backRight = new SwerveModule(
         DriveBaseConstant.kBackRightDriveMotorChannel,
         DriveBaseConstant.kBackRightTurningMotorChannel,
         DriveBaseConstant.kBackRightCanCoder,
-        PreferencesClass.DriveMotorInverted.currentConfig.get("kBackRightDriveMotorInverted"),
+        DriveMotorInverted.get("kBackRightDriveMotorInverted"),
         DriveBaseConstant.kBackRightTurningMotorInverted,
-        CanCoderMagOffset.currentConfig.get("kBackRightCanCoderMagOffset"), "backRight");
+        CanCoderMagOffset.get("kBackRightCanCoderMagOffset"), "backRight");
 
     SmartDashboard.putData("FrontLeft", frontLeft);
     SmartDashboard.putData("FrontRight", frontRight);

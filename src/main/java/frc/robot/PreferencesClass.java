@@ -5,19 +5,17 @@
 package frc.robot;
 
 import java.util.Map;
-
-
-import frc.robot.Constants.DriveBaseConstant;
+import java.util.concurrent.BlockingDeque;
 
 /** Add your docs here. */
 public class PreferencesClass {
     public class DriveMotorInverted {
         public static Map<String, Boolean> AUDriveMotorInverted_MAP = Map.of(
-
                 "kFrontLeftDriveMotorInverted", false,
                 "kFrontRightDriveMotorInverted", true,
                 " kBackLeftDriveMotorInverted", false,
                 " kBackRightDriveMotorInverted", true);
+
         public static Map<String, Boolean> TWNDriveMotorInverted_MAP = Map.of(
                 "kFrontLeftDriveMotorInverted", true,
                 "kFrontRightDriveMotorInverted", false,
@@ -26,8 +24,13 @@ public class PreferencesClass {
         public static Map<String, Boolean> currentConfig = AUDriveMotorInverted_MAP;
 
         public static boolean get(String key) {
-            return currentConfig.get(key);
+           
+            if ( currentConfig.get(key)==null) {
+                return false;
+            }else{
+            return currentConfig.get(key);}
         }
+
     }
 
     public class CanCoderMagOffset {
@@ -37,16 +40,21 @@ public class PreferencesClass {
                 "kBackLeftCanCoderMagOffset", 0.401855,
                 "kBackRightCanCoderMagOffset", -0.010254);
         public static Map<String, Double> TWNCanCoderMagOffset_MAP = Map.of(
-                " kfrontLeftCanCoderMagOffset ",  -0.031738,
+                " kfrontLeftCanCoderMagOffset ", -0.031738,
                 "kfrontRightCanCoderMagOffset", -0.409668,
                 " kbackLeftCanCoderMagOffset", 0.180908,
-                "kbackRightCanCoderMagOffset ",  0.141846
+                "kbackRightCanCoderMagOffset ", 0.141846
 
         );
         public static Map<String, Double> currentConfig = AUCanCoderMagOffset_MAP;
 
         public static double get(String key) {
-            return currentConfig.get(key);
+            if ( currentConfig.get(key)==null) {
+                return -1;
+            }else{
+            return currentConfig.get(key);}
         }
+
     }
+
 }
