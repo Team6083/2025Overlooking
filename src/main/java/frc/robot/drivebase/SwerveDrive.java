@@ -28,7 +28,7 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
-  private final SwerveModule frontLeft;
+  public final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
