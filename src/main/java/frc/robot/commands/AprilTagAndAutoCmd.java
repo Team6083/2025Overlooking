@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.Meters;
 
 import com.ctre.phoenix6.swerve.SwerveModule;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.drivebase.SwerveDrive;
 
@@ -16,6 +17,7 @@ import frc.robot.drivebase.SwerveDrive;
 public class AprilTagAndAutoCmd extends Command {
   /** Creates a new AprilTagAndAutoCmd. */
   SwerveDrive swerveDrive;
+  PIDController driveController = new PIDController(0.1, 0, 0);
 
   public AprilTagAndAutoCmd(SwerveDrive swerveDrive) {
     this.swerveDrive = swerveDrive;
@@ -26,12 +28,15 @@ public class AprilTagAndAutoCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveController.setSetpoint(swerveDrive.frontLeft.getDriveDistance().in(Meters) + 0.15);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.drive(0.1, 0, 0, false);
+    swerveDrive.drive(
+        driveController.calculate(swerveDrive.frontLeft.getDriveDistance().in(Meters)),
+        0, 0, false);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +48,6 @@ public class AprilTagAndAutoCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return swerveDrive.frontLeft.getDriveDistance().in(Meters) > 0.15;
+    return driveController.getError() < 0.1;
   }
 }
