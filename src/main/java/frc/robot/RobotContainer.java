@@ -20,7 +20,7 @@ import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.SwerveTagTrackingCmd;
 import frc.robot.commands.SwerveToReefLeftCmd;
 import frc.robot.commands.SwerveToReefRightCmd;
-import frc.robot.commands.TeleopSwerveToReefCmd;
+import frc.robot.commands.TeleopSwerveToReefLeftCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -100,9 +100,7 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    mainController.b().whileTrue(new SwerveToReefLeftCmd(swerveDrive, tagTrackingSubsystem));
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(new SwerveToReefRightCmd(swerveDrive,tagTrackingSubsystem));
     // mainController.y().whileTrue(new SequentialCommandGroup(
     // swerveTagTrackingCmd,
     // swerveToReefRightCmd

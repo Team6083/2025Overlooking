@@ -12,22 +12,18 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.TagTrackingSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class TeleopSwerveToReefCmd extends Command {
+public class TeleopSwerveToReefRightCmd extends Command {
   /** Creates a new SwerveTagoTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
   PIDController txController = new PIDController(0.05, 0, 0);
 
-  public TeleopSwerveToReefCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
+  public TeleopSwerveToReefRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
-    if(leftOrRight == "left"){
-      txController.setSetpoint(18.46);
-    }else{
-      txController.setSetpoint(-21.3);
-    }
+    txController.setSetpoint(-21.3);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
