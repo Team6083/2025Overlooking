@@ -67,7 +67,8 @@ public class Constants {
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
     public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(720);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
+    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(850);
        public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
@@ -163,7 +164,7 @@ public class Constants {
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
     // Algae Rotate & Front PID
-    public static final double rotMotorPIDkP = 0.1;
+    public static final double rotMotorPIDkP = 0.015;
     public static final double rotMotorPIDkI = 0;
     public static final double rotMotorPIDkD = 0;
     // Algae setpoint
