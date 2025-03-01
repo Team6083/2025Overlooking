@@ -5,15 +5,27 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "L - leave(12)"
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "AprilTagLeft"
+            "name": "SetTurningDegree"
           }
         },
         {
@@ -23,15 +35,27 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "coral station to reef(11)"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "AprilTagLeft"
+            "waitTime": 1.0
           }
         }
       ]

@@ -61,7 +61,7 @@ public class Constants {
     public static final double kMaxOutput = 0.4;
     public static final double kMinOutput = -0.1;
 
-    public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kInitialHeight = Millimeters.of(480.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
     public static final Distance kSecFloor = Millimeters.of(810);
     public static final Distance kTrdFloor = Millimeters.of(1210);
@@ -117,6 +117,7 @@ public class Constants {
     public static final boolean kBackLeftDriveMotorInverted = false;
     public static final boolean kBackRightDriveMotorInverted = true;
 
+    
     // turningMotor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
     public static final boolean kFrontRightTurningMotorInverted = true;
@@ -214,7 +215,7 @@ public class Constants {
 
   public static final class AutoConstants {
     public static final double kPTranslation = 6;
-    public static final double kPRotation = 5;
+    public static final double kPRotation = 4;
     public static final double kIRotation = 0.5;
     public static final double kDRotation = 1;
   }

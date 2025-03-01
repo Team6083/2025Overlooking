@@ -5,9 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "SetTurningDegree"
+            "pathName": "New Path"
           }
         },
         {
@@ -17,9 +17,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "L - leave(12)"
+            "waitTime": 2.0
           }
         },
         {

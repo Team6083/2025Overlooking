@@ -38,6 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
+    encoder.setReverseDirection(true);
 
   }
 
