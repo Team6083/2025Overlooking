@@ -222,7 +222,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command toGetTrdAlgaeCmd() {
-    Command cmd = runOnce(this::toTopFloor);
+    Command cmd = runOnce(this::toGetTrdAlgae);
     cmd.setName("toGetTriAlgae");
     return cmd;
   }
