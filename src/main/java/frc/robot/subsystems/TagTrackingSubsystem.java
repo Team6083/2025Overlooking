@@ -69,6 +69,11 @@ public class TagTrackingSubsystem extends SubsystemBase {
     return bt;
   }
 
+  public double[] getTr() {
+    double[] tr = table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+    return tr;
+  }
+
   public double getDistance() {
     // readValue();
     // CHECKSTYLE.OFF: LocalVariableName

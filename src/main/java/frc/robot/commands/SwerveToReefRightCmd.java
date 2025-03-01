@@ -17,13 +17,15 @@ public class SwerveToReefRightCmd extends Command {
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
   PIDController txController = new PIDController(0.01, 0, 0);
-  PIDController tyController = new PIDController(0.6, 0, 0);
+  PIDController tyController = new PIDController(0.01, 0, 0);
+  PIDController yawController = new PIDController(0.01, 0, 0);
 
   public SwerveToReefRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
-      txController.setSetpoint(-19);
-      tyController.setSetpoint(3.9);
+    txController.setSetpoint(0);
+    tyController.setSetpoint(0);
+    yawController.setSetpoint(0);
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -40,15 +42,14 @@ public class SwerveToReefRightCmd extends Command {
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
-    xSpeed = tyController.calculate(tagTracking.getTy());
-    if (Math.abs(tyController.getError()) < 1) {
-      ySpeed = txController.calculate(tagTracking.getTx());
-    } else {
-      ySpeed = 0;
-    }
-    xSpeed = MathUtil.clamp(xSpeed, -3, 3);
+    double rotSpeed;
+    xSpeed = tyController.calculate(tagTracking.getTr()[1]);
+    ySpeed = txController.calculate(tagTracking.getTr()[0]);
+    rotSpeed = yawController.calculate(tagTracking.getTr()[4]);
+    xSpeed = MathUtil.clamp(xSpeed, -1, 1);
     ySpeed = MathUtil.clamp(ySpeed, -1, 1);
-    swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    rotSpeed = MathUtil.clamp(rotSpeed, -1, 1);
+    swerveDrive.drive(xSpeed, ySpeed, rotSpeed, false);
     // CHECKSTYLE.ON: LocalVariableName
 
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
@@ -67,7 +68,8 @@ public class SwerveToReefRightCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-    || (Math.abs((txController.getError())) < 0.5 &&
-    Math.abs(tyController.getError()) < 0.5);
+        || (Math.abs((txController.getError())) < 0.5 &&
+            Math.abs(tyController.getError()) < 0.5 &&
+            Math.abs(yawController.getError()) < 0.5);
   }
 }
