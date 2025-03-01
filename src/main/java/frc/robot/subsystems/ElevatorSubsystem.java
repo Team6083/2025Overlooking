@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AlgaeIntakeConstant;
 import frc.robot.Constants.ElevatorConstant;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -35,6 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
+    encoder.setReverseDirection(ElevatorConstant.kencoderInverted);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;

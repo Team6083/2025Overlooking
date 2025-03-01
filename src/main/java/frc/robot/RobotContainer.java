@@ -119,7 +119,7 @@ public class RobotContainer {
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
-    mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    mainController.povUp().whileTrue(elevatorSubsystem.toTopFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.leftTrigger()
@@ -136,7 +136,6 @@ public class RobotContainer {
 
     // ALgaeIntake
     // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
