@@ -5,27 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "L - leave(12)"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "AprilTagLeft"
+            "name": "SetTurningDegree"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "reef(12) to coral station"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "coral station to reef(11)"
+            "pathName": "L - leave(12) Tag"
           }
         },
         {

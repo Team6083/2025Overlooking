@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.0820773171966405,
-        "y": 6.3113459762100685
+        "x": 5.087901639344263,
+        "y": 7.496799180327868
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 5.059459459459459,
-        "y": 5.220692567567567
+        "x": 3.181925675675676,
+        "y": 4.192989864864864
       },
       "prevControl": {
-        "x": 5.245775238741099,
-        "y": 5.387385190051813
+        "x": 2.1739864864864864,
+        "y": 6.416385135135134
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 11"
+      "linkedName": "reef 8"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "left - leave",
+  "folder": "L - leave",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
