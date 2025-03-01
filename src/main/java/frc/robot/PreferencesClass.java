@@ -5,7 +5,7 @@
 package frc.robot;
 
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
+
 
 import frc.robot.Constants.DriveBaseConstant;
 
@@ -37,10 +37,10 @@ public class PreferencesClass {
                 "kBackLeftCanCoderMagOffset", 0.401855,
                 "kBackRightCanCoderMagOffset", -0.010254);
         public static Map<String, Double> TWNCanCoderMagOffset_MAP = Map.of(
-                " kfrontLeftCanCoderMagOffset ", DriveBaseConstant.TWNkFrontLeftCanCoderMagOffset,
-                "kfrontRightCanCoderMagOffset", DriveBaseConstant.TWNkFrontRightCanCoderMagOffset,
-                " kbackLeftCanCoderMagOffset", DriveBaseConstant.TWNkBackLeftCanCoderMagOffset,
-                "kbackRightCanCoderMagOffset ", DriveBaseConstant.TWNkBackRightCanCoderMagOffset
+                " kfrontLeftCanCoderMagOffset ",  -0.031738,
+                "kfrontRightCanCoderMagOffset", -0.409668,
+                " kbackLeftCanCoderMagOffset", 0.180908,
+                "kbackRightCanCoderMagOffset ",  0.141846
 
         );
         public static Map<String, Double> currentConfig = AUCanCoderMagOffset_MAP;
