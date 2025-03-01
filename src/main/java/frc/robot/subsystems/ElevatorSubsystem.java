@@ -16,6 +16,7 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
 
@@ -37,7 +38,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
-
+    encoder.setReverseDirection(true);
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
 
@@ -69,6 +70,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
 
+
   public void moveUp() {
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
   }
@@ -99,6 +101,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void toGetSecAlgae(){
     moveToHeight(ElevatorConstant.kToGetSecAlgaeHeight);
+  }
+
+  public void toGetTrdAlgae(){
+    moveToHeight(ElevatorConstant.kToGetTrdAlgaeHeight);
   }
 
   public void stopMove() {
@@ -215,9 +221,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
+  public Command toGetTrdAlgaeCmd() {
+    Command cmd = runOnce(this::toTopFloor);
+    cmd.setName("toGetTriAlgae");
+    return cmd;
+  }
+
   public Command autoStopCmd(Command command) {
-    Command cmd = command.repeatedly()
-        .until(() -> elevatorPID.getError() < 5).andThen(this::stopMove);
+    Command cmd = new SequentialCommandGroup(
+        command.repeatedly()
+            .until(() -> elevatorPID.getError() < 15),
+        runOnce(this::stopMove));
     cmd.setName("autoStop");
     return cmd;
   }
