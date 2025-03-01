@@ -97,7 +97,12 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+    mainController.a().onTrue(new SequentialCommandGroup(
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.moveToAngleCmd()),
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()).alongWith(
+        algaeIntakeSubsystem.reIntakeCmd()).withTimeout(10)));
+
+    // mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     // mainController.y().whileTrue(new SequentialCommandGroup(
     // swerveTagTrackingCmd,
     // swerveToReefRightCmd

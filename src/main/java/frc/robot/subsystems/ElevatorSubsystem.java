@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.lang.invoke.VarHandle.VarHandleDesc;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
@@ -93,6 +95,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void toDefaultPosition() {
     moveToHeight(ElevatorConstant.kInitialHeight);
+  }
+
+  public void toGetSecAlgae(){
+    moveToHeight(ElevatorConstant.kToGetSecAlgaeHeight);
   }
 
   public void stopMove() {
@@ -200,6 +206,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command elevatorReset() {
     Command cmd = run(this::resetEncoder);
     cmd.setName("elevatorReset");
+    return cmd;
+  }
+
+  public Command toGetSecAlgaeCmd() {
+    Command cmd = runOnce(this::toGetSecAlgae);
+    cmd.setName("toGetSecAlgae");
+    return cmd;
+  }
+
+  public Command autoStopCmd(Command command) {
+    Command cmd = command.repeatedly()
+        .until(() -> elevatorPID.getError() < 5).andThen(this::stopMove);
+    cmd.setName("autoStop");
     return cmd;
   }
 }
