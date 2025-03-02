@@ -116,8 +116,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         || (output > 0 && encoder.getRate() < 0)
         || (output < 0 && encoder.getRate() > 0)) {
 
-      stopMove();
-
       SmartDashboard.putNumber("Output", 0);
 
     } else {
