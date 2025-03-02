@@ -317,17 +317,18 @@ public class SwerveDrive extends SubsystemBase {
       trueCanCoderMagOffset = Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
     }
     if (trueCanCoderMagOffset == au) {
-      PreferencesClass.DriveMotorInverted.currentConfig = frc.robot.PreferencesClass.DriveMotorInverted.AUDriveMotorInverted_MAP;
+      DriveMotorInverted.currentConfig = DriveMotorInverted.AUDriveMotorInverted_MAP;
       CanCoderMagOffset.currentConfig = CanCoderMagOffset.AUCanCoderMagOffset_MAP;
     }  
     if (trueCanCoderMagOffset == twn){
       
-      PreferencesClass.DriveMotorInverted.currentConfig = frc.robot.PreferencesClass.DriveMotorInverted.TWNDriveMotorInverted_MAP;
+      DriveMotorInverted.currentConfig = DriveMotorInverted.TWNDriveMotorInverted_MAP;
       CanCoderMagOffset.currentConfig = CanCoderMagOffset.TWNCanCoderMagOffset_MAP;
     }
 
     SmartDashboard.putNumber("TrueCanCoderMagOffset", trueCanCoderMagOffset);
-    SmartDashboard .putBoolean("DriveMotorInverted", frc.robot.PreferencesClass.DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"));
+    SmartDashboard .putBoolean("DriveMotorInverted",
+     DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"));
     SmartDashboard.putNumber("canCoderMagOffset",  CanCoderMagOffset.currentConfig.get("kFrontLeftCanCoderMagOffset"));
 
   }
