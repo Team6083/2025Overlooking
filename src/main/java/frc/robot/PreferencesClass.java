@@ -5,12 +5,11 @@
 package frc.robot;
 
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
 
 /** Add your docs here. */
 public class PreferencesClass {
     public class DriveMotorInverted {
-        public static Map<String, Boolean> AUDriveMotorInverted_MAP = Map.of(
+    public static Map<String, Boolean> AUDriveMotorInverted_MAP = Map.of(
                 "kFrontLeftDriveMotorInverted", false,
                 "kFrontRightDriveMotorInverted", true,
                 "kBackLeftDriveMotorInverted", false,
