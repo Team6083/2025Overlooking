@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.36471590909091,
-        "y": 2.8217613636363637
+        "x": 5.276858108108108,
+        "y": 2.947888513513513
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.585319590066974,
-        "y": 2.306859063348962
+        "x": 4.497461789084173,
+        "y": 2.432986213226111
       },
       "isLocked": false,
       "linkedName": "reef 3"
     },
     {
       "anchor": {
-        "x": 1.6662909836065571,
-        "y": 0.6025102459016398
+        "x": 1.1166385135135135,
+        "y": 1.0407094594594581
       },
       "prevControl": {
-        "x": 2.288205830656916,
-        "y": 1.5647376961098987
+        "x": 1.7385533605638726,
+        "y": 2.002936909667717
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,9 +34,9 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 1.1,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },

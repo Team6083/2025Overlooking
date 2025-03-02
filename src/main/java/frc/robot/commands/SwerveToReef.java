@@ -64,6 +64,6 @@ public class SwerveToReef extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-        || (txController.getError() < 0.5 && tyController.getError() < 0.5);
+        || (Math.abs((txController.getError())) < 1 && Math.abs(tyController.getError()) < 0.5);
   }
 }

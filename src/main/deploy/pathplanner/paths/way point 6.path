@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 7.555379098360655
+        "x": 7.1857500000000005,
+        "y": 7.5447500000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.668745910207564,
-        "y": 8.196966226521761
+        "x": 7.654495910207563,
+        "y": 8.186337128161107
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 5.03483606557377,
-        "y": 5.25373975409836
+        "x": 3.6464999999999996,
+        "y": 2.815999999999999
       },
       "prevControl": {
-        "x": 4.82023128312906,
-        "y": 5.381976984853936
+        "x": 3.43189521755529,
+        "y": 2.944237230755575
+      },
+      "nextControl": {
+        "x": 3.861104782444709,
+        "y": 2.687762769244423
+      },
+      "isLocked": false,
+      "linkedName": "reef 6"
+    },
+    {
+      "anchor": {
+        "x": 3.7056587837837838,
+        "y": 2.947888513513513
+      },
+      "prevControl": {
+        "x": 3.9231221346543306,
+        "y": 2.8245609374076257
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 6"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -34,15 +50,15 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 1.1,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.25643716352933
+    "rotation": 60.25511870305776
   },
   "reversed": false,
   "folder": "way points",
