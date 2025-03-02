@@ -52,42 +52,33 @@ public class RobotContainer {
     swerveToReefRightCmd = new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem);
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
-      algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
         new ParallelRaceGroup(
-          elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
-          algaeIntakeSubsystem.reIntakeCmd()
-      ),
+            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
+            algaeIntakeSubsystem.reIntakeCmd()),
         new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-              .withTimeout(1.5),
-          algaeIntakeSubsystem.reIntakeCmd()
-      )
-    );
+                .withTimeout(1.5),
+            algaeIntakeSubsystem.reIntakeCmd()));
 
     takeL3AlgaeCommandGroup = new SequentialCommandGroup(
-      algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
         new ParallelRaceGroup(
-        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
-        algaeIntakeSubsystem.reIntakeCmd()
-      ),
+            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
+            algaeIntakeSubsystem.reIntakeCmd()),
         new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-              .withTimeout(1.5),
-        algaeIntakeSubsystem.reIntakeCmd()
-      )
-    );
+                .withTimeout(1.5),
+            algaeIntakeSubsystem.reIntakeCmd()));
 
     NamedCommands.registerCommand("CoralShooterIn",
-      new SequentialCommandGroup(
-        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)
-      )
-    );
+        new SequentialCommandGroup(
+            new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterWithAutoStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
-        .andThen(coralShooterSubsystem.coralShooterStopCmd())
-    );
+            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec", elevatorSubsystem.toSecFloorCmd());
     NamedCommands.registerCommand("ErToTrd", elevatorSubsystem.toTrdFloorCmd());
@@ -121,8 +112,7 @@ public class RobotContainer {
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(
             new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)
-      ));
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
@@ -130,16 +120,14 @@ public class RobotContainer {
     mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-        elevatorSubsystem.manualMoveDownCmd(),
-        elevatorSubsystem.moveDownCmd(),
-        mainController.povRight()
-      ));
+            elevatorSubsystem.manualMoveDownCmd(),
+            elevatorSubsystem.moveDownCmd(),
+            mainController.povRight()));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
-        elevatorSubsystem.manualMoveUpCmd(),
-        elevatorSubsystem.moveUpCmd(),
-        mainController.povRight()
-      ));
+            elevatorSubsystem.manualMoveUpCmd(),
+            elevatorSubsystem.moveUpCmd(),
+            mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
