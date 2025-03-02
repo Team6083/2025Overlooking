@@ -34,6 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
+    
     manualControl = false;
     encoder.setReverseDirection(true);
     encoder.reset();
