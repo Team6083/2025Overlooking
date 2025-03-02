@@ -34,6 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
+    encoder.setReverseDirection(true);
     manualControl = false;
 
     encoder.reset();
@@ -103,7 +104,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
-    if (!manualControl) {
+    if (encoder.getStopped() == true || Math.abs(encoder.getRate()) < 0.5) {
+      rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+    } else if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
