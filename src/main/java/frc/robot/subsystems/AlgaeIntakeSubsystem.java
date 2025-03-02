@@ -207,7 +207,5 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     cmd.setName("autoStopRotateCmd");
     return cmd;
   }
-  // public boolean isRotationFinished() {
-  // return algaeRotatePID.getError() < 5;
-  // }
+
 }

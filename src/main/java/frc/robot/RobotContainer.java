@@ -81,8 +81,11 @@ public class RobotContainer {
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec", elevatorSubsystem.toSecFloorCmd());
+
     NamedCommands.registerCommand("ErToTrd", elevatorSubsystem.toTrdFloorCmd());
+
     NamedCommands.registerCommand("ErToFour", elevatorSubsystem.toTopFloorCmd());
+
     NamedCommands.registerCommand("ErDown", elevatorSubsystem.toDefaultPositionCmd());
 
     NamedCommands.registerCommand("AprilTagRight", swerveToReefRightCmd);
@@ -104,7 +107,7 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
-    mainController.back().whileTrue(swerveDrive.gyroResetCmd());
+    mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
