@@ -23,11 +23,10 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants.AutoConstants;
+import frc.robot.PreferencesClass;
 import frc.robot.PreferencesClass.CanCoderMagOffset;
 import frc.robot.PreferencesClass.DriveMotorInverted;
-import frc.robot.PreferencesClass;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 
 import java.io.IOException;
