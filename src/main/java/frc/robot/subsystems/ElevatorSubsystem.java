@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Millimeters;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
@@ -94,6 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void toDefaultPosition() {
     moveToHeight(ElevatorConstant.kInitialHeight);
   }
+
   public void toGetSecAlgae() {
     moveToHeight(ElevatorConstant.kToGetSecAlgaeHeight);
   }
