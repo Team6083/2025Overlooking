@@ -43,7 +43,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
     upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(7)
+    downLimitSwitch = new DigitalInput(7);
 
   }
 
@@ -117,10 +117,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
-    // if (!manualControl) {
-    //   if(!upLimitSwitch.get()){
-    //     targetHeight = targetHeight.minus(Elevat)
-    //   }
+    if (!manualControl) {
+      if (!upLimitSwitch.get()) {
+        targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
+      } else if (!downLimitSwitch.get()) {
+        targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
+      }
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
@@ -136,7 +138,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
-    SmartDashboard.putBoolean("ElevatorDownLimitswitch",downLimitSwitch.get()); 
+    SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
   }
 
   public Command toGetCarolHeightCmd() {
