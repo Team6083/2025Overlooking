@@ -1,0 +1,125 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left - leave(12)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(12) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "coral station to reef(11)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(11) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "coral L2",
+  "choreoAuto": false
+}

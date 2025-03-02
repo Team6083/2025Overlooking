@@ -11,22 +11,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "right - leave(3)"
+                  "pathName": "middle_right - leave(4)"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToFour"
                 }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.3
+            "name": "AprilTagLeft"
           }
         },
         {
@@ -36,53 +36,53 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ErDown"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef (3) to coral station "
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "coral station to reef(4)"
+                  "pathName": "reef (4) to coral station "
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErDown"
                 }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.3
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": " coral station to reef(5)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToFour"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagRight"
           }
         },
         {
@@ -92,15 +92,34 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef (5) to coral station "
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ErDown"
+            "name": "CoralShooterIn"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "2 coral - L2",
+  "folder": "coral L4",
   "choreoAuto": false
 }

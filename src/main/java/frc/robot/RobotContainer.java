@@ -53,8 +53,12 @@ public class RobotContainer {
     swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
     swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
 
-    NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1.8)
+    NamedCommands.registerCommand("CoralShooterIn",
+        new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+
+    NamedCommands.registerCommand("CoralShooterWithAutoStop",
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
@@ -68,6 +72,16 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
+
+    NamedCommands.registerCommand("AprilTagRight",
+        new SequentialCommandGroup(
+            new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+            new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right")));
+
+    NamedCommands.registerCommand("AprilTagLeft",
+        new SequentialCommandGroup(
+            new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+            new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left")));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -84,10 +98,20 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     // mainController.y().whileTrue(new SequentialCommandGroup(
     // swerveTagTrackingCmd,
     // swerveToReefRightCmd
     // ));
+    // mainController.y().whileTrue(swerveToReefLeftCmd);
+    // mainController.a().whileTrue(new SequentialCommandGroup(
+    // new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
+    // swerveToReefLeftCmd
+    // ));
+
+    // mainController.y().whileTrue(swerveDrive.runEnd(
+    //     () -> swerveDrive.drive(0.1, 0, 0, false),
+    //     () -> swerveDrive.stop()));
 
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
@@ -96,24 +120,24 @@ public class RobotContainer {
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
     // Elevator
-    mainController.povUp().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
-    mainController.povLeft().whileTrue(elevatorSubsystem.toGetCarolHeightCmd());
+    mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(-0.5),
+            elevatorSubsystem.manualMoveDownCmd(),
             elevatorSubsystem.moveDownCmd(),
             mainController.povRight()));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveCmd(0.5),
+            elevatorSubsystem.manualMoveUpCmd(),
             elevatorSubsystem.moveUpCmd(),
             mainController.povRight()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());

@@ -19,7 +19,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -39,16 +38,18 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  
- 
+
+
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
   private final AHRS gyro;
+
   private int au = 0;
   private int twn = 1;
   private int whereCanCoderMagOffset;
   private int trueCanCoderMagOffset;
+
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -281,7 +282,7 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(5.0, 0.0, 0.0),
+            new PIDConstants(2.5, 0.0, 0.0),
             new PIDConstants(5.0, 0.0, 0.0)),
         config,
         () -> {

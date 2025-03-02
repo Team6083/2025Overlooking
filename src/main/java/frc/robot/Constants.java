@@ -39,36 +39,37 @@ public class Constants {
   }
 
   public static final class ElevatorConstant {
-    public static final double kP = 0.06;
+    public static final double kP = 0.023;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final int kElevatorMotorChannel = 33;
+    public static final int kLeftElevatorMotorChannel = 33;
+    public static final int kRightElevatorMotorChannel = 30;
     public static final boolean kMotorInverted = true;
 
     public static final int kEncoderChannelA = 2;
     public static final int kEncoderChannelB = 3;
 
-    public static final double kManualUpPower = 0.5;
-    public static final double kManualDownPower = -0.5;
+    public static final double kManualUpPower = 0.4;
+    public static final double kManualDownPower = -0.2;
 
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1000);
+    public static final Distance kMaxHeight = Millimeters.of(1500);
 
-    public static final double kMaxOutput = 0.8;
-    public static final double kMinOutput = -0.5;
+    public static final double kMaxOutput = 0.4;
+    public static final double kMinOutput = -0.1;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
     public static final Distance kSecFloor = Millimeters.of(810);
     public static final Distance kTrdFloor = Millimeters.of(1210);
     public static final Distance kTopFloor = Millimeters.of(1830);
-    public static final Distance kStepHeight = Millimeters.of(1);
+    public static final Distance kStepHeight = Millimeters.of(7);
 
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters);
+        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
 
   public static final class ModuleConstant {
@@ -111,6 +112,7 @@ public class Constants {
     public static final int kBackRightTurningMotorChannel = 26;
 
     // driveMotor inverted
+
     public static final boolean TWNkFrontLeftDriveMotorInverted = true;
     public static final boolean TWNkFrontRightDriveMotorInverted = false;
     public static final boolean TWNkBackLeftDriveMotorInverted = true;
@@ -119,6 +121,7 @@ public class Constants {
     public static final boolean AUkFrontRightDriveMotorInverted = true;
     public static final boolean AUkBackLeftDriveMotorInverted = false;
     public static final boolean AUkBackRightDriveMotorInverted = true;
+
 
     // turningMotor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
@@ -142,6 +145,7 @@ public class Constants {
     public static final double TWNkFrontRightCanCoderMagOffset = -0.409668;
     public static final double TWNkBackLeftCanCoderMagOffset = 0.180908;
     public static final double TWNkBackRightCanCoderMagOffset = 0.141846;
+
 
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
@@ -205,8 +209,8 @@ public class Constants {
   public static final class SwerveControlConstant {
 
     // 變速的放大倍率
-    public static final double kDefaultMagnification = 1;
-    public static final double kSlowMagnification = 0.75;
+    public static final double kDefaultMagnification = 0.25;
+    public static final double kFastMagnification = 0.75;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;

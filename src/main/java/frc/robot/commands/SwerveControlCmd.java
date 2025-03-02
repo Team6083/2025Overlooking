@@ -40,7 +40,7 @@ public class SwerveControlCmd extends Command {
   @Override
   public void execute() {
     if (mainController.leftBumper().getAsBoolean()) {
-      magnification = SwerveControlConstant.kSlowMagnification;
+      magnification = SwerveControlConstant.kFastMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
     }

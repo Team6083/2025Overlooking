@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.3
+            "name": "AprilTagLeft"
           }
         },
         {
@@ -23,15 +23,15 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "coral station to reef(11)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagLeft"
           }
         }
       ]

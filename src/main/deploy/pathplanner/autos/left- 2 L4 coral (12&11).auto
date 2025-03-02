@@ -17,16 +17,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToFour"
                 }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.1
+            "name": "AprilTagLeft"
           }
         },
         {
@@ -55,9 +55,9 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
+            "name": "CoralShooterIn"
           }
         },
         {
@@ -73,16 +73,16 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToFour"
                 }
               }
             ]
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.1
+            "name": "AprilTagRight"
           }
         },
         {
@@ -92,15 +92,34 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef(11) to coral station"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ErDown"
+            "name": "CoralShooterIn"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "2 coral - L2",
+  "folder": "coral L4",
   "choreoAuto": false
 }
