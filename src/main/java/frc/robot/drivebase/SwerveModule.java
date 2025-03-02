@@ -59,7 +59,7 @@ public class SwerveModule extends SubsystemBase {
         ModuleConstant.kIRotationController,
         ModuleConstant.kDRotationController);
     rotController.enableContinuousInput(-180.0, 180.0);
-      
+
     driveMotorVoltage = 0;
     turningMotorVoltage = 0;
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
