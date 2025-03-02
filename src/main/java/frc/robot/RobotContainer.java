@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveTagTrackingCmd;
-import frc.robot.commands.SwerveToReef;
+import frc.robot.commands.SwerveToTagLeftCmd;
+import frc.robot.commands.SwerveToTagRightCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -33,9 +33,8 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
 
   private final TagTrackingSubsystem tagTrackingSubsystem;
-  private final SwerveTagTrackingCmd swerveTagTrackingCmd;
-  private final SwerveToReef swerveToReefLeftCmd;
-  private final SwerveToReef swerveToReefRightCmd;
+  private final SwerveToTagLeftCmd swerveToReefLeftCmd;
+  private final SwerveToTagRightCmd swerveToReefRightCmd;
 
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
@@ -49,9 +48,8 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
-    swerveTagTrackingCmd = new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem);
-    swerveToReefLeftCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left");
-    swerveToReefRightCmd = new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right");
+    swerveToReefLeftCmd = new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem);
+    swerveToReefRightCmd = new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem);
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
       algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
@@ -96,19 +94,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErToFour", elevatorSubsystem.toTopFloorCmd());
     NamedCommands.registerCommand("ErDown", elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight",
-      new SequentialCommandGroup(
-        new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
-        new SwerveToReef(swerveDrive, tagTrackingSubsystem, "right")
-      )
-    );
+    NamedCommands.registerCommand("AprilTagRight", swerveToReefRightCmd);
 
-    NamedCommands.registerCommand("AprilTagLeft",
-      new SequentialCommandGroup(
-        new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
-        new SwerveToReef(swerveDrive, tagTrackingSubsystem, "left")
-      )
-    );
+    NamedCommands.registerCommand("AprilTagLeft", swerveToReefLeftCmd);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());

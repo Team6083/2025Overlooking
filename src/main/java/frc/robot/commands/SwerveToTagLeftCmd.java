@@ -12,18 +12,20 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.TagTrackingSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveToReef extends Command {
-  /** Creates a new SwerveTagoTrackingCmd. */
+public class SwerveToTagLeftCmd extends Command {
+  /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
-  PIDController txController = new PIDController(0.1, 0, 0);
-  PIDController tyController = new PIDController(0.1, 0, 0);
-  String leftOrRight;
+  PIDController txController = new PIDController(3.5, 0, 0);
+  PIDController tzController = new PIDController(3, 0, 0);
+  PIDController yawController = new PIDController(0.1, 0, 0);
 
-  public SwerveToReef(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
+  public SwerveToTagLeftCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
-    this.leftOrRight = leftOrRight;
+    txController.setSetpoint(0.14);
+    tzController.setSetpoint(0.41);
+    yawController.setSetpoint(0);
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -40,18 +42,21 @@ public class SwerveToReef extends Command {
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
-    xSpeed = tyController.calculate(tagTracking.getTy(), 3.25);
-    
-    ySpeed = txController.calculate(tagTracking.getTx());
+    double rotSpeed;
+    xSpeed = -tzController.calculate(tagTracking.getTr()[2]);
+    ySpeed = txController.calculate(tagTracking.getTr()[0]);
+    rotSpeed = yawController.calculate(tagTracking.getTr()[4]);
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
-    swerveDrive.drive(xSpeed, ySpeed, 0, false);
+    swerveDrive.drive(xSpeed, ySpeed, rotSpeed, false);
     // CHECKSTYLE.ON: LocalVariableName
 
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
-    SmartDashboard.putData("tyController", tyController);
+    SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
+    SmartDashboard.putData("tzController", tzController);
     SmartDashboard.putData("txController", txController);
+    SmartDashboard.putData("yawController", yawController);
   }
 
   // Called once the command ends or is interrupted.
@@ -63,7 +68,7 @@ public class SwerveToReef extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0
-        || (Math.abs((txController.getError())) < 1 && Math.abs(tyController.getError()) < 0.5);
+    return (Math.abs((txController.getError())) < 0.01
+        && Math.abs(tzController.getError()) < 0.01);
   }
 }

@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.IOException;
 import java.util.Optional;
@@ -66,6 +67,11 @@ public class TagTrackingSubsystem extends SubsystemBase {
   public double[] getBt() {
     double[] bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
     return bt;
+  }
+
+  public double[] getTr() {
+    double[] tr = table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+    return tr;
   }
 
   public double getDistance() {
