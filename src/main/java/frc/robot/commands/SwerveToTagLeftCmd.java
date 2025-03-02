@@ -68,7 +68,7 @@ public class SwerveToTagLeftCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs((txController.getError())) < 0.01 &&
-        Math.abs(tzController.getError()) < 0.01);
+    return (Math.abs((txController.getError())) < 0.01
+        && Math.abs(tzController.getError()) < 0.01);
   }
 }
