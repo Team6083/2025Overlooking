@@ -80,13 +80,17 @@ public class RobotContainer {
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
-    NamedCommands.registerCommand("ErToSec", elevatorSubsystem.toSecFloorCmd());
+    NamedCommands.registerCommand("ErToSec",
+        elevatorSubsystem.toSecFloorCmd());
 
-    NamedCommands.registerCommand("ErToTrd", elevatorSubsystem.toTrdFloorCmd());
+    NamedCommands.registerCommand("ErToTrd",
+        elevatorSubsystem.toTrdFloorCmd());
 
-    NamedCommands.registerCommand("ErToFour", elevatorSubsystem.toTopFloorCmd());
+    NamedCommands.registerCommand("ErToFour",
+        elevatorSubsystem.toTopFloorCmd());
 
-    NamedCommands.registerCommand("ErDown", elevatorSubsystem.toDefaultPositionCmd());
+    NamedCommands.registerCommand("ErDown",
+        elevatorSubsystem.toDefaultPositionCmd());
 
     NamedCommands.registerCommand("AprilTagRight", swerveToReefRightCmd);
 
