@@ -67,7 +67,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
 
-
   public void moveUp() {
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
   }
@@ -95,12 +94,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void toDefaultPosition() {
     moveToHeight(ElevatorConstant.kInitialHeight);
   }
-
-  public void toGetSecAlgae(){
+  public void toGetSecAlgae() {
     moveToHeight(ElevatorConstant.kToGetSecAlgaeHeight);
   }
 
-  public void toGetTrdAlgae(){
+  public void toGetTrdAlgae() {
     moveToHeight(ElevatorConstant.kToGetTrdAlgaeHeight);
   }
 
