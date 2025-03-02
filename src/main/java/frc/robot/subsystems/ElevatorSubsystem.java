@@ -103,12 +103,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
+    double output = elevatorPID.calculate(currentHeight.in(Millimeters));
 
     if (encoder.getStopped() == true || Math.abs(encoder.getRate()) < 0.5) {
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-    } else if (!manualControl) {
+      leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+    } else if((output > 0 && encoder.getRate() < 0) || (output < 0 && encoder.getRate() > 0)) {
+        rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+        leftElevatorMotor.set(ControlMode.PercentOutput,0);
+        SmartDashboard.putNumber("Output", 0);} // 記錄停止狀態
+      else if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
-      double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
@@ -120,8 +125,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
-    SmartDashboard.putData("ElevatorPID", elevatorPID);
-  }
+    SmartDashboard.putData("ElevatorPID", elevatorPID);}
+  
+
 
   public Command toGetCarolHeightCmd() {
     Command cmd = runOnce(this::toGetCarolHeight);
