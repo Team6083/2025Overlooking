@@ -4,10 +4,7 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.Meters;
-
-import com.ctre.phoenix6.swerve.SwerveModule;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
