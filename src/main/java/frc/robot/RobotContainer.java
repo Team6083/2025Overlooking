@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
+import frc.robot.commands.SwerveToTagRightCmd;
 import frc.robot.commands.TeleopSwerveToReefLeftCmd;
 import frc.robot.commands.TeleopSwerveToReefRightCmd;
 import frc.robot.drivebase.SwerveDrive;
@@ -100,7 +100,7 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem));
+    mainController.y().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
     // mainController.a().whileTrue(new TeleopSwerveToReefLeftCmd(swerveDrive, tagTrackingSubsystem));
     // mainController.b().whileTrue(new TeleopSwerveToReefRightCmd(swerveDrive, tagTrackingSubsystem));
     // mainController.y().whileTrue(swerveToReefLeftCmd);
