@@ -17,10 +17,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveTagTrackingCmd;
-import frc.robot.commands.SwerveToReefLeftCmd;
-import frc.robot.commands.SwerveToReefRightCmd;
+import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.commands.TeleopSwerveToReefLeftCmd;
+import frc.robot.commands.TeleopSwerveToReefRightCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -101,10 +100,9 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    // mainController.y().whileTrue(new SequentialCommandGroup(
-    // swerveTagTrackingCmd,
-    // swerveToReefRightCmd
-    // ));
+    mainController.y().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem));
+    // mainController.a().whileTrue(new TeleopSwerveToReefLeftCmd(swerveDrive, tagTrackingSubsystem));
+    // mainController.b().whileTrue(new TeleopSwerveToReefRightCmd(swerveDrive, tagTrackingSubsystem));
     // mainController.y().whileTrue(swerveToReefLeftCmd);
     // mainController.a().whileTrue(new SequentialCommandGroup(
     // new SwerveTagTrackingCmd(swerveDrive, tagTrackingSubsystem),
@@ -139,7 +137,7 @@ public class RobotContainer {
 
     // ALgaeIntake
     // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
     //  mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());

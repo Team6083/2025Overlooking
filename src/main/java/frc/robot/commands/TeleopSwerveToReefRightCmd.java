@@ -16,14 +16,14 @@ public class TeleopSwerveToReefRightCmd extends Command {
   /** Creates a new SwerveTagoTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
-  PIDController txController = new PIDController(0.05, 0, 0);
+  PIDController txController = new PIDController(0.01, 0, 0);
 
-  public TeleopSwerveToReefRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, String leftOrRight) {
+  public TeleopSwerveToReefRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
     addRequirements(swerveDrive);
     addRequirements(tagTracking);
-    txController.setSetpoint(-21.3);
+    // txController.setSetpoint(-0.16);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -37,13 +37,15 @@ public class TeleopSwerveToReefRightCmd extends Command {
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
     double ySpeed;
-    ySpeed = txController.calculate(tagTracking.getTx());
-    ySpeed = MathUtil.clamp(ySpeed, -3, 3);
+    ySpeed = txController.calculate(tagTracking.getTr()[0],-0.16);
+    ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(0, ySpeed, 0, false);
     // CHECKSTYLE.ON: LocalVariableName
 
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putData("txController", txController);
+    SmartDashboard.putNumber("testSetpoint", txController.getSetpoint());
+
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +57,6 @@ public class TeleopSwerveToReefRightCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0 || Math.abs(txController.getError()) < 1;
+    return tagTracking.getTv() == 0;
   }
 }
