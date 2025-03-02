@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
@@ -56,13 +56,13 @@ public class RobotContainer {
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
       algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
       new ParallelRaceGroup(
-        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
-        algaeIntakeSubsystem.reIntakeCmd()
+          elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
+          algaeIntakeSubsystem.reIntakeCmd()
       ),
       new ParallelRaceGroup(
-        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-          .withTimeout(1.5),
-        algaeIntakeSubsystem.reIntakeCmd()
+          new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+              .withTimeout(1.5),
+          algaeIntakeSubsystem.reIntakeCmd()
       )
     );
 
@@ -87,7 +87,7 @@ public class RobotContainer {
     );
 
     NamedCommands.registerCommand("CoralShooterWithAutoStop",
-      coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
+        coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
         .andThen(coralShooterSubsystem.coralShooterStopCmd())
     );
 
@@ -131,7 +131,7 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
-      .whileTrue(new SequentialCommandGroup(
+        .whileTrue(new SequentialCommandGroup(
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)
       ));
@@ -141,13 +141,13 @@ public class RobotContainer {
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.leftTrigger()
-      .whileTrue(Commands.either(
+        .whileTrue(Commands.either(
         elevatorSubsystem.manualMoveDownCmd(),
         elevatorSubsystem.moveDownCmd(),
         mainController.povRight()
       ));
     mainController.rightTrigger()
-      .whileTrue(Commands.either(
+        .whileTrue(Commands.either(
         elevatorSubsystem.manualMoveUpCmd(),
         elevatorSubsystem.moveUpCmd(),
         mainController.povRight()
