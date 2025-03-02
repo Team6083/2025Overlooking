@@ -70,6 +70,9 @@ public class Constants {
 
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
+
+    public static final int kUpLimitSwitchChannel = 5;
+    public static final int kDownLimitSwitchChannel = 7;
   }
 
   public static final class ModuleConstant {

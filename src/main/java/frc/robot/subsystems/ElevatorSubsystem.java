@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +26,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
+  private DigitalInput upLimitSwitch;
+  private DigitalInput downLimitSwitch;
 
   public ElevatorSubsystem() {
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
@@ -35,6 +38,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
     encoder.setReverseDirection(true);
+    upLimitSwitch = new DigitalInput(ElevatorConstant.kUpLimitSwitchChannel);
+    downLimitSwitch = new DigitalInput(ElevatorConstant.kDownLimitSwitchChannel);
     manualControl = false;
 
     encoder.reset();
@@ -98,35 +103,47 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void stopMove() {
     leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+    rightElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
-    double output = elevatorPID.calculate(currentHeight.in(Millimeters));
+    double output = elevatorPID.calculate(currentHeight.in(Millimeters), targetHeight.in(Millimeters));
 
-    if (encoder.getStopped() == true || Math.abs(encoder.getRate()) < 0.5) {
-      rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      leftElevatorMotor.set(ControlMode.PercentOutput, 0);
-    } else if ((output > 0 && encoder.getRate() < 0) || (output < 0 && encoder.getRate() > 0)) {
-      rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+    if (encoder.getStopped() || Math.abs(encoder.getRate()) < 0.5 ||
+        (output > 0 && encoder.getRate() < 0) || (output < 0 && encoder.getRate() > 0)) {
+
+      stopMove();
+      
       SmartDashboard.putNumber("Output", 0);
-    } // 記錄停止狀態
-    else if (!manualControl) {
-      elevatorPID.setSetpoint(targetHeight.in(Millimeters));
-      output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
-      leftElevatorMotor.set(ControlMode.PercentOutput, output);
-      rightElevatorMotor.set(ControlMode.PercentOutput, output);
-      SmartDashboard.putNumber("Output", output);
+
     } else {
-      targetHeight = currentHeight;
+      // 先處理限位開關
+      if (!upLimitSwitch.get()) {
+        targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
+      }
+      if (!downLimitSwitch.get()) {
+        targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
+      }
+
+      // 處理手動或自動模式
+      if (manualControl) {
+        targetHeight = currentHeight;
+      } else {
+        elevatorPID.setSetpoint(targetHeight.in(Millimeters));
+        output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
+        leftElevatorMotor.set(ControlMode.PercentOutput, output);
+        SmartDashboard.putNumber("Output", output);
+      }
     }
 
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+    SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
+    SmartDashboard.putBoolean("ElevatorDownLimitSwitch", downLimitSwitch.get());
   }
 
   public Command toGetCarolHeightCmd() {
