@@ -32,6 +32,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     manualControl = false;
+    encoder.setReverseDirection(true);
 
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
