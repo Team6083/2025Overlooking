@@ -318,7 +318,8 @@ public class SwerveDrive extends SubsystemBase {
     if (trueCanCoderMagOffset == au) {
       PreferencesClass.DriveMotorInverted.currentConfig = frc.robot.PreferencesClass.DriveMotorInverted.AUDriveMotorInverted_MAP;
       CanCoderMagOffset.currentConfig = CanCoderMagOffset.AUCanCoderMagOffset_MAP;
-    } else{
+    }  
+    if (trueCanCoderMagOffset == twn){
       
       PreferencesClass.DriveMotorInverted.currentConfig = frc.robot.PreferencesClass.DriveMotorInverted.TWNDriveMotorInverted_MAP;
       CanCoderMagOffset.currentConfig = CanCoderMagOffset.TWNCanCoderMagOffset_MAP;
