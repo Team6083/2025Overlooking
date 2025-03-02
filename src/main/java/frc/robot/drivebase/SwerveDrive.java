@@ -320,8 +320,8 @@ public class SwerveDrive extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("TrueCanCoderMagOffset", trueCanCoderMagOffset);
-    SmartDashboard.putBoolean("DriveMotorInverted", 
-    DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"));
+    SmartDashboard.putBoolean("DriveMotorInverted",
+        DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"));
     SmartDashboard.putNumber("canCoderMagOffset", CanCoderMagOffset.currentConfig.get("kFrontLeftCanCoderMagOffset"));
 
   }
