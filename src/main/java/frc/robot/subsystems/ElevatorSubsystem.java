@@ -111,29 +111,30 @@ public class ElevatorSubsystem extends SubsystemBase {
     Distance currentHeight = getCurrentHeight();
     double output = elevatorPID.calculate(currentHeight.in(Millimeters), targetHeight.in(Millimeters));
 
-    if (encoder.getStopped() || Math.abs(encoder.getRate()) < 0.5 ||
-        (output > 0 && encoder.getRate() < 0) || (output < 0 && encoder.getRate() > 0)) {
+    if (encoder.getStopped()
+        || Math.abs(encoder.getRate()) < 0.5
+        || (output > 0 && encoder.getRate() < 0)
+        || (output < 0 && encoder.getRate() > 0)) {
 
       stopMove();
 
       SmartDashboard.putNumber("Output", 0);
 
     } else {
-      // 先處理限位開關
-      if (!upLimitSwitch.get()) {
-        targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
-      }
-      if (!downLimitSwitch.get()) {
-        targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
-      }
-
       // 處理手動或自動模式
       if (manualControl) {
         targetHeight = currentHeight;
       } else {
+        if (!upLimitSwitch.get()) {
+          targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
+        }
+        if (!downLimitSwitch.get()) {
+          targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
+        }
         elevatorPID.setSetpoint(targetHeight.in(Millimeters));
         output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
         leftElevatorMotor.set(ControlMode.PercentOutput, output);
+        rightElevatorMotor.set(ControlMode.PercentOutput, output);
         SmartDashboard.putNumber("Output", output);
       }
     }
