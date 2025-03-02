@@ -31,9 +31,9 @@ public class PreferencesClass {
 
   public class CanCoderMagOffset {
     public static Map<String, Double> AUCanCoderMagOffset_MAP = Map.of(
-        "kFrontLeftCanCoderMagOffset", 0.145264 ,
-        "kFrontRightCanCoderMagOffset", 0.245361 ,
-        "kBackLeftCanCoderMagOffset", 0.019043 ,
+        "kFrontLeftCanCoderMagOffset", 0.145264,
+        "kFrontRightCanCoderMagOffset", 0.245361,
+        "kBackLeftCanCoderMagOffset", 0.019043,
         "kBackRightCanCoderMagOffset", 0.082764);
     public static Map<String, Double> TWNCanCoderMagOffset_MAP = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.069092,
