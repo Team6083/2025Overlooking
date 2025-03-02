@@ -53,12 +53,12 @@ public class RobotContainer {
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
       algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
-      new ParallelRaceGroup(
+        new ParallelRaceGroup(
           elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
           algaeIntakeSubsystem.reIntakeCmd()
       ),
-      new ParallelRaceGroup(
-          new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+        new ParallelRaceGroup(
+            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
               .withTimeout(1.5),
           algaeIntakeSubsystem.reIntakeCmd()
       )
@@ -66,13 +66,13 @@ public class RobotContainer {
 
     takeL3AlgaeCommandGroup = new SequentialCommandGroup(
       algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
-      new ParallelRaceGroup(
+        new ParallelRaceGroup(
         elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
         algaeIntakeSubsystem.reIntakeCmd()
       ),
-      new ParallelRaceGroup(
-        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-          .withTimeout(1.5),
+        new ParallelRaceGroup(
+            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+              .withTimeout(1.5),
         algaeIntakeSubsystem.reIntakeCmd()
       )
     );
@@ -120,7 +120,7 @@ public class RobotContainer {
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(
-        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)
       ));
 
