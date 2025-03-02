@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Millimeters;
-
-import java.lang.invoke.VarHandle.VarHandleDesc;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
