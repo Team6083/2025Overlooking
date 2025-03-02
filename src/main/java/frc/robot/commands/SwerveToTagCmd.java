@@ -69,7 +69,6 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return (Math.abs((txController.getError())) < 0.01 &&
-            Math.abs(tzController.getError()) < 0.01 &&
-            Math.abs(yawController.getError()) < 0.1);
+        Math.abs(tzController.getError()) < 0.01);
   }
 }
