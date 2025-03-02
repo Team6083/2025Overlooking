@@ -54,7 +54,6 @@ public class SwerveDrive extends SubsystemBase {
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
-
     // 初始化 Swerve 模組
     frontLeft = new SwerveModule(
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
