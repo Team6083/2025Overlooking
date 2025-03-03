@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +27,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
+  private DigitalInput upLimitSwitch;
+  private DigitalInput downLimitSwitch;
 
   public ElevatorSubsystem() {
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
@@ -36,9 +39,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     rightElevatorMotor.follow(leftElevatorMotor);
     manualControl = false;
-    encoder.setReverseDirection(true);
+    encoder.setReverseDirection(false);
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
+    upLimitSwitch = new DigitalInput(5);
+    downLimitSwitch = new DigitalInput(8);
 
   }
 
@@ -112,7 +117,19 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
-    if (!manualControl) {
+    // if (encoder.getStopped()
+    // || Math.abs(encoder.getRate()) < 0.5
+    // || (output > 0 && encoder.getRate() < 0)
+    // || (output < 0 && encoder.getRate() > 0)) {
+
+    // SmartDashboard.putNumber("Output", 0);
+
+    if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
+      if (!upLimitSwitch.get()) {
+        targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
+      } else if (!downLimitSwitch.get()) {
+        targetHeight = currentHeight.plus(ElevatorConstant.kStepHeight);
+      }
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
@@ -127,6 +144,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+    SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
+    SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
   }
 
   public Command toGetCarolHeightCmd() {
