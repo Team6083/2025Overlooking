@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(11) to coral station"
+                  "pathName": "rtcs11"
                 }
               },
               {
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "coral station to reef(10)"
+                  "pathName": "cstr10"
                 }
               },
               {
@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(10) to coral station"
+                  "pathName": "rtcs10"
                 }
               },
               {

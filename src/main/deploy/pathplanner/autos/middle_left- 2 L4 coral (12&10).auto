@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "middle_left - leave(12)"
+                  "pathName": "ML - leave(12)"
                 }
               },
               {
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(12) to coral station"
+                  "pathName": "rtcs12"
                 }
               },
               {
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "coral station to reef(10)"
+                  "pathName": "cstr10"
                 }
               },
               {
@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef(10) to coral station"
+                  "pathName": "rtcs10"
                 }
               },
               {

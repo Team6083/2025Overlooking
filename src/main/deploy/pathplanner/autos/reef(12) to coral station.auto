@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "reef(12) to coral station"
+            "pathName": "rtcs12"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "test",
   "choreoAuto": false
 }

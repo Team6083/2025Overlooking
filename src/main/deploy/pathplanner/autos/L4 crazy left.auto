@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L - leave(11) Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs11 Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr10 Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs10 Tag"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
