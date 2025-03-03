@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5M"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "test",
+  "choreoAuto": false
+}

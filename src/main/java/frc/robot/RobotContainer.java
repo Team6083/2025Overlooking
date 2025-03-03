@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
@@ -90,9 +91,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight", new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false));
+    NamedCommands.registerCommand("AprilTagRight",
+        Commands.either(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false),
+            new AprilTagAndAutoCmd(swerveDrive),
+            () -> tagTrackingSubsystem.getTv() == 1));
 
-    NamedCommands.registerCommand("AprilTagLeft", new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true));
+    NamedCommands.registerCommand("AprilTagLeft",
+        Commands.either(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true),
+            new AprilTagAndAutoCmd(swerveDrive),
+            () -> tagTrackingSubsystem.getTv() == 1));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());

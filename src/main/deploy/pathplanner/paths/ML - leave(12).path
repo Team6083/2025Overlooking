@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.2,
+        "y": 5.049
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.199779141189078,
+        "y": 5.1548788464420925
+      },
+      "isLocked": false,
+      "linkedName": "middle_left barge"
+    },
+    {
+      "anchor": {
+        "x": 5.276858108108108,
+        "y": 5.082347972972972
+      },
+      "prevControl": {
+        "x": 4.96012092142154,
+        "y": 5.108566942699196
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "reef 12"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -119.99999999999999
+  },
+  "reversed": false,
+  "folder": "ML - leave",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

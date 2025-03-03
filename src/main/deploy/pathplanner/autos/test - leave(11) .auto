@@ -5,19 +5,19 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left - leave(11)"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ErToSec"
+                  "pathName": "L - leave(11)"
                 }
               }
             ]

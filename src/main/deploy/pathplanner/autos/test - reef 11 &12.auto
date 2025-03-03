@@ -5,33 +5,57 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "left - leave(12)"
+            "pathName": "L - leave(12)"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AprilTagLeft"
+            "name": "SetTurningDegree"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "reef(12) to coral station"
+            "pathName": "rtcs12"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "coral station to reef(11)"
+            "waitTime": 1.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AprilTagLeft"
+            "name": "SetTurningDegree"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr11"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         }
       ]

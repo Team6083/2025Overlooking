@@ -16,32 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.6464999999999996,
-        "y": 2.815999999999999
+        "x": 3.6894886363636363,
+        "y": 2.8882386363636363
       },
       "prevControl": {
-        "x": 3.43189521755529,
-        "y": 2.944237230755575
-      },
-      "nextControl": {
-        "x": 3.861104782444709,
-        "y": 2.687762769244423
-      },
-      "isLocked": false,
-      "linkedName": "reef 6"
-    },
-    {
-      "anchor": {
-        "x": 3.7056587837837838,
-        "y": 2.947888513513513
-      },
-      "prevControl": {
-        "x": 3.9231221346543306,
-        "y": 2.8245609374076257
+        "x": 0.25926136363636276,
+        "y": 5.873068181818183
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "reef 6"
     }
   ],
   "rotationTargets": [],
@@ -50,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 1.1,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
