@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -10,6 +6,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AprilTagAndAutoCmd;
@@ -39,6 +37,9 @@ public class RobotContainer {
   private final SwerveToTagLeftCmd swerveToReefLeftCmd;
   private final SwerveToTagRightCmd swerveToReefRightCmd;
 
+  private final SequentialCommandGroup takeL2AlgaeCommandGroup;
+  private final SequentialCommandGroup takeL3AlgaeCommandGroup;
+
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
@@ -51,8 +52,29 @@ public class RobotContainer {
     swerveToReefLeftCmd = new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem);
     swerveToReefRightCmd = new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem);
 
+    takeL2AlgaeCommandGroup = new SequentialCommandGroup(
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
+        new ParallelRaceGroup(
+            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
+            algaeIntakeSubsystem.reIntakeCmd()),
+        new ParallelRaceGroup(
+            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+                .withTimeout(1.5),
+            algaeIntakeSubsystem.reIntakeCmd()));
+
+    takeL3AlgaeCommandGroup = new SequentialCommandGroup(
+        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
+        new ParallelRaceGroup(
+            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
+            algaeIntakeSubsystem.reIntakeCmd()),
+        new ParallelRaceGroup(
+            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+                .withTimeout(1.5),
+            algaeIntakeSubsystem.reIntakeCmd()));
+
     NamedCommands.registerCommand("CoralShooterIn",
-        new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+        new SequentialCommandGroup(
+            new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterWithAutoStop",
@@ -89,6 +111,7 @@ public class RobotContainer {
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
     SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
+
     configureBindings();
   }
 
@@ -96,13 +119,14 @@ public class RobotContainer {
     // SwerveDrive
     swerveDrive.setDefaultCommand(swerveJoystickCmd);
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
-    mainController.y().whileTrue(swerveDrive.setTurningDegreeCmd(0));
+
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.pov(90))
         .whileTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
+
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
@@ -120,10 +144,10 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    // mainController.y().whileTrue(algaeIntakeSubsystem.rotateUpCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.rotateDownCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    mainController.b().whileTrue(takeL2AlgaeCommandGroup);
+    mainController.x().whileTrue(takeL3AlgaeCommandGroup);
+    mainController.y().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 

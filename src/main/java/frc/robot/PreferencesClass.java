@@ -16,10 +16,10 @@ public class PreferencesClass {
         "kBackRightDriveMotorInverted", true);
 
     public static Map<String, Boolean> TWNDriveMotorInverted_MAP = Map.of(
-        "kFrontLeftDriveMotorInverted", true,
-        "kFrontRightDriveMotorInverted", false,
-        "kBackLeftDriveMotorInverted", true,
-        "kBackRightDriveMotorInverted", false);
+        "kFrontLeftDriveMotorInverted", false,
+        "kFrontRightDriveMotorInverted", true,
+        "kBackLeftDriveMotorInverted", false,
+        "kBackRightDriveMotorInverted", true);
     public static Map<String, Boolean> currentConfig = AUDriveMotorInverted_MAP;
 
     public static boolean get(String key) {
@@ -31,15 +31,15 @@ public class PreferencesClass {
 
   public class CanCoderMagOffset {
     public static Map<String, Double> AUCanCoderMagOffset_MAP = Map.of(
-        "kFrontLeftCanCoderMagOffset", -0.031738,
-        "kFrontRightCanCoderMagOffset", -0.409668,
-        "kBackLeftCanCoderMagOffset", 0.180908,
-        "kBackRightCanCoderMagOffset", 0.141846);
+        "kFrontLeftCanCoderMagOffset", 0.145264,
+        "kFrontRightCanCoderMagOffset", 0.245361,
+        "kBackLeftCanCoderMagOffset", 0.019043,
+        "kBackRightCanCoderMagOffset", 0.082764);
     public static Map<String, Double> TWNCanCoderMagOffset_MAP = Map.of(
-        "kFrontLeftCanCoderMagOffset", 0.069092,
-        "kFrontRightCanCoderMagOffset", 0.369141,
-        "kBackLeftCanCoderMagOffset", 0.401855,
-        "kBackRightCanCoderMagOffset", -0.010254
+        "kFrontLeftCanCoderMagOffset", 0.4218750625,
+        "kFrontRightCanCoderMagOffset", -0.91040059375,
+        "kBackLeftCanCoderMagOffset", -0.268555140625,
+        "kBackRightCanCoderMagOffset", 0.639159703125
 
     );
     public static Map<String, Double> currentConfig = AUCanCoderMagOffset_MAP;
