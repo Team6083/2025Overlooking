@@ -125,8 +125,8 @@ public class RobotContainer {
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
-    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.manualMoveDownCmd(),
@@ -142,15 +142,19 @@ public class RobotContainer {
     // ALgaeIntake
     controlPanel.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
     controlPanel.button(3).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
-    controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
-    controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
-    mainController.y().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
-    mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    controlPanel.button(7).onTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    controlPanel.button(8).onTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
 
+    // Elevator + AlgaeIntake
+    controlPanel.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
+    controlPanel.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
+
     // TagTracking
+    mainController.x().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    mainController.b().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
     controlPanel.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
     controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
   }
