@@ -61,7 +61,7 @@ public class Constants {
     public static final double kMaxOutput = 0.4;
     public static final double kMinOutput = -0.1;
 
-    public static final Distance kInitialHeight = Millimeters.of(480.0);
+    public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
     public static final Distance kSecFloor = Millimeters.of(810);
     public static final Distance kTrdFloor = Millimeters.of(1210);
