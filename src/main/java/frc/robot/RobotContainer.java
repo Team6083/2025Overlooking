@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
@@ -30,6 +31,7 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
+  private final CommandGenericHID controlPanel;
   private final SendableChooser<Command> autoChooser;
 
   private final TagTrackingSubsystem tagTrackingSubsystem;
@@ -46,6 +48,7 @@ public class RobotContainer {
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
+    controlPanel = new CommandGenericHID(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
     swerveToReefLeftCmd = new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem);
@@ -137,15 +140,21 @@ public class RobotContainer {
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    // mainController.b().whileTrue(takeL2AlgaeCommandGroup);
-    // mainController.x().whileTrue(takeL3AlgaeCommandGroup);
-    // mainController.y().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    // controlPanel.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
+    // controlPanel.button(2).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
+    // controlPanel.button(3).whileTrue(takeL2AlgaeCommandGroup);
+    // controlPanel.button(4).whileTrue(takeL3AlgaeCommandGroup);
+    mainController.y().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
-    mainController.y().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
+    // mainController.y().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    // mainController.a().whileTrue(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
+
+    // TagTracking
+    // controlPanel.button(5).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    // controlPanel.button(6).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
   }
 
   public Command getAutonomousCommand() {

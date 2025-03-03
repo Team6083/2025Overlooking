@@ -15,7 +15,7 @@ public class Constants {
     public static final int kShooterEncoderChannel = 4;
     public static final double kShooterMotorFastSpeed = 0.25;
     public static final double kShooterMotorSlowSpeed = 0.195;
-    public static final Boolean kCoralShooterMotorInverted = false;
+    public static final Boolean kCoralShooterMotorInverted = true;
     public static final Boolean kCoralShooterEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
@@ -152,9 +152,12 @@ public class Constants {
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
     // Algae Rotate & Front PID
-    public static final double rotMotorPIDkP = 0.015;
-    public static final double rotMotorPIDkI = 0;
-    public static final double rotMotorPIDkD = 0;
+    public static final double rotMotorUpPIDkP = 0.15;
+    public static final double rotMotorUpPIDkI = 0;
+    public static final double rotMotorUpPIDkD = 0;
+    public static final double rotMotorDownPIDkP = 0.005;
+    public static final double rotMotorDownPIDkI = 0;
+    public static final double rotMotorDownPIDkD = 0;
     // Algae setpoint
     public static final double kMaxAngle = 90;
     public static final double kMinAngle = 0;
@@ -166,9 +169,9 @@ public class Constants {
     // Algae Encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
-    public static final double expectedZero = 18;
+    public static final double expectedZero = 143;
     public static final double fullRange = 360;
-    public static final double kGetSecAlgaeAngle = 68;
+    public static final double kGetSecAlgaeAngle = 73;
   }
 
   public static final class SwerveControlConstant {
