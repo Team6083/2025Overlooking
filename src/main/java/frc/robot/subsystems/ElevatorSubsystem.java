@@ -117,6 +117,14 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
+
+  //   if (encoder.getStopped()
+  //   || Math.abs(encoder.getRate()) < 0.5
+  //   || (output > 0 && encoder.getRate() < 0)
+  //   || (output < 0 && encoder.getRate() > 0)) {
+
+  // SmartDashboard.putNumber("Output", 0);
+
     if (!manualControl) {
       if (!upLimitSwitch.get()) {
         targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
