@@ -14,8 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagLeftCmd;
-import frc.robot.commands.SwerveToTagRightCmd;
+import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -35,8 +34,6 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
 
   private final TagTrackingSubsystem tagTrackingSubsystem;
-  private final SwerveToTagLeftCmd swerveToReefLeftCmd;
-  private final SwerveToTagRightCmd swerveToReefRightCmd;
 
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
@@ -51,8 +48,6 @@ public class RobotContainer {
     controlPanel = new CommandGenericHID(1);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
-    swerveToReefLeftCmd = new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem);
-    swerveToReefRightCmd = new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem);
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
         algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
@@ -95,9 +90,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight", swerveToReefRightCmd);
+    NamedCommands.registerCommand("AprilTagRight", new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false));
 
-    NamedCommands.registerCommand("AprilTagLeft", swerveToReefLeftCmd);
+    NamedCommands.registerCommand("AprilTagLeft", new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -154,10 +149,10 @@ public class RobotContainer {
     controlPanel.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    mainController.x().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-    mainController.b().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
-    controlPanel.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-    controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
+    mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true));
+    mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false));
+    // controlPanel.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    // controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
   }
 
   public Command getAutonomousCommand() {
