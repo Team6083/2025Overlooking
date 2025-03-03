@@ -27,7 +27,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
-    algaeRotatePID = new PIDController(0,0,0);
+    algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
@@ -193,13 +193,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-
   public Command toAlgaeIntakeDegreeCmd() {
     algaeRotatePID.setPID(
-      AlgaeIntakeConstant.rotMotorDownPIDkP,
-      AlgaeIntakeConstant.rotMotorDownPIDkI,
-      AlgaeIntakeConstant.rotMotorDownPIDkD);
-      Command cmd = runOnce(
+        AlgaeIntakeConstant.rotMotorDownPIDkP,
+        AlgaeIntakeConstant.rotMotorDownPIDkI,
+        AlgaeIntakeConstant.rotMotorDownPIDkD);
+    Command cmd = runOnce(
         () -> setRotateSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle));
     cmd.setName("toAlgaeIntakeDegreeCmd");
     return cmd;
