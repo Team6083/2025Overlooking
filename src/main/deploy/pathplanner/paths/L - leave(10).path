@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.435545081967213,
-        "y": 6.777536885245903
+        "x": 5.507295721276924,
+        "y": 6.6493445949876895
       },
       "isLocked": false,
       "linkedName": "left barge"
@@ -20,30 +20,21 @@
         "y": 5.274772727272728
       },
       "prevControl": {
-        "x": 4.6320491803278685,
-        "y": 6.557457153502235
+        "x": 5.597706648217013,
+        "y": 6.4348380289565235
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "reef 10"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -119.19069737276253
-    },
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.05,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,

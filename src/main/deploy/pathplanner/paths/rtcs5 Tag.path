@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.05,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
@@ -45,7 +45,7 @@
     "rotation": 53.74616226255516
   },
   "reversed": false,
-  "folder": "crazy L4",
+  "folder": "cstr(tag)",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 57.65255650055804

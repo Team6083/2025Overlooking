@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.217008196721312,
-        "y": 0.854252049180328
+        "x": 6.386749683380053,
+        "y": 0.9775738262851519
       },
       "isLocked": false,
       "linkedName": "right barge"
@@ -20,8 +20,8 @@
         "y": 2.789780405405405
       },
       "prevControl": {
-        "x": 4.180469096145327,
-        "y": 2.130456634913602
+        "x": 4.403391004818382,
+        "y": 2.4089949717869055
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.05,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,

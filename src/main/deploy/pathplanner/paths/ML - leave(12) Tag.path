@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.1857500000000005,
-        "y": 7.5447500000000005
+        "x": 7.2,
+        "y": 5.049
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.365504622454578,
-        "y": 7.102971786018572
+        "x": 6.199779141189078,
+        "y": 5.1548788464420925
       },
       "isLocked": false,
-      "linkedName": "left barge"
+      "linkedName": "middle_left barge"
     },
     {
       "anchor": {
-        "x": 5.029814189189189,
-        "y": 2.809543918918919
+        "x": 5.4014999999999995,
+        "y": 5.2145
       },
       "prevControl": {
-        "x": 4.785563841099768,
-        "y": 2.446897739428369
+        "x": 5.084762813313431,
+        "y": 5.240718969726224
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 4"
+      "linkedName": "reef12(tag)"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": -121.7014296695056
   },
   "reversed": false,
-  "folder": "way points",
+  "folder": "ML - leave(tag)",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
