@@ -117,19 +117,18 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
 
+    // if (encoder.getStopped()
+    // || Math.abs(encoder.getRate()) < 0.5
+    // || (output > 0 && encoder.getRate() < 0)
+    // || (output < 0 && encoder.getRate() > 0)) {
 
-  //   if (encoder.getStopped()
-  //   || Math.abs(encoder.getRate()) < 0.5
-  //   || (output > 0 && encoder.getRate() < 0)
-  //   || (output < 0 && encoder.getRate() > 0)) {
+    // SmartDashboard.putNumber("Output", 0);
 
-  // SmartDashboard.putNumber("Output", 0);
-
-    if (!manualControl) {
+    if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
       if (!upLimitSwitch.get()) {
-        targetHeight = targetHeight.minus(ElevatorConstant.kStepHeight);
+        targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
       } else if (!downLimitSwitch.get()) {
-        targetHeight = targetHeight.plus(ElevatorConstant.kStepHeight);
+        targetHeight = currentHeight.plus(ElevatorConstant.kStepHeight);
       }
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));

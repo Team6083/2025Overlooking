@@ -127,6 +127,7 @@ public class RobotContainer {
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
     mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+    mainController.povRight().whileTrue(elevatorSubsystem.toTopFloorCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.moveDownCmd(),
@@ -142,8 +143,8 @@ public class RobotContainer {
     // ALgaeIntake
     controlPanel.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
     controlPanel.button(3).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
-    controlPanel.button(7).onTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    controlPanel.button(8).onTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
