@@ -34,7 +34,7 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     private final TagTrackingSubsystem tagTrackingSubsystem;
-        
+
     public RobotContainer() {
         powerDistribution = new PowerDistribution();
         coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
