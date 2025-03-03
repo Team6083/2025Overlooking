@@ -43,7 +43,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
     upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(7);
+    downLimitSwitch = new DigitalInput(8);
 
   }
 

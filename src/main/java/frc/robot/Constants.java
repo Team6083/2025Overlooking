@@ -56,16 +56,16 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1500);
+    public static final Distance kMaxHeight = Millimeters.of(1800);
 
     public static final double kMaxOutput = 0.4;
     public static final double kMinOutput = -0.1;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kGetCarolHeight = Millimeters.of(485);
-    public static final Distance kSecFloor = Millimeters.of(810);
-    public static final Distance kTrdFloor = Millimeters.of(1210);
-    public static final Distance kTopFloor = Millimeters.of(1830);
+    public static final Distance kSecFloor = Millimeters.of(714);
+    public static final Distance kTrdFloor = Millimeters.of(1206);
+    public static final Distance kTopFloor = Millimeters.of(1770);
     public static final Distance kStepHeight = Millimeters.of(7);
     public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);

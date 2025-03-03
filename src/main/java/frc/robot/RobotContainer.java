@@ -119,7 +119,7 @@ public class RobotContainer {
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
-    mainController.rightBumper().and(mainController.pov(90))
+    mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
@@ -129,14 +129,14 @@ public class RobotContainer {
     mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
     mainController.leftTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveDownCmd(),
             elevatorSubsystem.moveDownCmd(),
-            mainController.povRight()));
+            elevatorSubsystem.manualMoveDownCmd(),
+            controlPanel.button(10)));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
-            elevatorSubsystem.manualMoveUpCmd(),
             elevatorSubsystem.moveUpCmd(),
-            mainController.povRight()));
+            elevatorSubsystem.manualMoveUpCmd(),
+            controlPanel.button(10)));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake

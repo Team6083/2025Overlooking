@@ -22,7 +22,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final VictorSPX rotateMotor;
   private final PIDController algaeRotatePID;
   private final PowerDistribution powerDistribution;
-  private boolean isManualControl = true;
+  private boolean isManualControl = false;
   private final DutyCycleEncoder rotateEncoder;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
