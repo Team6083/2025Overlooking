@@ -152,10 +152,10 @@ public class Constants {
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
     // Algae Rotate & Front PID
-    public static final double rotMotorUpPIDkP = 0.15;
+    public static final double rotMotorUpPIDkP = 0.05;
     public static final double rotMotorUpPIDkI = 0;
     public static final double rotMotorUpPIDkD = 0;
-    public static final double rotMotorDownPIDkP = 0.005;
+    public static final double rotMotorDownPIDkP = 0.02;
     public static final double rotMotorDownPIDkI = 0;
     public static final double rotMotorDownPIDkD = 0;
     // Algae setpoint

@@ -24,6 +24,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PowerDistribution powerDistribution;
   private boolean isManualControl = false;
   private final DutyCycleEncoder rotateEncoder;
+  private double rotateSetpoint;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -79,18 +80,23 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
+    rotateSetpoint = setpoint;
     algaeRotatePID.setSetpoint(setpoint);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
-    }
+  }
+
+  public double getRotateSetpoint() {
+    return rotateSetpoint;
+  }
 
   public double getCurrentAngle() {
     return rotateEncoder.get();
   }
 
   // public void moveToAngle() {
-  //   algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle);
+  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle);
   // }
 
   @Override
@@ -100,20 +106,27 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
     SmartDashboard.putBoolean("algaeRotateIsManualControl", isManualControl);
     SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
-    // if (!isManualControl) {
-    // double output = -algaeRotatePID.calculate(getCurrentAngle());
-    // output = MathUtil.clamp(output, -0.5, 0.5);
-    // rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
-    // SmartDashboard.putNumber("algaeOutput", output);
-    // } else {
-    // algaeRotatePID.setSetpoint(getCurrentAngle());
-    // }
+
+    if (!isManualControl) {
+      double output = -algaeRotatePID.calculate(getCurrentAngle());
+      output = MathUtil.clamp(output, -0.5, 0.5);
+      rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+      SmartDashboard.putNumber("algaeOutput", output);
+    } else {
+      algaeRotatePID.setSetpoint(getCurrentAngle());
+
+      if (getCurrentAngle() < getRotateSetpoint()) {
+        algaeRotatePID.setP(AlgaeIntakeConstant.rotMotorUpPIDkP);
+      } else {
+        algaeRotatePID.setP(AlgaeIntakeConstant.rotMotorDownPIDkP);
+      }
+    }
   }
 
   // public Command moveToAngleCmd() {
-  //   Command cmd = runOnce(this::moveToAngle);
-  //   cmd.setName("moveToAngleCmd");
-  //   return cmd;
+  // Command cmd = runOnce(this::moveToAngle);
+  // cmd.setName("moveToAngleCmd");
+  // return cmd;
   // }
 
   public Command setIntakeMotorFastOnCmd() {
