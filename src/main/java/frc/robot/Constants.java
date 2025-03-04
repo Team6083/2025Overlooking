@@ -37,95 +37,6 @@ public class Constants {
     public static final Boolean kFieldRelative = true;
   }
 
-  public static final class CoralShooterConstant {
-    public static final double kDistanceRange = 4.0;
-    public static final int kShooterMotorChannel = 32;
-    public static final int kShooterEncoderChannel = 4;
-    public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kShooterMotorSlowSpeed = 0.195;
-    public static final Boolean kCoralShooterMotorInverted = true;
-    public static final Boolean kCoralShooterEncoderInverted = true;
-    public static final double kEncoderFullRange = 360.0;
-    public static final double kEncoderOffset = 0.0;
-  }
-
-  public static final class PowerDistributionConstant {
-    public static final int kCoralShooterRightMotorCurrentChannel = 0;
-    public static final int kCoralShooterLeftMotorCurrentChannel = 1;
-    public static final int kAlgaeIntakeMotorCurrentChannel = 7;
-    public static final int kAlgaeRotateMotorCurrentChannel = 7;
-    public static final int kClimberMotorCurrentChannel = 7;
-    public static final int kRampMotorCurrentChannel = 7;
-    public static final int kElevatorMotorCurrentChannel = 2;
-
-    public static final double kCoralShooterMotorMaxCurrent = 40;
-    public static final double kAlgaeIntakeMotorMaxCurrent = 40;
-    public static final double kAlgaeRotateMotorMaxCurrent = 40;
-    public static final double kClimberMotorMaxCurrent = 40;
-    public static final double kRampMotorMaxCurrent = 40;
-    public static final double kElevatorMotorMaxCurrent = 40;
-  }
-
-  public static final class ElevatorConstant {
-    public static final double kP = 0.023;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
-
-    public static final int kLeftElevatorMotorChannel = 33;
-    public static final int kRightElevatorMotorChannel = 30;
-    public static final boolean kMotorInverted = true;
-
-    public static final int kEncoderChannelA = 2;
-    public static final int kEncoderChannelB = 3;
-
-    public static final double kManualUpPower = 0.4;
-    public static final double kManualDownPower = -0.2;
-
-    public static final Distance kHeightOffset = Millimeters.of(430.0);
-
-    public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1800);
-
-    public static final double kMaxOutput = 0.4;
-    public static final double kMinOutput = -0.1;
-
-    public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kGetCarolHeight = Millimeters.of(485);
-    public static final Distance kSecFloor = Millimeters.of(714);
-    public static final Distance kTrdFloor = Millimeters.of(1206);
-    public static final Distance kTopFloor = Millimeters.of(1770);
-    public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
-    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
-    public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
-  }
-
-  public static final class ModuleConstant {
-    // wheel radius, unit: meter
-    public static final Distance kWheelRadius = Meters.of(0.0508);
-
-    // maximum output voltage
-    public static final double kMaxModuleDriveVoltage = 12.0;
-    public static final double kMaxModuleTurningVoltage = 12.0;
-
-    // set time interval of closedLoopRampRate
-    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
-    public static final double kTurningClosedLoopRampRate = 0.1;
-
-    // current method: speed to voltage
-    public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
-        / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
-
-    // set rotation PID parameter (maximum error angle: 180 degrees)
-    public static final double kPRotationController = kMaxModuleTurningVoltage / 180;
-
-    public static final double kIRotationController = 0.0;
-    public static final double kDRotationController = 0.0;
-
-    public static final boolean kTurningMotorInverted = true;
-  }
-
   public static final class DriveBaseConstant {
     // drive motor channel
     public static final int kFrontLeftDriveMotorChannel = 24;
@@ -164,6 +75,48 @@ public class Constants {
 
     // maximum rotate speed
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0); // TODO: need further test
+  }
+
+  public static final class ModuleConstant {
+    // wheel radius, unit: meter
+    public static final Distance kWheelRadius = Meters.of(0.0508);
+
+    // maximum output voltage
+    public static final double kMaxModuleDriveVoltage = 12.0;
+    public static final double kMaxModuleTurningVoltage = 12.0;
+
+    // set time interval of closedLoopRampRate
+    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
+    public static final double kTurningClosedLoopRampRate = 0.1;
+
+    // current method: speed to voltage
+    public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
+        / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+
+    // set rotation PID parameter (maximum error angle: 180 degrees)
+    public static final double kPRotationController = kMaxModuleTurningVoltage / 180;
+
+    public static final double kIRotationController = 0.0;
+    public static final double kDRotationController = 0.0;
+
+    public static final boolean kTurningMotorInverted = true;
+  }
+
+  public static final class PowerDistributionConstant {
+    public static final int kCoralShooterRightMotorCurrentChannel = 0;
+    public static final int kCoralShooterLeftMotorCurrentChannel = 1;
+    public static final int kAlgaeIntakeMotorCurrentChannel = 7;
+    public static final int kAlgaeRotateMotorCurrentChannel = 7;
+    public static final int kClimberMotorCurrentChannel = 7;
+    public static final int kRampMotorCurrentChannel = 7;
+    public static final int kElevatorMotorCurrentChannel = 2;
+
+    public static final double kCoralShooterMotorMaxCurrent = 40;
+    public static final double kAlgaeIntakeMotorMaxCurrent = 40;
+    public static final double kAlgaeRotateMotorMaxCurrent = 40;
+    public static final double kClimberMotorMaxCurrent = 40;
+    public static final double kRampMotorMaxCurrent = 40;
+    public static final double kElevatorMotorMaxCurrent = 40;
   }
 
   public static final class AlgaeIntakeConstant {
@@ -207,6 +160,53 @@ public class Constants {
     public static final double expectedZero = 143;
     public static final double fullRange = 360;
     public static final double kGetSecAlgaeAngle = 73;
+  }
+
+  public static final class CoralShooterConstant {
+    public static final double kDistanceRange = 4.0;
+    public static final int kShooterMotorChannel = 32;
+    public static final int kShooterEncoderChannel = 4;
+    // public static final double kShooterMotorFastSpeed = 0.25;
+    public static final double kShooterMotorSpeed = 0.195;
+    public static final Boolean kCoralShooterMotorInverted = true;
+    public static final Boolean kCoralShooterEncoderInverted = true;
+    public static final double kEncoderFullRange = 360.0;
+    public static final double kEncoderOffset = 0.0;
+  }
+
+  public static final class ElevatorConstant {
+    public static final double kP = 0.023;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+
+    public static final int kLeftElevatorMotorChannel = 33;
+    public static final int kRightElevatorMotorChannel = 30;
+    public static final boolean kMotorInverted = true;
+
+    public static final int kEncoderChannelA = 2;
+    public static final int kEncoderChannelB = 3;
+
+    public static final double kManualUpPower = 0.4;
+    public static final double kManualDownPower = -0.2;
+
+    public static final Distance kHeightOffset = Millimeters.of(430.0);
+
+    public static final Distance kLowestHeight = Millimeters.of(430.0);
+    public static final Distance kMaxHeight = Millimeters.of(1800);
+
+    public static final double kMaxOutput = 0.4;
+    public static final double kMinOutput = -0.1;
+
+    public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kGetCarolHeight = Millimeters.of(485);
+    public static final Distance kSecFloor = Millimeters.of(714);
+    public static final Distance kTrdFloor = Millimeters.of(1206);
+    public static final Distance kTopFloor = Millimeters.of(1770);
+    public static final Distance kStepHeight = Millimeters.of(7);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
+    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
+    public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
+        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
 
   public static final class AutoConstants {
