@@ -23,7 +23,7 @@ public class SwerveToTagLeftCmd extends Command {
   public SwerveToTagLeftCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
-      txController.setSetpoint(-0.14);
+    txController.setSetpoint(-0.14);
     tzController.setSetpoint(0.43);
     yawController.setSetpoint(0);
     addRequirements(swerveDrive);
