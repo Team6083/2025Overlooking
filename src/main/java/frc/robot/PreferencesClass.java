@@ -26,7 +26,6 @@ public class PreferencesClass {
 
       return currentConfig.get(key);
     }
-
   }
 
   public class CanCoderMagOffset {
@@ -39,13 +38,10 @@ public class PreferencesClass {
         "kFrontLeftCanCoderMagOffset", 0.4218750625,
         "kFrontRightCanCoderMagOffset", -0.91040059375,
         "kBackLeftCanCoderMagOffset", -0.268555140625,
-        "kBackRightCanCoderMagOffset", 0.639159703125
-
-    );
+        "kBackRightCanCoderMagOffset", 0.639159703125);
     public static Map<String, Double> currentConfig = AUCanCoderMagOffset_MAP;
 
     public static double get(String key) {
-
       return currentConfig.get(key);
     }
 
