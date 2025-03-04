@@ -128,7 +128,7 @@ public class RobotContainer {
         Commands.either(
             new CoralShooterHoldCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterStopCmd(),
-            () -> controlPanel.button(89).getAsBoolean()));
+            () -> controlPanel.button(12).getAsBoolean()));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
