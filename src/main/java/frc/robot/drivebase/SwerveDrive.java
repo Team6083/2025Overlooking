@@ -42,8 +42,6 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveOdometry odometry;
   private final Pigeon2 gyro;
 
-  private int au = 0;
-  private int twn = 1;
   private int whereCanCoderMagOffset;
   private int trueCanCoderMagOffset;
 
@@ -55,7 +53,7 @@ public class SwerveDrive extends SubsystemBase {
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
 
   public SwerveDrive() {
-    // 初始化 Swerve 模組
+    // initialize sweve module
     frontLeft = new SwerveModule(
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
         DriveBaseConstant.kFrontLeftTurningMotorChannel,
@@ -90,11 +88,11 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putData("BackLeft", backLeft);
     SmartDashboard.putData("BackRight", backRight);
 
-    // 初始化 Gyro
+    // initial gyro
     gyro = new Pigeon2(DriveBaseConstant.kPigeonChannel);
     gyro.reset();
 
-    // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
+    // set relative position of four swerve module, center point: (0,0), unit: meter
     Translation2d frontLeftLocation = new Translation2d(
         DriveBaseConstant.kRobotLength.div(2),
         DriveBaseConstant.kRobotWidth.div(2));
@@ -108,7 +106,7 @@ public class SwerveDrive extends SubsystemBase {
         DriveBaseConstant.kRobotLength.div(2).unaryMinus(),
         DriveBaseConstant.kRobotWidth.div(2).unaryMinus());
 
-    // 定義 Kinematics 與 Odometry
+    // define kinematics and odometry
     kinematics = new SwerveDriveKinematics(
         frontLeftLocation,
         frontRightLocation,
@@ -200,7 +198,7 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setDesiredState(swerveModuleStates[3]);
   }
 
-  // 取得當前機器人在場地上的位置與角度
+  // get current pose
   public Pose2d getPose2d() {
     return odometry.getPoseMeters();
   }
@@ -214,7 +212,7 @@ public class SwerveDrive extends SubsystemBase {
     };
   }
 
-  // 重設機器人的位置與角度
+  // reset pose
   public void resetPose() {
     odometry.resetPosition(
         gyro.getRotation2d(),
@@ -222,14 +220,14 @@ public class SwerveDrive extends SubsystemBase {
         new Pose2d(0, 0, new Rotation2d(0)));
   }
 
-  // 更新機器人的場地相對位置
+  // update odometry
   private void updateOdometry() {
     odometry.update(
         gyro.getRotation2d(),
         getSwerveModulePosition());
   }
 
-  // 重置所有輪子的 Encoder 與機器人位置
+  // reset all
   public void resetPose2dAndEncoder() {
     frontLeft.resetAllEncoder();
     frontRight.resetAllEncoder();
@@ -238,12 +236,12 @@ public class SwerveDrive extends SubsystemBase {
     resetPose();
   }
 
-  // 重置陀螺儀的角度
+  // rest gyro
   public void resetGyro() {
     gyro.reset();
   }
 
-  // 取得機器人目前的旋轉角度
+  // get rotation degree
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
         + ((DriveBaseConstant.kGyroInverted)
