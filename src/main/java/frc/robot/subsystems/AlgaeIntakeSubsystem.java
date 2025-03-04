@@ -95,6 +95,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return rotateEncoder.get();
   }
 
+  public void setManualControl(){
+    isManualControl = true;
+  }
+
   // public void moveToAngle() {
   // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle);
   // }
@@ -167,6 +171,13 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public Command manualRotateDownCmd() {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+  }
+
+  public Command setManualControlCmd(){
+    Command cmd = runOnce(
+        () -> setManualControl());
+    cmd.setName("setManualControl");
+    return cmd;
   }
 
   public Command rotateUpPIDCmd() {
