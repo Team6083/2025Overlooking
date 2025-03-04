@@ -72,7 +72,7 @@ public class RobotContainer {
             algaeIntakeSubsystem.reIntakeCmd()));
 
     NamedCommands.registerCommand("setTuringDegree",
-        swerveDrive.setTurningDegreeCmd(0));
+        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
     NamedCommands.registerCommand("CoralShooterIn",
         new SequentialCommandGroup(
@@ -87,13 +87,13 @@ public class RobotContainer {
         elevatorSubsystem.toSecFloorCmd());
 
     NamedCommands.registerCommand("ErToTrd",
-        elevatorSubsystem.toTrdFloorCmd());
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toTrdFloorCmd()));
 
     NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.toTopFloorCmd());
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toTopFloorCmd()));
 
     NamedCommands.registerCommand("ErDown",
-        elevatorSubsystem.toDefaultPositionCmd());
+    elevatorSubsystem.autoStopCmd(elevatorSubsystem.toDefaultPositionCmd()));
 
     NamedCommands.registerCommand("AprilTagRight",
         Commands.either(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem),
@@ -164,10 +164,8 @@ public class RobotContainer {
     // TagTracking
     mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
     mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-    // controlPanel.button(2).whileTrue(new SwerveToTagRightCmd(swerveDrive,
-    // tagTrackingSubsystem, true));
-    // controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive,
-    // tagTrackingSubsystem, false));
+    controlPanel.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
   }
 
   public Command getAutonomousCommand() {
