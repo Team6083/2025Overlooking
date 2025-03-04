@@ -92,7 +92,7 @@ public class RobotContainer {
         elevatorSubsystem.autoStopCmd(elevatorSubsystem.toTopFloorCmd()));
 
     NamedCommands.registerCommand("ErDown",
-    elevatorSubsystem.autoStopCmd(elevatorSubsystem.toDefaultPositionCmd()));
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toDefaultPositionCmd()));
 
     NamedCommands.registerCommand("AprilTagRight",
         Commands.either(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem),
