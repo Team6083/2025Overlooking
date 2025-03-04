@@ -12,7 +12,7 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.TagTrackingSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveToTagCmd extends Command {
+public class SwerveToTagRightCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTrackingSubsystem tagTracking;
@@ -20,14 +20,10 @@ public class SwerveToTagCmd extends Command {
   PIDController tzController = new PIDController(2, 0, 0);
   PIDController yawController = new PIDController(0.05, 0, 0);
 
-  public SwerveToTagCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking, boolean isLeft) {
+  public SwerveToTagRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
     this.swerveDrive = swerveDrive;
     this.tagTracking = tagTracking;
-    if (isLeft) {
-      txController.setSetpoint(0.14);
-    } else {
-      txController.setSetpoint(-0.14);
-    }
+    txController.setSetpoint(0.14);
     tzController.setSetpoint(0.43);
     yawController.setSetpoint(0);
     addRequirements(swerveDrive);
