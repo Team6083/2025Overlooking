@@ -11,10 +11,10 @@ import edu.wpi.first.units.measure.LinearVelocity;
 public class Constants {
   public static final class SwerveControlConstant {
     // magnet offset
-    public static final double kFrontLeftCanCoderMagOffset = 0.4218750625;
-    public static final double kFrontRightCanCoderMagOffset = -0.91040059375;
-    public static final double kBackLeftCanCoderMagOffset = -0.268555140625;
-    public static final double kBackRightCanCoderMagOffset = 0.639159703125;
+    public static final double kFrontLeftCanCoderMagOffset = 0.126709;
+    public static final double kFrontRightCanCoderMagOffset = 0.217285;
+    public static final double kBackLeftCanCoderMagOffset = -0.423828;
+    public static final double kBackRightCanCoderMagOffset = -0.087402;
 
     // motor inverted
     public static final boolean kFrontLeftDriveMotorInverted = false;
@@ -39,16 +39,16 @@ public class Constants {
 
   public static final class DriveBaseConstant {
     // drive motor channel
-    public static final int kFrontLeftDriveMotorChannel = 24;
-    public static final int kFrontRightDriveMotorChannel = 21;
-    public static final int kBackLeftDriveMotorChannel = 23;
-    public static final int kBackRightDriveMotorChannel = 22;
+    public static final int kFrontLeftDriveMotorChannel = 27;
+    public static final int kFrontRightDriveMotorChannel = 25;
+    public static final int kBackLeftDriveMotorChannel = 21;
+    public static final int kBackRightDriveMotorChannel = 23;
 
     // turning motor channel
     public static final int kFrontLeftTurningMotorChannel = 28;
-    public static final int kFrontRightTurningMotorChannel = 25;
-    public static final int kBackLeftTurningMotorChannel = 27;
-    public static final int kBackRightTurningMotorChannel = 26;
+    public static final int kFrontRightTurningMotorChannel = 26;
+    public static final int kBackLeftTurningMotorChannel = 22;
+    public static final int kBackRightTurningMotorChannel = 24;
 
     // turning motor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
@@ -57,10 +57,10 @@ public class Constants {
     public static final boolean kBackRightTurningMotorInverted = true;
 
     // turning CANcoder ID
-    public static final int kFrontLeftCanCoder = 6;
-    public static final int kFrontRightCanCoder = 3;
-    public static final int kBackLeftCanCoder = 5;
-    public static final int kBackRightCanCoder = 4;
+    public static final int kFrontLeftCanCoder = 4;
+    public static final int kFrontRightCanCoder = 5;
+    public static final int kBackLeftCanCoder = 3;
+    public static final int kBackRightCanCoder = 6;
 
     // whether gyro is under the robot
     public static final boolean kGyroInverted = false;
@@ -96,7 +96,7 @@ public class Constants {
     public static final double kPRotationController = kMaxModuleTurningVoltage / 180;
 
     public static final double kIRotationController = 0.0;
-    public static final double kDRotationController = 0.0;
+    public static final double kDRotationController = 0.0005;
 
     public static final boolean kTurningMotorInverted = true;
   }

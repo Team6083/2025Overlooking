@@ -133,6 +133,7 @@ public class SwerveModule extends SubsystemBase {
     desiredState.optimize(currentRotation2d);
     driveMotorVoltage = desiredState.speedMetersPerSecond
         * ModuleConstant.kDesireSpeedToMotorVoltage;
+    SmartDashboard.putNumber(name+"goal_Degree", desiredState.angle.getDegrees());
     turningMotorVoltage = rotController.calculate(
         currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
@@ -155,6 +156,7 @@ public class SwerveModule extends SubsystemBase {
     SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
     SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
     SmartDashboard.putNumber(name + "Get_ModuleRotation", getRotation2d().getDegrees());
+    SmartDashboard.putNumber(name+"_current", driveMotor.getOutputCurrent());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
     SmartDashboard.putData(name + "_RotController", rotController);
