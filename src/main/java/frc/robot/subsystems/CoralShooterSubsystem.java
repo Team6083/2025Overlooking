@@ -40,15 +40,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
   }
 
-  public void periodic() {
-    // put dashboard
-    SmartDashboard.putNumber("Distance", distanceSensor.getRange());
-    SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
-    SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
-    
-    distanceSensor.setAutomaticMode(true);
-  }
-
   public double getEncoder() {
     return coralShooterEncoder.get();
   }
@@ -77,6 +68,16 @@ public class CoralShooterSubsystem extends SubsystemBase {
     }
 
     return false;
+  }
+
+  @Override
+  public void periodic() {
+    // put dashboard
+    SmartDashboard.putNumber("Distance", distanceSensor.getRange());
+    SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
+    SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
+
+    distanceSensor.setAutomaticMode(true);
   }
 
   public Command coralShooterOnCmd() {

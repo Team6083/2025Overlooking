@@ -41,15 +41,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     // encoder
     elevatorEncoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
     elevatorEncoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
-    elevatorEncoder.setReverseDirection(ElevatorConstant.kEncoderInverted);   // TODO: need further check
+    elevatorEncoder.setReverseDirection(ElevatorConstant.kEncoderInverted); // TODO: need further check
     elevatorEncoder.reset();
 
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    
+
     targetHeight = ElevatorConstant.kInitialHeight;
 
-    //  limit switch
+    // limit switch
     upLimitSwitch = new DigitalInput(5);
     downLimitSwitch = new DigitalInput(8);
 
