@@ -127,12 +127,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     }
   }
 
-  // public Command moveToAngleCmd() {
-  // Command cmd = runOnce(this::moveToAngle);
-  // cmd.setName("moveToAngleCmd");
-  // return cmd;
-  // }
-
   public Command setIntakeMotorFastOnCmd() {
     Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
     cmd.setName("setIntakeCmd");
@@ -180,20 +174,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command rotateUpPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kStepAngle));
-    cmd.setName("rotateUpPID");
-    return cmd;
-  }
-
-  public Command rotateDownPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(-AlgaeIntakeConstant.kStepAngle));
-    cmd.setName("rotateDownPID");
-    return cmd;
-  }
-
   public Command toDefaultDegreeCmd() {
     algaeRotatePID.setPID(
         AlgaeIntakeConstant.rotMotorUpPIDkP,
@@ -202,20 +182,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     Command cmd = runOnce(
         () -> setRotateSetpoint(0));
     cmd.setName("toDefaultDegreeCmd");
-    return cmd;
-  }
-
-  public Command rotateMaxPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kMaxAngle));
-    cmd.setName("rotateUpPID");
-    return cmd;
-  }
-
-  public Command rotateMinPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kMinAngle));
-    cmd.setName("rotateDownPID");
     return cmd;
   }
 
@@ -238,5 +204,37 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     cmd.setName("autoStopRotateCmd");
     return cmd;
   }
+  // public Command moveToAngleCmd() {
+  // Command cmd = runOnce(this::moveToAngle);
+  // cmd.setName("moveToAngleCmd");
+  // return cmd;
+  // }
 
+  // public Command rotateMaxPIDCmd() {
+  // Command cmd = runOnce(
+  // () -> setRotateSetpoint(AlgaeIntakeConstant.kMaxAngle));
+  // cmd.setName("rotateUpPID");
+  // return cmd;
+  // }
+
+  // public Command rotateMinPIDCmd() {
+  // Command cmd = runOnce(
+  // () -> setRotateSetpoint(AlgaeIntakeConstant.kMinAngle));
+  // cmd.setName("rotateDownPID");
+  // return cmd;
+  // }
+
+  // public Command rotateUpPIDCmd() {
+  // Command cmd = runOnce(
+  // () -> setRotateSetpoint(AlgaeIntakeConstant.kStepAngle));
+  // cmd.setName("rotateUpPID");
+  // return cmd;
+  // }
+  //
+  // public Command rotateDownPIDCmd() {
+  // Command cmd = runOnce(
+  // () -> setRotateSetpoint(-AlgaeIntakeConstant.kStepAngle));
+  // cmd.setName("rotateDownPID");
+  // return cmd;
+  // }
 }

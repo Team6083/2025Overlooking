@@ -143,7 +143,7 @@ public class RobotContainer {
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
-    controlPanel.button(9).onTrue(algaeIntakeSubsystem.setManualControlCmd());
+    controlPanel.button(9).whileTrue(algaeIntakeSubsystem.setManualControlCmd());
 
     // Elevator + AlgaeIntake
     controlPanel.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
