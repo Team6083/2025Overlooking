@@ -163,12 +163,12 @@ public class Constants {
 
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-    public static final int kShooterMotorChannel = 32;
-    public static final int kShooterEncoderChannel = 4;
+    public static final int kMotorChannel = 32;
+    public static final int kEncoderChannel = 4;
     // public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kShooterMotorSpeed = 0.195;
-    public static final Boolean kCoralShooterMotorInverted = true;
-    public static final Boolean kCoralShooterEncoderInverted = true;
+    public static final double kMotorSpeed = 0.195;
+    public static final Boolean kMotorInverted = true;
+    public static final Boolean kEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
   }
