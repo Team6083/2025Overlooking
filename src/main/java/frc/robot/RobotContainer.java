@@ -104,6 +104,9 @@ public class RobotContainer {
             new AprilTagAndAutoCmd(swerveDrive),
             () -> tagTrackingSubsystem.getTv() == 1));
 
+    NamedCommands.registerCommand("AlgaeIntake",
+        algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
