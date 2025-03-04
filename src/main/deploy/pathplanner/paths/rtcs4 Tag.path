@@ -45,7 +45,7 @@
     "rotation": 53.74616226255516
   },
   "reversed": false,
-  "folder": "cstr(tag)",
+  "folder": "rtcs(tag)",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 119.99999999999999

@@ -26,12 +26,6 @@
         {
           "type": "named",
           "data": {
-            "name": "AprilTagRight"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "CoralShooterWithStop"
           }
         },
@@ -77,12 +71,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AprilTagLeft"
           }
         },
         {
