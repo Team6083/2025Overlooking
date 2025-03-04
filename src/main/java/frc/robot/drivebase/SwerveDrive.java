@@ -3,8 +3,6 @@ package frc.robot.drivebase;
 import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
-
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.config.PIDConstants;
@@ -12,6 +10,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
+import com.studica.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -40,10 +39,8 @@ public class SwerveDrive extends SubsystemBase {
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
-  private final Pigeon2 gyro;
+  private final AHRS gyro;
 
-  private int au = 0;
-  private int twn = 1;
   private int whereCanCoderMagOffset;
   private int trueCanCoderMagOffset;
 
@@ -91,7 +88,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putData("BackRight", backRight);
 
     // 初始化 Gyro
-    gyro = new Pigeon2(DriveBaseConstant.kPigeonChannel);
+    gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
 
     // 設定四個 Swerve 模組在機器人上的相對位置，以機器人中心為原點 (0,0)，單位是 公尺
