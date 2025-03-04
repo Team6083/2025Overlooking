@@ -30,9 +30,9 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
-  private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
   private final CommandGenericHID controlPanel;
+
   private final SendableChooser<Command> autoChooser;
 
   private final TagTrackingSubsystem tagTrackingSubsystem;
@@ -48,7 +48,6 @@ public class RobotContainer {
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     controlPanel = new CommandGenericHID(1);
-    swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
     tagTrackingSubsystem = new TagTrackingSubsystem();
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
@@ -119,7 +118,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     // SwerveDrive
-    swerveDrive.setDefaultCommand(swerveJoystickCmd);
+    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController));
+    // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
