@@ -24,7 +24,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PowerDistribution powerDistribution;
   private boolean isManualControl = false;
   private final DutyCycleEncoder rotateEncoder;
-  private double rotateSetpoint;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -80,7 +79,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
-    rotateSetpoint = setpoint;
     algaeRotatePID.setSetpoint(setpoint);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
@@ -88,16 +86,16 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public double getRotateSetpoint() {
-    return rotateSetpoint;
+    return algaeRotatePID.getSetpoint();
   }
 
   public double getCurrentAngle() {
     return rotateEncoder.get();
   }
 
-  // public void moveToAngle() {
-  // algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle);
-  // }
+  public void setManualControl() {
+    isManualControl = true;
+  }
 
   @Override
   public void periodic() {
@@ -122,12 +120,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       }
     }
   }
-
-  // public Command moveToAngleCmd() {
-  // Command cmd = runOnce(this::moveToAngle);
-  // cmd.setName("moveToAngleCmd");
-  // return cmd;
-  // }
 
   public Command setIntakeMotorFastOnCmd() {
     Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
@@ -169,17 +161,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
-  public Command rotateUpPIDCmd() {
+  public Command setManualControlCmd() {
     Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kStepAngle));
-    cmd.setName("rotateUpPID");
-    return cmd;
-  }
-
-  public Command rotateDownPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(-AlgaeIntakeConstant.kStepAngle));
-    cmd.setName("rotateDownPID");
+        () -> setManualControl());
+    cmd.setName("setManualControl");
     return cmd;
   }
 
@@ -191,20 +176,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     Command cmd = runOnce(
         () -> setRotateSetpoint(0));
     cmd.setName("toDefaultDegreeCmd");
-    return cmd;
-  }
-
-  public Command rotateMaxPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kMaxAngle));
-    cmd.setName("rotateUpPID");
-    return cmd;
-  }
-
-  public Command rotateMinPIDCmd() {
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kMinAngle));
-    cmd.setName("rotateDownPID");
     return cmd;
   }
 
@@ -227,5 +198,4 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     cmd.setName("autoStopRotateCmd");
     return cmd;
   }
-
 }
