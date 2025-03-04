@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     m_robotContainer = new RobotContainer();
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
   }
 
   @Override
@@ -43,10 +43,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Build_Date", BuildConstants.BUILD_DATE);
     if (BuildConstants.DIRTY == 0) {
       SmartDashboard.putString(
-          "Dirty", "No uncommitted changes? This broccoli is looking fresh and crispy!");
+          "Dirty", "Clean! Good job!");
     } else {
       SmartDashboard.putString(
-          "Dirty", "Your code smells stronger than overcooked broccoli. Maybe it's time to commit?");
+          "Dirty", "Dirty!");
     }
   }
 
