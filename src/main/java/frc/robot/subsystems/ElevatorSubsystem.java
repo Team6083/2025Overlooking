@@ -23,7 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   private final WPI_VictorSPX leftElevatorMotor;
   private final WPI_VictorSPX rightElevatorMotor;
-  private final Encoder encoder;
+  private final Encoder elevatorEncoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
@@ -31,24 +31,32 @@ public class ElevatorSubsystem extends SubsystemBase {
   private DigitalInput downLimitSwitch;
 
   public ElevatorSubsystem() {
+    // motor
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
-    leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
-    encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
-    encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
+    leftElevatorMotor.setInverted(ElevatorConstant.kLeftMotorInverted);
+    rightElevatorMotor.setInverted(ElevatorConstant.kRightMotorInverted);
+
+    // encoder
+    elevatorEncoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
+    elevatorEncoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
+    elevatorEncoder.setReverseDirection(ElevatorConstant.kEncoderInverted);   // TODO: need further check
+    elevatorEncoder.reset();
+
+    // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+    
     rightElevatorMotor.follow(leftElevatorMotor);
+
     manualControl = false;
-    encoder.setReverseDirection(false);
-    encoder.reset();
+    
     targetHeight = ElevatorConstant.kInitialHeight;
     upLimitSwitch = new DigitalInput(5);
     downLimitSwitch = new DigitalInput(8);
-
   }
 
   public void resetEncoder() {
-    encoder.reset();
+    elevatorEncoder.reset();
     targetHeight = getCurrentHeight();
   }
 
@@ -70,7 +78,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Distance getCurrentHeight() {
-    return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
+    return Millimeters.of(elevatorEncoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
 
   public void moveUp() {
@@ -140,7 +148,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
-    SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
+    SmartDashboard.putNumber("ElevatorEncoder", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);

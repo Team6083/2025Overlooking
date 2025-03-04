@@ -180,10 +180,12 @@ public class Constants {
 
     public static final int kLeftElevatorMotorChannel = 33;
     public static final int kRightElevatorMotorChannel = 30;
-    public static final boolean kMotorInverted = true;
+    public static final boolean kLeftMotorInverted = true;
+    public static final boolean kRightMotorInverted = false;
 
     public static final int kEncoderChannelA = 2;
     public static final int kEncoderChannelB = 3;
+    public static final boolean kEncoderInverted = false;
 
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
