@@ -31,7 +31,7 @@ public class RobotContainer {
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
   private final CommandXboxController mainController;
-  private final CommandGenericHID controlPanel;
+  private final CommandXboxController viceController;
 
   private final SendableChooser<Command> autoChooser;
 
@@ -47,7 +47,7 @@ public class RobotContainer {
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
-    controlPanel = new CommandGenericHID(1);
+    viceController = new CommandXboxController(1);
     tagTrackingSubsystem = new TagTrackingSubsystem();
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
@@ -123,7 +123,7 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    controlPanel.button(11).whileTrue(
+    viceController.button(11).whileTrue(
         new CoralShooterHoldCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
@@ -139,32 +139,32 @@ public class RobotContainer {
         .whileTrue(Commands.either(
             elevatorSubsystem.moveDownCmd(),
             elevatorSubsystem.manualMoveDownCmd(),
-            controlPanel.button(10)));
+            viceController.button(10)));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.moveUpCmd(),
             elevatorSubsystem.manualMoveUpCmd(),
-            controlPanel.button(10)));
+            viceController.button(10)));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
-    controlPanel.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
-    controlPanel.button(3).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
-    controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    viceController.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
+    viceController.button(3).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
+    viceController.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    viceController.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    controlPanel.button(12).onTrue(algaeIntakeSubsystem.setManualControlCmd());
+    viceController.button(12).onTrue(algaeIntakeSubsystem.setManualControlCmd());
 
     // Elevator + AlgaeIntake
-    controlPanel.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
-    controlPanel.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
+    viceController.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
+    viceController.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
     mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
     mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-    controlPanel.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-    controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
+    viceController.button(2).whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    viceController.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
   }
 
   public Command getAutonomousCommand() {
