@@ -94,6 +94,20 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     isManualControl = true;
   }
 
+  public void setRotateUpPID() {
+    algaeRotatePID.setPID(
+        AlgaeIntakeConstant.rotMotorUpPIDkP,
+        AlgaeIntakeConstant.rotMotorUpPIDkI,
+        AlgaeIntakeConstant.rotMotorUpPIDkD);
+  }
+
+  public void setRotateDownPID() {
+    algaeRotatePID.setPID(
+        AlgaeIntakeConstant.rotMotorDownPIDkP,
+        AlgaeIntakeConstant.rotMotorDownPIDkI,
+        AlgaeIntakeConstant.rotMotorDownPIDkD);
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
@@ -136,7 +150,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
+  public Command setRotateCmd(double speed) { 
     Command cmd = runEnd(
         () -> {
           isManualControl = true;
@@ -166,10 +180,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public Command toDefaultDegreeCmd() {
-    algaeRotatePID.setPID(
-        AlgaeIntakeConstant.rotMotorUpPIDkP,
-        AlgaeIntakeConstant.rotMotorUpPIDkI,
-        AlgaeIntakeConstant.rotMotorUpPIDkD);
+    setRotateUpPID();
     Command cmd = runOnce(
         () -> setRotateSetpoint(0));
     cmd.setName("toDefaultDegreeCmd");
@@ -177,10 +188,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public Command toAlgaeIntakeDegreeCmd() {
-    algaeRotatePID.setPID(
-        AlgaeIntakeConstant.rotMotorDownPIDkP,
-        AlgaeIntakeConstant.rotMotorDownPIDkI,
-        AlgaeIntakeConstant.rotMotorDownPIDkD);
+    setRotateDownPID();
     Command cmd = runOnce(
         () -> setRotateSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle));
     cmd.setName("toAlgaeIntakeDegreeCmd");
@@ -190,7 +198,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command autoStopRotateCmd(Command command) {
     Command cmd = new SequentialCommandGroup(
         command.repeatedly()
-            .until(() -> algaeRotatePID.getError() < 5),
+            .until(() -> Math.abs(algaeRotatePID.getError()) < 5),
         runOnce(this::stopRotate));
     cmd.setName("autoStopRotateCmd");
     return cmd;
