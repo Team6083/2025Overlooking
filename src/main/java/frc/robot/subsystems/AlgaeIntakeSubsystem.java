@@ -150,7 +150,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command reIntakeCmd() { // 吐出 algae 的 cmd
+  public Command reIntakeCmd() { // spit algae
     Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
     cmd.setName("setReIntakeMotorCmd");
     return cmd;
