@@ -63,7 +63,6 @@ public class Constants {
     public static final int kBackRightCanCoder = 4;
 
     // whether gyro is under the robot
-    public static final int kPigeonChannel = 0;
     public static final boolean kGyroInverted = false;
     public static final double kGyroOffSet = 0.0;
 
