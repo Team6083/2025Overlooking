@@ -27,17 +27,23 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
-    algaeRotatePID = new PIDController(0, 0, 0);
-    algaeRotatePID.enableContinuousInput(0, 360);
+
+    // motor
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
+    intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
+    rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
+
+    // encoder
     rotateEncoder = new DutyCycleEncoder(
         AlgaeIntakeConstant.kAlgaeEncoderChannelA,
         AlgaeIntakeConstant.fullRange,
         AlgaeIntakeConstant.expectedZero);
-    intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
-    rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
+
+    // PID
+    algaeRotatePID = new PIDController(0, 0, 0);
+    algaeRotatePID.enableContinuousInput(0, 360);
   }
 
   private void setIntakeMotor(double speed) {
@@ -150,7 +156,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command setRotateCmd(double speed) { 
+  public Command setRotateCmd(double speed) {
     Command cmd = runEnd(
         () -> {
           isManualControl = true;
