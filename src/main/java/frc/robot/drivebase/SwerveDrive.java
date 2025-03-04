@@ -87,7 +87,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putData("BackLeft", backLeft);
     SmartDashboard.putData("BackRight", backRight);
 
-    // 初始化 Gyro
+    // initialize gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
     gyro.reset();
 
