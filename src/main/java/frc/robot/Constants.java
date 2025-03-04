@@ -9,6 +9,36 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 
 public class Constants {
+  public static final class SwerveControlConstant {
+    // magnet offset
+    public static final double kFrontLeftCanCoderMagOffset = 0.4218750625;
+    public static final double kFrontRightCanCoderMagOffset = -0.91040059375;
+    public static final double kBackLeftCanCoderMagOffset = -0.268555140625;
+    public static final double kBackRightCanCoderMagOffset = 0.639159703125;
+
+    // motor inverted
+    public static final boolean kFrontLeftDriveMotorInverted = false;
+    public static final boolean kFrontRightDriveMotorInverted = true;
+    public static final boolean kBackLeftDriveMotorInverted = false;
+    public static final boolean kBackRightDriveMotorInverted = true;
+    
+
+    // 變速的放大倍率
+    public static final double kDefaultMagnification = 0.25;
+    public static final double kFastMagnification = 0.75;
+
+    public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+    public static final double kMinJoystickInput = 0.1;
+
+    public static final double kXLimiterRateLimit = 5.0;
+    public static final double kYLimiterRateLimit = 5.0;
+    public static final double kRotLimiterRateLimit = 5.0;
+
+    // fieldRelative
+    // Field - true / Robot - false
+    public static final Boolean kFieldRelative = true;
+  }
+
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterMotorChannel = 32;
@@ -175,23 +205,7 @@ public class Constants {
     public static final double kGetSecAlgaeAngle = 73;
   }
 
-  public static final class SwerveControlConstant {
-
-    // 變速的放大倍率
-    public static final double kDefaultMagnification = 0.25;
-    public static final double kFastMagnification = 0.75;
-
-    public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
-    public static final double kMinJoystickInput = 0.1;
-
-    public static final double kXLimiterRateLimit = 5.0;
-    public static final double kYLimiterRateLimit = 5.0;
-    public static final double kRotLimiterRateLimit = 5.0;
-
-    // fieldRelative
-    // Field - true / Robot - false
-    public static final Boolean kFieldRelative = true;
-  }
+  
 
   public static final class AutoConstants {
     public static final double kPTranslation = 6;
