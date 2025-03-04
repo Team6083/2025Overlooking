@@ -40,32 +40,29 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
   }
 
-  public void setIntakeMotorFastOn() {
+  private void setIntakeMotor(double speed) {
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    } else {
+      intakeMotor.set(VictorSPXControlMode.PercentOutput, speed);
     }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
-        AlgaeIntakeConstant.kIntakeFastSpeed);
+  }
+
+  public void setIntakeMotorFastOn() {
+    setIntakeMotor(AlgaeIntakeConstant.kIntakeFastSpeed);
+
   }
 
   public void setIntakeMotorSlowOn() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
-        AlgaeIntakeConstant.kIntakeSlowSpeed);
+    setIntakeMotor(AlgaeIntakeConstant.kIntakeSlowSpeed);
   }
 
   public void setReIntake() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
-        AlgaeIntakeConstant.kReIntakeSpeed);
+    setIntakeMotor(AlgaeIntakeConstant.kReIntakeSpeed);
   }
 
   public void stopIntakeMotor() {
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    setIntakeMotor(0);
   }
 
   public void manualSetRotate(double speed) {
