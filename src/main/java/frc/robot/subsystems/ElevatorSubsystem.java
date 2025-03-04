@@ -124,7 +124,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // SmartDashboard.putNumber("Output", 0);
 
-    if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
+    if (encoder.getStopped()
+        || Math.abs(encoder.getRate()) < 0.5) {
+      stopMove();
+    } else if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
       if (!upLimitSwitch.get()) {
         targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
       } else if (!downLimitSwitch.get()) {
