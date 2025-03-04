@@ -95,7 +95,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return rotateEncoder.get();
   }
 
-  public void setManualControl(){
+  public void setManualControl() {
     isManualControl = true;
   }
 
@@ -173,7 +173,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
-  public Command setManualControlCmd(){
+  public Command setManualControlCmd() {
     Command cmd = runOnce(
         () -> setManualControl());
     cmd.setName("setManualControl");
