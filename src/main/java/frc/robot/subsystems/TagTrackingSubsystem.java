@@ -73,18 +73,6 @@ public class TagTrackingSubsystem extends SubsystemBase {
     return tr;
   }
 
-  public double getDistance() {
-    // readValue();
-    // CHECKSTYLE.OFF: LocalVariableName
-    double targetHeight = getBt()[1]; // botpose in targetspace y
-    double xDis = getBt()[0];
-    double zDis = getBt()[2];
-    double horDis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(zDis, 2));
-    double distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
-    return distance;
-    // CHECKSTYLE.ON: LocalVariableName
-  }
-
   public Pose2d getTagPose2d() {
     return getTagPose3d().toPose2d();
   }
