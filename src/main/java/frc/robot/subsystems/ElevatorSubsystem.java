@@ -36,6 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
     leftElevatorMotor.setInverted(ElevatorConstant.kLeftMotorInverted);
     rightElevatorMotor.setInverted(ElevatorConstant.kRightMotorInverted);
+    rightElevatorMotor.follow(leftElevatorMotor);
 
     // encoder
     elevatorEncoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
@@ -46,13 +47,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     
-    rightElevatorMotor.follow(leftElevatorMotor);
-
-    manualControl = false;
-    
     targetHeight = ElevatorConstant.kInitialHeight;
+
+    //  limit switch
     upLimitSwitch = new DigitalInput(5);
     downLimitSwitch = new DigitalInput(8);
+
+    // manual control
+    manualControl = false;
   }
 
   public void resetEncoder() {
