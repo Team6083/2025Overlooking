@@ -15,7 +15,8 @@ import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
+import frc.robot.commands.SwerveToTagLeftCmd;
+import frc.robot.commands.SwerveToTagRightCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -70,12 +71,15 @@ public class RobotContainer {
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
 
+    NamedCommands.registerCommand("setTuringDegree",
+        swerveDrive.setTurningDegreeCmd(0));
+
     NamedCommands.registerCommand("CoralShooterIn",
         new SequentialCommandGroup(
             new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(0.029)));
 
-    NamedCommands.registerCommand("CoralShooterWithAutoStop",
+    NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterSlowOnCmd().withTimeout(1)
             .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
@@ -92,12 +96,12 @@ public class RobotContainer {
         elevatorSubsystem.toDefaultPositionCmd());
 
     NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false),
+        Commands.either(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem),
             new AprilTagAndAutoCmd(swerveDrive),
             () -> tagTrackingSubsystem.getTv() == 1));
 
     NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true),
+        Commands.either(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem),
             new AprilTagAndAutoCmd(swerveDrive),
             () -> tagTrackingSubsystem.getTv() == 1));
 
@@ -156,10 +160,12 @@ public class RobotContainer {
     controlPanel.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true));
-    mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false));
-    controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, true));
-    controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, tagTrackingSubsystem, false));
+    mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
+    mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    // controlPanel.button(2).whileTrue(new SwerveToTagRightCmd(swerveDrive,
+    // tagTrackingSubsystem, true));
+    // controlPanel.button(4).whileTrue(new SwerveToTagRightCmd(swerveDrive,
+    // tagTrackingSubsystem, false));
   }
 
   public Command getAutonomousCommand() {
