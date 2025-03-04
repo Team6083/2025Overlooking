@@ -21,9 +21,8 @@ public class Constants {
     public static final boolean kFrontRightDriveMotorInverted = true;
     public static final boolean kBackLeftDriveMotorInverted = false;
     public static final boolean kBackRightDriveMotorInverted = true;
-    
 
-    // 變速的放大倍率
+    // speed magnification
     public static final double kDefaultMagnification = 0.25;
     public static final double kFastMagnification = 0.75;
 
@@ -34,8 +33,7 @@ public class Constants {
     public static final double kYLimiterRateLimit = 5.0;
     public static final double kRotLimiterRateLimit = 5.0;
 
-    // fieldRelative
-    // Field - true / Robot - false
+    // field relative
     public static final Boolean kFieldRelative = true;
   }
 
@@ -104,24 +102,23 @@ public class Constants {
   }
 
   public static final class ModuleConstant {
-    // 定義輪子的半徑，單位是公尺
+    // wheel radius, unit: meter
     public static final Distance kWheelRadius = Meters.of(0.0508);
 
-    // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
+    // maximum output voltage
     public static final double kMaxModuleDriveVoltage = 12.0;
     public static final double kMaxModuleTurningVoltage = 12.0;
 
-    // 設定 Motor 的 closedLoopRampRate 之時距
+    // set time interval of closedLoopRampRate
     public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
     public static final double kTurningClosedLoopRampRate = 0.1;
 
-    // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
+    // current method: speed to voltage
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
 
-    // 設定 rotPID 的參數（180 是最大誤差角度）
-    public static final double kPRotationController = kMaxModuleTurningVoltage
-        / 180;
+    // set rotation PID parameter (maximum error angle: 180 degrees)
+    public static final double kPRotationController = kMaxModuleTurningVoltage / 180;
 
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.0;
@@ -130,19 +127,19 @@ public class Constants {
   }
 
   public static final class DriveBaseConstant {
-    // driveMotor channel
+    // drive motor channel
     public static final int kFrontLeftDriveMotorChannel = 24;
     public static final int kFrontRightDriveMotorChannel = 21;
     public static final int kBackLeftDriveMotorChannel = 23;
     public static final int kBackRightDriveMotorChannel = 22;
 
-    // turningMotor channel
+    // turning motor channel
     public static final int kFrontLeftTurningMotorChannel = 28;
     public static final int kFrontRightTurningMotorChannel = 25;
     public static final int kBackLeftTurningMotorChannel = 27;
     public static final int kBackRightTurningMotorChannel = 26;
 
-    // turningMotor inverted
+    // turning motor inverted
     public static final boolean kFrontLeftTurningMotorInverted = true;
     public static final boolean kFrontRightTurningMotorInverted = true;
     public static final boolean kBackLeftTuringMotorInverted = true;
@@ -155,57 +152,62 @@ public class Constants {
     public static final int kBackRightCanCoder = 4;
 
     // whether gyro is under the robot
-    public static final int kPigeonChannel= 0;
+    public static final int kPigeonChannel = 0;
     public static final boolean kGyroInverted = false;
     public static final double kGyroOffSet = 0.0;
 
-    // 機器人的大小規格
+    // robot specification
     public static final Distance kRobotWidth = Meters.of(0.6);
     public static final Distance kRobotLength = Meters.of(0.6);
     public static final Distance kRobotDiagonal = Meters.of(
         Math.sqrt(Math.pow(kRobotLength.in(Meters), 2.0) + Math.pow(kRobotWidth.in(Meters), 2.0)));
 
-    // 最大轉速需要實際測試看看
-    public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
+    // maximum rotate speed
+    public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0); // TODO: need further test
   }
 
   public static final class AlgaeIntakeConstant {
-    // AlgaeMotor Channel
+    // Algae motor Channel
     public static final int kIntakeMotorChannel = 35;
     public static final int kRotateMotorChannel = 34;
-    // Algae Encoder Channel
+
+    // Algae encoder Channel
     public static final int kAlgaeEncoderChannelA = 6;
-    // Algae 吸入、吐出的電壓
+
+    // Algae intake speed percentage
     public static final double kIntakeFastSpeed = 0.5;
     public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = -0.3;
-    // AlgaeRotate 的電壓
+
+    // Algae intake rotate speed percentage
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
-    // Algae Rotate & Front PID
+
+    // Algae rotate & front PID
     public static final double rotMotorUpPIDkP = 0.05;
     public static final double rotMotorUpPIDkI = 0;
     public static final double rotMotorUpPIDkD = 0;
     public static final double rotMotorDownPIDkP = 0.02;
     public static final double rotMotorDownPIDkI = 0;
     public static final double rotMotorDownPIDkD = 0;
+
     // Algae setpoint
     public static final double kMaxAngle = 90;
     public static final double kMinAngle = 0;
     public static final double kStepAngle = 0.1;
-    // Algae Inverted
+
+    // Algae inverted
     public static final Boolean kIntakeMotorInverted = true;
     public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
-    // Algae Encoder
+
+    // Algae encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = 143;
     public static final double fullRange = 360;
     public static final double kGetSecAlgaeAngle = 73;
   }
-
-  
 
   public static final class AutoConstants {
     public static final double kPTranslation = 6;
