@@ -70,7 +70,7 @@ public class SwerveToTagRightCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-        || (Math.abs((txController.getError())) < 0.1
+        || (Math.abs((txController.getError())) < 0.05
             && Math.abs(tzController.getError()) < 0.1);
   }
 }
