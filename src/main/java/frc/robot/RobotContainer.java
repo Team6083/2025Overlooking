@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.None;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -123,7 +124,11 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem));
+    coralShooterSubsystem.setDefaultCommand(
+        Commands.either(
+            new CoralShooterHoldCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterStopCmd(),
+            () -> controlPanel.button(89).getAsBoolean()));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
