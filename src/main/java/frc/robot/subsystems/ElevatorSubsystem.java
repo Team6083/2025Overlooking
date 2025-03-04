@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.Units.Millimeters;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -36,7 +37,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
     leftElevatorMotor.setInverted(ElevatorConstant.kLeftMotorInverted);
     rightElevatorMotor.setInverted(ElevatorConstant.kRightMotorInverted);
-    rightElevatorMotor.follow(leftElevatorMotor);
 
     // encoder
     elevatorEncoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
@@ -69,10 +69,6 @@ public class ElevatorSubsystem extends SubsystemBase {
       newTargetHeight = ElevatorConstant.kLowestHeight;
     }
     targetHeight = newTargetHeight;
-  }
-
-  public void setManualControl(boolean manualControlOn) {
-    this.manualControl = manualControlOn;
   }
 
   public boolean isManualControl() {
@@ -143,7 +139,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
-      leftElevatorMotor.set(ControlMode.PercentOutput, output);
+      leftElevatorMotor.follow(rightElevatorMotor, FollowerType.PercentOutput);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("Output", output);
     } else {
@@ -197,14 +193,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command moveDownCmd() {
     Command cmd = run(this::moveDown);
     cmd.setName("moveDown");
-    return cmd;
-  }
-
-  public Command switchManualControlCmd(boolean manualControl) {
-    Command cmd = runOnce(() -> {
-      setManualControl(manualControl);
-    });
-    cmd.setName("switchManualControl");
     return cmd;
   }
 
