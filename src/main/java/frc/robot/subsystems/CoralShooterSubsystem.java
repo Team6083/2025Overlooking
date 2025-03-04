@@ -83,7 +83,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public Command coralShooterStopCmd() {
-    Command cmd = runOnce(this::coralShooterStop);
+    Command cmd = run(this::coralShooterStop);
     cmd.setName("coralShooterStop");
     return cmd;
   }

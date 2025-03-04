@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
+import frc.robot.commands.CoralStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.SwerveToTagLeftCmd;
 import frc.robot.commands.SwerveToTagRightCmd;
@@ -124,11 +125,10 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
+    controlPanel.button(11).whileTrue(
+        new CoralShooterHoldCmd(coralShooterSubsystem));
     coralShooterSubsystem.setDefaultCommand(
-        Commands.either(
-            new CoralShooterHoldCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterStopCmd(),
-            () -> controlPanel.button(12).getAsBoolean()));
+            new CoralStopCmd(coralShooterSubsystem));
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterSlowOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
