@@ -24,7 +24,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PowerDistribution powerDistribution;
   private boolean isManualControl = false;
   private final DutyCycleEncoder rotateEncoder;
-  private double rotateSetpoint;
 
   public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -80,7 +79,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
-    rotateSetpoint = setpoint;
     algaeRotatePID.setSetpoint(setpoint);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
@@ -88,7 +86,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public double getRotateSetpoint() {
-    return rotateSetpoint;
+    return algaeRotatePID.getSetpoint();
   }
 
   public double getCurrentAngle() {
