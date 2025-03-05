@@ -176,7 +176,6 @@ public class ElevatorSubsystem extends SubsystemBase {
       leftElevatorMotor.set(ControlMode.PercentOutput, power);
       rightElevatorMotor.set(ControlMode.PercentOutput, power);
       isManualControl = true;
-
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);

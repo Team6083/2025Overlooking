@@ -141,7 +141,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
-  public Command DisablePID() {
+  public Command disablePID() {
     Command cmd = runOnce(
         () -> {
           isPIDEnabled = false;

@@ -72,7 +72,7 @@ public class RobotContainer {
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
 
-    namedCommands();
+    registerNamedCommands();
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -86,7 +86,7 @@ public class RobotContainer {
     configureBindings();
   }
 
-  private void namedCommands() {
+  private void registerNamedCommands() {
     NamedCommands.registerCommand("SetTurningDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
@@ -163,7 +163,7 @@ public class RobotContainer {
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorOnCmd());
     controlPanel.button(12).onTrue(algaeIntakeSubsystem.EnablePID());
-    controlPanel.button(12).onFalse(algaeIntakeSubsystem.DisablePID());
+    controlPanel.button(12).onFalse(algaeIntakeSubsystem.disablePID());
 
     // Elevator + AlgaeIntake
     controlPanel.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
