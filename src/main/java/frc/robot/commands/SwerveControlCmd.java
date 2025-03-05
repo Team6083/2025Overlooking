@@ -22,8 +22,8 @@ public class SwerveControlCmd extends Command {
   private final SlewRateLimiter yLimiter;
   // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
-
-  private double magnification = SwerveControlConstant.kDefaultMagnification;
+  
+  private double magnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
 
