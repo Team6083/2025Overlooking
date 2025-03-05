@@ -68,7 +68,21 @@ public class RobotContainer {
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
+    
+    namedCommands();
 
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    SmartDashboard.putData("AutoChooser", autoChooser);
+    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
+    SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
+    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
+    SmartDashboard.putData("SwerveDrive", swerveDrive);
+
+    configureBindings();
+  }
+
+  private void namedCommands() {
     NamedCommands.registerCommand("SetTurningDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
@@ -105,16 +119,6 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.setIntakeMotorOnCmd());
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
-    SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
-    SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
-    SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
-    SmartDashboard.putData("SwerveDrive", swerveDrive);
-
-    configureBindings();
   }
 
   private void configureBindings() {

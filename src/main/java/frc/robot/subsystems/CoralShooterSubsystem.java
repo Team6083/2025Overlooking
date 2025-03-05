@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -37,7 +37,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void setMotorSpeed(double speed) {
-    coralShooterMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    coralShooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void coralShooterOn() {

@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -38,21 +38,21 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeMotorOn() {
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+    intakeMotor.set(ControlMode.PercentOutput,
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
   public void setReIntake() {
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+    intakeMotor.set(ControlMode.PercentOutput,
         AlgaeIntakeConstant.kReIntakeSpeed);
   }
 
   public void stopIntakeMotor() {
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    intakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public void manualSetRotate(double speed) {
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    rotateMotor.set(ControlMode.PercentOutput, speed);
     algaeRotatePID.setSetpoint(rotateEncoder.get());
   }
 
@@ -61,11 +61,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     setpoint = MathUtil.clamp(setpoint,AlgaeIntakeConstant.kMaxAngle,AlgaeIntakeConstant.kMinAngle);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, AlgaeIntakeConstant.kMinOutput, AlgaeIntakeConstant.kMaxOutput);
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+    rotateMotor.set(ControlMode.PercentOutput, -output);
   }
 
   public void stopRotate() {
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    rotateMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public double getRotateSetpoint() {
@@ -99,7 +99,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       }
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output,AlgaeIntakeConstant.kMinOutput,AlgaeIntakeConstant.kMaxOutput);
-      rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
+      rotateMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("algaeOutput", output);
     } else {
       algaeRotatePID.setSetpoint(getCurrentAngle());
