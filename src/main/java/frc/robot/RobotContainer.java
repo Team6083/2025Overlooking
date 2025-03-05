@@ -44,7 +44,7 @@ public class RobotContainer {
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
-    algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
+    algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
     controlPanel = new CommandGenericHID(1);

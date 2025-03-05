@@ -14,19 +14,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AlgaeIntakeConstant;
-import frc.robot.lib.PowerDistribution;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSPX intakeMotor;
   private final VictorSPX rotateMotor;
   private final PIDController algaeRotatePID;
-  private final PowerDistribution powerDistribution;
   private boolean isManualControl = false;
   private final DutyCycleEncoder rotateEncoder;
 
-  public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
-    this.powerDistribution = powerDistribution;
+  public AlgaeIntakeSubsystem() {;
     algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
@@ -41,17 +38,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setIntakeMotorOn() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
     intakeMotor.set(VictorSPXControlMode.PercentOutput,
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
   public void setReIntake() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
     intakeMotor.set(VictorSPXControlMode.PercentOutput,
         AlgaeIntakeConstant.kReIntakeSpeed);
   }
