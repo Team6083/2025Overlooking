@@ -16,7 +16,7 @@ public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
   private double encoderTargetDegree = 0;
   private PIDController pidController = new PIDController
-    (CoralShooterConstant.kP, CoralShooterConstant.ki, CoralShooterConstant.kd);
+    (CoralShooterConstant.kP, CoralShooterConstant.kI, CoralShooterConstant.kD);
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
