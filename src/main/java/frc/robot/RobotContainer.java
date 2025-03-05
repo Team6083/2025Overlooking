@@ -105,7 +105,7 @@ public class RobotContainer {
             () -> tagTrackingSubsystem.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
-        algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+        algaeIntakeSubsystem.setIntakeMotorOnCmd());
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -156,7 +156,7 @@ public class RobotContainer {
     controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
     controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorOnCmd());
     controlPanel.button(12).onTrue(algaeIntakeSubsystem.setManualControlCmd());
 
     // Elevator + AlgaeIntake
