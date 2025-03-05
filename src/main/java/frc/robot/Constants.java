@@ -142,15 +142,19 @@ public class Constants {
     // AlgaeMotor Channel
     public static final int kIntakeMotorChannel = 35;
     public static final int kRotateMotorChannel = 34;
+
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannelA = 6;
+
     // Algae 吸入、吐出的電壓
     public static final double kIntakeFastSpeed = 0.5;
     public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = -0.3;
+
     // AlgaeRotate 的電壓
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
+
     // Algae Rotate & Front PID
     public static final double rotMotorUpPIDkP = 0.05;
     public static final double rotMotorUpPIDkI = 0;
@@ -158,14 +162,17 @@ public class Constants {
     public static final double rotMotorDownPIDkP = 0.02;
     public static final double rotMotorDownPIDkI = 0;
     public static final double rotMotorDownPIDkD = 0;
+
     // Algae setpoint
     public static final double kMaxAngle = 90;
     public static final double kMinAngle = 0;
     public static final double kStepAngle = 0.1;
+
     // Algae Inverted
     public static final Boolean kIntakeMotorInverted = true;
     public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
+    
     // Algae Encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
