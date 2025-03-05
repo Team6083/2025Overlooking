@@ -12,7 +12,6 @@ import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,7 +26,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private DutyCycleEncoder coralShooterEncoder;
   private AddressableLED addressableLED;
   private AddressableLEDBuffer ledBuffer;
-  private Timer timer;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -49,8 +47,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
     addressableLED = new AddressableLED(CoralShooterConstant.kAddressableLEDChannel);
     ledBuffer = new AddressableLEDBuffer(100);
     addressableLED.setLength(ledBuffer.getLength());
-
-    timer = new Timer();
 
   }
 
@@ -89,7 +85,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
-    SmartDashboard.putNumber("Timer", timer.get());
 
     distanceSensor.setAutomaticMode(true);
 
