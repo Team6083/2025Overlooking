@@ -63,7 +63,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isGetTarget() {
-    if (distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange && distanceSensor.getDistance() > 0) {
+    if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange && distanceSensor.getRange() > 0) {
       return true;
     }
 
@@ -73,7 +73,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // put dashboard
-    SmartDashboard.putNumber("Distance", distanceSensor.getDistance());
+    SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
   }

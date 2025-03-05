@@ -30,7 +30,7 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
   }
 
   @Override
-  public double getDistance() {
+  public double getRange() {
     if (simDistance != null) {
       return simDistance.get();
     }
@@ -38,7 +38,7 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
   }
 
   @Override
-  public boolean isDistanceValid() {
+  public boolean isRangeValid() {
     if (simDistance != null) {
       return true;
     }
@@ -57,8 +57,8 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
 
   @Override
   public void initSendable(SendableBuilder builder) {
-    builder.addDoubleProperty("Distance", this::getDistance, null);
-    builder.addBooleanProperty("DistanceValid", this::isDistanceValid, null);
+    builder.addDoubleProperty("Distance", this::getRange, null);
+    builder.addBooleanProperty("DistanceValid", this::isRangeValid, null);
   }
 
 }

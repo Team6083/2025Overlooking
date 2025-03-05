@@ -1,9 +1,9 @@
 package frc.robot.lib.sensor.distance;
 
 public interface DistanceSensor {
-  public double getDistance();
+  public double getRange();
 
-  public boolean isDistanceValid();
+  public boolean isRangeValid();
 
   public void setAutomaticMode(boolean modeOn);
 }
