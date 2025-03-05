@@ -21,7 +21,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final VictorSPX rotateMotor;
   private final PIDController algaeRotatePID;
   private boolean isManualControl = false;
-  private boolean isPIDdisabled = false;
+  private boolean isPIDEnabled = true;
   private final DutyCycleEncoder rotateEncoder;
 
   public AlgaeIntakeSubsystem() {
@@ -77,11 +77,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return rotateEncoder.get();
   }
 
-  public void setManualControl() {
-    isManualControl = true;
-    isPIDdisabled = true;
-  }
-
   @Override
   public void periodic() {
     SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
@@ -89,8 +84,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
     SmartDashboard.putBoolean("algaeRotateIsManualControl", isManualControl);
     SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
-
-    if (!isManualControl) {
+    if (!isManualControl && !isPIDEnabled) {
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output, -0.5, 0.5);
       rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
@@ -126,11 +120,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
           manualSetRotate(speed);
         },
         () -> {
-          if (!isPIDdisabled){
             isManualControl = false;
-          } else {
-            isManualControl = true;
-          }
           stopRotate();
         });
     cmd.setName("manualSetRotateCmd");
@@ -145,10 +135,21 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
-  public Command setManualControlCmd() {
+  public Command DisablePID() {
     Command cmd = runOnce(
-        () -> setManualControl());
+        () -> {
+          isPIDEnabled = false;
+        });
     cmd.setName("setManualControl");
+    return cmd;
+  }
+
+  public Command EnablePID() {
+    Command cmd = runOnce(
+        () -> {
+          isPIDEnabled = true;
+        });
+    cmd.setName("setPIDControl");
     return cmd;
   }
 
