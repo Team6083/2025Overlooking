@@ -48,13 +48,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
-  public void setIntakeMotorSlowOn() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
-        AlgaeIntakeConstant.kIntakeSlowSpeed);
-  }
 
   public void setReIntake() {
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
@@ -73,16 +66,17 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(rotateEncoder.get());
   }
 
-  public void stopRotate() {
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
-  }
-
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
     algaeRotatePID.setSetpoint(setpoint);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+  }
+
+
+  public void stopRotate() {
+    rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
 
   public double getRotateSetpoint() {
@@ -127,19 +121,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command setIntakeMotorSlowOnCmd() {
-    Command cmd = runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor);
-    cmd.setName("setIntakeCmd");
-    return cmd;
-  }
 
-  public Command reIntakeCmd() { // 吐出 algae 的 cmd
+  public Command reIntakeCmd() { 
     Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
     cmd.setName("setReIntakeMotorCmd");
     return cmd;
   }
 
-  public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
+  public Command setRotateCmd(double speed) { 
     Command cmd = runEnd(
         () -> {
           isManualControl = true;
