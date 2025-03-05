@@ -207,7 +207,7 @@ public class Constants {
     public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
+        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2.0;
   }
 
   public static final class AutoConstants {

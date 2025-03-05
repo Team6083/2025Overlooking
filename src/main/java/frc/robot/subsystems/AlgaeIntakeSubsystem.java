@@ -83,9 +83,9 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
     algaeRotatePID.setSetpoint(setpoint);
-    double output = -algaeRotatePID.calculate(getCurrentAngle());
+    double output = algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+    rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
   }
 
   public double getRotateSetpoint() {
