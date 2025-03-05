@@ -61,10 +61,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public void setManualControl(boolean manualControlOn) {
-    this.manualControl = manualControlOn;
-  }
-
   public boolean isManualControl() {
     return manualControl;
   }
@@ -180,14 +176,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command moveDownCmd() {
     Command cmd = run(this::moveDown);
     cmd.setName("moveDown");
-    return cmd;
-  }
-
-  public Command switchManualControlCmd(boolean manualControl) {
-    Command cmd = runOnce(() -> {
-      setManualControl(manualControl);
-    });
-    cmd.setName("switchManualControl");
     return cmd;
   }
 
