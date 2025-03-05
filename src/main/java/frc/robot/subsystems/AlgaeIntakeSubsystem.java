@@ -65,7 +65,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
   }
 
-
   public void stopRotate() {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
   }
