@@ -209,4 +209,12 @@ public class Constants {
     public static final double kIRotation = 0.5;
     public static final double kDRotation = 1;
   }
+
+  public static final class TagTrackingConstants{
+    public static final double kLeftTxSetpoint = -0.14;
+    public static final double kLeftTzSetpoint = 0.43;
+    public static final double kLeftYawsetpoint = 0;
+    public static final double kRightTxSetpoint = 0.14;
+    public static final double kRightTzSetpoint =0.43;
+  }
 }
