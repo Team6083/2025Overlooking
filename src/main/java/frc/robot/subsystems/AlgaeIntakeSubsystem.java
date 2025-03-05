@@ -40,14 +40,13 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
   }
 
-  public void setIntakeMotorFastOn() {
+  public void setIntakeMotorOn() {
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
       intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
     intakeMotor.set(VictorSPXControlMode.PercentOutput,
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
-
 
   public void setReIntake() {
     if (powerDistribution.isAlgaeIntakeOverCurrent()) {
@@ -115,8 +114,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     }
   }
 
-  public Command setIntakeMotorFastOnCmd() {
-    Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
+  public Command setIntakeMotorOnCmd() {
+    Command cmd = runEnd(this::setIntakeMotorOn, this::stopIntakeMotor);
     cmd.setName("setIntakeCmd");
     return cmd;
   }
