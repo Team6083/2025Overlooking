@@ -121,7 +121,7 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // Algae motor Channel
-    public static final int kIntakeMotorChannel = 35;
+    public static final int kIntakeMotorChannel = 32;
     public static final int kRotateMotorChannel = 34;
 
     // Algae encoder Channel
@@ -164,7 +164,7 @@ public class Constants {
 
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-    public static final int kMotorChannel = 32;
+    public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 4;
     // public static final double kShooterMotorFastSpeed = 0.25;
     public static final double kMotorSpeed = 0.195;
@@ -179,8 +179,8 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final int kLeftElevatorMotorChannel = 33;
-    public static final int kRightElevatorMotorChannel = 30;
+    public static final int kLeftElevatorMotorChannel = 35;
+    public static final int kRightElevatorMotorChannel = 36;
     public static final boolean kLeftMotorInverted = true;
     public static final boolean kRightMotorInverted = false;
 
