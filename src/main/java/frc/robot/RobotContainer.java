@@ -70,7 +70,7 @@ public class RobotContainer {
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
 
-    NamedCommands.registerCommand("setTuringDegree",
+    NamedCommands.registerCommand("SetTuringDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
     NamedCommands.registerCommand("CoralShooterIn",
