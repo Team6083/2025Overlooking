@@ -172,7 +172,7 @@ public class Constants {
     public static final Boolean kIntakeMotorInverted = true;
     public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
-    
+
     // Algae Encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
@@ -186,6 +186,7 @@ public class Constants {
     // 變速的放大倍率
     public static final double kDefaultMagnification = 0.25;
     public static final double kFastMagnification = 0.75;
+    public static final double kRotateMagnification = 1.2;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
