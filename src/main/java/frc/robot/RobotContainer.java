@@ -89,7 +89,7 @@ public class RobotContainer {
         elevatorSubsystem.toTrdFloorCmd());
 
     NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.toTopFloorCmd());
+        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toTopFloorCmd()));
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
