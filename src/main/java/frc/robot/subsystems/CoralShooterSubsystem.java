@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +17,7 @@ import frc.robot.lib.PowerDistribution;
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
   private PowerDistribution powerDistribution;
-  private Rev2mDistanceSensor distanceSensor;
+  private frc.robot.lib.sensor.distance.Rev2mDistanceSensor distanceSensor;
   private VictorSPX coralShooterMotor;
   private DutyCycleEncoder coralShooterEncoder;
 
@@ -37,7 +36,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterEncoder.setInverted(CoralShooterConstant.kEncoderInverted);
 
     // distance sensor
-    distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
+    distanceSensor = new frc.robot.lib.sensor.distance.Rev2mDistanceSensor(Port.kOnboard);
+    distanceSensor.setAutomaticMode(true);
   }
 
   public double getEncoder() {
@@ -63,7 +63,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isGetTarget() {
-    if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange && distanceSensor.getRange() > 0) {
+    if (distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange && distanceSensor.getDistance() > 0) {
       return true;
     }
 
@@ -73,11 +73,9 @@ public class CoralShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // put dashboard
-    SmartDashboard.putNumber("Distance", distanceSensor.getRange());
+    SmartDashboard.putNumber("Distance", distanceSensor.getDistance());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
-
-    distanceSensor.setAutomaticMode(true);
   }
 
   public Command coralShooterOnCmd() {
