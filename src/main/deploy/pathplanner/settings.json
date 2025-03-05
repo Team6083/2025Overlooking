@@ -8,9 +8,10 @@
     "M - leave",
     "M - leave(tag)",
     "ML - leave",
+    "ML - leave(tag)",
     "MR - leave",
     "MR - leave(tag)",
-    "ML - leave(tag)",
+    "rtcs(tag)",
     "R - leave",
     "R - leave(tag)",
     "algae",
@@ -22,8 +23,10 @@
     "way points"
   ],
   "autoFolders": [
+    "crazy L3",
     "coral L2",
     "coral L3",
+    "crazy L2",
     "crazy L4",
     "test"
   ],
