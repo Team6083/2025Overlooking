@@ -43,7 +43,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
 
-    // addressableLED = new AddressableLED(CoralShooterConstant.kAddressableLEDChannel);
+    // addressableLED = new
+    // AddressableLED(CoralShooterConstant.kAddressableLEDChannel);
     // ledBuffer = new AddressableLEDBuffer(100);
     // addressableLED.setLength(ledBuffer.getLength());
   }
@@ -57,12 +58,20 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   // shooter on
-  public void coralShooterOn() {
+  public void coralShooterIn() {
     if (powerDistribution.isCoralShooterOverCurrent()) {
       setMotorSpeed(0);
       return;
     }
     setMotorSpeed(CoralShooterConstant.kMotorSpeed);
+  }
+
+  public void coralShooterOut() {
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
+    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
   public void coralShooterStop() {
@@ -85,20 +94,25 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
 
     // if (isGetTarget()) {
-    //   for (int i = 0; i < ledBuffer.getLength(); i++) {
-    //     ledBuffer.setRGB(i, 200, 200, 200);
-    //   }
-    //   addressableLED.setData(ledBuffer);
-    //   addressableLED.start();
+    // for (int i = 0; i < ledBuffer.getLength(); i++) {
+    // ledBuffer.setRGB(i, 200, 200, 200);
+    // }
+    // addressableLED.setData(ledBuffer);
+    // addressableLED.start();
     // } else {
-    //   addressableLED.setData(ledBuffer);
-    //   addressableLED.close();
+    // addressableLED.setData(ledBuffer);
+    // addressableLED.close();
     // }
   }
 
-  public Command coralShooterOnCmd() {
-    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
+  public Command coralShooterInCmd() {
+    Command cmd = runEnd(this::coralShooterIn, this::coralShooterStop);
     cmd.setName("coralShooterOn");
+    return cmd;
+  }
+
+  public Command coralShooterOutCmd(){
+    Command cmd = runEnd(this::coralShooterOut, this::coralShooterStop);
     return cmd;
   }
 

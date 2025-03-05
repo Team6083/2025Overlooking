@@ -14,7 +14,7 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
   private double encoderTargetDegree = 0;
-  private PIDController pidController = new PIDController(0.0035, 0.0, 0.0);
+  private PIDController pidController = new PIDController(0.0007, 0.0, 0.00015);
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {

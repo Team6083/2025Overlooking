@@ -126,12 +126,11 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    viceController.x().whileTrue(
+    coralShooterSubsystem.setDefaultCommand(
         new CoralShooterHoldCmd(coralShooterSubsystem));
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
     mainController.rightBumper().and(mainController.leftBumper())
-        .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+        .toggleOnTrue(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());

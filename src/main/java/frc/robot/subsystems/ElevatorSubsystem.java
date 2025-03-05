@@ -126,9 +126,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     // || (output < 0 && encoder.getRate() > 0)) {
 
     // SmartDashboard.putNumber("Output", 0);
-    if (touchSensor.get()) {
-      targetHeight.plus(ElevatorConstant.kStepHeight);
-    }
     if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
@@ -140,8 +137,10 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
+    SmartDashboard.putBoolean("ElevatorTouchsensor", touchSensor.get());
     SmartDashboard.putNumber("ElevatorEncoder", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
+    SmartDashboard.putNumber("ElevatorTargetHeight", targetHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
   }

@@ -166,9 +166,9 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 3;
-    // public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kMotorSpeed = 0.195;
-    public static final Boolean kMotorInverted = true;
+    public static final double kShooterMotorFastSpeed = 0.3;
+    public static final double kMotorSpeed = 0.2;
+    public static final Boolean kMotorInverted = false;
     public static final Boolean kEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
@@ -188,7 +188,7 @@ public class Constants {
 
     public static final int kEncoderChannelA = 1;
     public static final int kEncoderChannelB = 2;
-    public static final boolean kEncoderInverted = false;
+    public static final boolean kEncoderInverted = true;
 
     public static final int kTouchSensorChannel = 0;
 
