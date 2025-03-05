@@ -95,13 +95,13 @@ public class RobotContainer {
         elevatorSubsystem.toDefaultPositionCmd());
 
     NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem),
-            new AprilTagAndAutoCmd(swerveDrive),
+        Commands.either(new SwerveToTagRightCmd(new SwerveDrive(), tagTrackingSubsystem),
+            new AprilTagAndAutoCmd(new SwerveDrive()),
             () -> tagTrackingSubsystem.getTv() == 1));
 
     NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem),
-            new AprilTagAndAutoCmd(swerveDrive),
+        Commands.either(new SwerveToTagLeftCmd(new SwerveDrive(), tagTrackingSubsystem),
+            new AprilTagAndAutoCmd(new SwerveDrive()),
             () -> tagTrackingSubsystem.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
