@@ -4,10 +4,13 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.DriveBaseConstant;
 import frc.robot.Constants.SwerveControlConstant;
 import frc.robot.drivebase.SwerveDrive;
 
@@ -24,7 +27,8 @@ public class SwerveControlCmd extends Command {
   private final SlewRateLimiter rotLimiter;
 
   private double magnification = SwerveControlConstant.kDefaultMagnification;
-  private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
+  private final double drivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+  private final double rotateMaxSpeed = DriveBaseConstant.kRotateMaxSpeed.in(MetersPerSecond);
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
@@ -66,7 +70,7 @@ public class SwerveControlCmd extends Command {
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = -rotLimiter.calculate(mainController.getRightX())
-          * drivebaseMaxSpeed * 1.2;
+          * rotateMaxSpeed * magnification;
 
     } else {
       rotSpeed = 0;

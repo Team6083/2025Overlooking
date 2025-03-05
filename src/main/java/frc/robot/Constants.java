@@ -26,7 +26,6 @@ public class Constants {
     public static final double kDefaultMagnification = 0.25;
     public static final double kFastMagnification = 0.75;
 
-    public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
 
     public static final double kXLimiterRateLimit = 5.0;
@@ -72,8 +71,10 @@ public class Constants {
     public static final Distance kRobotDiagonal = Meters.of(
         Math.sqrt(Math.pow(kRobotLength.in(Meters), 2.0) + Math.pow(kRobotWidth.in(Meters), 2.0)));
 
-    // maximum rotate speed
+    // maximum drive speed
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0); // TODO: need further test
+    // maximum rotate speed
+    public static final LinearVelocity kRotateMaxSpeed = MetersPerSecond.of(kMaxSpeed.in(MetersPerSecond)*kRobotDiagonal.in(Meters));
   }
 
   public static final class ModuleConstant {
