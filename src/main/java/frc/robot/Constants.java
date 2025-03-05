@@ -213,8 +213,19 @@ public class Constants {
   public static final class TagTrackingConstants{
     public static final double kLeftTxSetpoint = -0.14;
     public static final double kLeftTzSetpoint = 0.43;
-    public static final double kLeftYawsetpoint = 0;
+    public static final double kLeftYawSetpoint = 0;
     public static final double kRightTxSetpoint = 0.14;
     public static final double kRightTzSetpoint =0.43;
+    public static final double kRightYawSetpoint = 0;
+    public static final double txKp = 2;
+    public static final double txKi = 0; 
+    public static final double txKd = 0.5;
+    public static final double tzKp = 2;
+    public static final double tzKi = 0;
+    public static final double tzKd = 0;
+    public static final double yawKp = 0.05;
+    public static final double yawKi = 0;
+    public static final double yawKd = 0;
+    
   }
 }
