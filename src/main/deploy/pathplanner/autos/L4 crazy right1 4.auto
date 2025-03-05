@@ -29,16 +29,35 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToFour"
+                  "name": "ErToTrd"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "AprilTagLeft"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 3.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AprilTagLeft"
+                      }
+                    }
+                  ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErToFour"
           }
         },
         {
