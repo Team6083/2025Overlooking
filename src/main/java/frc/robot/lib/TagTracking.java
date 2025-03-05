@@ -24,7 +24,7 @@ public class TagTracking {
     setLedMode(0);
     setPipeline(0);
     try {
-      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025ReefscapeAndyMark.m_resourceFile);
+      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025ReefscapeWelded.m_resourceFile);
     } catch (IOException err) {
       throw new RuntimeException();
     }
