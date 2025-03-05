@@ -9,99 +9,6 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 
 public class Constants {
-  public static final class CoralShooterConstant {
-    public static final double kDistanceRange = 4.0;
-    public static final int kShooterMotorChannel = 32;
-    public static final int kShooterEncoderChannel = 4;
-    public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kShooterMotorSlowSpeed = 0.195;
-    public static final Boolean kCoralShooterMotorInverted = true;
-    public static final Boolean kCoralShooterEncoderInverted = true;
-    public static final double kEncoderFullRange = 360.0;
-    public static final double kEncoderOffset = 0.0;
-    public static final double kP = 0.0035;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
-    
-  }
-
-  public static final class PowerDistributionConstant {
-    public static final int kCoralShooterRightMotorCurrentChannel = 0;
-    public static final int kCoralShooterLeftMotorCurrentChannel = 1;
-    public static final int kAlgaeIntakeMotorCurrentChannel = 7;
-    public static final int kAlgaeRotateMotorCurrentChannel = 7;
-    public static final int kClimberMotorCurrentChannel = 7;
-    public static final int kRampMotorCurrentChannel = 7;
-    public static final int kElevatorMotorCurrentChannel = 2;
-
-    public static final double kCoralShooterMotorMaxCurrent = 40;
-    public static final double kAlgaeIntakeMotorMaxCurrent = 40;
-    public static final double kAlgaeRotateMotorMaxCurrent = 40;
-    public static final double kClimberMotorMaxCurrent = 40;
-    public static final double kRampMotorMaxCurrent = 40;
-    public static final double kElevatorMotorMaxCurrent = 40;
-  }
-
-  public static final class ElevatorConstant {
-    public static final double kP = 0.023;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
-
-    public static final int kLeftElevatorMotorChannel = 33;
-    public static final int kRightElevatorMotorChannel = 30;
-    public static final boolean kMotorInverted = true;
-
-    public static final int kEncoderChannelA = 2;
-    public static final int kEncoderChannelB = 3;
-
-    public static final double kManualUpPower = 0.4;
-    public static final double kManualDownPower = -0.2;
-
-    public static final Distance kHeightOffset = Millimeters.of(430.0);
-
-    public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1800);
-
-    public static final double kMaxOutput = 0.4;
-    public static final double kMinOutput = -0.1;
-
-    public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kSecFloor = Millimeters.of(714);
-    public static final Distance kTrdFloor = Millimeters.of(1206);
-    public static final Distance kTopFloor = Millimeters.of(1770);
-    public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
-    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
-    public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
-  }
-
-  public static final class ModuleConstant {
-    // 定義輪子的半徑，單位是公尺
-    public static final Distance kWheelRadius = Meters.of(0.0508);
-
-    // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
-    public static final double kMaxModuleDriveVoltage = 12.0;
-    public static final double kMaxModuleTurningVoltage = 12.0;
-
-    // 設定 Motor 的 closedLoopRampRate 之時距
-    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
-    public static final double kTurningClosedLoopRampRate = 0.1;
-
-    // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
-    public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
-        / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
-
-    // 設定 rotPID 的參數（180 是最大誤差角度）
-    public static final double kPRotationController = kMaxModuleTurningVoltage
-        / 180;
-
-    public static final double kIRotationController = 0.0;
-    public static final double kDRotationController = 0.0;
-
-    public static final boolean kTurningMotorInverted = true;
-  }
-
   public static final class DriveBaseConstant {
     // driveMotor channel
     public static final int kFrontLeftDriveMotorChannel = 24;
@@ -141,6 +48,32 @@ public class Constants {
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
   }
 
+  public static final class ModuleConstant {
+    // 定義輪子的半徑，單位是公尺
+    public static final Distance kWheelRadius = Meters.of(0.0508);
+
+    // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
+    public static final double kMaxModuleDriveVoltage = 12.0;
+    public static final double kMaxModuleTurningVoltage = 12.0;
+
+    // 設定 Motor 的 closedLoopRampRate 之時距
+    public static final double kDriveClosedLoopRampRate = 0; // 1 second 1 unit
+    public static final double kTurningClosedLoopRampRate = 0.1;
+
+    // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
+    public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
+        / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+
+    // 設定 rotPID 的參數（180 是最大誤差角度）
+    public static final double kPRotationController = kMaxModuleTurningVoltage
+        / 180;
+
+    public static final double kIRotationController = 0.0;
+    public static final double kDRotationController = 0.0;
+
+    public static final boolean kTurningMotorInverted = true;
+  }
+
   public static final class AlgaeIntakeConstant {
     // AlgaeMotor Channel
     public static final int kIntakeMotorChannel = 35;
@@ -161,9 +94,9 @@ public class Constants {
     public static final double kMinOutput = -0.5;
 
     // Algae Rotate & Front PID
-    public static final double rotMotorUpPIDkP = 0.05;
-    public static final double rotMotorUpPIDkI = 0;
-    public static final double rotMotorUpPIDkD = 0;
+    public static final double kPRotateUp = 0.05;
+    public static final double kIRotateUp = 0;
+    public static final double kDRotateUp = 0;
     public static final double rotMotorDownPIDkP = 0.02;
     public static final double rotMotorDownPIDkI = 0;
     public static final double rotMotorDownPIDkD = 0;
@@ -184,6 +117,55 @@ public class Constants {
     public static final double expectedZero = 143;
     public static final double fullRange = 360;
     public static final double kGetSecAlgaeAngle = 73;
+  }
+
+  public static final class CoralShooterConstant {
+    public static final double kDistanceRange = 4.0;
+    public static final int kShooterMotorChannel = 32;
+    public static final int kShooterEncoderChannel = 4;
+    public static final double kShooterMotorFastSpeed = 0.25;
+    public static final double kShooterMotorSlowSpeed = 0.195;
+    public static final Boolean kCoralShooterMotorInverted = true;
+    public static final Boolean kCoralShooterEncoderInverted = true;
+    public static final double kEncoderFullRange = 360.0;
+    public static final double kEncoderOffset = 0.0;
+    public static final double kP = 0.0035;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+  }
+
+  public static final class ElevatorConstant {
+    public static final double kP = 0.023;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+
+    public static final int kLeftElevatorMotorChannel = 33;
+    public static final int kRightElevatorMotorChannel = 30;
+    public static final boolean kMotorInverted = true;
+
+    public static final int kEncoderChannelA = 2;
+    public static final int kEncoderChannelB = 3;
+
+    public static final double kManualUpPower = 0.4;
+    public static final double kManualDownPower = -0.2;
+
+    public static final Distance kHeightOffset = Millimeters.of(430.0);
+
+    public static final Distance kLowestHeight = Millimeters.of(430.0);
+    public static final Distance kMaxHeight = Millimeters.of(1800);
+
+    public static final double kMaxOutput = 0.4;
+    public static final double kMinOutput = -0.1;
+
+    public static final Distance kInitialHeight = Millimeters.of(430.0);
+    public static final Distance kSecFloor = Millimeters.of(714);
+    public static final Distance kTrdFloor = Millimeters.of(1206);
+    public static final Distance kTopFloor = Millimeters.of(1770);
+    public static final Distance kStepHeight = Millimeters.of(7);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
+    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
+    public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
+        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
 
   public static final class SwerveControlConstant {
@@ -212,15 +194,15 @@ public class Constants {
     public static final double kDRotation = 1;
   }
 
-  public static final class TagTrackingConstants{
+  public static final class TagTrackingConstants {
     public static final double kLeftTxSetpoint = -0.14;
     public static final double kLeftTzSetpoint = 0.43;
     public static final double kLeftYawSetpoint = 0;
     public static final double kRightTxSetpoint = 0.14;
-    public static final double kRightTzSetpoint =0.43;
+    public static final double kRightTzSetpoint = 0.43;
     public static final double kRightYawSetpoint = 0;
     public static final double txKp = 2;
-    public static final double txKi = 0; 
+    public static final double txKi = 0;
     public static final double txKd = 0.5;
     public static final double tzKp = 2;
     public static final double tzKi = 0;
@@ -228,6 +210,6 @@ public class Constants {
     public static final double yawKp = 0.05;
     public static final double yawKi = 0;
     public static final double yawKd = 0;
-    
+
   }
 }

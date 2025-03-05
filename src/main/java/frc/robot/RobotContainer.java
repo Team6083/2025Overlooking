@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,14 +18,12 @@ import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.lib.PowerDistribution;
 import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
-  private final PowerDistribution powerDistribution;
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
@@ -40,8 +39,7 @@ public class RobotContainer {
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 
   public RobotContainer() {
-    powerDistribution = new PowerDistribution();
-    coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
+    coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     swerveDrive = new SwerveDrive();
@@ -49,22 +47,24 @@ public class RobotContainer {
     controlPanel = new CommandGenericHID(1);
     tagTracking = new TagTracking();
 
-    takeL2AlgaeCommandGroup = new SequentialCommandGroup(
-        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
-        new ParallelRaceGroup(
-            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
-            algaeIntakeSubsystem.reIntakeCmd()),
-        new ParallelRaceGroup(
+    takeL2AlgaeCommandGroup = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd().repeatedly()
+        .until(() -> algaeIntakeSubsystem.getAbsoluteError() < 0.5)
+        .andThen(new ParallelRaceGroup(
+            elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
+                .until(() -> elevatorSubsystem.getAbsoluteError() < 5)),
+            algaeIntakeSubsystem.reIntakeCmd())
+        .andThen(new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
 
-    takeL3AlgaeCommandGroup = new SequentialCommandGroup(
-        algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
-        new ParallelRaceGroup(
-            elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
-            algaeIntakeSubsystem.reIntakeCmd()),
-        new ParallelRaceGroup(
+    takeL3AlgaeCommandGroup = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd().repeatedly()
+        .until(() -> algaeIntakeSubsystem.getAbsoluteError() < 0.5)
+        .andThen(new ParallelRaceGroup(
+            elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
+                .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
+            algaeIntakeSubsystem.reIntakeCmd()))
+        .andThen(new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
@@ -73,9 +73,8 @@ public class RobotContainer {
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
     NamedCommands.registerCommand("CoralShooterIn",
-        new SequentialCommandGroup(
-            new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem)
+            .andThen(coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterOnCmd().withTimeout(1)
@@ -88,7 +87,8 @@ public class RobotContainer {
         elevatorSubsystem.toTrdFloorCmd());
 
     NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toTopFloorCmd()));
+        elevatorSubsystem.toTopFloorCmd().repeatedly()
+            .until(() -> elevatorSubsystem.getAbsoluteError() < 5));
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());

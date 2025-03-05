@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
@@ -15,7 +17,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstant;
 
@@ -220,16 +221,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command toGetTrdAlgaeCmd() {
     Command cmd = runOnce(this::toGetTrdAlgae);
-    cmd.setName("toGetTriAlgae");
+    cmd.setName("toGetTrdAlgae");
     return cmd;
   }
 
-  public Command autoStopCmd(Command command) {
-    Command cmd = new SequentialCommandGroup(
-        command.repeatedly()
-            .until(() -> Math.abs(elevatorPID.getError()) < 15),
-        runOnce(this::stopMove));
-    cmd.setName("autoStop");
-    return cmd;
+  public double getAbsoluteError() {
+    return Math.abs(elevatorPID.getError());
   }
 }
