@@ -56,9 +56,9 @@ public class SwerveToTagCmd extends Command {
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-    SmartDashboard.putData("tzController", tzController);
-    SmartDashboard.putData("txController", txController);
-    SmartDashboard.putData("yawController", yawController);
+    SmartDashboard.putData("TzController", tzController);
+    SmartDashboard.putData("TxController", txController);
+    SmartDashboard.putData("YawController", yawController);
     SmartDashboard.putNumber("LeftSetpoint", txController.getSetpoint());
   }
 
@@ -73,6 +73,6 @@ public class SwerveToTagCmd extends Command {
   public boolean isFinished() {
     return tagTracking.getTv() == 0
         || (Math.abs((txController.getError())) < 0.05
-            && Math.abs(tzController.getError()) < 0.1);
+            && Math.abs(tzController.getError()) < 0.05);
   }
 }

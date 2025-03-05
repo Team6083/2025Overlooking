@@ -82,18 +82,18 @@ public class Constants {
     // Algae Encoder Channel
     public static final int kAlgaeEncoderChannel = 6;
 
-    // Algae 吸入、吐出的電壓
+    // Algae intake and reIntake speed
     public static final double kIntakeFastSpeed = 0.5;
     public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = -0.3;
 
-    // AlgaeRotate 的電壓
+    // AlgaeRotate speed
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
     public static final double kMaxOutput = 0.5;
     public static final double kMinOutput = -0.5;
 
-    // Algae Rotate & Front PID
+    // Algae Rotate PID
     public static final double kPRotateUp = 0.05;
     public static final double kIRotateUp = 0;
     public static final double kDRotateUp = 0;
@@ -106,12 +106,12 @@ public class Constants {
     public static final double kMinAngle = 0;
     public static final double kStepAngle = 0.1;
 
-    // Algae Inverted
+    // Algae inverted
     public static final Boolean kIntakeMotorInverted = true;
     public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
 
-    // Algae Encoder
+    // Algae encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = 143;
@@ -169,8 +169,6 @@ public class Constants {
   }
 
   public static final class SwerveControlConstant {
-
-    // 變速的放大倍率
     public static final double kDefaultMagnification = 0.25;
     public static final double kFastMagnification = 0.75;
     public static final double kRotateMagnification = 1.2;

@@ -74,5 +74,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", shooterEncoder.get());
   }
-
 }

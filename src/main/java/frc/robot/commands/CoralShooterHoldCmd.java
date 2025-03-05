@@ -14,16 +14,18 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
-  private double encoderTargetDegree = 0;
-  private PIDController pidController = new PIDController
-    (CoralShooterConstant.kP, CoralShooterConstant.kI, CoralShooterConstant.kD);
+  private double encoderTargetDegree;
+  private PIDController PIDController = new PIDController(
+      CoralShooterConstant.kP,
+      CoralShooterConstant.kI,
+      CoralShooterConstant.kD);
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralShooterSubsystem = coralShooterSubsystem;
     addRequirements(this.coralShooterSubsystem);
-    pidController.enableContinuousInput(0, 360);
+    PIDController.enableContinuousInput(0, 360);
   }
 
   // Called when the command is initially scheduled.
@@ -37,11 +39,11 @@ public class CoralShooterHoldCmd extends Command {
   @Override
   public void execute() {
     double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
-    double speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
+    double speed = MathUtil.clamp(PIDController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
     coralShooterSubsystem.setMotorSpeed(speed);
     SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
     SmartDashboard.putNumber("HoldSpeed", speed);
-    SmartDashboard.putData("CoralHoldPID", pidController);
+    SmartDashboard.putData("CoralHoldPID", PIDController);
   }
 
   // Called once the command ends or is interrupted.
