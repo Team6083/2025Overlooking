@@ -106,9 +106,9 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
 
     if (!isManualControl) {
-      double output = -algaeRotatePID.calculate(getCurrentAngle());
+      double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output, -0.5, 0.5);
-      rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+      rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
       SmartDashboard.putNumber("algaeOutput", output);
     } else {
       algaeRotatePID.setSetpoint(getCurrentAngle());
@@ -193,7 +193,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command autoStopRotateCmd(Command command) {
     Command cmd = new SequentialCommandGroup(
         command.repeatedly()
-            .until(() -> algaeRotatePID.getError() < 5),
+            .until(() -> Math.abs(algaeRotatePID.getError()) < 5),
         runOnce(this::stopRotate));
     cmd.setName("autoStopRotateCmd");
     return cmd;
