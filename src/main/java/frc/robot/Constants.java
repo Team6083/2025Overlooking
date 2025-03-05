@@ -97,9 +97,9 @@ public class Constants {
     public static final double kPRotateUp = 0.05;
     public static final double kIRotateUp = 0;
     public static final double kDRotateUp = 0;
-    public static final double rotMotorDownPIDkP = 0.02;
-    public static final double rotMotorDownPIDkI = 0;
-    public static final double rotMotorDownPIDkD = 0;
+    public static final double kPRotateDown = 0.02;
+    public static final double kIRotateDown = 0;
+    public static final double kDRotateDown = 0;
 
     // Algae setpoint
     public static final double kMaxAngle = 90;

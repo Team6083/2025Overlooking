@@ -88,10 +88,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     if (!isManualControl && isPIDEnabled) {
       if (getCurrentAngle() < getRotateSetpoint()) {
         algaeRotatePID.setPID(
-          AlgaeIntakeConstant.rotMotorUpPIDkP,
-          AlgaeIntakeConstant.);
+          AlgaeIntakeConstant.kPRotateUp,
+          AlgaeIntakeConstant.kIRotateUp,
+          AlgaeIntakeConstant.kDRotateUp);
       } else {
-        algaeRotatePID.setP(AlgaeIntakeConstant.rotMotorDownPIDkP);
+        algaeRotatePID.setPID(
+          AlgaeIntakeConstant.kPRotateDown,
+          AlgaeIntakeConstant.kIRotateDown,
+          AlgaeIntakeConstant.kDRotateDown);
       }
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output,AlgaeIntakeConstant.kMinOutput,AlgaeIntakeConstant.kMaxOutput);
