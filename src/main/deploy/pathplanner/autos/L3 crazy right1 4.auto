@@ -17,12 +17,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.8
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -33,9 +27,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "AprilTagLeft"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 3.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AprilTagLeft"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -64,7 +71,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.8
+                        "waitTime": 3.0
                       }
                     },
                     {
