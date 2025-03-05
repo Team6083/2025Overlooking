@@ -28,6 +28,7 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
+
   private final CommandXboxController mainController;
   private final CommandGenericHID controlPanel;
 
@@ -43,8 +44,10 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem();
     swerveDrive = new SwerveDrive();
+
     mainController = new CommandXboxController(0);
     controlPanel = new CommandGenericHID(1);
+
     tagTracking = new TagTracking();
 
     takeL2AlgaeCommandGroup = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd().repeatedly()
@@ -68,12 +71,13 @@ public class RobotContainer {
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
-    
+
     namedCommands();
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
+
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
@@ -91,8 +95,7 @@ public class RobotContainer {
             .andThen(coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterOnCmd().withTimeout(1)
-            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+        coralShooterSubsystem.coralShooterOnCmd().withTimeout(1));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
