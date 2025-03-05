@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "L - leave(12)"
@@ -20,6 +26,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "coral L1",
+  "folder": null,
   "choreoAuto": false
 }
