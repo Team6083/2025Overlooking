@@ -32,7 +32,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
     rotateEncoder = new DutyCycleEncoder(
-        AlgaeIntakeConstant.kAlgaeEncoderChannelA,
+        AlgaeIntakeConstant.kAlgaeEncoderChannel,
         AlgaeIntakeConstant.fullRange,
         AlgaeIntakeConstant.expectedZero);
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
@@ -68,6 +68,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void setRotateSetpoint(double setpoint) {
     isManualControl = false;
     algaeRotatePID.setSetpoint(setpoint);
+    setpoint = MathUtil.clamp(setpoint,AlgaeIntakeConstant.kMaxAngle,AlgaeIntakeConstant.kMinAngle);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);

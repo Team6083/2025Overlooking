@@ -147,7 +147,7 @@ public class Constants {
     public static final int kRotateMotorChannel = 34;
 
     // Algae Encoder Channel
-    public static final int kAlgaeEncoderChannelA = 6;
+    public static final int kAlgaeEncoderChannel = 6;
 
     // Algae 吸入、吐出的電壓
     public static final double kIntakeFastSpeed = 0.5;
