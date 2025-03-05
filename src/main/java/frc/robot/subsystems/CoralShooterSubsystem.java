@@ -12,6 +12,7 @@ import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,6 +27,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private DutyCycleEncoder coralShooterEncoder;
   private AddressableLED addressableLED;
   private AddressableLEDBuffer ledBuffer;
+  private Timer timer;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -48,7 +50,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     ledBuffer = new AddressableLEDBuffer(100);
     addressableLED.setLength(ledBuffer.getLength());
 
-    
+    timer = new Timer();
+
   }
 
   public double getEncoder() {
@@ -80,31 +83,25 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public void setLEDColor() {
-    for (int i = 0; i < ledBuffer.getLength(); i++) {
-      ledBuffer.setRGB(i,200,200,200);// 設定第 i 顆 LED 為紅色
-  }
-
-  addressableLED.setData(ledBuffer);
-  addressableLED.start();
-  }
-
-  public void LEDclose() {
-    addressableLED.setData(ledBuffer);
-    addressableLED.stop();
-  }
-
   @Override
   public void periodic() {
     // put dashboard
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
+    SmartDashboard.putNumber("Timer", timer.get());
 
     distanceSensor.setAutomaticMode(true);
 
     if (isGetTarget()) {
+      for (int i = 0; i < ledBuffer.getLength(); i++) {
+        ledBuffer.setRGB(i, 200, 200, 200);
+      }
+      addressableLED.setData(ledBuffer);
       addressableLED.start();
+    } else {
+      addressableLED.setData(ledBuffer);
+      addressableLED.close();
     }
 
   }
@@ -121,15 +118,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command LEDoncmd(){
-    Command cmd = runOnce(this::setLEDColor);
-    cmd.setName("setLEDColor");
-    return cmd;
-  }
-
-  public Command LEDclosecmd(){
-    Command cmd = runOnce(this::LEDclose);
-    cmd.setName("LEDclose");
-    return cmd;
-  }
 }

@@ -123,56 +123,54 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // // SwerveDrive
-    // swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController));
-    // // used LeftBumper to switch between fast and slow mode
-    // mainController.back().onTrue(swerveDrive.gyroResetCmd());
+    // SwerveDrive
+    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController));
+    // used LeftBumper to switch between fast and slow mode
+    mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
-    // // CoralShooter
-    // viceController.x().whileTrue(
-    //     new CoralShooterHoldCmd(coralShooterSubsystem));
-    // mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
-    // mainController.rightBumper().and(mainController.leftBumper())
-    //     .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-    //         coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+    // CoralShooter
+    viceController.x().whileTrue(
+        new CoralShooterHoldCmd(coralShooterSubsystem));
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
+    mainController.rightBumper().and(mainController.leftBumper())
+        .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
-    // // Elevator
-    // mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
-    // mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
-    // mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
-    // mainController.povRight().whileTrue(elevatorSubsystem.toTopFloorCmd());
-    // mainController.leftTrigger()
-    //     .whileTrue(Commands.either(
-    //         elevatorSubsystem.moveDownCmd(),
-    //         elevatorSubsystem.manualMoveDownCmd(),
-    //         viceController.rightBumper().negate()));
-    // mainController.rightTrigger()
-    //     .whileTrue(Commands.either(
-    //         elevatorSubsystem.moveUpCmd(),
-    //         elevatorSubsystem.manualMoveUpCmd(),
-    //         viceController.rightBumper().negate()));
-    // mainController.start().onTrue(elevatorSubsystem.elevatorReset());
+    // Elevator
+    mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
+    mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
+    mainController.povDown().whileTrue(elevatorSubsystem.toDefaultPositionCmd());
+    mainController.povRight().whileTrue(elevatorSubsystem.toTopFloorCmd());
+    mainController.leftTrigger()
+        .whileTrue(Commands.either(
+            elevatorSubsystem.moveDownCmd(),
+            elevatorSubsystem.manualMoveDownCmd(),
+            viceController.rightBumper().negate()));
+    mainController.rightTrigger()
+        .whileTrue(Commands.either(
+            elevatorSubsystem.moveUpCmd(),
+            elevatorSubsystem.manualMoveUpCmd(),
+            viceController.rightBumper().negate()));
+    mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
-    // // ALgaeIntake
-    // viceController.povUp().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
-    // viceController.povDown().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
-    // viceController.povRight().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    // viceController.povLeft().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
-    // mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    // mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    // viceController.leftBumper().onTrue(algaeIntakeSubsystem.setManualControlCmd());
+    // ALgaeIntake
+    viceController.povUp().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
+    viceController.povDown().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
+    viceController.povRight().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    viceController.povLeft().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    viceController.leftBumper().onTrue(algaeIntakeSubsystem.setManualControlCmd());
 
-    // // Elevator + AlgaeIntake
-    // viceController.a().toggleOnTrue(takeL2AlgaeCommandGroup);
-    // viceController.y().toggleOnTrue(takeL3AlgaeCommandGroup);
+    // Elevator + AlgaeIntake
+    viceController.a().toggleOnTrue(takeL2AlgaeCommandGroup);
+    viceController.y().toggleOnTrue(takeL3AlgaeCommandGroup);
 
-    // // TagTracking
-    // mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
-    // mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+    // TagTracking
+    mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
+    mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
 
-    coralShooterSubsystem.setDefaultCommand( coralShooterSubsystem.LEDoncmd());
-    mainController.a().whileTrue(coralShooterSubsystem.LEDoncmd());
-    mainController.b().whileTrue(coralShooterSubsystem.LEDclosecmd());
+
   }
 
   public Command getAutonomousCommand() {
