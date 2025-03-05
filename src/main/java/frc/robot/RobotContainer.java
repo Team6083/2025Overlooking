@@ -3,8 +3,6 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
@@ -76,14 +73,14 @@ public class RobotContainer {
     NamedCommands.registerCommand("setTuringDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
-    NamedCommands.registerCommand("CoralShooterIn",
-        new SequentialCommandGroup(
-            new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+    // NamedCommands.registerCommand("CoralShooterIn",
+    //     new SequentialCommandGroup(
+    //         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+    //         coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
-    NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterOnCmd().withTimeout(1)
-            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+    // NamedCommands.registerCommand("CoralShooterWithStop",
+    //     coralShooterSubsystem.coralShooterOnCmd().withTimeout(1)
+    //         .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());

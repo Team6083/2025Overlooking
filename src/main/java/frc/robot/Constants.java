@@ -121,8 +121,8 @@ public class Constants {
 
   public static final class AlgaeIntakeConstant {
     // Algae motor Channel
-    public static final int kIntakeMotorChannel = 35;
-    public static final int kRotateMotorChannel = 34;
+    public static final int kIntakeMotorChannel = 34;
+    public static final int kRotateMotorChannel = 32;
 
     // Algae encoder Channel
     public static final int kAlgaeEncoderChannelA = 4;
@@ -157,14 +157,14 @@ public class Constants {
     // Algae encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
-    public static final double expectedZero = 143;
+    public static final double expectedZero = -265;
     public static final double fullRange = 360;
     public static final double kGetSecAlgaeAngle = 73;
   }
 
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
-    public static final int kMotorChannel = 32;
+    public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 3;
     // public static final double kShooterMotorFastSpeed = 0.25;
     public static final double kMotorSpeed = 0.195;
@@ -181,14 +181,16 @@ public class Constants {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    public static final int kLeftElevatorMotorChannel = 33;
-    public static final int kRightElevatorMotorChannel = 30;
+    public static final int kLeftElevatorMotorChannel = 35;
+    public static final int kRightElevatorMotorChannel = 36;
     public static final boolean kLeftMotorInverted = true;
     public static final boolean kRightMotorInverted = false;
 
     public static final int kEncoderChannelA = 1;
     public static final int kEncoderChannelB = 2;
     public static final boolean kEncoderInverted = false;
+
+    public static final int kTouchSensorChannel = 0;
 
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;

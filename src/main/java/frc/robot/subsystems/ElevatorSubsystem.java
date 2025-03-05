@@ -28,8 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
-  private DigitalInput upLimitSwitch;
-  private DigitalInput downLimitSwitch;
+  private final DigitalInput touchSensor;
 
   public ElevatorSubsystem() {
     // motor
@@ -47,11 +46,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
 
-    targetHeight = ElevatorConstant.kInitialHeight;
+    touchSensor = new DigitalInput(ElevatorConstant.kTouchSensorChannel);
 
-    // limit switch
-    upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(8);
+    targetHeight = ElevatorConstant.kInitialHeight;
 
     // manual control
     manualControl = false;
@@ -129,13 +126,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     // || (output < 0 && encoder.getRate() > 0)) {
 
     // SmartDashboard.putNumber("Output", 0);
-
-    if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
-      if (!upLimitSwitch.get()) {
-        targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
-      } else if (!downLimitSwitch.get()) {
-        targetHeight = currentHeight.plus(ElevatorConstant.kStepHeight);
-      }
+    if (touchSensor.get()) {
+      targetHeight.plus(ElevatorConstant.kStepHeight);
+    }
+    if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
@@ -150,8 +144,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
     SmartDashboard.putData("ElevatorPID", elevatorPID);
-    SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
-    SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
   }
 
   public Command toGetCarolHeightCmd() {
