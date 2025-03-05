@@ -61,7 +61,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(setpoint);
     setpoint = MathUtil.clamp(setpoint,AlgaeIntakeConstant.kMaxAngle,AlgaeIntakeConstant.kMinAngle);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
-    output = MathUtil.clamp(output, -0.5, 0.5);
+    output = MathUtil.clamp(output, AlgaeIntakeConstant.kMinOutput, AlgaeIntakeConstant.kMaxOutput);
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
   }
 
@@ -88,7 +88,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     
     if (!isManualControl && isPIDEnabled) {
       double output = algaeRotatePID.calculate(getCurrentAngle());
-      output = MathUtil.clamp(output, -0.5, 0.5);
+      output = MathUtil.clamp(output,AlgaeIntakeConstant.kMinOutput,AlgaeIntakeConstant.kMaxOutput);
       rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
       SmartDashboard.putNumber("algaeOutput", output);
     } else {

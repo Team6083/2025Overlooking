@@ -157,6 +157,8 @@ public class Constants {
     // AlgaeRotate 的電壓
     public static final double kUpIntakeRotateSpeed = -0.5;
     public static final double kDownIntakeRotateSpeed = 0.4;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
 
     // Algae Rotate & Front PID
     public static final double rotMotorUpPIDkP = 0.05;
