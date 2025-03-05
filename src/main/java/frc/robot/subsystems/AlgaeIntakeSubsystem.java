@@ -21,9 +21,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final VictorSPX rotateMotor;
   private final PIDController algaeRotatePID;
   private boolean isManualControl = false;
+  private boolean isPIDdisabled = false;
   private final DutyCycleEncoder rotateEncoder;
 
-  public AlgaeIntakeSubsystem() {;
+  public AlgaeIntakeSubsystem() {
     algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
@@ -57,14 +58,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setRotateSetpoint(double setpoint) {
-    isManualControl = false;
     algaeRotatePID.setSetpoint(setpoint);
     setpoint = MathUtil.clamp(setpoint,AlgaeIntakeConstant.kMaxAngle,AlgaeIntakeConstant.kMinAngle);
     double output = -algaeRotatePID.calculate(getCurrentAngle());
     output = MathUtil.clamp(output, -0.5, 0.5);
     rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
   }
-
 
   public void stopRotate() {
     rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
@@ -80,6 +79,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void setManualControl() {
     isManualControl = true;
+    isPIDdisabled = true;
   }
 
   @Override
@@ -126,7 +126,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
           manualSetRotate(speed);
         },
         () -> {
-          isManualControl = false;
+          if (!isPIDdisabled){
+            isManualControl = false;
+          } else {
+            isManualControl = true;
+          }
           stopRotate();
         });
     cmd.setName("manualSetRotateCmd");
