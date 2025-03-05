@@ -227,7 +227,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command autoStopCmd(Command command) {
     Command cmd = new SequentialCommandGroup(
         command.repeatedly()
-            .until(() -> elevatorPID.getError() < 15),
+            .until(() -> Math.abs(elevatorPID.getError()) < 15),
         runOnce(this::stopMove));
     cmd.setName("autoStop");
     return cmd;
