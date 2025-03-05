@@ -172,6 +172,8 @@ public class Constants {
     public static final Boolean kEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
+
+    public static final int kAddressableLEDChannel = 0;
   }
 
   public static final class ElevatorConstant {
