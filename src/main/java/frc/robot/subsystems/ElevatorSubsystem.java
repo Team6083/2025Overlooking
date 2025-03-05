@@ -81,10 +81,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
   }
 
-  public void toGetCarolHeight() {
-    moveToHeight(ElevatorConstant.kGetCarolHeight);
-  }
-
   public void toSecFloor() {
     moveToHeight(ElevatorConstant.kSecFloor);
   }
@@ -149,12 +145,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putData("ElevatorPID", elevatorPID);
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
     SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
-  }
-
-  public Command toGetCarolHeightCmd() {
-    Command cmd = runOnce(this::toGetCarolHeight);
-    cmd.setName("toGetCarolHeight");
-    return cmd;
   }
 
   public Command toSecFloorCmd() {
