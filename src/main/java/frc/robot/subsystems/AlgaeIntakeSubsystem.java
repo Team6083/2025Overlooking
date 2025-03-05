@@ -86,7 +86,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
     SmartDashboard.putBoolean("isPIDEnabled",isPIDEnabled);
     
-    if (!isManualControl && !isPIDEnabled) {
+    if (!isManualControl && isPIDEnabled) {
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output, -0.5, 0.5);
       rotateMotor.set(VictorSPXControlMode.PercentOutput, output);
