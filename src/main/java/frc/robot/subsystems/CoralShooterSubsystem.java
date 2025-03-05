@@ -42,15 +42,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterMotor.set(VictorSPXControlMode.PercentOutput, speed);
   }
 
-  public void coralShooterFastOn() { // Motor on Fast
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
-    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
-  }
-
-  public void coralShooterSlowOn() { // Motor on Slow
+  public void coralShooterOn() { // Motor on Slow
     if (powerDistribution.isCoralShooterOverCurrent()) {
       setMotorSpeed(0);
       return;
@@ -70,14 +62,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public Command coralShooterFastOnCmd() { // Motor on
-    Command cmd = runEnd(this::coralShooterFastOn, this::coralShooterStop);
-    cmd.setName("coralShooterFastOn");
-    return cmd;
-  }
-
-  public Command coralShooterSlowOnCmd() {
-    Command cmd = runEnd(this::coralShooterSlowOn, this::coralShooterStop);
+  public Command coralShooterOnCmd() {
+    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
     cmd.setName("coralShooterSlowOn");
     return cmd;
   }
