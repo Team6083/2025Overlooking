@@ -19,6 +19,10 @@ public class Constants {
     public static final Boolean kCoralShooterEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
+    public static final double kP = 0.0035;
+    public static final double ki = 0.0;
+    public static final double kd = 0.0;
+    
   }
 
   public static final class PowerDistributionConstant {
