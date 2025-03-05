@@ -46,6 +46,11 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
   }
 
   @Override
+  public void setAutomaticMode(boolean modeOn){
+    actualSensor.setAutomaticMode(modeOn);
+  }
+
+  @Override
   public void close() {
     simSensor.close();
   }

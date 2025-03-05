@@ -4,4 +4,6 @@ public interface DistanceSensor {
   public double getDistance();
 
   public boolean isDistanceValid();
+
+  public void setAutomaticMode(boolean modeOn);
 }
