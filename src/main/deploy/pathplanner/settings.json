@@ -3,7 +3,6 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
-    "L - leave",
     "L - leave(tag)",
     "M - leave",
     "M - leave(tag)",
