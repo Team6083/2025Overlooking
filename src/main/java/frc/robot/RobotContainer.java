@@ -1,9 +1,9 @@
 package frc.robot;
 
-// import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -32,7 +32,7 @@ public class RobotContainer {
   private final CommandXboxController mainController;
   private final CommandGenericHID controlPanel;
 
-  // private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
 
   private final TagTracking tagTracking;
 
@@ -50,23 +50,19 @@ public class RobotContainer {
 
     tagTracking = new TagTracking();
 
-    takeL2AlgaeCommandGroup = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd().repeatedly()
-        .until(() -> algaeIntakeSubsystem.getAbsoluteError() < 0.5)
-        .andThen(new ParallelRaceGroup(
-            elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
-                .until(() -> elevatorSubsystem.getAbsoluteError() < 5)),
-            algaeIntakeSubsystem.reIntakeCmd())
+    takeL2AlgaeCommandGroup = new ParallelRaceGroup(
+        elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
+            .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
+        algaeIntakeSubsystem.reIntakeCmd())
         .andThen(new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reIntakeCmd()));
 
-    takeL3AlgaeCommandGroup = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd().repeatedly()
-        .until(() -> algaeIntakeSubsystem.getAbsoluteError() < 0.5)
-        .andThen(new ParallelRaceGroup(
-            elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
-                .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
-            algaeIntakeSubsystem.reIntakeCmd()))
+    takeL3AlgaeCommandGroup = new ParallelRaceGroup(
+        elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
+            .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
+        algaeIntakeSubsystem.reIntakeCmd())
         .andThen(new ParallelRaceGroup(
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
@@ -74,9 +70,9 @@ public class RobotContainer {
 
     registerNamedCommands();
 
-    // autoChooser = AutoBuilder.buildAutoChooser();
-    // autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    // SmartDashboard.putData("AutoChooser", autoChooser);
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    SmartDashboard.putData("AutoChooser", autoChooser);
 
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
