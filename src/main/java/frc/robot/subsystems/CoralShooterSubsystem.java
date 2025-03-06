@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,6 +23,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private Rev2mDistanceSensor distanceSensor;
   private VictorSPX coralShooterMotor;
   private DutyCycleEncoder coralShooterEncoder;
+  private Solenoid ledController;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -39,6 +42,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     // distance sensor
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
+
+    ledController = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
   }
 
   public double getEncoder() {
@@ -75,13 +80,16 @@ public class CoralShooterSubsystem extends SubsystemBase {
       return true;
     }
    return false;
+}
 
-  
+public void setLight(boolean isLightOn){
+  ledController.set(isLightOn);
 }
 
   @Override
   public void periodic() {
     // put dashboard
+    setLight(isGetTarget());
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
