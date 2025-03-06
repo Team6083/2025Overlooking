@@ -224,7 +224,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command manualMoveUpCmd() {
-
     Command cmd = manualMoveCmd(ElevatorConstant.kManualUpPower);
     cmd.setName("manualMoveUp");
     return cmd;

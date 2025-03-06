@@ -144,12 +144,12 @@ public class RobotContainer {
         .whileTrue(Commands.either(
             elevatorSubsystem.moveDownCmd(),
             elevatorSubsystem.manualMoveDownCmd(),
-            viceController.rightBumper().negate()));
+            mainController.y()));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.moveUpCmd(),
             elevatorSubsystem.manualMoveUpCmd(),
-            viceController.rightBumper().negate()));
+            mainController.y()));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake
@@ -157,12 +157,12 @@ public class RobotContainer {
     viceController.povDown().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
     viceController.povRight().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
     viceController.povLeft().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
-    mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-    mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+    viceController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    viceController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
 
     // Elevator + AlgaeIntake
-    viceController.a().toggleOnTrue(takeL2AlgaeCommandGroup);
-    viceController.y().toggleOnTrue(takeL3AlgaeCommandGroup);
+    viceController.y().toggleOnTrue(takeL2AlgaeCommandGroup);
+    viceController.a().toggleOnTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
     mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
