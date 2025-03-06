@@ -158,7 +158,7 @@ public class RobotContainer {
     controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorOnCmd());
-    controlPanel.button(12).onTrue(algaeIntakeSubsystem.EnablePID());
+    controlPanel.button(12).onTrue(algaeIntakeSubsystem.enablePID());
     controlPanel.button(12).onFalse(algaeIntakeSubsystem.disablePID());
 
     // Elevator + AlgaeIntake

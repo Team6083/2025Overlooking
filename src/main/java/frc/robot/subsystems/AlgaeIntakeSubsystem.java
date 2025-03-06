@@ -150,7 +150,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command EnablePID() {
+  public Command enablePID() {
     Command cmd = runOnce(
         () -> {
           isPIDEnabled = true;
