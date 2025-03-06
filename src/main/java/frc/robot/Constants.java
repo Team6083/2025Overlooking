@@ -191,6 +191,8 @@ public class Constants {
     public static final boolean kEncoderInverted = true;
 
     public static final int kTouchSensorChannel = 0;
+    public static final int kTouchSensorUp1Channel = 5;
+    public static final int kTouchSensorUp2Channel = 6;
 
     public static final double kManualUpPower = 0.7;
     public static final double kManualDownPower = -0.2;

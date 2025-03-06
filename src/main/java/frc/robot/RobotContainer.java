@@ -74,13 +74,16 @@ public class RobotContainer {
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
     // NamedCommands.registerCommand("CoralShooterIn",
-    //     new SequentialCommandGroup(
-    //         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-    //         coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+    // new SequentialCommandGroup(
+    // new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+    // coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
-    // NamedCommands.registerCommand("CoralShooterWithStop",
-    //     coralShooterSubsystem.coralShooterOnCmd().withTimeout(1)
-    //         .andThen(coralShooterSubsystem.coralShooterStopCmd()));
+    NamedCommands.registerCommand("CoralShooterIn",
+        coralShooterSubsystem.coralShooterInCmd().withTimeout(0.5));
+
+    NamedCommands.registerCommand("CoralShooterWithStop",
+        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1)
+            .andThen(coralShooterSubsystem.coralShooterStopCmd()));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
@@ -164,7 +167,6 @@ public class RobotContainer {
     // TagTracking
     mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
     mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
-
 
   }
 

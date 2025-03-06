@@ -28,7 +28,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean manualControl;
-  private final DigitalInput touchSensor;
+  private final DigitalInput touchSensorDown;
+  private final DigitalInput touchSensorUp1;
+  private final DigitalInput touchSensorUp2;
+
 
   public ElevatorSubsystem() {
     // motor
@@ -46,7 +49,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
 
-    touchSensor = new DigitalInput(ElevatorConstant.kTouchSensorChannel);
+    touchSensorDown = new DigitalInput(ElevatorConstant.kTouchSensorChannel);
+    touchSensorUp1 = new DigitalInput(ElevatorConstant.kTouchSensorUp1Channel);
+    touchSensorUp2 = new DigitalInput(ElevatorConstant.kTouchSensorUp2Channel);
 
     targetHeight = ElevatorConstant.kInitialHeight;
 
@@ -126,9 +131,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     // || (output < 0 && encoder.getRate() > 0)) {
 
     // SmartDashboard.putNumber("Output", 0);
-    if (!touchSensor.get()) {
+    if (!touchSensorDown.get()) {
       targetHeight.plus(ElevatorConstant.kStepHeight);
     }
+     
+    if (!touchSensorUp1.get() && !touchSensorUp2.get()) {
+      targetHeight.minus(ElevatorConstant.kStepHeight);
+    }
+
     if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
@@ -148,7 +158,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
-    SmartDashboard.putBoolean("ElevatorTouchsensor", touchSensor.get());
+    SmartDashboard.putBoolean("ElevatorTouchsensor", touchSensorDown.get());
     SmartDashboard.putNumber("ElevatorEncoder", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putNumber("ElevatorTargetHeight", targetHeight.in(Millimeters));
