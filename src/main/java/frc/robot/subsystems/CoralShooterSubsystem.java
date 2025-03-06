@@ -50,13 +50,20 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   // shooter on
-  public void coralShooterOn() {
+  public void coralShooterIn() {
     if (powerDistribution.isCoralShooterOverCurrent()) {
       setMotorSpeed(0);
       return;
     }
-
     setMotorSpeed(CoralShooterConstant.kMotorSpeed);
+  }
+
+  public void coralShooterOut() {
+    if (powerDistribution.isCoralShooterOverCurrent()) {
+      setMotorSpeed(0);
+      return;
+    }
+    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
   }
 
   public void coralShooterStop() {
@@ -81,9 +88,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
   }
 
-  public Command coralShooterOnCmd() {
-    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
+  public Command coralShooterInCmd() {
+    Command cmd = runEnd(this::coralShooterIn, this::coralShooterStop);
     cmd.setName("coralShooterOn");
+    return cmd;
+  }
+
+  public Command coralShooterOutCmd() {
+    Command cmd = runEnd(this::coralShooterOut, this::coralShooterStop);
+    cmd.setName("coralShooterOut");
     return cmd;
   }
 
