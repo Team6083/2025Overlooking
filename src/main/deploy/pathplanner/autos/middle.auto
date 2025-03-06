@@ -1,0 +1,111 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ma"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagLeft"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToFour"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToFour"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
