@@ -81,10 +81,10 @@ public class RobotContainer {
     // coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
     NamedCommands.registerCommand("CoralShooterIn",
-        coralShooterSubsystem.coralShooterInCmd().withTimeout(0.5));
+        coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.5));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
+        coralShooterSubsystem.coralShooterOnCmd().withTimeout(1));
 
     NamedCommands.registerCommand("ErToSec",
         elevatorSubsystem.toSecFloorCmd());
@@ -141,7 +141,7 @@ public class RobotContainer {
     // CoralShooter
     coralShooterSubsystem.setDefaultCommand(
         new CoralShooterHoldCmd(coralShooterSubsystem));
-    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
+    mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem));
 
