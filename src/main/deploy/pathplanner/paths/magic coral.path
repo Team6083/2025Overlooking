@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2253378378378377,
-        "y": 7.048817567567567
+        "x": 7.2,
+        "y": 4.00701844262295
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7957572333876277,
-        "y": 6.243850515105961
+        "x": 6.956694208998672,
+        "y": 3.9495528697534645
       },
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": "middle"
     },
     {
       "anchor": {
-        "x": 5.059459459459459,
-        "y": 5.220692567567567
+        "x": 5.82075,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 3.7732500000000004,
-        "y": 6.374750000000001
+        "x": 5.5820414246825365,
+        "y": 4.074284696067944
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 11"
+      "linkedName": "magic coral "
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.8489626556016563,
-      "rotationDegrees": -110.30655027522205
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "cstr",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.16234704572174
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

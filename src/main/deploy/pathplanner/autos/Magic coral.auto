@@ -5,57 +5,57 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "magic coral"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "SetTurningDegree"
+            "name": "MagicCoral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(11)"
+            "pathName": "magic rtcs"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 1.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "SetTurningDegree"
+            "name": "CoralShooterIn"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "rtcs11"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "pathName": "cstr11"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "SetTurningDegree"
+            "name": "ErToSec"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "cstr10"
+            "name": "CoralShooterWithStop"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "crazy L4",
+  "folder": null,
   "choreoAuto": false
 }

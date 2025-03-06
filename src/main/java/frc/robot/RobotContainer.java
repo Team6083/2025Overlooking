@@ -110,6 +110,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
 
+    NamedCommands.registerCommand("MagicCoral",
+        algaeIntakeSubsystem.reIntakeCmd().withTimeout(1));
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
