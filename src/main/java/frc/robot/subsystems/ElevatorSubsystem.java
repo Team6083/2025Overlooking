@@ -25,6 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final PIDController elevatorPID;
   private Distance targetHeight;
   private boolean isManualControl;
+  private boolean isElevatorPIDEnabled = true;
   private DigitalInput upLimitSwitch;
   private DigitalInput downLimitSwitch;
 
@@ -112,7 +113,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // || Math.abs(encoder.getRate()) < 0.5) {
     // stopMove();
     // } else
-    if (!isManualControl) {
+    if (!isManualControl && isElevatorPIDEnabled) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
@@ -183,7 +184,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      isManualControl = false;
     });
     cmd.setName("manualMove");
     return cmd;
@@ -198,6 +198,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command manualMoveDownCmd() {
     Command cmd = manualMoveCmd(ElevatorConstant.kManualDownPower);
     cmd.setName("manualMoveDown");
+    return cmd;
+  }
+
+  public Command disableElevatorPID() {
+    Command cmd = runEnd(
+        () -> {
+          isElevatorPIDEnabled = false;
+        },() -> {
+          isElevatorPIDEnabled = true;
+        });
+    cmd.setName("setElevatorManualControl");
     return cmd;
   }
 
