@@ -152,7 +152,7 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1800);
+    public static final Distance kMaxHeight = Millimeters.of(1950);
 
     public static final double kMaxOutput = 0.4;
     public static final double kMinOutput = -0.1;
@@ -162,7 +162,7 @@ public class Constants {
     public static final Distance kTrdFloor = Millimeters.of(1206);
     public static final Distance kTopFloor = Millimeters.of(1770);
     public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(810);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(825);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
