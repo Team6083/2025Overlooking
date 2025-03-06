@@ -94,10 +94,10 @@ public class Constants {
     public static final double kMinOutput = -0.5;
 
     // Algae Rotate PID
-    public static final double kPRotateUp = 0.05;
+    public static final double kPRotateUp = 0.02;
     public static final double kIRotateUp = 0;
     public static final double kDRotateUp = 0;
-    public static final double kPRotateDown = 0.02;
+    public static final double kPRotateDown = 0.01;
     public static final double kIRotateDown = 0;
     public static final double kDRotateDown = 0;
 
@@ -135,7 +135,7 @@ public class Constants {
   }
 
   public static final class ElevatorConstant {
-    public static final double kP = 0.023;
+    public static final double kP = 0.02;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
@@ -152,15 +152,16 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1950);
+    public static final Distance kMaxHeight = Millimeters.of(1870);
 
-    public static final double kMaxOutput = 0.4;
-    public static final double kMinOutput = -0.1;
+    public static final double kMaxOutputHigher = 0.8;
+    public static final double kMaxOutputLower = 0.5;
+    public static final double kMinOutput = -0.3;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kSecFloor = Millimeters.of(714);
-    public static final Distance kTrdFloor = Millimeters.of(1206);
-    public static final Distance kTopFloor = Millimeters.of(1770);
+    public static final Distance kSecFloor = Millimeters.of(769);
+    public static final Distance kTrdFloor = Millimeters.of(1190);
+    public static final Distance kTopFloor = Millimeters.of(1864);
     public static final Distance kStepHeight = Millimeters.of(7);
     public static final Distance kToGetSecAlgaeHeight = Millimeters.of(818);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1355);

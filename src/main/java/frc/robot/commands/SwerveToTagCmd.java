@@ -24,7 +24,7 @@ public class SwerveToTagCmd extends Command {
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
     this.isLeft = isLeft;
-    tzController.setSetpoint(0.43);
+    tzController.setSetpoint(0.44);
     yawController.setSetpoint(0);
     addRequirements(swerveDrive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,7 +42,7 @@ public class SwerveToTagCmd extends Command {
     if (isLeft) {
       txController.setSetpoint(0.17);
     } else {
-      txController.setSetpoint(-0.17);
+      txController.setSetpoint(-0.16);
     }
     double xSpeed;
     double ySpeed;
