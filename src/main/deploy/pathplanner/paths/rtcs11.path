@@ -28,7 +28,12 @@
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.31618257261411736,
+      "rotationDegrees": -88.01886468714585
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
