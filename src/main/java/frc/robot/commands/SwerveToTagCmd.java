@@ -15,7 +15,7 @@ import frc.robot.lib.TagTracking;
 public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
-  TagTracking tagTracking;
+  TagTracking tagTracking = new TagTracking();
   PIDController txController = new PIDController(2, 0, 0.5);
   PIDController tzController = new PIDController(2, 0, 0);
   PIDController yawController = new PIDController(0.05, 0, 0);
@@ -23,9 +23,9 @@ public class SwerveToTagCmd extends Command {
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
     if (isLeft) {
-      txController.setSetpoint(-0.14);
+      txController.setSetpoint(0.17);
     } else {
-      txController.setSetpoint(0.14);
+      txController.setSetpoint(-0.17);
     }
     tzController.setSetpoint(0.43);
     yawController.setSetpoint(0);
@@ -71,8 +71,6 @@ public class SwerveToTagCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0
-        || (Math.abs((txController.getError())) < 0.05
-            && Math.abs(tzController.getError()) < 0.05);
+    return tagTracking.getTv() == 0;
   }
 }
