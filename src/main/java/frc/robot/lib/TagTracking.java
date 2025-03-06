@@ -2,7 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.lib;
+
+import java.io.IOException;
+import java.util.Optional;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -10,21 +13,18 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.io.IOException;
-import java.util.Optional;
 
-public class TagTrackingSubsystem extends SubsystemBase {
-  /** Creates a new TagTrackingSubsystem. */
+/** Add your docs here. */
+public class TagTracking {
   private final NetworkTable table;
   private final AprilTagFieldLayout layout;
 
-  public TagTrackingSubsystem() {
+  public TagTracking() {
     table = NetworkTableInstance.getDefault().getTable("limelight-lyly");
     setLedMode(0);
     setPipeline(0);
     try {
-      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025ReefscapeAndyMark.m_resourceFile);
+      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025ReefscapeWelded.m_resourceFile);
     } catch (IOException err) {
       throw new RuntimeException();
     }
@@ -93,10 +93,5 @@ public class TagTrackingSubsystem extends SubsystemBase {
 
   public Pose2d getDesiredTagPose2d(double index) {
     return getDesiredTagPose3d(index).toPose2d();
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

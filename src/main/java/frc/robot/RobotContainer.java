@@ -15,14 +15,13 @@ import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagLeftCmd;
-import frc.robot.commands.SwerveToTagRightCmd;
+import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.PowerDistribution;
+import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.TagTrackingSubsystem;
 
 public class RobotContainer {
   private final PowerDistribution powerDistribution;
@@ -35,7 +34,7 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser;
 
-  private final TagTrackingSubsystem tagTrackingSubsystem;
+  private final TagTracking tagTracking;
 
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
@@ -47,8 +46,11 @@ public class RobotContainer {
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
     swerveDrive = new SwerveDrive();
     mainController = new CommandXboxController(0);
+
     viceController = new CommandXboxController(1);
-    tagTrackingSubsystem = new TagTrackingSubsystem();
+    
+    tagTracking = new TagTracking();
+
 
     takeL2AlgaeCommandGroup = new SequentialCommandGroup(
         algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
@@ -97,14 +99,14 @@ public class RobotContainer {
         elevatorSubsystem.toDefaultPositionCmd());
 
     NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem),
+        Commands.either(new SwerveToTagCmd(swerveDrive, false),
             new AprilTagAndAutoCmd(swerveDrive),
-            () -> tagTrackingSubsystem.getTv() == 1));
+            () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem),
+        Commands.either(new SwerveToTagCmd(swerveDrive, true),
             new AprilTagAndAutoCmd(swerveDrive),
-            () -> tagTrackingSubsystem.getTv() == 1));
+            () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
@@ -121,7 +123,6 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
-    SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
 
     configureBindings();
   }
@@ -174,8 +175,11 @@ public class RobotContainer {
     viceController.a().toggleOnTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    mainController.x().whileTrue(new SwerveToTagRightCmd(swerveDrive, tagTrackingSubsystem));
-    mainController.b().whileTrue(new SwerveToTagLeftCmd(swerveDrive, tagTrackingSubsystem));
+
+
+
+    mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
+    mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
 
   }
 

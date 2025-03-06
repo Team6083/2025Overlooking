@@ -137,7 +137,9 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight.minus(ElevatorConstant.kStepHeight);
     }
 
+
     if (!isManualControl) {
+
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);

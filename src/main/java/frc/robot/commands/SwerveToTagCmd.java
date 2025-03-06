@@ -9,25 +9,27 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.subsystems.TagTrackingSubsystem;
+import frc.robot.lib.TagTracking;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveToTagRightCmd extends Command {
+public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
-  TagTrackingSubsystem tagTracking;
+  TagTracking tagTracking;
   PIDController txController = new PIDController(2, 0, 0.5);
   PIDController tzController = new PIDController(2, 0, 0);
   PIDController yawController = new PIDController(0.05, 0, 0);
 
-  public SwerveToTagRightCmd(SwerveDrive swerveDrive, TagTrackingSubsystem tagTracking) {
+  public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
-    this.tagTracking = tagTracking;
-    txController.setSetpoint(0.14);
+    if (isLeft) {
+      txController.setSetpoint(-0.14);
+    } else {
+      txController.setSetpoint(0.14);
+    }
     tzController.setSetpoint(0.43);
     yawController.setSetpoint(0);
     addRequirements(swerveDrive);
-    addRequirements(tagTracking);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

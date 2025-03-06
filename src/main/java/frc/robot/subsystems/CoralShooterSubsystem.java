@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -15,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.lib.PowerDistribution;
+import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
@@ -27,6 +27,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
+
 
     // motor
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kMotorChannel);
@@ -51,6 +52,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public double getEncoder() {
     return coralShooterEncoder.get(); 
+
   }
 
   public void setMotorSpeed(double speed) {
@@ -79,7 +81,10 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isGetTarget() {
+
     if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange && distanceSensor.getRange() > 0) {
+
+
       return true;
     }
 
@@ -121,5 +126,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     cmd.setName("coralShooterStop");
     return cmd;
   }
-
 }
