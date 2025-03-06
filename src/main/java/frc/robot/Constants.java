@@ -116,7 +116,7 @@ public class Constants {
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = -157;
     public static final double fullRange = 360;
-    public static final double kGetSecAlgaeAngle = 73;
+    public static final double kGetAlgaeAngle = 83.35;
   }
 
   public static final class CoralShooterConstant {
@@ -162,8 +162,8 @@ public class Constants {
     public static final Distance kTrdFloor = Millimeters.of(1206);
     public static final Distance kTopFloor = Millimeters.of(1770);
     public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(825);
-    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(950);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(818);
+    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1355);
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }
