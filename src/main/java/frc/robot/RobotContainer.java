@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
@@ -108,12 +107,12 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("AprilTagRight",
         Commands.either(new SwerveToTagCmd(swerveDrive, false),
-            new AprilTagAndAutoCmd(swerveDrive),
+           swerveDrive.driveForwardCmd().withTimeout(3),
             () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AprilTagLeft",
         Commands.either(new SwerveToTagCmd(swerveDrive, true),
-            new AprilTagAndAutoCmd(swerveDrive),
+            swerveDrive.driveForwardCmd().withTimeout(3),
             () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",

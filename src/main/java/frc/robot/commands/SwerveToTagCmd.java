@@ -19,9 +19,11 @@ public class SwerveToTagCmd extends Command {
   PIDController txController = new PIDController(2, 0, 0.5);
   PIDController tzController = new PIDController(2, 0, 0);
   PIDController yawController = new PIDController(0.05, 0, 0);
+  Boolean isLeft;
 
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
+    this.isLeft = isLeft;
     if (isLeft) {
       txController.setSetpoint(0.17);
     } else {
@@ -42,6 +44,11 @@ public class SwerveToTagCmd extends Command {
   @Override
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
+    if (isLeft) {
+      txController.setSetpoint(0.17);
+    } else {
+      txController.setSetpoint(-0.17);
+    }
     double xSpeed;
     double ySpeed;
     double rotSpeed;
@@ -60,6 +67,7 @@ public class SwerveToTagCmd extends Command {
     SmartDashboard.putData("TxController", txController);
     SmartDashboard.putData("YawController", yawController);
     SmartDashboard.putNumber("LeftSetpoint", txController.getSetpoint());
+    SmartDashboard.putBoolean("IsLeft", isLeft);
   }
 
   // Called once the command ends or is interrupted.
@@ -71,6 +79,7 @@ public class SwerveToTagCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0;
+    return tagTracking.getTv() == 0
+    || (Math.abs(txController.getError()) < 0.05 && Math.abs(tzController.getError()) < 0.05);
   }
 }
