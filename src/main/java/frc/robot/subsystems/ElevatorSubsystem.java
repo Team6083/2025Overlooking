@@ -27,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Encoder elevatorEncoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
-  private boolean manualControl;
+  private boolean isManualControl;
   private final DigitalInput touchSensorDown;
   private final DigitalInput touchSensorUp1;
   private final DigitalInput touchSensorUp2;
@@ -56,7 +56,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = ElevatorConstant.kInitialHeight;
 
     // manual control
-    manualControl = false;
+    isManualControl = false;
   }
 
   public void resetEncoder() {
@@ -73,9 +73,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public boolean isManualControl() {
-    return manualControl;
-  }
+  
 
   public Distance getCurrentHeight() {
     return Millimeters.of(elevatorEncoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
@@ -139,7 +137,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight.minus(ElevatorConstant.kStepHeight);
     }
 
-    if (!manualControl) {
+    if (!isManualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
@@ -162,7 +160,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorEncoder", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putNumber("ElevatorTargetHeight", targetHeight.in(Millimeters));
-    SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
+    SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl);
     SmartDashboard.putData("ElevatorPID", elevatorPID);
   }
 
@@ -212,12 +210,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     Command cmd = runEnd(() -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, power);
       rightElevatorMotor.set(ControlMode.PercentOutput, power);
-      manualControl = true;
+      isManualControl = true;
 
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      manualControl = false;
+      isManualControl = false;
     });
     cmd.setName("manualMove");
     return cmd;
