@@ -113,6 +113,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("MagicCoral",
         algaeIntakeSubsystem.reIntakeCmd().withTimeout(1));
 
+        registerNamedCommands();
+
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
     SmartDashboard.putData("AutoChooser", autoChooser);
@@ -123,6 +125,11 @@ public class RobotContainer {
     SmartDashboard.putData("TagTracking", tagTrackingSubsystem);
 
     configureBindings();
+  }
+
+  private void registerNamedCommands() {
+    NamedCommands.registerCommand("SetTurningDegree",
+        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
   }
 
   private void configureBindings() {

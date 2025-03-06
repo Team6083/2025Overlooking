@@ -163,6 +163,9 @@ public class Constants {
   }
 
   public static final class CoralShooterConstant {
+    public static final double kP = 0.0007;
+    public static final double kI = 0.0;  
+    public static final double kD = 0.00015;
     public static final double kDistanceRange = 4.0;
     public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 3;

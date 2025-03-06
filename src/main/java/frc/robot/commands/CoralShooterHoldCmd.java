@@ -8,20 +8,24 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ElevatorConstant;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
-  private double encoderTargetDegree = 0;
-  private PIDController pidController = new PIDController(0.0007, 0.0, 0.00015);
+  private double encoderTargetDegree;
+  private PIDController PIDController = new PIDController(
+      ElevatorConstant.kP,
+      ElevatorConstant.kI,
+      ElevatorConstant.kD);
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralShooterSubsystem = coralShooterSubsystem;
     addRequirements(this.coralShooterSubsystem);
-    pidController.enableContinuousInput(0, 360);
+    PIDController.enableContinuousInput(0, 360);
   }
 
   // Called when the command is initially scheduled.
@@ -35,11 +39,11 @@ public class CoralShooterHoldCmd extends Command {
   @Override
   public void execute() {
     double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
-    double speed = MathUtil.clamp(pidController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
+    double speed = MathUtil.clamp(PIDController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
     coralShooterSubsystem.setMotorSpeed(speed);
     SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
     SmartDashboard.putNumber("HoldSpeed", speed);
-    SmartDashboard.putData("CoralHoldPID", pidController);
+    SmartDashboard.putData("CoralHoldPID", PIDController);
   }
 
   // Called once the command ends or is interrupted.
