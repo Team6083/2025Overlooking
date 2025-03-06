@@ -114,3 +114,5 @@ gversion {
   timeZone     = "Asia/Taipei" // Australia/Sydney
   indent       = "  "
 }
+
+jvmArgs.add("-Xmx64m")

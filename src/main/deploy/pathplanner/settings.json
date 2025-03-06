@@ -4,27 +4,14 @@
   "holonomicMode": true,
   "pathFolders": [
     "L - leave",
-    "L - leave(tag)",
-    "M - leave",
-    "M - leave(tag)",
     "ML - leave",
-    "ML - leave(tag)",
     "MR - leave",
-    "MR - leave(tag)",
     "R - leave",
-    "R - leave(tag)",
     "cstr",
-    "cstr(tag)",
-    "rtcs",
-    "rtcs(tag)",
-    "test",
-    "way point(tag)",
-    "way points"
+    "rtcs"
   ],
   "autoFolders": [
-    "coral L2",
-    "crazy L4",
-    "test"
+    "coral L2"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.0,
