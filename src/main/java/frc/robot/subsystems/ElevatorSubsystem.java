@@ -133,7 +133,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight.plus(ElevatorConstant.kStepHeight);
     }
      
-    if (!touchSensorUp1.get() && !touchSensorUp2.get()) {
+    if (!touchSensorUp1.get() || !touchSensorUp2.get()) {
       targetHeight.minus(ElevatorConstant.kStepHeight);
     }
 
