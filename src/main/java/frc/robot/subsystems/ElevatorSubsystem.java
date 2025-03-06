@@ -158,7 +158,9 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
-    SmartDashboard.putBoolean("ElevatorTouchsensor", touchSensorDown.get());
+    SmartDashboard.putBoolean("DownElevatorTouchsensor", touchSensorDown.get());
+    SmartDashboard.putBoolean("UpElevatorTouchsensor1", touchSensorUp1.get());
+    SmartDashboard.putBoolean("UpElevatorTouchsensor2", touchSensorUp2.get());
     SmartDashboard.putNumber("ElevatorEncoder", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
     SmartDashboard.putNumber("ElevatorTargetHeight", targetHeight.in(Millimeters));
