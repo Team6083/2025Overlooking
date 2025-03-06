@@ -57,7 +57,7 @@ public class SwerveToTagRightCmd extends Command {
     SmartDashboard.putData("tzController", tzController);
     SmartDashboard.putData("txController", txController);
     SmartDashboard.putData("yawController", yawController);
-    SmartDashboard.putNumber("LeftSetpoint", txController.getSetpoint());
+    SmartDashboard.putNumber("RightSetpoint", txController.getSetpoint());
   }
 
   // Called once the command ends or is interrupted.

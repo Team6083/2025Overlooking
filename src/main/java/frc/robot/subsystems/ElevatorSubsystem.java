@@ -126,13 +126,24 @@ public class ElevatorSubsystem extends SubsystemBase {
     // || (output < 0 && encoder.getRate() > 0)) {
 
     // SmartDashboard.putNumber("Output", 0);
+    if (!touchSensor.get()) {
+      targetHeight.plus(ElevatorConstant.kStepHeight);
+    }
     if (!manualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
+
+      if (getCurrentHeight().in(Millimeters) > 1300 && output > 0.5) {
+        output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kUpperMaxOutput);
+      }
+
+      if (output < 0 && getCurrentHeight().in(Millimeters) < 900) {
+        output = MathUtil.clamp(output, ElevatorConstant.kMinLowerOutput, ElevatorConstant.kUpperMaxOutput);
+      }
+      SmartDashboard.putNumber("ElevatorOutput", output);
       leftElevatorMotor.follow(rightElevatorMotor, FollowerType.PercentOutput);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
-      SmartDashboard.putNumber("Output", output);
     } else {
       targetHeight = currentHeight;
     }
@@ -203,6 +214,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command manualMoveUpCmd() {
+
     Command cmd = manualMoveCmd(ElevatorConstant.kManualUpPower);
     cmd.setName("manualMoveUp");
     return cmd;

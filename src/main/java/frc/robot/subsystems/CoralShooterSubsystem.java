@@ -50,7 +50,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public double getEncoder() {
-    return coralShooterEncoder.get();
+    return coralShooterEncoder.get(); 
   }
 
   public void setMotorSpeed(double speed) {

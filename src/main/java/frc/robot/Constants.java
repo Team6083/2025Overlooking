@@ -17,10 +17,10 @@ public class Constants {
     public static final double kBackRightCanCoderMagOffset = -0.087402;
 
     // motor inverted
-    public static final boolean kFrontLeftDriveMotorInverted = false;
-    public static final boolean kFrontRightDriveMotorInverted = true;
-    public static final boolean kBackLeftDriveMotorInverted = false;
-    public static final boolean kBackRightDriveMotorInverted = true;
+    public static final boolean kFrontLeftDriveMotorInverted = true;
+    public static final boolean kFrontRightDriveMotorInverted = false;
+    public static final boolean kBackLeftDriveMotorInverted = true;
+    public static final boolean kBackRightDriveMotorInverted = false;
 
     // speed magnification
     public static final double kDefaultMagnification = 0.25;
@@ -128,16 +128,16 @@ public class Constants {
     public static final int kAlgaeEncoderChannelA = 4;
 
     // Algae intake speed percentage
-    public static final double kIntakeFastSpeed = 0.5;
+    public static final double kIntakeFastSpeed = 0.3;
     public static final double kIntakeSlowSpeed = 0.1;
     public static final double kReIntakeSpeed = -0.3;
 
     // Algae intake rotate speed percentage
-    public static final double kUpIntakeRotateSpeed = -0.5;
-    public static final double kDownIntakeRotateSpeed = 0.4;
+    public static final double kUpIntakeRotateSpeed = -0.6;
+    public static final double kDownIntakeRotateSpeed = 0.1;
 
     // Algae rotate & front PID
-    public static final double rotMotorUpPIDkP = 0.05;
+    public static final double rotMotorUpPIDkP = 0.07;
     public static final double rotMotorUpPIDkI = 0;
     public static final double rotMotorUpPIDkD = 0;
     public static final double rotMotorDownPIDkP = 0.02;
@@ -159,14 +159,14 @@ public class Constants {
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = -265;
     public static final double fullRange = 360;
-    public static final double kGetSecAlgaeAngle = 73;
+    public static final double kGetSecAlgaeAngle = 95;
   }
 
   public static final class CoralShooterConstant {
     public static final double kDistanceRange = 4.0;
     public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 3;
-    public static final double kShooterMotorFastSpeed = 0.3;
+    public static final double kShooterMotorFastSpeed = 0.25;
     public static final double kMotorSpeed = 0.2;
     public static final Boolean kMotorInverted = false;
     public static final Boolean kEncoderInverted = true;
@@ -177,7 +177,7 @@ public class Constants {
   }
 
   public static final class ElevatorConstant {
-    public static final double kP = 0.023;
+    public static final double kP = 0.0058;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
@@ -192,22 +192,24 @@ public class Constants {
 
     public static final int kTouchSensorChannel = 0;
 
-    public static final double kManualUpPower = 0.4;
+    public static final double kManualUpPower = 0.7;
     public static final double kManualDownPower = -0.2;
 
     public static final Distance kHeightOffset = Millimeters.of(600.0);
 
     public static final Distance kLowestHeight = Millimeters.of(600.0);
-    public static final Distance kMaxHeight = Millimeters.of(2000);
+    public static final Distance kMaxHeight = Millimeters.of(1770);
 
-    public static final double kMaxOutput = 0.4;
-    public static final double kMinOutput = -0.1;
+    public static final double kMaxOutput = 0.66;
+    public static final double kUpperMaxOutput = 0.5;
+    public static final double kMinOutput = -0.2;
+    public static final double kMinLowerOutput = -0.1;
 
     public static final Distance kInitialHeight = Millimeters.of(600.0);
     public static final Distance kGetCarolHeight = Millimeters.of(615.0);
-    public static final Distance kSecFloor = Millimeters.of(884);
-    public static final Distance kTrdFloor = Millimeters.of(1376);
-    public static final Distance kTopFloor = Millimeters.of(1940);
+    public static final Distance kSecFloor = Millimeters.of(896);
+    public static final Distance kTrdFloor = Millimeters.of(1246.6666666);
+    public static final Distance kTopFloor = Millimeters.of(1750);
     public static final Distance kStepHeight = Millimeters.of(7);
     public static final Distance kToGetSecAlgaeHeight = Millimeters.of(980);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1120);

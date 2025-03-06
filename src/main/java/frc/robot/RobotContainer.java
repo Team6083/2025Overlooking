@@ -156,7 +156,6 @@ public class RobotContainer {
     viceController.povLeft().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
     mainController.y().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
-    viceController.leftBumper().onTrue(algaeIntakeSubsystem.setManualControlCmd());
 
     // Elevator + AlgaeIntake
     viceController.a().toggleOnTrue(takeL2AlgaeCommandGroup);
