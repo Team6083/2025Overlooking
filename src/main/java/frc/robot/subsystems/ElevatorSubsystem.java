@@ -27,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private boolean isManualControl = false;
   private boolean isElevatorPIDEnabled = true;
   private DigitalInput upLimitSwitch;
-  private DigitalInput downLimitSwitch;
+  // private DigitalInput downLimitSwitch;
 
   public ElevatorSubsystem() {
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
@@ -40,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
     upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(7);
+    // downLimitSwitch = new DigitalInput(7);
   }
 
   public void resetEncoder() {
@@ -119,9 +119,9 @@ public class ElevatorSubsystem extends SubsystemBase {
       if (!upLimitSwitch.get() && output > 0) {
         output = 0;
       }
-      if (!downLimitSwitch.get() && output < 0) {
-        output = 0;
-      }
+      // if (!downLimitSwitch.get() && output < 0) {
+      //   output = 0;
+      // }
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("ElevatorOutput", output);
@@ -134,7 +134,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl);
     SmartDashboard.putData("ElevatorPID", elevatorPID);
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
-    SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
+    // SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
     SmartDashboard.putBoolean("ElevatorStop", encoder.getStopped());
     SmartDashboard.putNumber("ElevatorRate", encoder.getRate());
   }
@@ -177,8 +177,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
-      leftElevatorMotor.set(ControlMode.PercentOutput, power);
-      rightElevatorMotor.set(ControlMode.PercentOutput, power);
+      double adjustedPower = power;
+      if (upLimitSwitch.get() && power > 0) {
+        adjustedPower = 0;
+      }
+      leftElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
+      rightElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
       isManualControl = true;
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
