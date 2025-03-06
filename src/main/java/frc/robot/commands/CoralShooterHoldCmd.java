@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import frc.robot.Constants.CoralShooterConstant;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
@@ -20,10 +21,12 @@ public class CoralShooterHoldCmd extends Command {
       CoralShooterConstant.kI,
       CoralShooterConstant.kD);
   private CoralShooterSubsystem coralShooterSubsystem;
+  private CommandGenericHID controlPanel;
 
-  public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
+  public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem, CommandGenericHID controlPanel) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.coralShooterSubsystem = coralShooterSubsystem;
+    this.controlPanel = controlPanel;
     addRequirements(this.coralShooterSubsystem);
     PIDController.enableContinuousInput(0, 360);
   }
@@ -38,12 +41,14 @@ public class CoralShooterHoldCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
-    double speed = MathUtil.clamp(PIDController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
-    coralShooterSubsystem.setMotorSpeed(speed);
-    SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
-    SmartDashboard.putNumber("HoldSpeed", speed);
-    SmartDashboard.putData("CoralHoldPID", PIDController);
+    if (controlPanel.button(11).getAsBoolean()) {
+      double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
+      double speed = MathUtil.clamp(PIDController.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
+      coralShooterSubsystem.setMotorSpeed(speed);
+      SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
+      SmartDashboard.putNumber("HoldSpeed", speed);
+      SmartDashboard.putData("CoralHoldPID", PIDController);
+    }
   }
 
   // Called once the command ends or is interrupted.

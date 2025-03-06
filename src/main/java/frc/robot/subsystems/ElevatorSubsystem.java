@@ -108,18 +108,20 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // SmartDashboard.putNumber("Output", 0);
 
-    if (encoder.getStopped()
-        || Math.abs(encoder.getRate()) < 0.5) {
-      stopMove();
-    } else if (!isManualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
-      if (!upLimitSwitch.get()) {
-        targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
-      } else if (!downLimitSwitch.get()) {
-        targetHeight = currentHeight.plus(ElevatorConstant.kStepHeight);
-      }
+    // if (encoder.getStopped()
+    // || Math.abs(encoder.getRate()) < 0.5) {
+    // stopMove();
+    // } else
+    if (!isManualControl) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
+      if (!upLimitSwitch.get() && output > 0) {
+        output = 0;
+      }
+      if (!downLimitSwitch.get() && output < 0) {
+        output = 0;
+      }
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
       SmartDashboard.putNumber("ElevatorOutput", output);
@@ -133,6 +135,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putData("ElevatorPID", elevatorPID);
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
     SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
+    SmartDashboard.putBoolean("ElevatorStop", encoder.getStopped());
+    SmartDashboard.putNumber("ElevatorRate", encoder.getRate());
   }
 
   public Command toSecFloorCmd() {

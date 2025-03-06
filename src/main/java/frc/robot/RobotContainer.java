@@ -1,9 +1,9 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
+// import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -32,7 +32,7 @@ public class RobotContainer {
   private final CommandXboxController mainController;
   private final CommandGenericHID controlPanel;
 
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
 
   private final TagTracking tagTracking;
 
@@ -74,9 +74,9 @@ public class RobotContainer {
 
     registerNamedCommands();
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooser();
+    // autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    // SmartDashboard.putData("AutoChooser", autoChooser);
 
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
@@ -131,8 +131,8 @@ public class RobotContainer {
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
     // CoralShooter
-    controlPanel.button(11).whileTrue(
-        new CoralShooterHoldCmd(coralShooterSubsystem));
+    coralShooterSubsystem.setDefaultCommand(new CoralShooterHoldCmd(coralShooterSubsystem, controlPanel));
+    // use controlPanel.button(11) to control the CoralShooterHoldCmd
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOnCmd());
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
@@ -166,8 +166,8 @@ public class RobotContainer {
     controlPanel.button(12).onFalse(algaeIntakeSubsystem.disablePID());
 
     // Elevator + AlgaeIntake
-    controlPanel.button(6).toggleOnTrue(takeL2AlgaeCommandGroup);
-    controlPanel.button(5).toggleOnTrue(takeL3AlgaeCommandGroup);
+    controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
+    controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
     mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
@@ -177,6 +177,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return null;
+    // return autoChooser.getSelected();
   }
 }

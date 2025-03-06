@@ -89,7 +89,7 @@ public class Constants {
 
     // AlgaeRotate speed
     public static final double kUpIntakeRotateSpeed = -0.5;
-    public static final double kDownIntakeRotateSpeed = 0.4;
+    public static final double kDownIntakeRotateSpeed = 0.18;
     public static final double kMaxOutput = 0.5;
     public static final double kMinOutput = -0.5;
 
@@ -114,7 +114,7 @@ public class Constants {
     // Algae encoder
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
-    public static final double expectedZero = 143;
+    public static final double expectedZero = -157;
     public static final double fullRange = 360;
     public static final double kGetSecAlgaeAngle = 73;
   }
