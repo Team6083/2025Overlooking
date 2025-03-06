@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ma"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs1 Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr10 Tag"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
