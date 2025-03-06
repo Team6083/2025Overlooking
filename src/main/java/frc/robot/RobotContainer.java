@@ -143,12 +143,12 @@ public class RobotContainer {
         .whileTrue(Commands.either(
             elevatorSubsystem.moveDownCmd(),
             elevatorSubsystem.manualMoveDownCmd(),
-            controlPanel.button(10)));
+            controlPanel.button(10).whileTrue(elevatorSubsystem.disableElevatorPID())));
     mainController.rightTrigger()
         .whileTrue(Commands.either(
             elevatorSubsystem.moveUpCmd(),
             elevatorSubsystem.manualMoveUpCmd(),
-            controlPanel.button(10).onTrue(elevatorSubsystem.disableElevatorPID())));
+            controlPanel.button(10).whileTrue(elevatorSubsystem.disableElevatorPID())));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
     // ALgaeIntake

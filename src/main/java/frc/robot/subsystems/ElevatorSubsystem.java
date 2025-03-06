@@ -24,7 +24,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final Encoder encoder;
   private final PIDController elevatorPID;
   private Distance targetHeight;
-  private boolean isManualControl;
+  private boolean isManualControl = false;
   private boolean isElevatorPIDEnabled = true;
   private DigitalInput upLimitSwitch;
   private DigitalInput downLimitSwitch;
@@ -36,7 +36,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    isManualControl = false;
     encoder.setReverseDirection(false);
     encoder.reset();
     targetHeight = ElevatorConstant.kInitialHeight;
