@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.Supplier;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -39,16 +41,21 @@ public class RobotContainer {
         private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 
         public RobotContainer() {
-                powerDistribution = new PowerDistribution();
-                coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
-                elevatorSubsystem = new ElevatorSubsystem();
-                algaeIntakeSubsystem = new AlgaeIntakeSubsystem(powerDistribution);
-                swerveDrive = new SwerveDrive();
+                
                 mainController = new CommandXboxController(0);
 
                 viceController = new CommandXboxController(1);
+                Supplier<Boolean> algaeRotateUsePID = () -> viceController.leftBumper().getAsBoolean();
+                powerDistribution = new PowerDistribution();
+                coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
+                elevatorSubsystem = new ElevatorSubsystem();
+                algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
+                swerveDrive = new SwerveDrive();
+                
 
                 tagTracking = new TagTracking();
+
+                
 
                 // takeL2AlgaeCommandGroup = new SequentialCommandGroup(
                 // new ParallelDeadlineGroup(
@@ -71,20 +78,20 @@ public class RobotContainer {
                 takeL2AlgaeCommandGroup = new ParallelRaceGroup(
                                 elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
                                                 .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
-                                algaeIntakeSubsystem.reIntakeCmd())
+                                algaeIntakeSubsystem.reverseIntakeCmd())
                                 .andThen(new ParallelRaceGroup(
                                                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                                                                 .withTimeout(1.5),
-                                                algaeIntakeSubsystem.reIntakeCmd()));
+                                                algaeIntakeSubsystem.reverseIntakeCmd()));
 
                 takeL3AlgaeCommandGroup = new ParallelRaceGroup(
                                 elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
                                                 .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
-                                algaeIntakeSubsystem.reIntakeCmd())
+                                algaeIntakeSubsystem.reverseIntakeCmd())
                                 .andThen(new ParallelRaceGroup(
                                                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                                                                 .withTimeout(1.5),
-                                                algaeIntakeSubsystem.reIntakeCmd()));
+                                                algaeIntakeSubsystem.reverseIntakeCmd()));
 
                 registerNamedCommands();
                 
@@ -134,10 +141,10 @@ public class RobotContainer {
                                                 () -> tagTracking.getTv() == 1));
 
                 NamedCommands.registerCommand("AlgaeIntake",
-                                algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+                                algaeIntakeSubsystem.intakeCmd());
 
                 NamedCommands.registerCommand("MagicCoral",
-                                algaeIntakeSubsystem.reIntakeCmd().withTimeout(1));
+                                algaeIntakeSubsystem.reverseIntakeCmd().withTimeout(1));
 
                 NamedCommands.registerCommand("SetTurningDegree",
                                 swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
@@ -181,8 +188,8 @@ public class RobotContainer {
                 viceController.povDown().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
                 viceController.povRight().whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
                 viceController.povLeft().whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
-                viceController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
-                viceController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
+                viceController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
+                viceController.x().whileTrue(algaeIntakeSubsystem.intakeCmd());
 
                 // Elevator + AlgaeIntake
                 viceController.y().whileTrue(takeL3AlgaeCommandGroup);
