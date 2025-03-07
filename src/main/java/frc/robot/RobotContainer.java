@@ -41,7 +41,7 @@ public class RobotContainer {
         private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 
         public RobotContainer() {
-                
+
                 mainController = new CommandXboxController(0);
 
                 viceController = new CommandXboxController(1);
@@ -51,11 +51,8 @@ public class RobotContainer {
                 elevatorSubsystem = new ElevatorSubsystem();
                 algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
                 swerveDrive = new SwerveDrive();
-                
 
                 tagTracking = new TagTracking();
-
-                
 
                 // takeL2AlgaeCommandGroup = new SequentialCommandGroup(
                 // new ParallelDeadlineGroup(
@@ -94,7 +91,7 @@ public class RobotContainer {
                                                 algaeIntakeSubsystem.reverseIntakeCmd()));
 
                 registerNamedCommands();
-                
+
                 autoChooser = AutoBuilder.buildAutoChooser();
                 autoChooser.setDefaultOption("Do Nothing", Commands.none());
                 SmartDashboard.putData("AutoChooser", autoChooser);
@@ -113,7 +110,6 @@ public class RobotContainer {
                 NamedCommands.registerCommand("CoralShooterIn",
                                 new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
                                                 coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.0)));
-                ;
 
                 NamedCommands.registerCommand("CoralShooterWithStop",
                                 coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
@@ -196,7 +192,6 @@ public class RobotContainer {
                 viceController.a().whileTrue(takeL2AlgaeCommandGroup);
 
                 // TagTracking
-
                 mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
                 mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
 

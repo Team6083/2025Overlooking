@@ -30,17 +30,20 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public AlgaeIntakeSubsystem(Supplier<Boolean> shouldUsePIDSupplier) {
     this.shouldUsePIDSupplier = shouldUsePIDSupplier;
 
+    // motor
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
 
+    // encoder
     rotateEncoder = new DutyCycleEncoder(
         AlgaeIntakeConstant.kAlgaeEncoderChannelA,
         AlgaeIntakeConstant.fullRange,
         AlgaeIntakeConstant.expectedZero);
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
 
+    // PID
     algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
   }

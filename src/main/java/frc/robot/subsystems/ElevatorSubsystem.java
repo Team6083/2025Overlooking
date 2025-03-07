@@ -49,6 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
 
+    // touch sensor
     touchSensorDown = new DigitalInput(ElevatorConstant.kTouchSensorChannel);
     touchSensorUp1 = new DigitalInput(ElevatorConstant.kTouchSensorUp1Channel);
     touchSensorUp2 = new DigitalInput(ElevatorConstant.kTouchSensorUp2Channel);
