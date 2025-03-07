@@ -129,6 +129,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
         .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
 
+    if (!bypassLimitSW) {
+      if (!upLimitSwitch.get() && leftElevatorMotor.getMotorOutputVoltage() > 0) {
+          leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+          rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+      }
+      // if (!downLimitSwitch.get() && output < 0) {
+      // output = 0;
+      // }
+    }
+
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
@@ -144,15 +154,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
-    if (!bypassLimitSW) {
-        if (!upLimitSwitch.get() && leftElevatorMotor.getMotorOutputVoltage() > 0) {
-          leftElevatorMotor.set(ControlMode.PercentOutput, 0);
-          rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-        }
-        // if (!downLimitSwitch.get() && output < 0) {
-        // output = 0;
-        // }
-      }
+    
 
     SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.getMotorOutputVoltage());
 
