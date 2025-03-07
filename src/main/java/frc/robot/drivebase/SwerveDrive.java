@@ -321,4 +321,10 @@ public class SwerveDrive extends SubsystemBase {
     cmd.setName("setTurningDegreeCmd");
     return cmd;
   }
+
+  public Command driveForwardCmd() {
+    Command cmd = this.runEnd(
+        () -> drive(1, 0, 0, false), this::stop);
+    return cmd;
+  }
 }

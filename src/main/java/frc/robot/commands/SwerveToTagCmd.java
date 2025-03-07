@@ -16,18 +16,14 @@ public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTracking tagTracking;
-  PIDController txController = new PIDController(2, 0, 0.5);
-  PIDController tzController = new PIDController(2, 0, 0);
-  PIDController yawController = new PIDController(0.05, 0, 0);
-
+  PIDController txController = new PIDController(3, 0, 0.5);
+  PIDController tzController = new PIDController(3, 0, 0);
+  PIDController yawController = new PIDController(0.3, 0, 0);
+ Boolean isLeft;
+  
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
-    if (isLeft) {
-      txController.setSetpoint(-0.14);
-    } else {
-      txController.setSetpoint(0.14);
-    }
-    tzController.setSetpoint(0.43);
+    tzController.setSetpoint(0.44);
     yawController.setSetpoint(0);
     addRequirements(swerveDrive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,6 +38,11 @@ public class SwerveToTagCmd extends Command {
   @Override
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
+    if (isLeft) {
+      txController.setSetpoint(0.17);
+    } else {
+      txController.setSetpoint(-0.16);
+    }
     double xSpeed;
     double ySpeed;
     double rotSpeed;
@@ -72,7 +73,7 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-        || (Math.abs((txController.getError())) < 0.05
-            && Math.abs(tzController.getError()) < 0.1);
+        || (Math.abs((txController.getError())) < 0.04
+            && Math.abs(tzController.getError()) < 0.04);
   }
 }

@@ -7,13 +7,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.AprilTagAndAutoCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
@@ -113,14 +110,15 @@ public class RobotContainer {
                 elevatorSubsystem.toDefaultPositionCmd());
 
         NamedCommands.registerCommand("AprilTagRight",
-                Commands.either(new SwerveToTagCmd(swerveDrive, false),
-                        new AprilTagAndAutoCmd(swerveDrive),
-                        () -> tagTracking.getTv() == 1));
+        Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
+        swerveDrive.driveForwardCmd().withTimeout(2),
+        () -> tagTracking.getTv() == 1));
 
         NamedCommands.registerCommand("AprilTagLeft",
-                Commands.either(new SwerveToTagCmd(swerveDrive, true),
-                        new AprilTagAndAutoCmd(swerveDrive),
-                        () -> tagTracking.getTv() == 1));
+        Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
+            swerveDrive.driveForwardCmd().withTimeout(2),
+            () -> tagTracking.getTv() == 1));
+
 
         NamedCommands.registerCommand("AlgaeIntake",
                 algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
