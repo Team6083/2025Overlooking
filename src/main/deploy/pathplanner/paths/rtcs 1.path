@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.28155737704918,
-        "y": 5.937038934426229
+        "x": 6.035250000000001,
+        "y": 5.88725
       },
       "isLocked": false,
       "linkedName": "reef 1"
@@ -20,12 +20,12 @@
         "y": 6.452510245901639
       },
       "prevControl": {
-        "x": 5.1786885245901635,
-        "y": 6.06890368852459
+        "x": 5.206002447251526,
+        "y": 6.130265185987399
       },
       "nextControl": {
-        "x": 2.903350536911883,
-        "y": 7.189070082458512
+        "x": 2.93475,
+        "y": 7.03775
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 7.375563524590164
       },
       "prevControl": {
-        "x": 2.3975409836065573,
-        "y": 6.6563012295081965
+        "x": 2.6617499999999996,
+        "y": 6.9792499999999995
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,10 +47,37 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.1257995735607722,
-      "rotationDegrees": -42.96915976374075
+      "rotationDegrees": -85.61851354699483
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.8039702233250678,
+      "maxWaypointRelativePos": 1.407444168734483,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 1.8,
+        "maxAngularVelocity": 327.273,
+        "maxAngularAcceleration": 9.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.8714640198511162,
+      "maxWaypointRelativePos": 0.21637717121588043,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 1.8,
+        "maxAngularVelocity": 327.273,
+        "maxAngularAcceleration": 9.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
