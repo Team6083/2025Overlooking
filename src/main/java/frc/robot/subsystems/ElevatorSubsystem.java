@@ -270,4 +270,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     cmd.setName("autoStop");
     return cmd;
   }
+
+  public double getAbsoluteError(){
+    return Math.abs(elevatorPID.getError());
+  }
 }

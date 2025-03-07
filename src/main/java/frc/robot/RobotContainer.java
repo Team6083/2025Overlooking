@@ -41,7 +41,6 @@ public class RobotContainer {
     private final SequentialCommandGroup takeL2AlgaeCommandGroup;
     private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 
-
     public RobotContainer() {
         powerDistribution = new PowerDistribution();
         coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
@@ -54,20 +53,38 @@ public class RobotContainer {
 
         tagTracking = new TagTracking();
 
-        takeL2AlgaeCommandGroup = new SequentialCommandGroup(
-                new ParallelDeadlineGroup(
-                        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
-                        algaeIntakeSubsystem.reIntakeCmd()),
-                new ParallelDeadlineGroup(
+        // takeL2AlgaeCommandGroup = new SequentialCommandGroup(
+        // new ParallelDeadlineGroup(
+        // elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
+        // algaeIntakeSubsystem.reIntakeCmd()),
+        // new ParallelDeadlineGroup(
+        // new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+        // .withTimeout(1.5),
+        // algaeIntakeSubsystem.reIntakeCmd()));
+
+        // takeL3AlgaeCommandGroup = new SequentialCommandGroup(
+        // new ParallelRaceGroup(
+        // elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
+        // algaeIntakeSubsystem.reIntakeCmd()),
+        // new ParallelRaceGroup(
+        // new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+        // .withTimeout(1.5),
+        // algaeIntakeSubsystem.reIntakeCmd()));
+
+        takeL2AlgaeCommandGroup = new ParallelRaceGroup(
+                elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
+                        .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
+                algaeIntakeSubsystem.reIntakeCmd())
+                .andThen(new ParallelRaceGroup(
                         new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                                 .withTimeout(1.5),
                         algaeIntakeSubsystem.reIntakeCmd()));
 
-        takeL3AlgaeCommandGroup = new SequentialCommandGroup(   
-                new ParallelRaceGroup(
-                        elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
-                        algaeIntakeSubsystem.reIntakeCmd()),
-                new ParallelRaceGroup(
+        takeL3AlgaeCommandGroup = new ParallelRaceGroup(
+                elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
+                        .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
+                algaeIntakeSubsystem.reIntakeCmd())
+                .andThen(new ParallelRaceGroup(
                         new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                                 .withTimeout(1.5),
                         algaeIntakeSubsystem.reIntakeCmd()));
@@ -76,8 +93,9 @@ public class RobotContainer {
                 swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
         NamedCommands.registerCommand("CoralShooterIn",
-        new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.08)));;
+                new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+                        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.0)));
+        ;
 
         NamedCommands.registerCommand("CoralShooterWithStop",
                 coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
@@ -110,7 +128,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("MagicCoral",
                 algaeIntakeSubsystem.reIntakeCmd().withTimeout(1));
 
-        registerNamedCommands();
+        NamedCommands.registerCommand("SetTurningDegree",
+                swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
 
         autoChooser = AutoBuilder.buildAutoChooser();
         autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -121,11 +140,6 @@ public class RobotContainer {
         SmartDashboard.putData("SwerveDrive", swerveDrive);
 
         configureBindings();
-    }
-
-    private void registerNamedCommands() {
-        NamedCommands.registerCommand("SetTurningDegree",
-                swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
     }
 
     private void configureBindings() {
@@ -140,8 +154,9 @@ public class RobotContainer {
         mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
         mainController.rightBumper().and(mainController.leftBumper())
                 .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-                        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.08), coralShooterSubsystem.setLightBlinkCmd()));
-                        
+                        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.08),
+                        coralShooterSubsystem.setLightBlinkCmd()));
+
         // Elevator
         mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
         mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());

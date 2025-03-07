@@ -94,7 +94,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     isInBlink = true;
     Thread thread = new Thread(() -> {
       if (isGetTarget()) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
           ledLeft.set(true);
           ledRight.set(true);
           try {
