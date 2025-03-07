@@ -128,11 +128,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
         .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
-
+    
+    boolean shouldStop = false;
     if (!bypassLimitSW) {
       if (!upLimitSwitch.get() && leftElevatorMotor.getMotorOutputVoltage() > 0) {
-          leftElevatorMotor.set(ControlMode.PercentOutput, 0);
-          rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+          shouldStop = true;
       }
       // if (!downLimitSwitch.get() && output < 0) {
       // output = 0;
@@ -146,12 +146,19 @@ public class ElevatorSubsystem extends SubsystemBase {
       var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower : ElevatorConstant.kMaxOutputHigher;
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
 
-      
+      if (shouldStop){
+        output = 0;
+      }
 
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       targetHeight = currentHeight;
+
+      if (shouldStop){
+        leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+        rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+      }
     }
 
     
