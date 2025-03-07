@@ -16,9 +16,9 @@ public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTracking tagTracking = new TagTracking();
-  PIDController txController = new PIDController(2, 0, 0.5);
+  PIDController txController = new PIDController(3, 0, 0.5);
   PIDController tzController = new PIDController(3, 0, 0);
-  PIDController yawController = new PIDController(0.05, 0, 0);
+  PIDController yawController = new PIDController(0.3, 0, 0);
   Boolean isLeft;
 
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
