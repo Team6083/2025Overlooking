@@ -13,13 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R - leave(4) Tag"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.8
+            "pathName": "R - leave(5) Tag"
           }
         },
         {
@@ -29,19 +23,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToTrd"
                 }
               },
               {
-                "type": "wait",
+                "type": "sequential",
                 "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AprilTagLeft"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 3.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AprilTagLeft"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -70,13 +71,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 3.0
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "rtcs4 Tag"
+                        "pathName": "rtcs5 Tag"
                       }
                     }
                   ]
@@ -89,6 +90,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "crazy L2",
+  "folder": "crazy L3",
   "choreoAuto": false
 }

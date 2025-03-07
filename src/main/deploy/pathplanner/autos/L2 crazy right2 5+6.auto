@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R - leave(4) Tag"
+            "pathName": "R - leave(5) Tag"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToTrd"
+                  "name": "ErToSec"
                 }
               },
               {
@@ -33,7 +33,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.0
+                        "waitTime": 2.0
                       }
                     },
                     {
@@ -71,13 +71,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.0
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "rtcs4 Tag"
+                        "pathName": "rtcs5 Tag"
                       }
                     }
                   ]
@@ -85,11 +85,73 @@
               }
             ]
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr6 Tag"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.8
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AprilTagRight"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterWithStop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErDown"
+          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "crazy L3",
+  "folder": "crazy L2",
   "choreoAuto": false
 }

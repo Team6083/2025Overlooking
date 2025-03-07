@@ -13,7 +13,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R - leave(4) Tag"
+            "pathName": "L - leave(11) Tag"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.8
           }
         },
         {
@@ -23,7 +29,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToTrd"
                 }
               },
               {
@@ -33,13 +39,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 3.0
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AprilTagLeft"
+                        "name": "AprilTagRight"
                       }
                     }
                   ]
@@ -65,19 +71,19 @@
                 }
               },
               {
-                "type": "parallel",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 3.0
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "rtcs4 Tag"
+                        "pathName": "rtcs11 Tag"
                       }
                     }
                   ]
@@ -95,7 +101,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "cstr5 Tag"
+            "pathName": "cstr12 Tag"
           }
         },
         {
@@ -111,7 +117,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
+                  "name": "ErToTrd"
                 }
               },
               {
@@ -121,7 +127,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 3.0
                       }
                     },
                     {
@@ -152,6 +158,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "crazy L2",
+  "folder": "crazy L3",
   "choreoAuto": false
 }

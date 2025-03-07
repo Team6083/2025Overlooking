@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(11) Tag"
+            "pathName": "R - leave(5) Tag"
           }
         },
         {
@@ -45,7 +45,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AprilTagRight"
+                        "name": "AprilTagLeft"
                       }
                     }
                   ]
@@ -71,19 +71,19 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "parallel",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 3.0
+                        "waitTime": 3.8
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "rtcs11 Tag"
+                        "pathName": "rtcs5 Tag"
                       }
                     }
                   ]
@@ -101,7 +101,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "cstr10 Tag"
+            "pathName": "cstr6 Tag"
           }
         },
         {
