@@ -13,25 +13,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ma"
+            "pathName": "L -leave(12)"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "rtcs1 Tag"
+            "waitTime": 0.8
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "cstr10 Tag"
+            "name": "AlgaeIntake"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "L1",
   "choreoAuto": false
 }

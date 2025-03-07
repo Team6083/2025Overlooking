@@ -113,12 +113,12 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("AprilTagRight",
         Commands.either(new SwerveToTagCmd(swerveDrive, false),
-            swerveDrive.driveForwardCmd().withTimeout(3),
+            swerveDrive.driveForwardCmd().withTimeout(2),
             () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AprilTagLeft",
         Commands.either(new SwerveToTagCmd(swerveDrive, true),
-            swerveDrive.driveForwardCmd().withTimeout(3),
+            swerveDrive.driveForwardCmd().withTimeout(2),
             () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",

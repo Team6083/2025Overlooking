@@ -13,25 +13,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L -leave(12)"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.8
+            "pathName": "M - leave(3) tag"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AlgaeIntake"
+            "name": "ErToSec"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs3 Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr5 Tag"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "crazy L4",
   "choreoAuto": false
 }
