@@ -106,7 +106,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ErToFour",
         elevatorSubsystem.toTopFloorCmd().repeatedly()
-            .until(() -> elevatorSubsystem.getAbsoluteError() < 8));
+            .until(() -> elevatorSubsystem.isAtTargetHeight()));
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());

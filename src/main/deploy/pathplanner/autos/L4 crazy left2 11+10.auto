@@ -61,6 +61,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "CoralShooterWithStop"
@@ -139,7 +145,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AprilTagRight"
+                        "name": "AprilTagLeft"
                       }
                     }
                   ]
@@ -152,6 +158,12 @@
           "type": "named",
           "data": {
             "name": "ErToFour"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
           }
         },
         {
