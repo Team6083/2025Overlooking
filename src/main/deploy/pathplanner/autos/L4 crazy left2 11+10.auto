@@ -23,38 +23,25 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralShooterHold"
+                  "name": "ErToTrd"
                 }
               },
               {
-                "type": "sequential",
+                "type": "wait",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ErToTrd"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 3.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AprilTagRight"
-                      }
-                    }
-                  ]
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AprilTagRight"
                 }
               }
             ]
