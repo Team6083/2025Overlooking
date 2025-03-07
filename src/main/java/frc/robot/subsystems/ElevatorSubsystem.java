@@ -151,7 +151,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       targetHeight = currentHeight;
     }
 
-    SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.get());
+    SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.getMotorOutputVoltage());
 
     SmartDashboard.putBoolean("ElevatorUsePID", usePID);
     SmartDashboard.putBoolean("ElevatorBypassLimitSW", bypassLimitSW);
