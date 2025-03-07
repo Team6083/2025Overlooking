@@ -4,16 +4,17 @@
   "holonomicMode": true,
   "pathFolders": [
     "L - leave(tag)",
+    "M - leave(tag)",
+    "James",
     "R - leave(tag)",
     "algae",
     "cstr(tag)",
-    "M - leave(tag)",
     "rtcs(tag)",
     "way point(tag)",
     "way points"
   ],
   "autoFolders": [
-    "L1",
+    "JamesL1",
     "crazy L2",
     "crazy L3",
     "crazy L4"
