@@ -210,6 +210,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
     });
+    SmartDashboard.putNumber("manualMovePower", power);
     cmd.setName("manualMove");
     return cmd;
   }
