@@ -137,9 +137,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       }
     }
 
-    
-
-
   }
 
   public Command setIntakeMotorFastOnCmd() {
@@ -200,7 +197,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command toAlgaeIntakeDegreeCmd() {
     setRotateDownPID();
     Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle));
+        () -> setRotateSetpoint(AlgaeIntakeConstant.kGetAlgaeAngle));
     cmd.setName("toAlgaeIntakeDegreeCmd");
     return cmd;
   }

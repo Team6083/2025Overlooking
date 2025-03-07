@@ -159,7 +159,7 @@ public class Constants {
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = -265;
     public static final double fullRange = 360;
-    public static final double kGetSecAlgaeAngle = 95;
+    public static final double kGetAlgaeAngle = 95;
   }
 
   public static final class CoralShooterConstant {
