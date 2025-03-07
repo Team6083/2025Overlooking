@@ -208,14 +208,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
-      double adjustedPower = power;
-      if (!upLimitSwitch.get() && power > 0) {
-        adjustedPower = 0;
-      }
-
-      leftElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
-      rightElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
-      SmartDashboard.putNumber("manualMovePower", adjustedPower);
+      leftElevatorMotor.set(ControlMode.PercentOutput, power);
+      rightElevatorMotor.set(ControlMode.PercentOutput, power);
+      SmartDashboard.putNumber("manualMovePower", power);
 
       targetHeight = getCurrentHeight();
     }, () -> {
