@@ -48,8 +48,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.setSafetyEnabled(true);
     rightElevatorMotor.setSafetyEnabled(true);
 
-    leftElevatorMotor.setExpiration(0.1);
-    rightElevatorMotor.setExpiration(0.1);
+    leftElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
+    rightElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
 
 
     upLimitSwitch = new DigitalInput(5);

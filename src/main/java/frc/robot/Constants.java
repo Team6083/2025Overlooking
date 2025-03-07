@@ -146,6 +146,8 @@ public class Constants {
     public static final int kEncoderChannelA = 2;
     public static final int kEncoderChannelB = 3;
 
+    public static final double kMotorSafetyExpirationTime = 0.1;
+
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
 
