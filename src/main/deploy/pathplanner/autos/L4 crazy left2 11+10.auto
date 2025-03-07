@@ -29,13 +29,19 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToTrd"
+                  "name": "CoralShooterStop"
                 }
               },
               {
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ErToTrd"
+                      }
+                    },
                     {
                       "type": "wait",
                       "data": {
@@ -155,9 +161,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ErToFour"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToFour"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralShooterStop"
+                }
+              }
+            ]
           }
         },
         {
