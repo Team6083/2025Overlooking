@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,6 +38,19 @@ public class Robot extends TimedRobot {
       DriverStation.startDataLog(DataLogManager.getLog());
     }
 
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
+        .set(BuildConstants.BUILD_DATE);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
+        .set(BuildConstants.GIT_BRANCH);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitDate").publish()
+        .set(BuildConstants.GIT_DATE);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitDirty").publish()
+        .set(BuildConstants.DIRTY == 1 ? "Dirty!" : "Clean! Good job!");
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitSHA").publish()
+        .set(BuildConstants.GIT_SHA);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
+        .set(BuildConstants.GIT_BRANCH);
+
     SmartDashboard.putString("Maven_Name", BuildConstants.MAVEN_NAME);
     SmartDashboard.putString("Version", BuildConstants.VERSION);
     SmartDashboard.putString("Git_SHA", BuildConstants.GIT_SHA);
@@ -43,7 +58,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Git_Branch", BuildConstants.GIT_BRANCH);
     SmartDashboard.putString("Build_Date", BuildConstants.BUILD_DATE);
     SmartDashboard.putString("Git_Branch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("Build_Date", BuildConstants.BUILD_DATE);
     if (BuildConstants.DIRTY == 0) {
       SmartDashboard.putString(
           "Dirty", "Clean! Good job!");
