@@ -147,10 +147,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
-      SmartDashboard.putNumber("ElevatorOutput", output);
     } else {
       targetHeight = currentHeight;
     }
+
+    SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.get());
 
     SmartDashboard.putBoolean("ElevatorUsePID", usePID);
     SmartDashboard.putBoolean("ElevatorBypassLimitSW", bypassLimitSW);
