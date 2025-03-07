@@ -45,6 +45,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
 
+    leftElevatorMotor.setSafetyEnabled(true);
+    rightElevatorMotor.setSafetyEnabled(true);
+
+    leftElevatorMotor.setExpiration(0.1);
+    rightElevatorMotor.setExpiration(0.1);
+
+
     upLimitSwitch = new DigitalInput(5);
     downLimitSwitch = new DigitalInput(7);
 
