@@ -29,7 +29,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralShooterStop"
+                  "name": "CoralShooterHold"
                 }
               },
               {
@@ -173,7 +173,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralShooterStop"
+                  "name": "CoralShooterHold"
                 }
               }
             ]
