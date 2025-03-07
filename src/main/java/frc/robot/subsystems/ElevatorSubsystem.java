@@ -136,20 +136,23 @@ public class ElevatorSubsystem extends SubsystemBase {
       var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower : ElevatorConstant.kMaxOutputHigher;
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
 
-      if (!bypassLimitSW) {
-        if (!upLimitSwitch.get() && output > 0) {
-          output = 0;
-        }
-        // if (!downLimitSwitch.get() && output < 0) {
-        // output = 0;
-        // }
-      }
+      
 
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       targetHeight = currentHeight;
     }
+
+    if (!bypassLimitSW) {
+        if (!upLimitSwitch.get() && leftElevatorMotor.getMotorOutputVoltage() > 0) {
+          leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+          rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+        }
+        // if (!downLimitSwitch.get() && output < 0) {
+        // output = 0;
+        // }
+      }
 
     SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.getMotorOutputVoltage());
 
