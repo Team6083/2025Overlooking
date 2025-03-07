@@ -166,12 +166,12 @@ public class RobotContainer {
         mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
         // ALgaeIntake
-        controlPanel.button(1).whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
-        controlPanel.button(3).whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
+        mainController.y().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
+        mainController.a().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
         controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
         controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
-        mainController.a().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
-        mainController.y().whileTrue(algaeIntakeSubsystem.intakeCmd());
+        controlPanel.button(3).whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
+        controlPanel.button(1).whileTrue(algaeIntakeSubsystem.intakeCmd());
 
         // Elevator + AlgaeIntake
         controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);

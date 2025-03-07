@@ -17,7 +17,7 @@ public class SwerveToTagCmd extends Command {
   SwerveDrive swerveDrive;
   TagTracking tagTracking = new TagTracking();
   PIDController txController = new PIDController(2, 0, 0.5);
-  PIDController tzController = new PIDController(1, 0, 0);
+  PIDController tzController = new PIDController(3, 0, 0);
   PIDController yawController = new PIDController(0.05, 0, 0);
   Boolean isLeft;
 
@@ -75,6 +75,6 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-    || (Math.abs(txController.getError()) < 0.0 && Math.abs(tzController.getError()) < 0.02);
+    || (Math.abs(txController.getError()) < 0.03 && Math.abs(tzController.getError()) < 0.03);
   }
 }
