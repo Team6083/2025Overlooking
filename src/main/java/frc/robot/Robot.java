@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
   private Command m_autonomousCommand;
-  private UsbCamera camera;
+  // private UsbCamera camera;
 
   private final RobotContainer m_robotContainer;
   // CHECKSTYLE.ON: MemberName
@@ -28,9 +28,9 @@ public class Robot extends TimedRobot {
   public Robot() {
     m_robotContainer = new RobotContainer();
 
-    camera =CameraServer.startAutomaticCapture();
-    camera.setResolution(640, 480);
-    camera.setFPS(30);
+    // camera =CameraServer.startAutomaticCapture();
+    // camera.setResolution(640, 480);
+    // camera.setFPS(30);
     gcTimer.start();
   }
 

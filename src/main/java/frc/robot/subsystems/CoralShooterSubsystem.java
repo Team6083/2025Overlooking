@@ -23,7 +23,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private Rev2mDistanceSensor distanceSensor;
   private VictorSPX coralShooterMotor;
   private DutyCycleEncoder coralShooterEncoder;
-  private Solenoid ledController;
+  private Solenoid ledLeft;
+  private Solenoid ledRight;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -43,7 +44,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
 
-    ledController = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    ledLeft = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    ledRight = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
   }
 
   public double getEncoder() {
@@ -83,14 +85,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
 }
 
 public void setLight(boolean isLightOn){
-  ledController.set(isLightOn);
+  ledLeft.set(isLightOn);
+  ledRight.set(isLightOn);
 }
+
 
   @Override
   public void periodic() {
     // put dashboard
     setLight(isGetTarget());
-    SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
