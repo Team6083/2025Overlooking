@@ -45,7 +45,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AprilTagLeft"
+                        "name": "AprilTagRight"
                       }
                     }
                   ]
@@ -133,7 +133,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AprilTagRight"
+                        "name": "AprilTagLeft"
                       }
                     }
                   ]
