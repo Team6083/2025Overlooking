@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   // CHECKSTYLE.ON: MemberName
 
-  private boolean saveLogs = false;
+  private boolean saveLogs = true;
   Timer gcTimer = new Timer();
 
   public Robot() {
