@@ -1,0 +1,111 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "M - leave 1"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToFour"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralShooterWithStop"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralShooterIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr 11"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToSec"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.8
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralShooterWithStop"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErDown"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.8
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

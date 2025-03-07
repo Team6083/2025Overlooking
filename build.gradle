@@ -115,4 +115,4 @@ gversion {
   indent       = "  "
 }
 
-jvmArgs.add("-Xmx64m")
+

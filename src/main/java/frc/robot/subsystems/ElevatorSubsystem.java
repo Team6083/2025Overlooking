@@ -80,10 +80,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void moveUp() {
+    if(targetHeight.plus(ElevatorConstant.kStepHeight).gt(ElevatorConstant.kMaxHeight))  {
+      moveToHeight(ElevatorConstant.kMaxHeight);
+    }
     moveToHeight(targetHeight.plus(ElevatorConstant.kStepHeight));
   }
 
   public void moveDown() {
+    if(targetHeight.minus(ElevatorConstant.kStepHeight).lt(ElevatorConstant.kInitialHeight)){
+      moveToHeight(ElevatorConstant.kInitialHeight);
+    }
     moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
   }
 
@@ -157,6 +163,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       targetHeight = currentHeight;
     }
+    
 
     SmartDashboard.putBoolean("DownElevatorTouchsensor", touchSensorDown.get());
     SmartDashboard.putBoolean("UpElevatorTouchsensor1", touchSensorUp1.get());

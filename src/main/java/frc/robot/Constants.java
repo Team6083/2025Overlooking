@@ -145,8 +145,8 @@ public class Constants {
     public static final double rotMotorDownPIDkD = 0;
 
     // Algae setpoint
-    public static final double kMaxAngle = 90;
-    public static final double kMinAngle = 0;
+    public static final double kMaxAngle = 130 ;
+    public static final double kMinAngle = 4;
     public static final double kStepAngle = 0.1;
 
     // Algae inverted
@@ -155,7 +155,7 @@ public class Constants {
     public static final Boolean kAlgaeEncoderInverted = true;
 
     // Algae encoder
-    public static final double kDistancePerPulse = 360.0 / 2048;
+    public static final double kDistancePerPulse = 360.0 / 2048.0;
     public static final double kRotateEncoderOffset = 0.0;
     public static final double expectedZero = -265;
     public static final double fullRange = 360;
@@ -170,7 +170,7 @@ public class Constants {
     public static final int kMotorChannel = 33;
     public static final int kEncoderChannel = 3;
     public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kMotorSpeed = 0.2;
+    public static final double kMotorSpeed = 0.15;
     public static final Boolean kMotorInverted = false;
     public static final Boolean kEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
@@ -197,7 +197,7 @@ public class Constants {
     public static final int kTouchSensorUp1Channel = 5;
     public static final int kTouchSensorUp2Channel = 6;
 
-    public static final double kManualUpPower = 0.7;
+    public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
 
     public static final Distance kHeightOffset = Millimeters.of(600.0);
