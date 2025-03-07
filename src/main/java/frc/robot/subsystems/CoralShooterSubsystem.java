@@ -25,6 +25,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private DutyCycleEncoder coralShooterEncoder;
   private Solenoid ledLeft;
   private Solenoid ledRight;
+  private Boolean isInBlink = false;
 
   public CoralShooterSubsystem(PowerDistribution powerDistribution) {
     this.powerDistribution = powerDistribution;
@@ -81,19 +82,46 @@ public class CoralShooterSubsystem extends SubsystemBase {
     if (distanceSensor.getRange() <= CoralShooterConstant.kDistanceRange && distanceSensor.getRange() > 0) {
       return true;
     }
-   return false;
-}
+    return false;
+  }
 
-public void setLight(boolean isLightOn){
-  ledLeft.set(isLightOn);
-  ledRight.set(isLightOn);
-}
+  public void setLight(boolean isLightOn) {
+    ledLeft.set(isLightOn);
+    ledRight.set(isLightOn);
+  }
 
+  public void setLightBlink() {
+    isInBlink = true;
+    Thread thread = new Thread(() -> {
+      if (isGetTarget()) {
+        for (int i = 0; i < 3; i++) {
+          ledLeft.set(true);
+          ledRight.set(true);
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          ledLeft.set(false);
+          ledRight.set(false);
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+        isInBlink = false;
+      }
+    });
+    thread.start();
+  }
 
   @Override
   public void periodic() {
     // put dashboard
-    setLight(isGetTarget());
+    if(!isInBlink){
+      setLight(isGetTarget());
+    }
     SmartDashboard.putNumber("Distance", distanceSensor.getRange());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", coralShooterEncoder.get());
@@ -114,6 +142,12 @@ public void setLight(boolean isLightOn){
   public Command coralShooterStopCmd() {
     Command cmd = runOnce(this::coralShooterStop);
     cmd.setName("coralShooterStop");
+    return cmd;
+  }
+
+  public Command setLightBlinkCmd() {
+    Command cmd = runOnce(() -> setLightBlink());
+    cmd.setName("steLightBlink");
     return cmd;
   }
 }

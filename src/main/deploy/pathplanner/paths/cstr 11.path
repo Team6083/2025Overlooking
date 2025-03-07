@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5307499999999998,
-        "y": 7.31075
+        "x": 1.4625,
+        "y": 7.3985
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.149090163934426,
-        "y": 6.759315573770491
+        "x": 3.0808401639344263,
+        "y": 6.847065573770491
       },
       "isLocked": false,
       "linkedName": "L - coral station"

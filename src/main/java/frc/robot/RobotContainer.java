@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -53,17 +55,15 @@ public class RobotContainer {
         tagTracking = new TagTracking();
 
         takeL2AlgaeCommandGroup = new SequentialCommandGroup(
-                algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
-                new ParallelRaceGroup(
+                new ParallelDeadlineGroup(
                         elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetSecAlgaeCmd()),
                         algaeIntakeSubsystem.reIntakeCmd()),
-                new ParallelRaceGroup(
+                new ParallelDeadlineGroup(
                         new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                                 .withTimeout(1.5),
                         algaeIntakeSubsystem.reIntakeCmd()));
 
-        takeL3AlgaeCommandGroup = new SequentialCommandGroup(
-                algaeIntakeSubsystem.autoStopRotateCmd(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd()),
+        takeL3AlgaeCommandGroup = new SequentialCommandGroup(   
                 new ParallelRaceGroup(
                         elevatorSubsystem.autoStopCmd(elevatorSubsystem.toGetTrdAlgaeCmd()),
                         algaeIntakeSubsystem.reIntakeCmd()),
@@ -74,11 +74,6 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("setTuringDegree",
                 swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
-
-        // NamedCommands.registerCommand("CoralShooterIn",
-        // new SequentialCommandGroup(
-        // new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-        // coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
 
         NamedCommands.registerCommand("CoralShooterIn",
         new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
@@ -145,8 +140,8 @@ public class RobotContainer {
         mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
         mainController.rightBumper().and(mainController.leftBumper())
                 .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-                        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.08)));
-
+                        coralShooterSubsystem.coralShooterOutCmd().withTimeout(0.08), coralShooterSubsystem.setLightBlinkCmd()));
+                        
         // Elevator
         mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
         mainController.povLeft().whileTrue(elevatorSubsystem.toSecFloorCmd());
@@ -173,8 +168,8 @@ public class RobotContainer {
         viceController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
 
         // Elevator + AlgaeIntake
-        viceController.y().toggleOnTrue(takeL2AlgaeCommandGroup);
-        viceController.a().toggleOnTrue(takeL3AlgaeCommandGroup);
+        viceController.y().whileTrue(takeL3AlgaeCommandGroup);
+        viceController.a().whileTrue(takeL2AlgaeCommandGroup);
 
         // TagTracking
 
