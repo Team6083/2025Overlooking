@@ -3,9 +3,10 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
+    "James",
     "L - leave(tag)",
     "M - leave(tag)",
-    "James",
+    "only leave",
     "R - leave(tag)",
     "algae",
     "cstr(tag)",
@@ -15,6 +16,7 @@
   ],
   "autoFolders": [
     "JamesL1",
+    "only leave",
     "crazy L2",
     "crazy L3",
     "crazy L4"

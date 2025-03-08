@@ -48,7 +48,7 @@
   "folder": "R - leave(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -179.57192433396693
   },
   "useDefaultConstraints": true
 }

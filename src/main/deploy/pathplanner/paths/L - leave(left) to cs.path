@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.185749999999999,
-        "y": 7.5447500000000005
+        "x": 7.921845297054089,
+        "y": 7.611524285090381
       },
       "isLocked": false,
-      "linkedName": "left barge"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.6172500000000003,
-        "y": 5.24375
+        "x": 1.2253378378378377,
+        "y": 7.048817567567567
       },
       "prevControl": {
-        "x": 3.8330286885245926,
-        "y": 6.562397540983607
+        "x": 0.8777598860411999,
+        "y": 7.059529402673928
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef(9) tag"
+      "linkedName": "left coral station"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.557071375636674
+    "rotation": -54.16234704572174
   },
   "reversed": false,
-  "folder": "way point(tag)",
+  "folder": "only leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.1120637275567
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

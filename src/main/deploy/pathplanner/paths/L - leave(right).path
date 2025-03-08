@@ -45,10 +45,10 @@
     "rotation": 179.44927913469638
   },
   "reversed": false,
-  "folder": "L - leave(path)",
+  "folder": "only leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -179.57192433396693
   },
   "useDefaultConstraints": true
 }
