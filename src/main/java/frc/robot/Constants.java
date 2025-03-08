@@ -172,11 +172,11 @@ public class Constants {
   }
 
   public static final class SwerveControlConstant {
-    public static final double kDefaultMagnification = 0.8;
+    public static final double kDefaultMagnification = 0.25;
     public static final double kFastMagnification = 0.75;
     public static final double kSafeMagnification = 0.0625;
 
-    public static final double kRotDefaultMagnification = 1.2;
+    public static final double kRotDefaultMagnification = 0.25;
     public static final double kRotFastMagnification = 0.8;
     public static final double kRotSafeMagnification = 0.25;
 
