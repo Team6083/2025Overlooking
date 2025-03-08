@@ -51,7 +51,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
     rightElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
 
-
     upLimitSwitch = new DigitalInput(5);
     downLimitSwitch = new DigitalInput(7);
 
@@ -120,7 +119,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public boolean shouldMotorStop(){
+  public boolean shouldMotorStop() {
     if (bypassLimitSW.get() && !shouldUsePID.get()) {
       return false;
     }
@@ -136,15 +135,16 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
         .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
-    
+
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
 
-      var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower : ElevatorConstant.kMaxOutputHigher;
+      var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower
+          : ElevatorConstant.kMaxOutputHigher;
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
 
-      if (shouldMotorStop()){
+      if (shouldMotorStop()) {
         output = 0;
       }
 
@@ -153,13 +153,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       targetHeight = currentHeight;
 
-      if (shouldMotorStop()){
+      if (shouldMotorStop()) {
         leftElevatorMotor.set(ControlMode.PercentOutput, 0);
         rightElevatorMotor.set(ControlMode.PercentOutput, 0);
       }
     }
-
-    
 
     SmartDashboard.putNumber("ElevatorOutput", leftElevatorMotor.getMotorOutputVoltage());
 
