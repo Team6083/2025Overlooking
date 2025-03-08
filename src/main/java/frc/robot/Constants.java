@@ -23,7 +23,7 @@ public class Constants {
     public static final boolean kBackRightDriveMotorInverted = false;
 
     // speed magnification
-    public static final double kDefaultMagnification = 0.25;
+    public static final double kDefaultMagnification = 0.15;
     public static final double kFastMagnification = 0.75;
 
     public static final double kMinJoystickInput = 0.1;
