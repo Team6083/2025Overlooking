@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(11) Tag"
+            "pathName": "way point 11"
           }
         },
         {
@@ -37,12 +37,6 @@
         {
           "type": "named",
           "data": {
-            "name": "AprilTagLeft"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "CoralShooterWithStop"
           }
         },
@@ -61,7 +55,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rtcs11 Tag"
+            "pathName": "rtcs11 "
           }
         }
       ]
