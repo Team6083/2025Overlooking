@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.138513513513513,
-        "y": 2.947888513513513
+        "x": 7.2,
+        "y": 0.530584016393442
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.327591710726427,
-        "y": 2.4987477626786103
+        "x": 6.542514822349893,
+        "y": 1.248917728722652
       },
       "isLocked": false,
-      "linkedName": "reef3(tag)"
+      "linkedName": "right barge"
     },
     {
       "anchor": {
-        "x": 1.1166385135135135,
-        "y": 1.0407094594594581
+        "x": 5.138513513513513,
+        "y": 2.947888513513513
       },
       "prevControl": {
-        "x": 2.228445371970021,
-        "y": 1.5269491059815699
+        "x": 5.474623269128089,
+        "y": 2.5247293790491057
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "right coral station"
+      "linkedName": "reef3(tag)"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.74616226255516
+    "rotation": 124.01934998982637
   },
   "reversed": false,
-  "folder": "rtcs(tag)",
+  "folder": "James",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 124.01934998982637
+    "rotation": -179.57192433396693
   },
   "useDefaultConstraints": true
 }
