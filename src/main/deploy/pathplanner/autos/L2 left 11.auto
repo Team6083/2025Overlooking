@@ -23,15 +23,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "ErToSec"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ErToSec"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 3.0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralShooterHold"
+                }
+              }
+            ]
           }
         },
         {
