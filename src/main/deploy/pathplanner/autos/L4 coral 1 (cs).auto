@@ -5,9 +5,40 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "M - leave 1"
+            "pathName": "M - leave 1 (half - 1)"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToTrd"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "M - leave 1 (half - 2)"
           }
         },
         {
@@ -23,25 +54,13 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.5
+                  "waitTime": 1.0
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "CoralShooterWithStop"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ErDown"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.5
                 }
               }
             ]
@@ -50,19 +69,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rtcs 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralShooterIn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "cstr 11"
+            "pathName": "reverse reef 1 ( half - 1)"
           }
         },
         {
@@ -72,40 +79,34 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToSec"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.8
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "CoralShooterWithStop"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "ErDown"
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.8
+                  "waitTime": 1.8
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "reverse reef 1 ( half - 2)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "M - L4",
   "choreoAuto": false
 }

@@ -4,14 +4,14 @@
   "holonomicMode": true,
   "pathFolders": [
     "L - leave",
-    "ML - leave",
-    "MR - leave",
     "M - leave",
     "R - leave",
     "cstr",
+    "reverse",
     "rtcs"
   ],
   "autoFolders": [
+    "M - L4",
     "coral L2"
   ],
   "defaultMaxVel": 3.0,

@@ -150,7 +150,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
 
-      if (getCurrentHeight().in(Millimeters) > 1300 && output > 0.5) {
+      if (getCurrentHeight().in(Millimeters) > 1300 && output > ElevatorConstant.kUpperMaxOutput) {
         output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kUpperMaxOutput);
       }
 
