@@ -130,7 +130,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     // SwerveDrive
-    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController));
+    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController, elevatorSubsystem));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
