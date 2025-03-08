@@ -29,6 +29,7 @@ public class SwerveControlCmd extends Command {
   private final ElevatorSubsystem elevatorSubsystem;
 
   private double magnification;
+  private double rotMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
 
@@ -48,10 +49,13 @@ public class SwerveControlCmd extends Command {
   public void execute() {
     if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545))) {
       magnification = SwerveControlConstant.kSafeMagnification;
+      rotMagnification = SwerveControlConstant.kDefaultMagnification;
     } else if (mainController.leftBumper().getAsBoolean()) {
       magnification = SwerveControlConstant.kFastMagnification;
+      rotMagnification= SwerveControlConstant.kFastMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
+      rotMagnification = SwerveControlConstant.kDefaultRotMagnification;
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
@@ -75,7 +79,7 @@ public class SwerveControlCmd extends Command {
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = -rotLimiter.calculate(mainController.getRightX())
-          * drivebaseMaxSpeed * SwerveControlConstant.kRotateMagnification;
+          * drivebaseMaxSpeed * rotMagnification;
 
     } else {
       rotSpeed = 0;

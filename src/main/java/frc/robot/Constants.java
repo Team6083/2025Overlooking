@@ -173,9 +173,10 @@ public class Constants {
 
   public static final class SwerveControlConstant {
     public static final double kDefaultMagnification = 0.25;
+    public static final double kDefaultRotMagnification = 0.5;
     public static final double kFastMagnification = 0.75;
     public static final double kSafeMagnification = 0.0625;
-    public static final double kRotateMagnification = 1.2;
+    // public static final double kRotateMagnification = ;
 
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
