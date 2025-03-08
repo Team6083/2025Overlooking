@@ -155,10 +155,15 @@ public class SwerveModule extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
     SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
-    SmartDashboard.putNumber(name + "Get_ModuleRotation", getRotation2d().getDegrees());
-    SmartDashboard.putNumber(name+"_current", driveMotor.getOutputCurrent());
+    SmartDashboard.putNumber(name + "_ModuleRotation", getRotation2d().getDegrees());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
     SmartDashboard.putData(name + "_RotController", rotController);
+    SmartDashboard.putNumber(name + "_DriveMotorCurrent", driveMotor.getOutputCurrent());
+    SmartDashboard.putNumber(name + "_TurningMotorCurrent", turningMotor.getOutputCurrent());
+    SmartDashboard.putNumber(name + "_DriveMotorApplyVoltage", driveMotor.getAppliedOutput());
+    SmartDashboard.putNumber(name + "_TurningMotorApplyVoltage", turningMotor.getAppliedOutput());
+    SmartDashboard.putNumber(name + "_DriveMotorTemperature", driveMotor.getMotorTemperature());
+    SmartDashboard.putNumber(name + "_TurningMotorTemperature", turningMotor.getMotorTemperature());
   }
 }
