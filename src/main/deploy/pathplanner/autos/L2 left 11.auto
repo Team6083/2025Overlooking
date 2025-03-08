@@ -62,6 +62,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "crazy L2",
+  "folder": "L2",
   "choreoAuto": false
 }
