@@ -53,13 +53,13 @@ public class SwerveControlCmd extends Command {
   public void execute() {
     if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassLimitSWMagnification.get()) {
       magnification = SwerveControlConstant.kSafeMagnification;
-      rotMagnification = SwerveControlConstant.kDefaultMagnification;
+      rotMagnification = SwerveControlConstant.kRotSafeMagnification;
     } else if (mainController.leftBumper().getAsBoolean()) {
       magnification = SwerveControlConstant.kFastMagnification;
-      rotMagnification= SwerveControlConstant.kFastMagnification;
+      rotMagnification= SwerveControlConstant.kRotFastMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
-      rotMagnification = SwerveControlConstant.kDefaultRotMagnification;
+      rotMagnification = SwerveControlConstant.kRotDefaultMagnification;
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
