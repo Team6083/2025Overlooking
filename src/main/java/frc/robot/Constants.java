@@ -154,11 +154,11 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1870);
+    public static final Distance kMaxHeight = Millimeters.of(1520);
 
     public static final double kMaxOutputHigher = 0.8;
     public static final double kMaxOutputLower = 0.5;
-    public static final double kMinOutput = -0.3;
+    public static final double kMinOutput = -0.1;
 
     public static final Distance kInitialHeight = Millimeters.of(430.0);
     public static final Distance kSecFloor = Millimeters.of(769);
