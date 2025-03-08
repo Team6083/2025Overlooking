@@ -49,6 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // PID
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
 
+    // touch sensor
     touchSensorDown = new DigitalInput(ElevatorConstant.kTouchSensorChannel);
     touchSensorUp1 = new DigitalInput(ElevatorConstant.kTouchSensorUp1Channel);
     touchSensorUp2 = new DigitalInput(ElevatorConstant.kTouchSensorUp2Channel);
@@ -259,15 +260,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command toGetTrdAlgaeCmd() {
     Command cmd = runOnce(this::toGetTrdAlgae);
     cmd.setName("toGetTriAlgae");
-    return cmd;
-  }
-
-  public Command autoStopCmd(Command command) {
-    Command cmd = new SequentialCommandGroup(
-        command.repeatedly()
-            .until(() -> Math.abs(elevatorPID.getError()) < 15),
-        runOnce(this::stopMove));
-    cmd.setName("autoStop");
     return cmd;
   }
 

@@ -43,7 +43,6 @@ public class RobotContainer {
   public RobotContainer() {
 
     mainController = new CommandXboxController(0);
-
     viceController = new CommandXboxController(1);
     Supplier<Boolean> algaeRotateUsePID = () -> viceController.leftBumper().getAsBoolean();
     powerDistribution = new PowerDistribution();
@@ -51,6 +50,7 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem();
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
     swerveDrive = new SwerveDrive();
+
 
     tagTracking = new TagTracking();
 
@@ -62,6 +62,7 @@ public class RobotContainer {
     // new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
     // .withTimeout(1.5),
     // algaeIntakeSubsystem.reIntakeCmd()));
+
 
     // takeL3AlgaeCommandGroup = new SequentialCommandGroup(
     // new ParallelRaceGroup(
@@ -90,7 +91,9 @@ public class RobotContainer {
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reverseIntakeCmd()));
 
+
     registerNamedCommands();
+
 
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -103,9 +106,11 @@ public class RobotContainer {
     configureBindings();
   }
 
+
   private void registerNamedCommands() {
     NamedCommands.registerCommand("setTuringDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
+
 
     NamedCommands.registerCommand("CoralShooterIn", new SequentialCommandGroup(
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
@@ -188,10 +193,12 @@ public class RobotContainer {
     viceController.y().whileTrue(takeL3AlgaeCommandGroup);
     viceController.a().whileTrue(takeL2AlgaeCommandGroup);
 
+
     // TagTracking
 
     mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
     mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
+
 
   }
 
