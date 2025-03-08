@@ -80,21 +80,21 @@ public class RobotContainer {
                         algaeIntakeSubsystem.reverseIntakeCmd())));
 
         // Algae + Drive + Intake add withTimeOut -- Second Test
-        takeL2AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-                elevatorSubsystem.toGetSecAlgaeCmd(),
-                algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
-                .andThen(new ParallelRaceGroup(
-                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                                .withTimeout(1.5),
-                        algaeIntakeSubsystem.reverseIntakeCmd())));
+        // takeL2AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
+        //         elevatorSubsystem.toGetSecAlgaeCmd(),
+        //         algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+        //         .andThen(new ParallelRaceGroup(
+        //                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+        //                         .withTimeout(1.5),
+        //                 algaeIntakeSubsystem.reverseIntakeCmd())));
 
-        takeL3AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-                elevatorSubsystem.toGetTrdAlgaeCmd(),
-                algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
-                .andThen(new ParallelRaceGroup(
-                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                                .withTimeout(1.5),
-                        algaeIntakeSubsystem.reverseIntakeCmd())));
+        // takeL3AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
+        //         elevatorSubsystem.toGetTrdAlgaeCmd(),
+        //         algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+        //         .andThen(new ParallelRaceGroup(
+        //                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+        //                         .withTimeout(1.5),
+        //                 algaeIntakeSubsystem.reverseIntakeCmd())));
         //
         // Third Test
         // Elevator + Intake
@@ -206,7 +206,7 @@ public class RobotContainer {
         viceController.y().whileTrue(takeL3AlgaeCommandGroup);
         viceController.a().whileTrue(takeL2AlgaeCommandGroup);
         
-        viceController.rightBumper().whileTrue(algaeOut);
+        // viceController.rightBumper().whileTrue(algaeOut);
 
         // TagTracking
         mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
