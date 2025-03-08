@@ -68,7 +68,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void setRotateSetpoint(double setpoint) {
-    algaeRotatePID.setSetpoint(MathUtil.clamp(setpoint, 0, 110.0));
+    algaeRotatePID.setSetpoint(MathUtil.clamp(setpoint, AlgaeIntakeConstant.kMinAngle, AlgaeIntakeConstant.kMaxAngle));
   }
 
   public void toDefaultDegree() {

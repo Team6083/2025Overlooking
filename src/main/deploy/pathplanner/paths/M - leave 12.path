@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.217,
-        "y": 4.17
+        "x": 7.2,
+        "y": 4.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.127651639344261,
-        "y": 5.0577499999999995
+        "x": 7.110651639344262,
+        "y": 5.067749999999999
       },
       "isLocked": false,
       "linkedName": "MiddleBarge"

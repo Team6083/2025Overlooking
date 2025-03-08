@@ -4,7 +4,12 @@
 
 package frc.robot;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -17,20 +22,37 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
   private Command m_autonomousCommand;
-  // private UsbCamera camera;
+  private UsbCamera camera;
 
   private final RobotContainer m_robotContainer;
   // CHECKSTYLE.ON: MemberName
 
-  private boolean saveLogs = false;
+  private boolean saveLogs = true;
   Timer gcTimer = new Timer();
 
   public Robot() {
     m_robotContainer = new RobotContainer();
 
-    // camera =CameraServer.startAutomaticCapture();
-    // camera.setResolution(640, 480);
-    // camera.setFPS(30);
+    camera =CameraServer.startAutomaticCapture();
+    camera.setResolution(640, 480);
+    camera.setFPS(30);
+
+    new Thread (()->{
+     CvSink cvSink = CameraServer.getVideo();
+      CvSource outputStream = CameraServer.putVideo("Flipped Camera", 640, 400);
+
+      Mat frame = new Mat();
+
+      while(!Thread.interrupted()){
+
+        if ( cvSink.grabFrame(frame)==0){
+          continue;
+        }
+
+        Core.flip(frame, frame, 0);
+        outputStream.putFrame(frame);
+      }
+    }).start();
     gcTimer.start();
   }
 

@@ -145,8 +145,8 @@ public class Constants {
     public static final double rotMotorDownPIDkD = 0;
 
     // Algae setpoint
-    public static final double kMaxAngle = 130 ;
-    public static final double kMinAngle = 4;
+    public static final double kMaxAngle = 120 ;
+    public static final double kMinAngle = 0;
     public static final double kStepAngle = 0.1;
 
     // Algae inverted

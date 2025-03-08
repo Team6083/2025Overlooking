@@ -44,7 +44,7 @@ public class RobotContainer {
 
     mainController = new CommandXboxController(0);
     viceController = new CommandXboxController(1);
-    Supplier<Boolean> algaeRotateUsePID = () -> viceController.leftBumper().getAsBoolean();
+    Supplier<Boolean> algaeRotateUsePID = () -> !viceController.leftBumper().getAsBoolean();
     powerDistribution = new PowerDistribution();
     coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
     elevatorSubsystem = new ElevatorSubsystem();
@@ -109,8 +109,7 @@ public class RobotContainer {
 
   private void registerNamedCommands() {
     NamedCommands.registerCommand("setTuringDegree",
-        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
-
+        swerveDrive.setTurningDegreeCmd(0));
 
     NamedCommands.registerCommand("CoralShooterIn", new SequentialCommandGroup(
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
