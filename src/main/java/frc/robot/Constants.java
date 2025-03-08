@@ -154,7 +154,7 @@ public class Constants {
     public static final Distance kHeightOffset = Millimeters.of(430.0);
 
     public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1870);
+    public static final Distance kMaxHeight = Millimeters.of(1870).div(2);
 
     public static final double kMaxOutputHigher = 0.8;
     public static final double kMaxOutputLower = 0.5;
@@ -168,7 +168,7 @@ public class Constants {
     public static final Distance kToGetSecAlgaeHeight = Millimeters.of(818);
     public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1355);
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
-        * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
+        * Inches.of(1.214 * Math.PI).in(Millimeters);
   }
 
   public static final class SwerveControlConstant {
