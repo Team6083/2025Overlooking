@@ -45,10 +45,10 @@
     "rotation": 123.79920221211555
   },
   "reversed": false,
-  "folder": null,
+  "folder": "only leave",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.07595464722718
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
