@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -32,9 +34,10 @@ public class SwerveControlCmd extends Command {
   private double rotMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
+  private  Supplier<Boolean> elevatorBypassLimitSWMagnification;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController,
-      ElevatorSubsystem elevatorSubsystem) {
+      ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassLimitSWMagnification) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
     this.elevatorSubsystem = elevatorSubsystem;
@@ -47,7 +50,7 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545))) {
+    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassLimitSWMagnification.get()) {
       magnification = SwerveControlConstant.kSafeMagnification;
       rotMagnification = SwerveControlConstant.kDefaultMagnification;
     } else if (mainController.leftBumper().getAsBoolean()) {

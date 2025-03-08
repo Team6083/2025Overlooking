@@ -45,11 +45,11 @@ public class RobotContainer {
     controlPanel = new CommandGenericHID(1);
 
     Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
-    Supplier<Boolean> elevatorBypassLimitSW = () -> controlPanel.button(9).getAsBoolean();
+    Supplier<Boolean> elevatorBypassLimitSWMagnification = () -> controlPanel.button(9).getAsBoolean();
     Supplier<Boolean> algaeRotateUsePID = () -> controlPanel.button(12).getAsBoolean();
 
     coralShooterSubsystem = new CoralShooterSubsystem();
-    elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassLimitSW);
+    elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassLimitSWMagnification);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
     swerveDrive = new SwerveDrive();
 
@@ -130,7 +130,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     // SwerveDrive
-    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController, elevatorSubsystem));
+    swerveDrive.setDefaultCommand(new SwerveControlCmd(
+        swerveDrive, mainController, elevatorSubsystem, () -> controlPanel.button(9).getAsBoolean()));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
