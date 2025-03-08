@@ -41,6 +41,7 @@ public class SwerveControlCmd extends Command {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
     this.elevatorSubsystem = elevatorSubsystem;
+    this.elevatorBypassLimitSWMagnification = elevatorBypassLimitSWMagnification;
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
