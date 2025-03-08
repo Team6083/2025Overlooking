@@ -67,7 +67,7 @@ public class SwerveModule extends SubsystemBase {
 
     SparkMaxConfig configDriveMotor = new SparkMaxConfig();
     configDriveMotor.idleMode(IdleMode.kBrake);
-    configDriveMotor.smartCurrentLimit(,60,120);
+    configDriveMotor.smartCurrentLimit(60,120);
     // configDriveMotor.closedLoopRampRate(ModuleConstant.kDriveClosedLoopRampRate);
     configDriveMotor.voltageCompensation(ModuleConstant.kMaxModuleDriveVoltage);
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
