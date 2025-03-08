@@ -48,7 +48,7 @@
   "folder": "rtcs(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -123.6900675259797
+    "rotation": -118.92642583525362
   },
   "useDefaultConstraints": true
 }
