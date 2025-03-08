@@ -216,8 +216,8 @@ public class Constants {
     public static final Distance kTrdFloor = Millimeters.of(1186.6666666);
     public static final Distance kTopFloor = Millimeters.of(1740);
     public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(943);
-    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1406);
+    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(860);
+    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1190);
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2.0;
   }

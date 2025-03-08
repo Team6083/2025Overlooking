@@ -241,7 +241,7 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   // get rotation degree
-  public Rotation2d getRotation2dDegrees() {
+  public Rotation2d getRotation2dHeading() {
     return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
         + ((DriveBaseConstant.kGyroInverted)
             ? (360.0 - gyro.getRotation2d().getDegrees())

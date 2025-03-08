@@ -198,6 +198,9 @@ public class RobotContainer {
     mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
     mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
 
+    viceController.rightBumper().onTrue(elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
+    .until(() -> elevatorSubsystem.getAbsoluteError() < 5));
+
 
   }
 
