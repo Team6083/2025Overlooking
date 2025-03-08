@@ -162,5 +162,7 @@ public class SwerveModule extends SubsystemBase {
     SmartDashboard.putNumber(name + "_turningMotorCurrent", turningMotor.getOutputCurrent());
     SmartDashboard.putNumber(name + "_driveMotorVoltage", driveMotor.getAppliedOutput());
     SmartDashboard.putNumber(name + "_turningMotorVoltage", turningMotor.getAppliedOutput());
+    SmartDashboard.putNumber(name + "_driveMotorTemperature", driveMotor.getMotorTemperature());
+    SmartDashboard.putNumber(name + "_turningMotorTemperature", turningMotor.getMotorTemperature());
   }
 }
