@@ -34,14 +34,14 @@ public class SwerveControlCmd extends Command {
   private double rotMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
-  private  Supplier<Boolean> elevatorBypassLimitSWMagnification;
+  private final Supplier<Boolean> elevatorBypassSafety;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController,
-      ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassLimitSWMagnification) {
+      ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassSafety) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
     this.elevatorSubsystem = elevatorSubsystem;
-    this.elevatorBypassLimitSWMagnification = elevatorBypassLimitSWMagnification;
+    this.elevatorBypassSafety = elevatorBypassSafety;
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
@@ -51,7 +51,7 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassLimitSWMagnification.get()) {
+    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
       magnification = SwerveControlConstant.kSafeMagnification;
       rotMagnification = SwerveControlConstant.kRotSafeMagnification;
     } else if (mainController.leftBumper().getAsBoolean()) {
