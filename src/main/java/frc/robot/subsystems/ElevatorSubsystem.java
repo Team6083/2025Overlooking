@@ -120,6 +120,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  public boolean shouldMotorStop(){
+    if (bypassLimitSW.get() && !shouldUsePID.get()) {
+      return false;
+    }
+
+    return !upLimitSwitch.get();
+  }
+
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
@@ -129,16 +137,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
         .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
     
-    boolean shouldStop = false;
-    if (!bypassLimitSW) {
-      if (!upLimitSwitch.get() && leftElevatorMotor.getMotorOutputVoltage() > 0) {
-          shouldStop = true;
-      }
-      // if (!downLimitSwitch.get() && output < 0) {
-      // output = 0;
-      // }
-    }
-
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
@@ -146,7 +144,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower : ElevatorConstant.kMaxOutputHigher;
       output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
 
-      if (shouldStop){
+      if (shouldMotorStop()){
         output = 0;
       }
 
@@ -155,7 +153,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     } else {
       targetHeight = currentHeight;
 
-      if (shouldStop){
+      if (shouldMotorStop()){
         leftElevatorMotor.set(ControlMode.PercentOutput, 0);
         rightElevatorMotor.set(ControlMode.PercentOutput, 0);
       }
@@ -218,7 +216,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
       double adjustedPower = power;
-      if (!upLimitSwitch.get() && power > 0) {
+      if (shouldMotorStop()) {
         adjustedPower = 0;
       }
 
