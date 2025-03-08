@@ -13,7 +13,38 @@
         {
           "type": "path",
           "data": {
-            "pathName": "M - leave 12"
+            "pathName": "L4 - 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L4 - 2"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ErToTrd"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L4 - 3"
           }
         },
         {
@@ -29,7 +60,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.8
+                  "waitTime": 1.0
                 }
               },
               {
@@ -37,7 +68,20 @@
                 "data": {
                   "name": "CoralShooterWithStop"
                 }
-              },
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L4 - 4"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
               {
                 "type": "named",
                 "data": {
@@ -47,7 +91,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.8
+                  "waitTime": 1.5
                 }
               }
             ]

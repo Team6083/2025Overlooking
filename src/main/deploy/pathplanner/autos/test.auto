@@ -3,32 +3,7 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "M - leave 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ErToSec"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AprilTagLeft"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "test"
-          }
-        }
-      ]
+      "commands": []
     }
   },
   "resetOdom": true,
