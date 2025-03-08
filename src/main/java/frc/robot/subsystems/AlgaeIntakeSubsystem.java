@@ -64,15 +64,19 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void manualSetRotate(double speed) {
     rotateMotor.set(ControlMode.PercentOutput, speed);
-    algaeRotatePID.setSetpoint(rotateEncoder.get());
+    setRotateSetpoint(getCurrentAngle());
+  }
+
+  public void setRotateSetpoint(double setpoint) {
+    algaeRotatePID.setSetpoint(MathUtil.clamp(setpoint, 0, 110.0));
   }
 
   public void toDefaultDegree() {
-    algaeRotatePID.setSetpoint(0);
+    setRotateSetpoint(0);
   }
 
   public void toAlgaeIntakeDegree() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetAlgaeAngle);
+    setRotateSetpoint(AlgaeIntakeConstant.kGetAlgaeAngle);
   }
 
   public void stopRotate() {
@@ -89,7 +93,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    var usePID = shouldUsePIDSupplier.get();
+    boolean usePID = shouldUsePIDSupplier.get();
 
     if (usePID) {
       if (getCurrentAngle() > getRotateSetpoint()) {

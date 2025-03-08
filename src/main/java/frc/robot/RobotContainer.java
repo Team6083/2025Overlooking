@@ -45,7 +45,7 @@ public class RobotContainer {
                 mainController = new CommandXboxController(0);
 
                 viceController = new CommandXboxController(1);
-                Supplier<Boolean> algaeRotateUsePID = () -> viceController.leftBumper().getAsBoolean();
+                Supplier<Boolean> algaeRotateUsePID = () -> !viceController.leftBumper().getAsBoolean();
                 powerDistribution = new PowerDistribution();
                 coralShooterSubsystem = new CoralShooterSubsystem(powerDistribution);
                 elevatorSubsystem = new ElevatorSubsystem();

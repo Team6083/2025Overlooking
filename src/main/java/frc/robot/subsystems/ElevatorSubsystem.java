@@ -263,15 +263,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command autoStopCmd(Command command) {
-    Command cmd = new SequentialCommandGroup(
-        command.repeatedly()
-            .until(() -> Math.abs(elevatorPID.getError()) < 15),
-        runOnce(this::stopMove));
-    cmd.setName("autoStop");
-    return cmd;
-  }
-
   public double getAbsoluteError(){
     return Math.abs(elevatorPID.getError());
   }
