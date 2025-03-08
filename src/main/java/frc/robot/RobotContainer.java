@@ -172,14 +172,16 @@ public class RobotContainer {
     controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
     controlPanel.button(3).whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
     controlPanel.button(1).whileTrue(algaeIntakeSubsystem.intakeCmd());
+    mainController.x().whileTrue(algaeIntakeSubsystem.intakeCmd());
+    mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
 
     // Elevator + AlgaeIntake
     controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
-    mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
+    // mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
+    // mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
     controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
     controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
   }
