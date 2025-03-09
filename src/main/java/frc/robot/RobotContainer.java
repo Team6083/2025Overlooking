@@ -146,6 +146,7 @@ public class RobotContainer {
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterOnCmd().withTimeout(0.029)));
+    mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseOnCmd());
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
