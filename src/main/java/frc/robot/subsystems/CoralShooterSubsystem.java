@@ -40,11 +40,11 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void coralShooterOn() {
+  public void coralShooterShoot() {
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
   }
 
-  public void coralShooterReverseOn() {
+  public void coralShooterReverseShoot() {
     setMotorSpeed(CoralShooterConstant.kShooterMotorReverseSpeed);
   }
 
@@ -60,14 +60,14 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public Command coralShooterOnCmd() {
-    Command cmd = runEnd(this::coralShooterOn, this::coralShooterStop);
+  public Command coralShooterShootCmd() {
+    Command cmd = runEnd(this::coralShooterShoot, this::coralShooterStop);
     cmd.setName("coralShooterSlowOn");
     return cmd;
   }
 
-  public Command coralShooterReverseOnCmd() {
-    Command cmd = runEnd(this::coralShooterReverseOn, this::coralShooterStop);
+  public Command coralShooterReverseShootCmd() {
+    Command cmd = runEnd(this::coralShooterReverseShoot, this::coralShooterStop);
     cmd.setName("coralShooterReverseOn");
     return cmd;
   }
