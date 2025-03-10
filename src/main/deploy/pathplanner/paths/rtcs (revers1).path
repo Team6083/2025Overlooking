@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.753,
+        "x": 6.880942622950819,
         "y": 4.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.986200819672133,
+        "x": 7.114143442622952,
         "y": 5.89240368852459
       },
       "isLocked": false,
@@ -96,7 +96,7 @@
   "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

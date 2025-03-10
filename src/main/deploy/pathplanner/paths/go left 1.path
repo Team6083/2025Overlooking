@@ -3,51 +3,56 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 4.175
+        "x": 6.0,
+        "y": 4.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.013916648791839,
-        "y": 4.175
+        "x": 6.0,
+        "y": 5.18
       },
       "isLocked": false,
-      "linkedName": "MiddleBarge"
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 6.0,
-        "y": 4.18
+        "y": 5.7
       },
       "prevControl": {
-        "x": 6.25,
-        "y": 4.18
+        "x": 6.0,
+        "y": 4.612963189947824
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 1.8,
-    "maxAngularVelocity": 327.273,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 327.0,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "M - leave",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 180.0
   },
   "useDefaultConstraints": false

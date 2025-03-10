@@ -61,40 +61,40 @@ public class RobotContainer {
         tagTracking = new TagTracking();
 
         // Algae + Drive + Intake use repeatUntil -- First Test
-        takeL2AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-                elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
-                        .until(() -> elevatorSubsystem.getAbsoluteError() < 30.0),
-                algaeIntakeSubsystem.reverseIntakeCmd())
-                .andThen(new ParallelRaceGroup(
-                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                                .withTimeout(1.5),
-                        algaeIntakeSubsystem.reverseIntakeCmd())));
-
-        takeL3AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-                elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
-                        .until(() -> elevatorSubsystem.getAbsoluteError() < 30.0),
-                algaeIntakeSubsystem.reverseIntakeCmd())
-                .andThen(new ParallelRaceGroup(
-                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                                .withTimeout(1.5),
-                        algaeIntakeSubsystem.reverseIntakeCmd())));
-
-        // Algae + Drive + Intake add withTimeOut -- Second Test
         // takeL2AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-        //         elevatorSubsystem.toGetSecAlgaeCmd(),
-        //         algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+        //         elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
+        //                 .until(() -> elevatorSubsystem.getAbsoluteError() < 30.0),
+        //         algaeIntakeSubsystem.reverseIntakeCmd())
         //         .andThen(new ParallelRaceGroup(
         //                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
         //                         .withTimeout(1.5),
         //                 algaeIntakeSubsystem.reverseIntakeCmd())));
 
         // takeL3AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
-        //         elevatorSubsystem.toGetTrdAlgaeCmd(),
-        //         algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+        //         elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
+        //                 .until(() -> elevatorSubsystem.getAbsoluteError() < 30.0),
+        //         algaeIntakeSubsystem.reverseIntakeCmd())
         //         .andThen(new ParallelRaceGroup(
         //                 new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-        //                         .withTimeout(1.5),
-        //                 algaeIntakeSubsystem.reverseIntakeCmd())));
+                        //         .withTimeout(1.5),
+                        // algaeIntakeSubsystem.reverseIntakeCmd())));
+
+        // Algae + Drive + Intake add withTimeOut -- Second Test
+        takeL2AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
+                elevatorSubsystem.toGetSecAlgaeCmd(),
+                algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+                .andThen(new ParallelRaceGroup(
+                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+                                .withTimeout(1.5),
+                        algaeIntakeSubsystem.reverseIntakeCmd())));
+
+        takeL3AlgaeCommandGroup = new SequentialCommandGroup(new ParallelRaceGroup(
+                elevatorSubsystem.toGetTrdAlgaeCmd(),
+                algaeIntakeSubsystem.reverseIntakeCmd()).withTimeout(1.5)
+                .andThen(new ParallelRaceGroup(
+                        new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
+                                .withTimeout(1.5),
+                        algaeIntakeSubsystem.reverseIntakeCmd())));
         //
         // Third Test
         // Elevator + Intake

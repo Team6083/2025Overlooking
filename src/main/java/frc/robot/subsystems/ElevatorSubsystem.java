@@ -173,6 +173,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorTargetHeight", targetHeight.in(Millimeters));
     SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl);
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+    SmartDashboard.putNumber("ElevatorError", getAbsoluteError());
   }
 
   public Command toGetCarolHeightCmd() {

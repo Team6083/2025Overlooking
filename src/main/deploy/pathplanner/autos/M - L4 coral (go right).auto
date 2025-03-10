@@ -13,13 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L4 - 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "L4 - 2"
+            "pathName": "M - leave 1 (Part 1)"
           }
         },
         {
@@ -44,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L4 - 3"
+            "pathName": "M - leave 1 (Part 2)"
           }
         },
         {
@@ -75,7 +69,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L4 - 4"
+            "pathName": "reverse reef 1 ( half - 1)"
           }
         },
         {
@@ -91,10 +85,22 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.5
+                  "waitTime": 1.8
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "go right 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SetTurningDegree"
           }
         }
       ]

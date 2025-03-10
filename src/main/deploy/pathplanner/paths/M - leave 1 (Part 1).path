@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.2,
-        "y": 4.7757499999999995
+        "y": 4.175
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.013916648791839,
-        "y": 4.7757499999999995
+        "y": 4.175
       },
       "isLocked": false,
       "linkedName": "MiddleBarge"
