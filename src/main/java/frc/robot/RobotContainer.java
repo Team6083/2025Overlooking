@@ -180,8 +180,6 @@ public class RobotContainer {
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    // mainController.x().whileTrue(new SwerveToTagCmd(swerveDrive, false));
-    // mainController.b().whileTrue(new SwerveToTagCmd(swerveDrive, true));
     controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
     controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
   }

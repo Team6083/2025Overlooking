@@ -18,10 +18,10 @@ import frc.robot.Constants.AlgaeIntakeConstant;
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
-  // private final VictorSPX intakeMotor;
-  // private final VictorSPX rotateMotor;
+  private final VictorSPX intakeMotor;
+  private final VictorSPX rotateMotor;
 
-  // private final DutyCycleEncoder rotateEncoder;
+  private final DutyCycleEncoder rotateEncoder;
 
   private final PIDController algaeRotatePID;
 
@@ -30,38 +30,38 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public AlgaeIntakeSubsystem(Supplier<Boolean> shouldUsePIDSupplier) {
     this.shouldUsePIDSupplier = shouldUsePIDSupplier;
 
-    // intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
-    // rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
-    // intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
-    // rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
+    intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
+    rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
+    intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
+    rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
 
-    // rotateEncoder = new DutyCycleEncoder(
-    //     AlgaeIntakeConstant.kAlgaeEncoderChannel,
-    //     AlgaeIntakeConstant.fullRange,
-    //     AlgaeIntakeConstant.expectedZero);
-    // rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
+    rotateEncoder = new DutyCycleEncoder(
+        AlgaeIntakeConstant.kAlgaeEncoderChannel,
+        AlgaeIntakeConstant.fullRange,
+        AlgaeIntakeConstant.expectedZero);
+    rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
 
     algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
   }
 
   public void intake() {
-    // intakeMotor.set(ControlMode.PercentOutput,
-    //     AlgaeIntakeConstant.kIntakeFastSpeed);
+    intakeMotor.set(ControlMode.PercentOutput,
+        AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
   public void reverseIntake() {
-    // intakeMotor.set(ControlMode.PercentOutput,
-    //     AlgaeIntakeConstant.kReIntakeSpeed);
+    intakeMotor.set(ControlMode.PercentOutput,
+        AlgaeIntakeConstant.kReIntakeSpeed);
   }
 
   public void stopIntakeMotor() {
-    // intakeMotor.set(ControlMode.PercentOutput, 0);
+    intakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public void manualSetRotate(double speed) {
-    // rotateMotor.set(ControlMode.PercentOutput, speed);
-    // algaeRotatePID.setSetpoint(rotateEncoder.get());
+    rotateMotor.set(ControlMode.PercentOutput, speed);
+    algaeRotatePID.setSetpoint(rotateEncoder.get());
   }
 
   public void toDefaultDegree() {
@@ -73,7 +73,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void stopRotate() {
-    // rotateMotor.set(ControlMode.PercentOutput, 0);
+    rotateMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public double getRotateSetpoint() {
@@ -81,8 +81,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public double getCurrentAngle() {
-    return 0.0;
-    // return rotateEncoder.get();
+    return rotateEncoder.get();
   }
 
   @Override
@@ -105,16 +104,16 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output, AlgaeIntakeConstant.kMinOutput, AlgaeIntakeConstant.kMaxOutput);
 
-      // rotateMotor.set(ControlMode.PercentOutput, output);
+      rotateMotor.set(ControlMode.PercentOutput, output);
 
       SmartDashboard.putNumber("AlgaeRotateOutput", output);
     } else {
       algaeRotatePID.setSetpoint(getCurrentAngle());
     }
 
-    // SmartDashboard.putNumber("AlgaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
-    // SmartDashboard.putNumber("AlgaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
-    // SmartDashboard.putNumber("AlgaeRotateEncoder", rotateEncoder.get());
+    SmartDashboard.putNumber("AlgaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("AlgaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("AlgaeRotateEncoder", rotateEncoder.get());
 
     SmartDashboard.putBoolean("AlgaeRotateUsePID", usePID);
 
