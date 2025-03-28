@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2253378378378377,
-        "y": 7.048817567567567
+        "x": 1.0968749999999998,
+        "y": 7.400383522727273
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.6813653131243788,
-        "y": 7.472851405779079
+        "x": 0.5818998198175886,
+        "y": 7.716606737772521
       },
       "isLocked": false,
       "linkedName": "left coral station"
     },
     {
       "anchor": {
-        "x": 3.6097159090909092,
-        "y": 5.214943181818183
+        "x": 3.6172500000000003,
+        "y": 5.24375
       },
       "prevControl": {
-        "x": 3.8069819238396785,
-        "y": 5.061365450928778
+        "x": 3.830137677179099,
+        "y": 5.112681937889936
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef9(tag)"
+      "linkedName": "reef(9) tag"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.88382398619869
+    "rotation": -61.557071375636674
   },
   "reversed": false,
   "folder": "cstr(tag)",

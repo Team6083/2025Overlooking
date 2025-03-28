@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
-import frc.robot.PreferencesClass;
 import frc.robot.PreferencesClass.CanCoderMagOffset;
 import frc.robot.PreferencesClass.DriveMotorInverted;
 import java.io.IOException;
@@ -334,6 +333,12 @@ public class SwerveDrive extends SubsystemBase {
   public Command setTurningDegreeCmd(double degree) {
     Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
     cmd.setName("setTurningDegreeCmd");
+    return cmd;
+  }
+
+  public Command driveForwardCmd() {
+    Command cmd = this.runEnd(
+        () -> drive(1, 0, 0, false), this::stop);
     return cmd;
   }
 }

@@ -15,36 +15,55 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstant;
+import java.util.function.Supplier;
 
 public class ElevatorSubsystem extends SubsystemBase {
   /** Creates a new ElevatorSubsystem. */
   private final WPI_VictorSPX leftElevatorMotor;
   private final WPI_VictorSPX rightElevatorMotor;
+
+  private final DigitalInput upLimitSwitch;
+  private final DigitalInput downLimitSwitch;
+
   private final Encoder encoder;
   private final PIDController elevatorPID;
-  private Distance targetHeight;
-  private boolean manualControl;
-  private DigitalInput upLimitSwitch;
-  private DigitalInput downLimitSwitch;
 
-  public ElevatorSubsystem() {
+  private Distance targetHeight;
+
+  private final Supplier<Boolean> shouldUsePID;
+  private final Supplier<Boolean> bypassLimitSwitch;
+
+  public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSwitch) {
+    this.shouldUsePID = shouldUsePID;
+    this.bypassLimitSwitch = bypassLimitSwitch;
+
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
-    leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
-    encoder = new Encoder(ElevatorConstant.kEncoderChannelA, ElevatorConstant.kEncoderChannelB);
-    encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
-    elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
-    rightElevatorMotor.follow(leftElevatorMotor);
-    manualControl = false;
-    encoder.setReverseDirection(false);
-    encoder.reset();
-    targetHeight = ElevatorConstant.kInitialHeight;
-    upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(8);
 
+    leftElevatorMotor.setInverted(ElevatorConstant.kMotorInverted);
+
+    leftElevatorMotor.setSafetyEnabled(true);
+    rightElevatorMotor.setSafetyEnabled(true);
+
+    leftElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
+    rightElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
+
+    upLimitSwitch = new DigitalInput(5);
+    downLimitSwitch = new DigitalInput(7);
+
+    encoder = new Encoder(ElevatorConstant.kEncoderChannelA,
+        ElevatorConstant.kEncoderChannelB);
+    encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
+    encoder.setReverseDirection(false);
+
+    elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
+    elevatorPID.setTolerance(8);
+
+    targetHeight = ElevatorConstant.kInitialHeight;
+    encoder.reset();
   }
 
   public void resetEncoder() {
@@ -61,14 +80,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     targetHeight = newTargetHeight;
   }
 
-  public void setManualControl(boolean manualControlOn) {
-    this.manualControl = manualControlOn;
-  }
-
-  public boolean isManualControl() {
-    return manualControl;
-  }
-
   public Distance getCurrentHeight() {
     return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
   }
@@ -79,10 +90,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void moveDown() {
     moveToHeight(targetHeight.minus(ElevatorConstant.kStepHeight));
-  }
-
-  public void toGetCarolHeight() {
-    moveToHeight(ElevatorConstant.kGetCarolHeight);
   }
 
   public void toSecFloor() {
@@ -113,48 +120,58 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
+  public boolean shouldMotorStop() {
+    if (bypassLimitSwitch.get() && !shouldUsePID.get()) {
+      return false;
+    }
+
+    return !upLimitSwitch.get();
+  }
+
   @Override
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
+    boolean usePID = this.shouldUsePID.get();
 
-    // if (encoder.getStopped()
-    // || Math.abs(encoder.getRate()) < 0.5
-    // || (output > 0 && encoder.getRate() < 0)
-    // || (output < 0 && encoder.getRate() > 0)) {
+    var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
+        .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
 
-    // SmartDashboard.putNumber("Output", 0);
-
-    if (encoder.getStopped()
-        || Math.abs(encoder.getRate()) < 0.5) {
-      stopMove();
-    } else if (!manualControl && upLimitSwitch.get() && downLimitSwitch.get()) {
-      if (!upLimitSwitch.get()) {
-        targetHeight = currentHeight.minus(ElevatorConstant.kStepHeight);
-      } else if (!downLimitSwitch.get()) {
-        targetHeight = currentHeight.plus(ElevatorConstant.kStepHeight);
-      }
+    if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
-      output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, ElevatorConstant.kMaxOutput);
+
+      var maxOutput = currentHeight.gt(shouldSlowHeight) ? ElevatorConstant.kMaxOutputLower
+          : ElevatorConstant.kMaxOutputHigher;
+      output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
+
+      if (shouldMotorStop()) {
+        output = 0;
+      }
+
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
-      SmartDashboard.putNumber("Output", output);
     } else {
       targetHeight = currentHeight;
+
+      if (shouldMotorStop()) {
+        leftElevatorMotor.set(ControlMode.PercentOutput, 0);
+        rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+      }
     }
 
+    SmartDashboard.putNumber("ElevatorOutput",
+        leftElevatorMotor.getMotorOutputVoltage());
+
+    SmartDashboard.putBoolean("ElevatorUsePID", usePID);
+    SmartDashboard.putBoolean("ElevatorBypassLimitSwitch", bypassLimitSwitch.get());
+
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
-    SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
-    SmartDashboard.putBoolean("ElevatorIsManualControl", isManualControl());
-    SmartDashboard.putData("ElevatorPID", elevatorPID);
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
     SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
-  }
 
-  public Command toGetCarolHeightCmd() {
-    Command cmd = runOnce(this::toGetCarolHeight);
-    cmd.setName("toGetCarolHeight");
-    return cmd;
+    SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
+
+    SmartDashboard.putData("ElevatorPID", elevatorPID);
   }
 
   public Command toSecFloorCmd() {
@@ -182,35 +199,35 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public Command moveUpCmd() {
-    Command cmd = run(this::moveUp);
+    Command cmd = runOnce(() -> targetHeight = getCurrentHeight())
+        .andThen(run(this::moveUp));
     cmd.setName("moveUp");
     return cmd;
   }
 
   public Command moveDownCmd() {
-    Command cmd = run(this::moveDown);
+    Command cmd = runOnce(() -> targetHeight = getCurrentHeight())
+        .andThen(run(this::moveDown));
     cmd.setName("moveDown");
-    return cmd;
-  }
-
-  public Command switchManualControlCmd(boolean manualControl) {
-    Command cmd = runOnce(() -> {
-      setManualControl(manualControl);
-    });
-    cmd.setName("switchManualControl");
     return cmd;
   }
 
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
-      leftElevatorMotor.set(ControlMode.PercentOutput, power);
-      rightElevatorMotor.set(ControlMode.PercentOutput, power);
-      manualControl = true;
+      double adjustedPower = power;
+      if (shouldMotorStop()) {
+        adjustedPower = 0;
+      }
 
+      leftElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
+      rightElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
+      SmartDashboard.putNumber("manualMovePower", adjustedPower);
+
+      targetHeight = getCurrentHeight();
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      manualControl = false;
+      SmartDashboard.putNumber("manualMovePower", power);
     });
     cmd.setName("manualMove");
     return cmd;
@@ -242,16 +259,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command toGetTrdAlgaeCmd() {
     Command cmd = runOnce(this::toGetTrdAlgae);
-    cmd.setName("toGetTriAlgae");
+    cmd.setName("toGetTrdAlgae");
     return cmd;
   }
 
-  public Command autoStopCmd(Command command) {
-    Command cmd = new SequentialCommandGroup(
-        command.repeatedly()
-            .until(() -> elevatorPID.getError() < 15),
-        runOnce(this::stopMove));
-    cmd.setName("autoStop");
-    return cmd;
+  public double getAbsoluteError() {
+    return Math.abs(elevatorPID.getError());
+  }
+
+  public boolean isAtTargetHeight() {
+    return elevatorPID.atSetpoint();
   }
 }

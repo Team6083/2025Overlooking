@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 3.6097159090909092,
-        "y": 5.214943181818183
+        "x": 3.6172500000000003,
+        "y": 5.24375
       },
       "prevControl": {
-        "x": 2.6097159090909092,
-        "y": 5.214943181818183
+        "x": 3.8330286885245926,
+        "y": 6.562397540983607
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef9(tag)"
+      "linkedName": "reef(9) tag"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.88382398619869
+    "rotation": -61.557071375636674
   },
   "reversed": false,
   "folder": "way point(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 179.1120637275567
   },
   "useDefaultConstraints": true
 }

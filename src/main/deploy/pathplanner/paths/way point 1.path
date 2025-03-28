@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.800591216216215,
-        "y": 4.173226351351351
+        "x": 5.929772727272727,
+        "y": 3.832215909090909
       },
       "prevControl": {
-        "x": 6.639730560478511,
-        "y": 3.7896197939743024
+        "x": 6.768912071535023,
+        "y": 3.44860935171386
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "way points",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 179.1120637275567
   },
   "useDefaultConstraints": true
 }

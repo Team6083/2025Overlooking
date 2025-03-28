@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -12,27 +12,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
-import frc.robot.lib.PowerDistribution;
 import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
   private VictorSPX coralShooterMotor;
   private Rev2mDistanceSensor distanceSensor;
-  private PowerDistribution powerDistribution;
   private DutyCycleEncoder shooterEncoder;
 
-  public CoralShooterSubsystem(PowerDistribution powerDistribution) {
-    this.powerDistribution = powerDistribution;
+  public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
+    coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
+
     shooterEncoder = new DutyCycleEncoder(
         CoralShooterConstant.kShooterEncoderChannel,
         CoralShooterConstant.kEncoderFullRange,
         CoralShooterConstant.kEncoderOffset);
+    shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
+
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
-    coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
-    shooterEncoder.setInverted(CoralShooterConstant.kCoralShooterEncoderInverted);
   }
 
   public double getEncoder() {
@@ -40,23 +39,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void setMotorSpeed(double speed) {
-    coralShooterMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    coralShooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void coralShooterFastOn() { // Motor on Fast
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
-    setMotorSpeed(CoralShooterConstant.kShooterMotorFastSpeed);
-  }
-
-  public void coralShooterSlowOn() { // Motor on Slow
-    if (powerDistribution.isCoralShooterOverCurrent()) {
-      setMotorSpeed(0);
-      return;
-    }
+  public void coralShooterShoot() {
     setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+  }
+
+  public void coralShooterReverseShoot() {
+    setMotorSpeed(CoralShooterConstant.kShooterMotorReverseSpeed);
   }
 
   public void coralShooterStop() { // Motor stop
@@ -71,15 +62,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public Command coralShooterFastOnCmd() { // Motor on
-    Command cmd = runEnd(this::coralShooterFastOn, this::coralShooterStop);
-    cmd.setName("coralShooterFastOn");
+  public Command coralShooterShootCmd() {
+    Command cmd = runEnd(this::coralShooterShoot, this::coralShooterStop);
+    cmd.setName("coralShooterSlowOn");
     return cmd;
   }
 
-  public Command coralShooterSlowOnCmd() {
-    Command cmd = runEnd(this::coralShooterSlowOn, this::coralShooterStop);
-    cmd.setName("coralShooterSlowOn");
+  public Command coralShooterReverseShootCmd() {
+    Command cmd = runEnd(this::coralShooterReverseShoot, this::coralShooterStop);
+    cmd.setName("coralShooterReverseOn");
     return cmd;
   }
 
@@ -95,5 +86,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", shooterEncoder.get());
   }
-
 }

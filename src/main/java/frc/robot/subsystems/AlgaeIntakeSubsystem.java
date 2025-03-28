@@ -4,85 +4,77 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AlgaeIntakeConstant;
-import frc.robot.lib.PowerDistribution;
+import java.util.function.Supplier;
+
 
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSPX intakeMotor;
   private final VictorSPX rotateMotor;
-  private final PIDController algaeRotatePID;
-  private final PowerDistribution powerDistribution;
-  private boolean isManualControl = false;
+
   private final DutyCycleEncoder rotateEncoder;
 
-  public AlgaeIntakeSubsystem(PowerDistribution powerDistribution) {
-    this.powerDistribution = powerDistribution;
-    algaeRotatePID = new PIDController(0, 0, 0);
-    algaeRotatePID.enableContinuousInput(0, 360);
+  private final PIDController algaeRotatePID;
+
+  private final Supplier<Boolean> shouldUsePIDSupplier;
+
+  public AlgaeIntakeSubsystem(Supplier<Boolean> shouldUsePIDSupplier) {
+    this.shouldUsePIDSupplier = shouldUsePIDSupplier;
+
     intakeMotor = new VictorSPX(AlgaeIntakeConstant.kIntakeMotorChannel);
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
-    rotateEncoder = new DutyCycleEncoder(
-        AlgaeIntakeConstant.kAlgaeEncoderChannelA,
-        AlgaeIntakeConstant.fullRange,
-        AlgaeIntakeConstant.expectedZero);
+
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
     rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
+
+    rotateEncoder = new DutyCycleEncoder(
+        AlgaeIntakeConstant.kAlgaeEncoderChannel,
+        AlgaeIntakeConstant.fullRange,
+        AlgaeIntakeConstant.expectedZero);
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
+
+    algaeRotatePID = new PIDController(0, 0, 0);
+    algaeRotatePID.enableContinuousInput(0, 360);
   }
 
-  public void setIntakeMotorFastOn() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+  public void intake() {
+    intakeMotor.set(ControlMode.PercentOutput,
         AlgaeIntakeConstant.kIntakeFastSpeed);
   }
 
-  public void setIntakeMotorSlowOn() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
-        AlgaeIntakeConstant.kIntakeSlowSpeed);
-  }
-
-  public void setReIntake() {
-    if (powerDistribution.isAlgaeIntakeOverCurrent()) {
-      intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
-    }
-    intakeMotor.set(VictorSPXControlMode.PercentOutput,
+  public void reverseIntake() {
+    intakeMotor.set(ControlMode.PercentOutput,
         AlgaeIntakeConstant.kReIntakeSpeed);
   }
 
   public void stopIntakeMotor() {
-    intakeMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    intakeMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public void manualSetRotate(double speed) {
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, speed);
+    rotateMotor.set(ControlMode.PercentOutput, speed);
     algaeRotatePID.setSetpoint(rotateEncoder.get());
   }
 
-  public void stopRotate() {
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, 0);
+  public void toDefaultDegree() {
+    algaeRotatePID.setSetpoint(0);
   }
 
-  public void setRotateSetpoint(double setpoint) {
-    isManualControl = false;
-    algaeRotatePID.setSetpoint(setpoint);
-    double output = -algaeRotatePID.calculate(getCurrentAngle());
-    output = MathUtil.clamp(output, -0.5, 0.5);
-    rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
+  public void toAlgaeIntakeDegree() {
+    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetAlgaeAngle);
+  }
+
+  public void stopRotate() {
+    rotateMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public double getRotateSetpoint() {
@@ -93,62 +85,58 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return rotateEncoder.get();
   }
 
-  public void setManualControl() {
-    isManualControl = true;
-  }
-
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("algaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
-    SmartDashboard.putNumber("algaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
-    SmartDashboard.putData("algaeRotatePID", algaeRotatePID);
-    SmartDashboard.putBoolean("algaeRotateIsManualControl", isManualControl);
-    SmartDashboard.putNumber("algaeEncoderAngle", rotateEncoder.get());
+    var usePID = shouldUsePIDSupplier.get();
 
-    if (!isManualControl) {
-      double output = -algaeRotatePID.calculate(getCurrentAngle());
-      output = MathUtil.clamp(output, -0.5, 0.5);
-      rotateMotor.set(VictorSPXControlMode.PercentOutput, -output);
-      SmartDashboard.putNumber("algaeOutput", output);
+    if (usePID) {
+      if (getCurrentAngle() > getRotateSetpoint()) {
+        algaeRotatePID.setPID(
+            AlgaeIntakeConstant.kPRotateUp,
+            AlgaeIntakeConstant.kIRotateUp,
+            AlgaeIntakeConstant.kDRotateUp);
+      } else {
+        algaeRotatePID.setPID(
+            AlgaeIntakeConstant.kPRotateDown,
+            AlgaeIntakeConstant.kIRotateDown,
+            AlgaeIntakeConstant.kDRotateDown);
+      }
+
+      double output = algaeRotatePID.calculate(getCurrentAngle());
+      output = MathUtil.clamp(output, AlgaeIntakeConstant.kMinOutput, AlgaeIntakeConstant.kMaxOutput);
+
+      rotateMotor.set(ControlMode.PercentOutput, output);
+
+      SmartDashboard.putNumber("AlgaeRotateOutput", output);
     } else {
       algaeRotatePID.setSetpoint(getCurrentAngle());
-
-      if (getCurrentAngle() < getRotateSetpoint()) {
-        algaeRotatePID.setP(AlgaeIntakeConstant.rotMotorUpPIDkP);
-      } else {
-        algaeRotatePID.setP(AlgaeIntakeConstant.rotMotorDownPIDkP);
-      }
     }
+
+    SmartDashboard.putNumber("AlgaeIntakeVoltage", intakeMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("AlgaeRotateVoltage", rotateMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("AlgaeRotateEncoder", rotateEncoder.get());
+
+    SmartDashboard.putBoolean("AlgaeRotateUsePID", usePID);
+
+    SmartDashboard.putData("AlgaeRotatePID", algaeRotatePID);
   }
 
-  public Command setIntakeMotorFastOnCmd() {
-    Command cmd = runEnd(this::setIntakeMotorFastOn, this::stopIntakeMotor);
+  public Command intakeCmd() {
+    Command cmd = runEnd(this::intake, this::stopIntakeMotor);
     cmd.setName("setIntakeCmd");
     return cmd;
   }
 
-  public Command setIntakeMotorSlowOnCmd() {
-    Command cmd = runEnd(this::setIntakeMotorSlowOn, this::stopIntakeMotor);
-    cmd.setName("setIntakeCmd");
-    return cmd;
-  }
-
-  public Command reIntakeCmd() { // 吐出 algae 的 cmd
-    Command cmd = runEnd(this::setReIntake, this::stopIntakeMotor);
+  public Command reverseIntakeCmd() {
+    Command cmd = runEnd(this::reverseIntake, this::stopIntakeMotor);
     cmd.setName("setReIntakeMotorCmd");
     return cmd;
   }
 
-  public Command setRotateCmd(double speed) { // 吐出 algae 的 cmd
+  public Command setRotateCmd(double speed) {
     Command cmd = runEnd(
-        () -> {
-          isManualControl = true;
-          manualSetRotate(speed);
-        },
-        () -> {
-          isManualControl = false;
-          stopRotate();
-        });
+        () -> manualSetRotate(speed),
+        this::stopRotate);
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
@@ -161,41 +149,19 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
   }
 
-  public Command setManualControlCmd() {
-    Command cmd = runOnce(
-        () -> setManualControl());
-    cmd.setName("setManualControl");
-    return cmd;
-  }
-
   public Command toDefaultDegreeCmd() {
-    algaeRotatePID.setPID(
-        AlgaeIntakeConstant.rotMotorUpPIDkP,
-        AlgaeIntakeConstant.rotMotorUpPIDkI,
-        AlgaeIntakeConstant.rotMotorUpPIDkD);
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(0));
+    Command cmd = runOnce(this::toDefaultDegree);
     cmd.setName("toDefaultDegreeCmd");
     return cmd;
   }
 
   public Command toAlgaeIntakeDegreeCmd() {
-    algaeRotatePID.setPID(
-        AlgaeIntakeConstant.rotMotorDownPIDkP,
-        AlgaeIntakeConstant.rotMotorDownPIDkI,
-        AlgaeIntakeConstant.rotMotorDownPIDkD);
-    Command cmd = runOnce(
-        () -> setRotateSetpoint(AlgaeIntakeConstant.kGetSecAlgaeAngle));
+    Command cmd = runOnce(this::toAlgaeIntakeDegree);
     cmd.setName("toAlgaeIntakeDegreeCmd");
     return cmd;
   }
 
-  public Command autoStopRotateCmd(Command command) {
-    Command cmd = new SequentialCommandGroup(
-        command.repeatedly()
-            .until(() -> algaeRotatePID.getError() < 5),
-        runOnce(this::stopRotate));
-    cmd.setName("autoStopRotateCmd");
-    return cmd;
+  public double getAbsoluteError() {
+    return Math.abs(algaeRotatePID.getError());
   }
 }

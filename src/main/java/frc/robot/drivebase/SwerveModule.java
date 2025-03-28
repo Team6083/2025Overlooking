@@ -67,8 +67,7 @@ public class SwerveModule extends SubsystemBase {
 
     SparkMaxConfig configDriveMotor = new SparkMaxConfig();
     configDriveMotor.idleMode(IdleMode.kBrake);
-    configDriveMotor.smartCurrentLimit(10, 80);
-    configDriveMotor.closedLoopRampRate(ModuleConstant.kDriveClosedLoopRampRate);
+    configDriveMotor.smartCurrentLimit(60, 120);
     configDriveMotor.voltageCompensation(ModuleConstant.kMaxModuleDriveVoltage);
     configDriveMotor.signals.primaryEncoderPositionPeriodMs(10);
     configDriveMotor.signals.primaryEncoderVelocityPeriodMs(20);
@@ -78,7 +77,6 @@ public class SwerveModule extends SubsystemBase {
 
     SparkMaxConfig configTurningMotor = new SparkMaxConfig();
     configTurningMotor.smartCurrentLimit(20);
-    // configTurningMotor.closedLoopRampRate(ModuleConstant.kTurningClosedLoopRampRate);
     configTurningMotor.idleMode(IdleMode.kBrake);
     configTurningMotor.voltageCompensation(ModuleConstant.kMaxModuleTurningVoltage);
     configTurningMotor.inverted(turningInverted);
@@ -154,9 +152,15 @@ public class SwerveModule extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber(name + "_ModuleDistance", getDriveDistance().in(Meters));
     SmartDashboard.putNumber(name + "_ModuleVelocity", getDriveRate().in(MetersPerSecond));
-    SmartDashboard.putNumber(name + "Get_ModuleRotation", getRotation2d().getDegrees());
+    SmartDashboard.putNumber(name + "_ModuleRotation", getRotation2d().getDegrees());
     SmartDashboard.putNumber(name + "_ModuleDriveMotorVoltage", driveMotorVoltage);
     SmartDashboard.putNumber(name + "_ModuleTurningMotorVoltage", turningMotorVoltage);
     SmartDashboard.putData(name + "_RotController", rotController);
+    SmartDashboard.putNumber(name + "_DriveMotorCurrent", driveMotor.getOutputCurrent());
+    SmartDashboard.putNumber(name + "_TurningMotorCurrent", turningMotor.getOutputCurrent());
+    SmartDashboard.putNumber(name + "_DriveMotorApplyVoltage", driveMotor.getAppliedOutput());
+    SmartDashboard.putNumber(name + "_TurningMotorVoltage", turningMotor.getAppliedOutput());
+    SmartDashboard.putNumber(name + "_DriveMotorTemperature", driveMotor.getMotorTemperature());
+    SmartDashboard.putNumber(name + "_TurningMotorTemperature", turningMotor.getMotorTemperature());
   }
 }

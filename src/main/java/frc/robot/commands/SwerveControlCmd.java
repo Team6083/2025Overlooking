@@ -4,12 +4,16 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.Millimeters;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.SwerveControlConstant;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.subsystems.ElevatorSubsystem;
+import java.util.function.Supplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SwerveControlCmd extends Command {
@@ -23,13 +27,20 @@ public class SwerveControlCmd extends Command {
   // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
 
-  private double magnification = SwerveControlConstant.kDefaultMagnification;
+  private final ElevatorSubsystem elevatorSubsystem;
+
+  private double magnification;
+  private double rotMagnification;
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
+  private final Supplier<Boolean> elevatorBypassSafety;
 
-  public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
+  public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController,
+      ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassSafety) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
+    this.elevatorSubsystem = elevatorSubsystem;
+    this.elevatorBypassSafety = elevatorBypassSafety;
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);
@@ -39,10 +50,15 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (mainController.leftBumper().getAsBoolean()) {
+    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
+      magnification = SwerveControlConstant.kSafeMagnification;
+      rotMagnification = SwerveControlConstant.kRotSafeMagnification;
+    } else if (mainController.leftBumper().getAsBoolean()) {
       magnification = SwerveControlConstant.kFastMagnification;
+      rotMagnification = SwerveControlConstant.kRotFastMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
+      rotMagnification = SwerveControlConstant.kRotDefaultMagnification;
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
@@ -66,7 +82,7 @@ public class SwerveControlCmd extends Command {
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = -rotLimiter.calculate(mainController.getRightX())
-          * drivebaseMaxSpeed * 1.2;
+          * drivebaseMaxSpeed * rotMagnification;
 
     } else {
       rotSpeed = 0;
@@ -80,6 +96,7 @@ public class SwerveControlCmd extends Command {
     SmartDashboard.putNumber("XSpeed", xSpeed);
     SmartDashboard.putNumber("YSpeed", ySpeed);
     SmartDashboard.putNumber("RotSpeed", rotSpeed);
+    SmartDashboard.putNumber("DrivebaseMagnification", magnification);
 
   }
 

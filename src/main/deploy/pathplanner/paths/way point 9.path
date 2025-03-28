@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.185749999999999,
-        "y": 7.5447500000000005
+        "x": 6.7156755711635885,
+        "y": 7.310565545996398
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
-        "x": 3.725422297297297,
-        "y": 5.131756756756756
+        "x": 3.709431818181818,
+        "y": 5.135170454545455
       },
       "prevControl": {
-        "x": 2.725422297297297,
-        "y": 5.131756756756756
+        "x": 3.896801950235565,
+        "y": 5.300677051435614
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": -60.802513953935495
   },
   "reversed": false,
   "folder": "way points",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 179.1120637275567
   },
   "useDefaultConstraints": true
 }

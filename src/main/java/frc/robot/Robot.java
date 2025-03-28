@@ -5,9 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -20,10 +22,12 @@ public class Robot extends TimedRobot {
   // CHECKSTYLE.ON: MemberName
 
   private boolean saveLogs = false;
+  Timer gcTimer = new Timer();
 
   public Robot() {
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
+    gcTimer.start();
   }
 
   @Override
@@ -33,26 +37,35 @@ public class Robot extends TimedRobot {
       DriverStation.startDataLog(DataLogManager.getLog());
     }
 
-    SmartDashboard.putString("Maven_Name", BuildConstants.MAVEN_NAME);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
+        .set(BuildConstants.BUILD_DATE);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
+        .set(BuildConstants.GIT_BRANCH);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitDate").publish()
+        .set(BuildConstants.GIT_DATE);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitDirty").publish()
+        .set(BuildConstants.DIRTY == 1 ? "Dirty!" : "Clean! Good job!");
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitSHA").publish()
+        .set(BuildConstants.GIT_SHA);
+    NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
+        .set(BuildConstants.GIT_BRANCH);
+
+    SmartDashboard.putString("MavenName", BuildConstants.MAVEN_NAME);
     SmartDashboard.putString("Version", BuildConstants.VERSION);
-    SmartDashboard.putString("Git_SHA", BuildConstants.GIT_SHA);
-    SmartDashboard.putString("Git_DATE", BuildConstants.GIT_DATE);
-    SmartDashboard.putString("Git_Branch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("Build_Date", BuildConstants.BUILD_DATE);
-    SmartDashboard.putString("Git_Branch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("Build_Date", BuildConstants.BUILD_DATE);
-    if (BuildConstants.DIRTY == 0) {
-      SmartDashboard.putString(
-          "Dirty", "Clean! Good job!");
-    } else {
-      SmartDashboard.putString(
-          "Dirty", "Dirty!");
-    }
+    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
+    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
+    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
+    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitDirty", BuildConstants.DIRTY == 1 ? "Dirty" : "Clean");
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    if (gcTimer.advanceIfElapsed(5)) {
+      System.gc();
+    }
   }
 
   @Override

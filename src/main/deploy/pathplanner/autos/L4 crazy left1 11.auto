@@ -29,7 +29,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErToFour"
+                  "name": "ErToTrd"
                 }
               },
               {
@@ -39,7 +39,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.2
+                        "waitTime": 3.0
                       }
                     },
                     {
@@ -52,6 +52,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ErToFour"
           }
         },
         {

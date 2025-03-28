@@ -34,7 +34,7 @@ deploy {
                 frcStaticFileDeploy(getArtifactTypeClass('FileTreeArtifact')) {
                     files = project.fileTree('src/main/deploy')
                     directory = '/home/lvuser/deploy'
-                    deleteOldFiles = false // Change to true to delete files on roboRIO that no
+                    deleteOldFiles = true // Change to true to delete files on roboRIO that no
                                            // longer exist in deploy directory of this project
                 }
             }
@@ -111,6 +111,6 @@ gversion {
   classPackage = "frc.robot"
   className    = "BuildConstants"
   dateFormat   = "yyyy-MM-dd HH:mm:ss z"
-  timeZone     = "Asia/Taipei" // Australia/Sydney
+  timeZone     = "Asia/Taipei"
   indent       = "  "
 }
