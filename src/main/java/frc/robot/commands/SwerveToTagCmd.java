@@ -16,16 +16,16 @@ public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
   TagTracking tagTracking = new TagTracking();
-  PIDController txController = new PIDController(0.1, 0, 0.5);
-  PIDController tzController = new PIDController(0.1, 0, 0);
-  PIDController yawController = new PIDController(0.3, 0, 0);
+  PIDController txPID = new PIDController(0.1, 0, 0.5);
+  PIDController tzPID = new PIDController(0.1, 0, 0);
+  PIDController yawPID = new PIDController(0.3, 0, 0);
   Boolean isLeft;
 
   public SwerveToTagCmd(SwerveDrive swerveDrive, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
     this.isLeft = isLeft;
-    tzController.setSetpoint(0.44);
-    yawController.setSetpoint(0);
+    tzPID.setSetpoint(0.44);
+    yawPID.setSetpoint(0);
     addRequirements(swerveDrive);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -40,16 +40,16 @@ public class SwerveToTagCmd extends Command {
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
     if (isLeft) {
-      txController.setSetpoint(0.17);
+      txPID.setSetpoint(0.17);
     } else {
-      txController.setSetpoint(-0.16);
+      txPID.setSetpoint(-0.16);
     }
     double xSpeed;
     double ySpeed;
     double rotSpeed;
-    xSpeed = -tzController.calculate(tagTracking.getTr()[2]);
-    ySpeed = txController.calculate(tagTracking.getTr()[0]);
-    rotSpeed = yawController.calculate(tagTracking.getTr()[4]);
+    xSpeed = -tzPID.calculate(tagTracking.getTr()[2]);
+    ySpeed = txPID.calculate(tagTracking.getTr()[0]);
+    rotSpeed = yawPID.calculate(tagTracking.getTr()[4]);
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, rotSpeed, false);
@@ -58,10 +58,10 @@ public class SwerveToTagCmd extends Command {
     SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
     SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
     SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-    SmartDashboard.putData("TzController", tzController);
-    SmartDashboard.putData("TxController", txController);
-    SmartDashboard.putData("YawController", yawController);
-    SmartDashboard.putNumber("LeftSetpoint", txController.getSetpoint());
+    SmartDashboard.putData("TzController", tzPID);
+    SmartDashboard.putData("TxController", txPID);
+    SmartDashboard.putData("YawController", yawPID);
+    SmartDashboard.putNumber("LeftSetpoint", txPID.getSetpoint());
     SmartDashboard.putBoolean("IsLeft", isLeft);
   }
 
@@ -75,6 +75,6 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-    || (Math.abs(txController.getError()) < 0.04 && Math.abs(tzController.getError()) < 0.04);
+    || (Math.abs(txPID.getError()) < 0.04 && Math.abs(tzPID.getError()) < 0.04);
   }
 }
