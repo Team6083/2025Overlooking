@@ -75,6 +75,6 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return tagTracking.getTv() == 0
-    || (Math.abs(txPID.getError()) < 0.04 && Math.abs(tzPID.getError()) < 0.04);
+        || (Math.abs(txPID.getError()) < 0.04 && Math.abs(tzPID.getError()) < 0.04);
   }
 }
