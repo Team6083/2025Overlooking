@@ -55,7 +55,7 @@ public class SwerveControlCmd extends Command {
       rotMagnification = SwerveControlConstant.kRotSafeMagnification;
     } else if (mainController.leftBumper().getAsBoolean()) {
       magnification = SwerveControlConstant.kFastMagnification;
-      rotMagnification= SwerveControlConstant.kRotFastMagnification;
+      rotMagnification = SwerveControlConstant.kRotFastMagnification;
     } else {
       magnification = SwerveControlConstant.kDefaultMagnification;
       rotMagnification = SwerveControlConstant.kRotDefaultMagnification;
