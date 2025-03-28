@@ -33,11 +33,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private Distance targetHeight;
 
-  private final Supplier<Boolean> shouldUsePID, bypassLimitSW;
+  private final Supplier<Boolean> shouldUsePID;
+  private final Supplier<Boolean> bypassLimitSwitch;
 
-  public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSW) {
+  public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSwitch) {
     this.shouldUsePID = shouldUsePID;
-    this.bypassLimitSW = bypassLimitSW;
+    this.bypassLimitSwitch = bypassLimitSwitch;
 
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
@@ -120,7 +121,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean shouldMotorStop() {
-    if (bypassLimitSW.get() && !shouldUsePID.get()) {
+    if (bypassLimitSwitch.get() && !shouldUsePID.get()) {
       return false;
     }
 
@@ -131,7 +132,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     Distance currentHeight = getCurrentHeight();
     boolean usePID = this.shouldUsePID.get();
-    boolean bypassLimitSW = this.bypassLimitSW.get();
+    boolean bypassLimitSwitch = this.bypassLimitSwitch.get();
 
     var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
         .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
@@ -163,7 +164,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         leftElevatorMotor.getMotorOutputVoltage());
 
     SmartDashboard.putBoolean("ElevatorUsePID", usePID);
-    SmartDashboard.putBoolean("ElevatorBypassLimitSW", bypassLimitSW);
+    SmartDashboard.putBoolean("ElevatorBypassLimitSW", bypassLimitSwitch);
 
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
