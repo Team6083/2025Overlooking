@@ -47,7 +47,7 @@ public class SwerveToTagCmd extends Command {
     double xSpeed;
     double ySpeed;
     double rotSpeed;
-    xSpeed = -tzController.calculate(tagTracking.getTr()[2])  ;
+    xSpeed = -tzController.calculate(tagTracking.getTr()[2]);
     ySpeed = txController.calculate(tagTracking.getTr()[0]);
     rotSpeed = yawController.calculate(tagTracking.getTr()[4]);
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
