@@ -111,6 +111,6 @@ gversion {
   classPackage = "frc.robot"
   className    = "BuildConstants"
   dateFormat   = "yyyy-MM-dd HH:mm:ss z"
-  timeZone     = "Australia/Sydney"
+  timeZone     = "Asia/Taipei"
   indent       = "  "
 }
