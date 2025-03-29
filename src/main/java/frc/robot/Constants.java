@@ -22,6 +22,12 @@ public class Constants {
     public static final int kBackLeftTurningMotorChannel = 27;
     public static final int kBackRightTurningMotorChannel = 26;
 
+    // turningMotor inverted
+    public static final boolean kFrontLeftTurningMotorInverted = true;
+    public static final boolean kFrontRightTurningMotorInverted = true;
+    public static final boolean kBackLeftTuringMotorInverted = true;
+    public static final boolean kBackRightTurningMotorInverted = true;
+
     // turning CANcoder ID
     public static final int kFrontLeftCanCoder = 6;
     public static final int kFrontRightCanCoder = 3;
