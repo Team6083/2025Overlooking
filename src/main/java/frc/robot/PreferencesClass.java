@@ -4,9 +4,8 @@
 
 package frc.robot;
 
-import java.util.Map;
-
 import frc.robot.Constants.ModuleConstant;
+import java.util.Map;
 
 /** Add your docs here. */
 public class PreferencesClass {
