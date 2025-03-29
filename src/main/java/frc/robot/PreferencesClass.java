@@ -55,7 +55,7 @@ public class PreferencesClass {
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
     public static Map<String, Double> TWNMagnification_MAP = Map.of(
-        "kDefaultMagnification ", 0.15,
+        "kDefaultMagnification", 0.15,
         "kFastMagnification", 0.75,
         "kSafeMagnification", 0.0625,
         "kRotDefaultMagnification", 0.15,
