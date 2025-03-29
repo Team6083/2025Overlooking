@@ -22,12 +22,6 @@ public class Constants {
     public static final int kBackLeftTurningMotorChannel = 27;
     public static final int kBackRightTurningMotorChannel = 26;
 
-    // turningMotor inverted
-    public static final boolean kFrontLeftTurningMotorInverted = true;
-    public static final boolean kFrontRightTurningMotorInverted = true;
-    public static final boolean kBackLeftTuringMotorInverted = true;
-    public static final boolean kBackRightTurningMotorInverted = true;
-
     // turning CANcoder ID
     public static final int kFrontLeftCanCoder = 6;
     public static final int kFrontRightCanCoder = 3;
@@ -63,15 +57,6 @@ public class Constants {
     // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
-
-    // 設定 rotPID 的參數（180 是最大誤差角度）
-    // public static final double kPRotationController = kMaxModuleTurningVoltage
-    //     / 180;
-
-    // public static final double kIRotationController = 0.0;
-    // public static final double kDRotationController = 0.0;
-
-    public static final boolean kTurningMotorInverted = true;
   }
 
   public static final class AlgaeIntakeConstant {
@@ -123,16 +108,10 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterMotorChannel = 32;
     public static final int kShooterEncoderChannel = 4;
-    // public static final double kShooterMotorFastSpeed = 0.25;
-    // public static final double kShooterMotorSlowSpeed = 0.195;
-    // public static final double kShooterMotorReverseSpeed = -0.195;
     public static final Boolean kCoralShooterMotorInverted = true;
     public static final Boolean kCoralShooterEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
-    // public static final double kP = 0.0035;
-    // public static final double kI = 0.0;
-    // public static final double kD = 0.0;
   }
 
   public static final class ElevatorConstant {
@@ -173,14 +152,6 @@ public class Constants {
   }
 
   public static final class SwerveControlConstant {
-    // public static final double kDefaultMagnification = 0.8;
-    // public static final double kFastMagnification = 0.75;
-    // public static final double kSafeMagnification = 0.0625;
-
-    public static final double kRotDefaultMagnification = 1.2;
-    public static final double kRotFastMagnification = 0.8;
-    public static final double kRotSafeMagnification = 0.25;
-
     public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
 
