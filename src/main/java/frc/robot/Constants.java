@@ -65,11 +65,11 @@ public class Constants {
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
 
     // 設定 rotPID 的參數（180 是最大誤差角度）
-    public static final double kPRotationController = kMaxModuleTurningVoltage
-        / 180;
+    // public static final double kPRotationController = kMaxModuleTurningVoltage
+    //     / 180;
 
-    public static final double kIRotationController = 0.0;
-    public static final double kDRotationController = 0.0;
+    // public static final double kIRotationController = 0.0;
+    // public static final double kDRotationController = 0.0;
 
     public static final boolean kTurningMotorInverted = true;
   }
@@ -123,16 +123,16 @@ public class Constants {
     public static final double kDistanceRange = 4.0;
     public static final int kShooterMotorChannel = 32;
     public static final int kShooterEncoderChannel = 4;
-    public static final double kShooterMotorFastSpeed = 0.25;
-    public static final double kShooterMotorSlowSpeed = 0.195;
-    public static final double kShooterMotorReverseSpeed = -0.195;
+    // public static final double kShooterMotorFastSpeed = 0.25;
+    // public static final double kShooterMotorSlowSpeed = 0.195;
+    // public static final double kShooterMotorReverseSpeed = -0.195;
     public static final Boolean kCoralShooterMotorInverted = true;
     public static final Boolean kCoralShooterEncoderInverted = true;
     public static final double kEncoderFullRange = 360.0;
     public static final double kEncoderOffset = 0.0;
-    public static final double kP = 0.0035;
-    public static final double kI = 0.0;
-    public static final double kD = 0.0;
+    // public static final double kP = 0.0035;
+    // public static final double kI = 0.0;
+    // public static final double kD = 0.0;
   }
 
   public static final class ElevatorConstant {
@@ -173,9 +173,9 @@ public class Constants {
   }
 
   public static final class SwerveControlConstant {
-    public static final double kDefaultMagnification = 0.8;
-    public static final double kFastMagnification = 0.75;
-    public static final double kSafeMagnification = 0.0625;
+    // public static final double kDefaultMagnification = 0.8;
+    // public static final double kFastMagnification = 0.75;
+    // public static final double kSafeMagnification = 0.0625;
 
     public static final double kRotDefaultMagnification = 1.2;
     public static final double kRotFastMagnification = 0.8;
