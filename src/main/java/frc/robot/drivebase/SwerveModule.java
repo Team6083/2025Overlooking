@@ -26,6 +26,7 @@ import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ModuleConstant;
+import frc.robot.PreferencesClass.ModuleRotationController;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -55,9 +56,9 @@ public class SwerveModule extends SubsystemBase {
     driveEncoder = driveMotor.getEncoder();
 
     rotController = new PIDController(
-        ModuleConstant.kPRotationController,
-        ModuleConstant.kIRotationController,
-        ModuleConstant.kDRotationController);
+        ModuleRotationController.get("kP"),
+        ModuleRotationController.get("kI"),
+        ModuleRotationController.get("kD"));
     rotController.enableContinuousInput(-180.0, 180.0);
 
     driveMotorVoltage = 0;
