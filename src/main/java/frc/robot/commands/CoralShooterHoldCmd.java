@@ -8,7 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.CoralShooterConstant;
+import frc.robot.PreferencesClass.CoralShooter;
 import frc.robot.subsystems.CoralShooterSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -16,9 +16,9 @@ public class CoralShooterHoldCmd extends Command {
   /** Creates a new CoralShooterHoldCmd. */
   private double encoderTargetDegree;
   private PIDController coralHoldPID = new PIDController(
-      CoralShooterConstant.kP,
-      CoralShooterConstant.kI,
-      CoralShooterConstant.kD);
+      CoralShooter.get("kP"),
+      CoralShooter.get("kI"),
+      CoralShooter.get("kD"));
   private CoralShooterSubsystem coralShooterSubsystem;
 
   public CoralShooterHoldCmd(CoralShooterSubsystem coralShooterSubsystem) {
