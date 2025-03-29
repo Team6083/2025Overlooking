@@ -302,26 +302,6 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
-    Preferences.initInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
-    trueCanCoderMagOffset = Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
-    if (trueCanCoderMagOffset != Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset)) {
-      trueCanCoderMagOffset = Preferences.getInt("WhereCanCoderMagOffset", whereCanCoderMagOffset);
-    }
-    if (trueCanCoderMagOffset == au) {
-      DriveMotorInverted.currentConfig = DriveMotorInverted.AUDriveMotorInverted_MAP;
-      CanCoderMagOffset.currentConfig = CanCoderMagOffset.AUCanCoderMagOffset_MAP;
-    }
-    if (trueCanCoderMagOffset == twn) {
-
-      DriveMotorInverted.currentConfig = DriveMotorInverted.TWNDriveMotorInverted_MAP;
-      CanCoderMagOffset.currentConfig = CanCoderMagOffset.TWNCanCoderMagOffset_MAP;
-    }
-
-    SmartDashboard.putNumber("TrueCanCoderMagOffset", trueCanCoderMagOffset);
-    SmartDashboard.putBoolean("DriveMotorInverted",
-        DriveMotorInverted.currentConfig.get("kFrontLeftDriveMotorInverted"));
-    SmartDashboard.putNumber("canCoderMagOffset", CanCoderMagOffset.currentConfig.get("kFrontLeftCanCoderMagOffset"));
-
   }
 
   public Command gyroResetCmd() {
