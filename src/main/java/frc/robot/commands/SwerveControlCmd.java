@@ -58,8 +58,8 @@ public class SwerveControlCmd extends Command {
       magnification = Magnification.get("kFastMagnification");
       rotMagnification = Magnification.get("kRotFastMagnification");
     } else {
-      magnification = Magnification.get("kSafeMagnification");
-      rotMagnification = Magnification.get("kRotSafeMagnification");
+      magnification = Magnification.get("kDefaultMagnification");
+      rotMagnification = Magnification.get("kRotDefaultMagnification");
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
