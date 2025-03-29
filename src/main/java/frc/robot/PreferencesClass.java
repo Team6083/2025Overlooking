@@ -88,14 +88,14 @@ public class PreferencesClass {
     public static Map<String, Double> AUCoralShooterConstant_MAP = Map.of(
         "kCoralInSpeed", 0.195,
         "kCoralOutSpeed", 0.195,
-        "kReverseSpeed", -0.195,
+        "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0);
     public static Map<String, Double> TWNCoralShooterConstant_MAP = Map.of(
         "kCoralInSpeed", 0.2,
         "kCoralOutSpeed", 0.8,
-        "kReverseSpeed", -0.2,
+        "kCoralReverseSpeed", -0.2,
         "kP", 0.0007,
         "kI", 0.0,
         "kD", 0.00015);

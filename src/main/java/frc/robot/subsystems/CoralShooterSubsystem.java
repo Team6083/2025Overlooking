@@ -52,7 +52,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void coralShooterReverseShoot() {
-    setMotorSpeed(CoralShooter.get("kReverseSpeed"));
+    setMotorSpeed(CoralShooter.get("kCoralReverseSpeed"));
   }
 
   public void coralShooterStop() { // Motor stop
