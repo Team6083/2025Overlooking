@@ -52,14 +52,14 @@ public class PreferencesClass {
         "kFastMagnification", 0.75,
         "kSafeMagnification", 0.0625,
         "kRotDefaultMagnification", 1.2,
-        "kRotFastMagnification",0.8,
+        "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
     public static Map<String, Double> TWNMagnification_MAP = Map.of(
         "kDefaultMagnification ", 0.15,
         "kFastMagnification ", 0.75,
         "kSafeMagnification", 0.0625,
         "kRotDefaultMagnification", 0.15,
-        "kRotFastMagnification",0.75,
+        "kRotFastMagnification", 0.75,
         "kRotSafeMagnification", 0.25);
     public static Map<String, Double> currentConfig = TWNMagnification_MAP;
 
@@ -84,7 +84,7 @@ public class PreferencesClass {
     }
   }
 
-  public class CoralShooter{
+  public class CoralShooter {
     public static Map<String, Double> AUCoralShooterConstant_MAP = Map.of(
         "kCoralInSpeed", 0.195,
         "kCoralOutSpeed", 0.195,
