@@ -4,14 +4,12 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Millimeters;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.SwerveControlConstant;
-import frc.robot.PreferencesClass.Magnification;
+import frc.robot.PreferencesClass.SwerveControl;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import java.util.function.Supplier;
@@ -51,15 +49,15 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
-      magnification = Magnification.get("kSafeMagnification");
-      rotMagnification = Magnification.get("kRotSafeMagnification");
+    if (elevatorSubsystem.getCurrentHeight().gt(SwerveControl.getDistance("kElevatorSafetyHeight")) && !elevatorBypassSafety.get()) {
+      magnification = SwerveControl.getDouble("kSafeMagnification");
+      rotMagnification = SwerveControl.getDouble("kRotSafeMagnification");
     } else if (mainController.leftBumper().getAsBoolean()) {
-      magnification = Magnification.get("kFastMagnification");
-      rotMagnification = Magnification.get("kRotFastMagnification");
+      magnification = 0.75;
+      rotMagnification = 0.8;
     } else {
-      magnification = Magnification.get("kDefaultMagnification");
-      rotMagnification = Magnification.get("kRotDefaultMagnification");
+      magnification = SwerveControl.getDouble("kDefaultMagnification");
+      rotMagnification = SwerveControl.getDouble("kRotDefaultMagnification");
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;

@@ -5,7 +5,12 @@
 package frc.robot;
 
 import frc.robot.Constants.ModuleConstant;
+
+import static edu.wpi.first.units.Units.Millimeter;
+
 import java.util.Map;
+
+import edu.wpi.first.units.measure.Distance;
 
 /** Add your docs here. */
 public class PreferencesClass {
@@ -46,25 +51,36 @@ public class PreferencesClass {
     }
   }
 
-  public class Magnification {
-    public static Map<String, Double> AUMagnification_MAP = Map.of(
+  public class SwerveControl {
+    public static Map<String, Double> AUSwerveControlDouble_MAP = Map.of(
         "kDefaultMagnification", 0.4,
         "kFastMagnification", 0.75,
         "kSafeMagnification", 0.0625,
         "kRotDefaultMagnification", 1.2,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
-    public static Map<String, Double> TWNMagnification_MAP = Map.of(
-        "kDefaultMagnification", 0.15,
+    public static Map<String, Distance> AUSwerveControlDistance_MAP = Map.of(
+        "kElevatorSafetyHeight", Millimeter.of(545.0));
+
+    public static Map<String, Double> TWNSwerveControlDouble_MAP = Map.of(
+        "kDefaultMagnification", 0.17,
         "kFastMagnification", 0.75,
         "kSafeMagnification", 0.0625,
-        "kRotDefaultMagnification", 0.15,
+        "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.75,
-        "kRotSafeMagnification", 0.25);
-    public static Map<String, Double> currentConfig = TWNMagnification_MAP;
+        "kRotSafeMagnification", 0.20);
+    public static Map<String, Distance> TWNSwerveControlDistance_MAP = Map.of(
+        "kElevatorSafetyHeight", Millimeter.of(719.0));
 
-    public static double get(String key) {
-      return currentConfig.get(key);
+    public static Map<String, Double> currentConfigDouble = TWNSwerveControlDouble_MAP;
+    public static Map<String, Distance> currentConfigDistance = TWNSwerveControlDistance_MAP;
+
+    public static double getDouble(String key) {
+      return currentConfigDouble.get(key);
+    }
+
+    public static Distance getDistance(String key) {
+      return currentConfigDistance.get(key);
     }
   }
 
