@@ -93,8 +93,8 @@ public class PreferencesClass {
         "kI", 0.0,
         "kD", 0.0);
     public static Map<String, Double> TWNCoralShooterConstant_MAP = Map.of(
-        "kCoralInSpeed", 0.2,
-        "kCoralOutSpeed", 0.8,
+        "kCoralInSpeed", 0.15,
+        "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.2,
         "kP", 0.0007,
         "kI", 0.0,
