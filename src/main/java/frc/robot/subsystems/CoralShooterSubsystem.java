@@ -20,6 +20,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterMotor;
   private Rev2mDistanceSensor distanceSensor;
   private DutyCycleEncoder shooterEncoder;
+  private boolean au;
+  private boolean twn;
 
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);

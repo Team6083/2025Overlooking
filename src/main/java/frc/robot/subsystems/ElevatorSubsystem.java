@@ -13,10 +13,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.PreferencesClass;
 import frc.robot.Constants.ElevatorConstant;
 import java.util.function.Supplier;
 
@@ -35,6 +37,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final Supplier<Boolean> shouldUsePID;
   private final Supplier<Boolean> bypassLimitSwitch;
+  private boolean au;
+  private boolean twn;
+  private Distance test;
 
   public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSwitch) {
     this.shouldUsePID = shouldUsePID;
@@ -172,6 +177,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
 
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+    au = Preferences.getInt("robot", 0) == 0;
+    twn = Preferences.getInt("robot", 0) == 1;
+    if (au) {
+      PreferencesClass.Elevator.ElevatorcurrentConfig = PreferencesClass.Elevator.AUElevator_MAP;
+    } else if (twn) {
+      PreferencesClass.Elevator.ElevatorcurrentConfig = PreferencesClass.Elevator.TWNElevator_MAP;
+    }
   }
 
   public Command toSecFloorCmd() {

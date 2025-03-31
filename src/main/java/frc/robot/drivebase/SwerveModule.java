@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ModuleConstant;
@@ -38,6 +39,8 @@ public class SwerveModule extends SubsystemBase {
   private final String name;
   private double turningMotorVoltage;
   private double driveMotorVoltage;
+  private boolean au;
+  private boolean twn;
 
   public SwerveModule(int driveMotorChannel,
       int turningMotorChannel, int turningEncoderChannel,
@@ -163,5 +166,12 @@ public class SwerveModule extends SubsystemBase {
     SmartDashboard.putNumber(name + "_TurningMotorVoltage", turningMotor.getAppliedOutput());
     SmartDashboard.putNumber(name + "_DriveMotorTemperature", driveMotor.getMotorTemperature());
     SmartDashboard.putNumber(name + "_TurningMotorTemperature", turningMotor.getMotorTemperature());
+    au = Preferences.getInt("robot", 0) == 0;
+    twn = Preferences.getInt("robot", 0) == 1;
+    if (au) {
+      ModuleRotationController.ModuleRotationControllercurrentConfig = ModuleRotationController.AURotationController_MAP;
+    } else if (twn) {
+      ModuleRotationController.ModuleRotationControllercurrentConfig = ModuleRotationController.TWNRotationController_MAP;
+    }
   }
 }

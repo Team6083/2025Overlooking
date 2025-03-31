@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -33,6 +34,8 @@ public class SwerveControlCmd extends Command {
   private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
   private final Supplier<Boolean> elevatorBypassSafety;
+  private boolean au;
+  private boolean twn;
 
   public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController,
       ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassSafety) {
@@ -96,7 +99,15 @@ public class SwerveControlCmd extends Command {
     SmartDashboard.putNumber("YSpeed", ySpeed);
     SmartDashboard.putNumber("RotSpeed", rotSpeed);
     SmartDashboard.putNumber("DrivebaseMagnification", magnification);
-
+    au = Preferences.getInt("robot", 0) == 0;
+    twn = Preferences.getInt("robot", 0) == 1;
+    if (au) {
+      SwerveControl.currentConfigDouble = SwerveControl.AUSwerveControlDouble_MAP;
+      SwerveControl.currentConfigDistance = SwerveControl.AUSwerveControlDistance_MAP;
+    } else if (twn) {
+      SwerveControl.currentConfigDouble = SwerveControl.TWNSwerveControlDouble_MAP;
+      SwerveControl.currentConfigDistance = SwerveControl.TWNSwerveControlDistance_MAP;
+    }
   }
 
   // Called once the command ends or is interrupted.

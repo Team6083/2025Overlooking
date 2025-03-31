@@ -7,6 +7,7 @@ import static edu.wpi.first.units.Units.Millimeters;
 
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
+import frc.robot.PreferencesClass.Elevator;
 
 public class Constants {
   public static final class DriveBaseConstant {
@@ -137,22 +138,22 @@ public class Constants {
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
 
-    public static final Distance kHeightOffset = Millimeters.of(430.0);
+    public static final Distance kHeightOffset = Elevator.get("kHeightOffset");
 
-    public static final Distance kLowestHeight = Millimeters.of(430.0);
-    public static final Distance kMaxHeight = Millimeters.of(1520);
+    public static final Distance kLowestHeight = Elevator.get("kLowestHeight");
+    public static final Distance kMaxHeight = Elevator.get("kMaxHeight");
 
     public static final double kMaxOutputHigher = 0.8;
     public static final double kMaxOutputLower = 0.5;
     public static final double kMinOutput = -0.1;
 
-    public static final Distance kInitialHeight = Millimeters.of(430.0);
-    public static final Distance kSecFloor = Millimeters.of(769);
-    public static final Distance kTrdFloor = Millimeters.of(1190);
-    public static final Distance kTopFloor = Millimeters.of(1864);
+    public static final Distance kInitialHeight = Elevator.get("kInitialHeight");
+    public static final Distance kSecFloor = Elevator.get("kSecFloor");
+    public static final Distance kTrdFloor = Elevator.get("kTrdFloor");
+    public static final Distance kTopFloor = Elevator.get("kTopFloor");
     public static final Distance kStepHeight = Millimeters.of(7);
-    public static final Distance kToGetSecAlgaeHeight = Millimeters.of(818);
-    public static final Distance kToGetTrdAlgaeHeight = Millimeters.of(1355);
+    public static final Distance kToGetSecAlgaeHeight = Elevator.get("kToGetSecAlgaeHeight");
+    public static final Distance kToGetTrdAlgaeHeight = Elevator.get("kToGetTrdAlgaeHeight");
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
         * Inches.of(1.214 * Math.PI).in(Millimeters) * 2;
   }

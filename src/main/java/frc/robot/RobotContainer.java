@@ -2,6 +2,9 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +14,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.PreferencesClass.CoralShooter;
+import frc.robot.PreferencesClass.Elevator;
+import frc.robot.PreferencesClass.ModuleRotationController;
+import frc.robot.PreferencesClass.SwerveControl;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
@@ -20,6 +27,7 @@ import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class RobotContainer {
@@ -36,7 +44,7 @@ public class RobotContainer {
   private final SendableChooser<Command> autoChooser;
 
   private final TagTracking tagTracking;
-
+  
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 

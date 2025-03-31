@@ -7,6 +7,7 @@ package frc.robot;
 import static edu.wpi.first.units.Units.Millimeters;
 
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.ModuleConstant;
 import java.util.Map;
 
@@ -24,10 +25,10 @@ public class PreferencesClass {
         "kFrontRightDriveMotorInverted", false,
         "kBackLeftDriveMotorInverted", true,
         "kBackRightDriveMotorInverted", false);
-    public static Map<String, Boolean> currentConfig = TWNDriveMotorInverted_MAP;
+    public static Map<String, Boolean> DriveMotorInvertedcurrentConfig = TWNDriveMotorInverted_MAP;
 
     public static boolean get(String key) {
-      return currentConfig.get(key);
+      return DriveMotorInvertedcurrentConfig.get(key);
     }
   }
 
@@ -42,10 +43,10 @@ public class PreferencesClass {
         "kFrontRightCanCoderMagOffset", 0.217285,
         "kBackLeftCanCoderMagOffset", -0.423828,
         "kBackRightCanCoderMagOffset", -0.087402);
-    public static Map<String, Double> currentConfig = TWNCanCoderMagOffset_MAP;
+    public static Map<String, Double> CanCoderMagOffsetcurrentConfig = TWNCanCoderMagOffset_MAP;
 
     public static double get(String key) {
-      return currentConfig.get(key);
+      return CanCoderMagOffsetcurrentConfig.get(key);
     }
   }
 
@@ -91,10 +92,10 @@ public class PreferencesClass {
         "kP", ModuleConstant.kMaxModuleTurningVoltage / 180,
         "kI", 0.0,
         "kD", 0.0005);
-    public static Map<String, Double> currentConfig = TWNRotationController_MAP;
+    public static Map<String, Double> ModuleRotationControllercurrentConfig = TWNRotationController_MAP;
 
     public static double get(String key) {
-      return currentConfig.get(key);
+      return ModuleRotationControllercurrentConfig.get(key);
     }
   }
 
@@ -113,39 +114,43 @@ public class PreferencesClass {
         "kP", 0.0007,
         "kI", 0.0,
         "kD", 0.00015);
-    public static Map<String, Double> currentConfig = TWNCoralShooterConstant_MAP;
+    public static Map<String, Double> CoralShootercurrentConfig = TWNCoralShooterConstant_MAP;
 
     public static double get(String key) {
-      return currentConfig.get(key);
+      return CoralShootercurrentConfig.get(key);
     }
   }
 
   public class Elevator {
     public static Map<String, Distance> AUElevator_MAP = Map.of(
-      "kHeightOffset", Millimeters.of(600.0),
+        "kHeightOffset", Millimeters.of(600.0),
 
-      "kLowestHeight", Millimeters.of(600.0),
-      "kMaxHeight", Millimeters.of(1520),
+        "kLowestHeight", Millimeters.of(600.0),
+        "kMaxHeight", Millimeters.of(1520),
 
-      "kInitialHeight", Millimeters.of(600.0),
-      "kSecFloor", Millimeters.of(839.0),
-      "kTrdFloor", Millimeters.of(1186.666666),
-      "kTopFloor", Millimeters.of(1740),
-      "kToGetSecAlgaeHeight", Millimeters.of(818.0),
-      "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
-    )
+        "kInitialHeight", Millimeters.of(600.0),
+        "kSecFloor", Millimeters.of(839.0),
+        "kTrdFloor", Millimeters.of(1186.666666),
+        "kTopFloor", Millimeters.of(1740),
+        "kToGetSecAlgaeHeight", Millimeters.of(818.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
+        );
     public static Map<String, Distance> TWNElevator_MAP = Map.of(
-      "kHeightOffset", Millimeters.of(600.0),
+        "kHeightOffset", Millimeters.of(430.0),
 
-      "kLowestHeight", Millimeters.of(600.0),
-      "kMaxHeight", Millimeters.of(1520),
+        "kLowestHeight", Millimeters.of(430.0),
+        "kMaxHeight", Millimeters.of(1520),
 
-      "kInitialHeight", Millimeters.of(600.0),
-      "kSecFloor", Millimeters.of(839.0),
-      "kTrdFloor", Millimeters.of(1186.666666),
-      "kTopFloor", Millimeters.of(1740),
-      "kToGetSecAlgaeHeight", Millimeters.of(818.0),
-      "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
-    );
+        "kInitialHeight", Millimeters.of(430.0),
+        "kSecFloor", Millimeters.of(769.0),
+        "kTrdFloor", Millimeters.of(1190),
+        "kTopFloor", Millimeters.of(1864),
+        "kToGetSecAlgaeHeight", Millimeters.of(818.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
+        );
+    public static Map<String, Distance> ElevatorcurrentConfig = TWNElevator_MAP;
+    public static Distance get(String key) {
+      return ElevatorcurrentConfig.get(key);
+    }
   }
 }

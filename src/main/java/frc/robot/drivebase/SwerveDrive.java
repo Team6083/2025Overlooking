@@ -19,12 +19,14 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
 import frc.robot.PreferencesClass.CanCoderMagOffset;
+import frc.robot.PreferencesClass.CoralShooter;
 import frc.robot.PreferencesClass.DriveMotorInverted;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
@@ -38,6 +40,8 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
   private final AHRS gyro;
+  private boolean au;
+  private boolean twn;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -296,6 +300,18 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
+    Preferences.initInt("robot", 0);
+    au = Preferences.getInt("robot", 0) == 0;
+    twn = Preferences.getInt("robot", 0) == 1;
+    if (au) {
+      DriveMotorInverted.DriveMotorInvertedcurrentConfig = DriveMotorInverted.AUDriveMotorInverted_MAP;
+      CanCoderMagOffset.CanCoderMagOffsetcurrentConfig = CanCoderMagOffset.AUCanCoderMagOffset_MAP;
+      CoralShooter.CoralShootercurrentConfig = CoralShooter.AUCoralShooterConstant_MAP;
+    } else if (twn) {
+      DriveMotorInverted.DriveMotorInvertedcurrentConfig = DriveMotorInverted.TWNDriveMotorInverted_MAP;
+      CanCoderMagOffset.CanCoderMagOffsetcurrentConfig = CanCoderMagOffset.TWNCanCoderMagOffset_MAP;
+      CoralShooter.CoralShootercurrentConfig = CoralShooter.TWNCoralShooterConstant_MAP;
+    }
   }
 
   public Command gyroResetCmd() {
