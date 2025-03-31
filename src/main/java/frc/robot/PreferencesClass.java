@@ -4,13 +4,11 @@
 
 package frc.robot;
 
-import frc.robot.Constants.ModuleConstant;
-
-import static edu.wpi.first.units.Units.Millimeter;
-
-import java.util.Map;
+import static edu.wpi.first.units.Units.Millimeters;
 
 import edu.wpi.first.units.measure.Distance;
+import frc.robot.Constants.ModuleConstant;
+import java.util.Map;
 
 /** Add your docs here. */
 public class PreferencesClass {
@@ -60,7 +58,7 @@ public class PreferencesClass {
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
     public static Map<String, Distance> AUSwerveControlDistance_MAP = Map.of(
-        "kElevatorSafetyHeight", Millimeter.of(545.0));
+        "kElevatorSafetyHeight", Millimeters.of(545.0));
 
     public static Map<String, Double> TWNSwerveControlDouble_MAP = Map.of(
         "kDefaultMagnification", 0.17,
@@ -70,7 +68,7 @@ public class PreferencesClass {
         "kRotFastMagnification", 0.75,
         "kRotSafeMagnification", 0.20);
     public static Map<String, Distance> TWNSwerveControlDistance_MAP = Map.of(
-        "kElevatorSafetyHeight", Millimeter.of(719.0));
+        "kElevatorSafetyHeight", Millimeters.of(719.0));
 
     public static Map<String, Double> currentConfigDouble = TWNSwerveControlDouble_MAP;
     public static Map<String, Distance> currentConfigDistance = TWNSwerveControlDistance_MAP;
@@ -122,4 +120,32 @@ public class PreferencesClass {
     }
   }
 
+  public class Elevator {
+    public static Map<String, Distance> AUElevator_MAP = Map.of(
+      "kHeightOffset", Millimeters.of(600.0),
+
+      "kLowestHeight", Millimeters.of(600.0),
+      "kMaxHeight", Millimeters.of(1520),
+
+      "kInitialHeight", Millimeters.of(600.0),
+      "kSecFloor", Millimeters.of(839.0),
+      "kTrdFloor", Millimeters.of(1186.666666),
+      "kTopFloor", Millimeters.of(1740),
+      "kToGetSecAlgaeHeight", Millimeters.of(818.0),
+      "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
+    )
+    public static Map<String, Distance> TWNElevator_MAP = Map.of(
+      "kHeightOffset", Millimeters.of(600.0),
+
+      "kLowestHeight", Millimeters.of(600.0),
+      "kMaxHeight", Millimeters.of(1520),
+
+      "kInitialHeight", Millimeters.of(600.0),
+      "kSecFloor", Millimeters.of(839.0),
+      "kTrdFloor", Millimeters.of(1186.666666),
+      "kTopFloor", Millimeters.of(1740),
+      "kToGetSecAlgaeHeight", Millimeters.of(818.0),
+      "kToGetTrdAlgaeHeight", Millimeters.of(1355.0)
+    );
+  }
 }
