@@ -47,9 +47,9 @@ public class SwerveToTagCmd extends Command {
     double xSpeed;
     double ySpeed;
     double rotSpeed;
-    xSpeed = -tzPID.calculate(tagTracking.getTr()[2]);
-    ySpeed = txPID.calculate(tagTracking.getTr()[0]);
-    rotSpeed = yawPID.calculate(tagTracking.getTr()[4]);
+    xSpeed = -tzPID.calculate(tagTracking.get3DTz());
+    ySpeed = txPID.calculate(tagTracking.get3DTx());
+    rotSpeed = yawPID.calculate(tagTracking.get3DYaw());
     xSpeed = MathUtil.clamp(xSpeed, -2, 2);
     ySpeed = MathUtil.clamp(ySpeed, -2, 2);
     swerveDrive.drive(xSpeed, ySpeed, rotSpeed, false);
@@ -74,7 +74,7 @@ public class SwerveToTagCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tagTracking.getTv() == 0
+    return tagTracking.isGetTarget() == false
         || (Math.abs(txPID.getError()) < 0.04 && Math.abs(tzPID.getError()) < 0.04);
   }
 }
