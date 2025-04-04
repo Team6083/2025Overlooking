@@ -51,10 +51,10 @@ public class ConfigChooser {
    */
   public static class SwerveControl {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kDefaultMagnification", 0.4,
+        "kDefaultMagnification", 0.15,
         "kFastMagnification", 0.75,
         "kSafeMagnification", 0.0625,
-        "kRotDefaultMagnification", 1.2,
+        "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
 
@@ -172,13 +172,13 @@ public class ConfigChooser {
    */
   public static class Elevator {
     private static final Map<String, Distance> australiaMap = Map.of(
-        "kHeightOffset", Millimeters.of(430.0),
-        "kLowestHeight", Millimeters.of(430.0),
-        "kMaxHeight", Millimeters.of(1520.0),
-        "kInitialHeight", Millimeters.of(600.0),
-        "kSecFloor", Millimeters.of(839.0),
-        "kTrdFloor", Millimeters.of(1186.666666),
-        "kTopFloor", Millimeters.of(1740.0),
+        "kHeightOffset", Millimeters.of(540.0),
+        "kLowestHeight", Millimeters.of(540.0),
+        "kMaxHeight", Millimeters.of(1630.0),
+        "kInitialHeight", Millimeters.of(540.0),
+        "kSecFloor", Millimeters.of(879.0),
+        "kTrdFloor", Millimeters.of(1300.0),
+        "kTopFloor", Millimeters.of(1850),
         "kToGetSecAlgaeHeight", Millimeters.of(818.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
 
