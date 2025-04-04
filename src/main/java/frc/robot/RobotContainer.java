@@ -1,10 +1,6 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.wpilibj.Preferences;
+// WPILib imports
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,52 +10,99 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.PreferencesClass.CoralShooter;
-import frc.robot.PreferencesClass.Elevator;
-import frc.robot.PreferencesClass.ModuleRotationController;
-import frc.robot.PreferencesClass.SwerveControl;
+
+// PathPlanner imports
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
+// Robot-specific imports
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import java.util.Map;
+
+// Java imports
 import java.util.function.Supplier;
 
+/**
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (including the scheduler calls). Instead, the structure of
+ * the robot
+ * (including subsystems, commands, and button mappings) should be declared
+ * here.
+ */
 public class RobotContainer {
+  // Subsystems
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
 
+  // Controllers
   private final CommandXboxController mainController = new CommandXboxController(0);
   private final CommandGenericHID controlPanel = new CommandGenericHID(1);
 
+  // Supplier functions for control panel buttons
   private final Supplier<Boolean> elevatorBypassSafety = () -> controlPanel.button(9).getAsBoolean();
 
+  // Autonomous mode selection
   private final SendableChooser<Command> autoChooser;
 
+  // Vision tracking
   private final TagTracking tagTracking;
-  
+
+  // Command groups for complex operations
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
 
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
+    // Initialize control panel button suppliers
     Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
     Supplier<Boolean> algaeRotateUsePID = () -> controlPanel.button(12).getAsBoolean();
 
+    // Initialize subsystems
     coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
     swerveDrive = new SwerveDrive();
-
     tagTracking = new TagTracking();
 
-    takeL2AlgaeCommandGroup = new ParallelRaceGroup(
+    // Initialize command groups
+    takeL2AlgaeCommandGroup = createTakeL2AlgaeCommandGroup();
+    takeL3AlgaeCommandGroup = createTakeL3AlgaeCommandGroup();
+
+    // Register named commands for autonomous mode
+    registerNamedCommands();
+
+    // Configure autonomous mode selection
+    autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    SmartDashboard.putData("AutoChooser", autoChooser);
+
+    // Add subsystems to SmartDashboard for monitoring
+    addSubsystemsToDashboard();
+
+    // Configure button bindings
+    configureBindings();
+  }
+
+  /**
+   * Creates the command group for taking algae from level 2.
+   * 
+   * @return The command group for level 2 algae collection
+   */
+  private SequentialCommandGroup createTakeL2AlgaeCommandGroup() {
+    return new ParallelRaceGroup(
         elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
             .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
         algaeIntakeSubsystem.reverseIntakeCmd())
@@ -67,8 +110,15 @@ public class RobotContainer {
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reverseIntakeCmd()));
+  }
 
-    takeL3AlgaeCommandGroup = new ParallelRaceGroup(
+  /**
+   * Creates the command group for taking algae from level 3.
+   * 
+   * @return The command group for level 3 algae collection
+   */
+  private SequentialCommandGroup createTakeL3AlgaeCommandGroup() {
+    return new ParallelRaceGroup(
         elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
             .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
         algaeIntakeSubsystem.reverseIntakeCmd())
@@ -76,19 +126,16 @@ public class RobotContainer {
             new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
                 .withTimeout(1.5),
             algaeIntakeSubsystem.reverseIntakeCmd()));
+  }
 
-    registerNamedCommands();
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
-
+  /**
+   * Adds all subsystems to the SmartDashboard for monitoring.
+   */
+  private void addSubsystemsToDashboard() {
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
-
-    configureBindings();
   }
 
   private void registerNamedCommands() {
@@ -115,15 +162,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagRight",
+    //     Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
+    //         swerveDrive.driveForwardCmd().withTimeout(2),
+    //         () -> tagTracking.getTv() == 1));
 
-    NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagLeft",
+    //     Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
+    //         swerveDrive.driveForwardCmd().withTimeout(2),
+    //         () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
@@ -134,8 +181,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     // SwerveDrive
-    swerveDrive.setDefaultCommand(new SwerveControlCmd(
-        swerveDrive, mainController, elevatorSubsystem, elevatorBypassSafety));
+    swerveDrive.setDefaultCommand(new SwerveControlCmd(swerveDrive, mainController));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -184,10 +230,6 @@ public class RobotContainer {
     // Elevator + AlgaeIntake
     controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
-
-    // TagTracking
-    controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
-    controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
   }
 
   public Command getAutonomousCommand() {

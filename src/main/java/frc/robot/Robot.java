@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -66,6 +67,10 @@ public class Robot extends TimedRobot {
     if (gcTimer.advanceIfElapsed(5)) {
       System.gc();
     }
+    
+    ConfigChooser.initConfig();
+    ConfigChooser.updateConfig();
+    SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
   }
 
   @Override

@@ -13,12 +13,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.PreferencesClass;
+import frc.robot.ConfigChooser;
 import frc.robot.Constants.ElevatorConstant;
 import java.util.function.Supplier;
 
@@ -37,9 +35,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private final Supplier<Boolean> shouldUsePID;
   private final Supplier<Boolean> bypassLimitSwitch;
-  private boolean au;
-  private boolean twn;
-  private Distance test;
 
   public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSwitch) {
     this.shouldUsePID = shouldUsePID;
@@ -67,7 +62,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPID = new PIDController(ElevatorConstant.kP, ElevatorConstant.kI, ElevatorConstant.kD);
     elevatorPID.setTolerance(8);
 
-    targetHeight = ElevatorConstant.kInitialHeight;
+    targetHeight = ConfigChooser.Elevator.getDistance("kInitialHeight");
     encoder.reset();
   }
 
@@ -77,16 +72,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void moveToHeight(Distance newTargetHeight) {
-    if (newTargetHeight.gt(ElevatorConstant.kMaxHeight)) {
-      newTargetHeight = ElevatorConstant.kMaxHeight;
-    } else if (newTargetHeight.lt(ElevatorConstant.kLowestHeight)) {
-      newTargetHeight = ElevatorConstant.kLowestHeight;
+    if (newTargetHeight.gt(ConfigChooser.Elevator.getDistance("kMaxHeight"))) {
+      newTargetHeight = ConfigChooser.Elevator.getDistance("kMaxHeight");
+    } else if (newTargetHeight.lt(ConfigChooser.Elevator.getDistance("kLowestHeight"))) {
+      newTargetHeight = ConfigChooser.Elevator.getDistance("kLowestHeight");
     }
     targetHeight = newTargetHeight;
   }
 
   public Distance getCurrentHeight() {
-    return Millimeters.of(encoder.getDistance()).plus(ElevatorConstant.kHeightOffset);
+    return Millimeters.of(encoder.getDistance()).plus(ConfigChooser.Elevator.getDistance("kHeightOffset"));
   }
 
   public void moveUp() {
@@ -98,27 +93,27 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toSecFloor() {
-    moveToHeight(ElevatorConstant.kSecFloor);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kSecFloor"));
   }
 
   public void toTrdFloor() {
-    moveToHeight(ElevatorConstant.kTrdFloor);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kTrdFloor"));
   }
 
   public void toTopFloor() {
-    moveToHeight(ElevatorConstant.kTopFloor);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kTopFloor"));
   }
 
   public void toDefaultPosition() {
-    moveToHeight(ElevatorConstant.kInitialHeight);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kInitialHeight"));
   }
 
   public void toGetSecAlgae() {
-    moveToHeight(ElevatorConstant.kToGetSecAlgaeHeight);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kToGetSecAlgaeHeight"));
   }
 
   public void toGetTrdAlgae() {
-    moveToHeight(ElevatorConstant.kToGetTrdAlgaeHeight);
+    moveToHeight(ConfigChooser.Elevator.getDistance("kToGetTrdAlgaeHeight"));
   }
 
   public void stopMove() {
@@ -138,8 +133,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     Distance currentHeight = getCurrentHeight();
     boolean usePID = this.shouldUsePID.get();
 
-    var shouldSlowHeight = Constants.ElevatorConstant.kMaxHeight
-        .minus(Constants.ElevatorConstant.kHeightOffset).div(3).times(2);
+    var shouldSlowHeight = ConfigChooser.Elevator.getDistance("kMaxHeight")
+        .minus(ConfigChooser.Elevator.getDistance("kHeightOffset")).div(3).times(2);
 
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
@@ -177,13 +172,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
 
     SmartDashboard.putData("ElevatorPID", elevatorPID);
-    au = Preferences.getInt("robot", 0) == 0;
-    twn = Preferences.getInt("robot", 0) == 1;
-    if (au) {
-      PreferencesClass.Elevator.ElevatorcurrentConfig = PreferencesClass.Elevator.AUElevator_MAP;
-    } else if (twn) {
-      PreferencesClass.Elevator.ElevatorcurrentConfig = PreferencesClass.Elevator.TWNElevator_MAP;
-    }
   }
 
   public Command toSecFloorCmd() {

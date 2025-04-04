@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
-import frc.robot.PreferencesClass.CoralShooter;
+import frc.robot.ConfigChooser;
 import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 
 public class CoralShooterSubsystem extends SubsystemBase {
@@ -20,8 +20,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterMotor;
   private Rev2mDistanceSensor distanceSensor;
   private DutyCycleEncoder shooterEncoder;
-  private boolean au;
-  private boolean twn;
 
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
@@ -46,15 +44,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void coralShooterIn() {
-    setMotorSpeed(CoralShooter.get("kCoralInSpeed"));
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralInSpeed"));
   }
 
   public void coralShooterOut() {
-    setMotorSpeed(CoralShooter.get("kCoralOutSpeed"));
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralOutSpeed"));
   }
 
   public void coralShooterReverseShoot() {
-    setMotorSpeed(CoralShooter.get("kCoralReverseSpeed"));
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralReverseSpeed"));
   }
 
   public void coralShooterStop() { // Motor stop

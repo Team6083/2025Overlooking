@@ -25,23 +25,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
-import frc.robot.PreferencesClass.CanCoderMagOffset;
-import frc.robot.PreferencesClass.CoralShooter;
-import frc.robot.PreferencesClass.DriveMotorInverted;
+import frc.robot.ConfigChooser;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
-  public final SwerveModule frontLeft;
+  private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
+
   private final AHRS gyro;
-  private boolean au;
-  private boolean twn;
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -56,30 +53,30 @@ public class SwerveDrive extends SubsystemBase {
         DriveBaseConstant.kFrontLeftDriveMotorChannel,
         DriveBaseConstant.kFrontLeftTurningMotorChannel,
         DriveBaseConstant.kFrontLeftCanCoder,
-        DriveMotorInverted.get("kFrontLeftDriveMotorInverted"),
+        ConfigChooser.DriveBase.getBoolean("kFrontLeftDriveMotorInverted"),
         DriveBaseConstant.kFrontLeftTurningMotorInverted,
-        CanCoderMagOffset.get("kFrontLeftCanCoderMagOffset"), "frontLeft");
+        ConfigChooser.DriveBase.getDouble("kFrontLeftCanCoderMagOffset"), "frontLeft");
     frontRight = new SwerveModule(
         DriveBaseConstant.kFrontRightDriveMotorChannel,
         DriveBaseConstant.kFrontRightTurningMotorChannel,
         DriveBaseConstant.kFrontRightCanCoder,
-        DriveMotorInverted.get("kFrontRightDriveMotorInverted"),
+        ConfigChooser.DriveBase.getBoolean("kFrontRightDriveMotorInverted"),
         DriveBaseConstant.kFrontRightTurningMotorInverted,
-        CanCoderMagOffset.get("kFrontRightCanCoderMagOffset"), "frontRight");
+        ConfigChooser.DriveBase.getDouble("kFrontRightCanCoderMagOffset"), "frontRight");
     backLeft = new SwerveModule(
         DriveBaseConstant.kBackLeftDriveMotorChannel,
         DriveBaseConstant.kBackLeftTurningMotorChannel,
         DriveBaseConstant.kBackLeftCanCoder,
-        DriveMotorInverted.get("kBackLeftDriveMotorInverted"),
+        ConfigChooser.DriveBase.getBoolean("kBackLeftDriveMotorInverted"),
         DriveBaseConstant.kBackLeftTuringMotorInverted,
-        CanCoderMagOffset.get("kBackLeftCanCoderMagOffset"), "backLeft");
+        ConfigChooser.DriveBase.getDouble("kBackLeftCanCoderMagOffset"), "backLeft");
     backRight = new SwerveModule(
         DriveBaseConstant.kBackRightDriveMotorChannel,
         DriveBaseConstant.kBackRightTurningMotorChannel,
         DriveBaseConstant.kBackRightCanCoder,
-        DriveMotorInverted.get("kBackRightDriveMotorInverted"),
+        ConfigChooser.DriveBase.getBoolean("kBackRightDriveMotorInverted"),
         DriveBaseConstant.kBackRightTurningMotorInverted,
-        CanCoderMagOffset.get("kBackRightCanCoderMagOffset"), "backRight");
+        ConfigChooser.DriveBase.getDouble("kBackRightCanCoderMagOffset"), "backRight");
 
     SmartDashboard.putData("FrontLeft", frontLeft);
     SmartDashboard.putData("FrontRight", frontRight);
@@ -301,17 +298,6 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
     Preferences.initInt("robot", 0);
-    au = Preferences.getInt("robot", 0) == 0;
-    twn = Preferences.getInt("robot", 0) == 1;
-    if (au) {
-      DriveMotorInverted.DriveMotorInvertedcurrentConfig = DriveMotorInverted.AUDriveMotorInverted_MAP;
-      CanCoderMagOffset.CanCoderMagOffsetcurrentConfig = CanCoderMagOffset.AUCanCoderMagOffset_MAP;
-      CoralShooter.CoralShootercurrentConfig = CoralShooter.AUCoralShooterConstant_MAP;
-    } else if (twn) {
-      DriveMotorInverted.DriveMotorInvertedcurrentConfig = DriveMotorInverted.TWNDriveMotorInverted_MAP;
-      CanCoderMagOffset.CanCoderMagOffsetcurrentConfig = CanCoderMagOffset.TWNCanCoderMagOffset_MAP;
-      CoralShooter.CoralShootercurrentConfig = CoralShooter.TWNCoralShooterConstant_MAP;
-    }
   }
 
   public Command gyroResetCmd() {

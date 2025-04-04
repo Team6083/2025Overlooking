@@ -26,8 +26,8 @@ import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.ConfigChooser;
 import frc.robot.Constants.ModuleConstant;
-import frc.robot.PreferencesClass.ModuleRotationController;
 
 public class SwerveModule extends SubsystemBase {
   /** Creates a new SwerveModule. */
@@ -59,9 +59,9 @@ public class SwerveModule extends SubsystemBase {
     driveEncoder = driveMotor.getEncoder();
 
     rotController = new PIDController(
-        ModuleRotationController.get("kP"),
-        ModuleRotationController.get("kI"),
-        ModuleRotationController.get("kD"));
+        ConfigChooser.SwerveModule.getDouble("kP"),
+        ConfigChooser.SwerveModule.getDouble("kI"),
+        ConfigChooser.SwerveModule.getDouble("kD"));
     rotController.enableContinuousInput(-180.0, 180.0);
 
     driveMotorVoltage = 0;
@@ -168,10 +168,5 @@ public class SwerveModule extends SubsystemBase {
     SmartDashboard.putNumber(name + "_TurningMotorTemperature", turningMotor.getMotorTemperature());
     au = Preferences.getInt("robot", 0) == 0;
     twn = Preferences.getInt("robot", 0) == 1;
-    if (au) {
-      ModuleRotationController.ModuleRotationControllercurrentConfig = ModuleRotationController.AURotationController_MAP;
-    } else if (twn) {
-      ModuleRotationController.ModuleRotationControllercurrentConfig = ModuleRotationController.TWNRotationController_MAP;
-    }
   }
 }
