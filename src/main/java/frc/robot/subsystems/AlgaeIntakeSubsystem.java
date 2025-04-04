@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.ConfigChooser;
 import frc.robot.Constants.AlgaeIntakeConstant;
 import java.util.function.Supplier;
 
@@ -39,7 +40,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateEncoder = new DutyCycleEncoder(
         AlgaeIntakeConstant.kAlgaeEncoderChannel,
         AlgaeIntakeConstant.fullRange,
-        AlgaeIntakeConstant.expectedZero);
+        ConfigChooser.AlgaeIntake.getDouble("expectedZero"));
     rotateEncoder.setInverted(AlgaeIntakeConstant.kAlgaeEncoderInverted);
 
     algaeRotatePID = new PIDController(0, 0, 0);
@@ -48,12 +49,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public void intake() {
     intakeMotor.set(ControlMode.PercentOutput,
-        AlgaeIntakeConstant.kIntakeFastSpeed);
+        ConfigChooser.AlgaeIntake.getDouble("kIntakeFastSpeed"));
   }
 
   public void reverseIntake() {
     intakeMotor.set(ControlMode.PercentOutput,
-        AlgaeIntakeConstant.kReIntakeSpeed);
+        ConfigChooser.AlgaeIntake.getDouble("kReverseIntakeSpeed"));
   }
 
   public void stopIntakeMotor() {
@@ -70,7 +71,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public void toAlgaeIntakeDegree() {
-    algaeRotatePID.setSetpoint(AlgaeIntakeConstant.kGetAlgaeAngle);
+    algaeRotatePID.setSetpoint(ConfigChooser.AlgaeIntake.getDouble("kGetAlgaeAngle"));
   }
 
   public void stopRotate() {
@@ -92,14 +93,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     if (usePID) {
       if (getCurrentAngle() > getRotateSetpoint()) {
         algaeRotatePID.setPID(
-            AlgaeIntakeConstant.kPRotateUp,
-            AlgaeIntakeConstant.kIRotateUp,
-            AlgaeIntakeConstant.kDRotateUp);
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorUpPIDkP"),
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorUpPIDkI"),
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorUpPIDkD"));
       } else {
         algaeRotatePID.setPID(
-            AlgaeIntakeConstant.kPRotateDown,
-            AlgaeIntakeConstant.kIRotateDown,
-            AlgaeIntakeConstant.kDRotateDown);
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorDownPIDkP"),
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorDownPIDkI"),
+            ConfigChooser.AlgaeIntake.getDouble("rotMotorDownPIDkD"));
       }
 
       double output = algaeRotatePID.calculate(getCurrentAngle());
@@ -142,11 +143,11 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   }
 
   public Command manualRotateUpCmd() {
-    return setRotateCmd(AlgaeIntakeConstant.kUpIntakeRotateSpeed);
+    return setRotateCmd(ConfigChooser.AlgaeIntake.getDouble("kUpIntakeRotateSpeed"));
   }
 
   public Command manualRotateDownCmd() {
-    return setRotateCmd(AlgaeIntakeConstant.kDownIntakeRotateSpeed);
+    return setRotateCmd(ConfigChooser.AlgaeIntake.getDouble("kDownIntakeRotateSpeed"));
   }
 
   public Command toDefaultDegreeCmd() {

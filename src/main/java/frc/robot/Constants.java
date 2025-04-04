@@ -69,29 +69,13 @@ public class Constants {
     // // Algae Encoder Channel
     public static final int kAlgaeEncoderChannel = 6;
 
-    // // Algae intake and reIntake speed
-    // public static final double kIntakeFastSpeed = 0.5;
-    // public static final double kIntakeSlowSpeed = 0.1;
-    // public static final double kReIntakeSpeed = -0.3;
-
-    // AlgaeRotate speed
-    // public static final double kUpIntakeRotateSpeed = -0.5;
-    // public static final double kDownIntakeRotateSpeed = 0.18;
-    // public static final double kMaxOutput = 0.5;
-    // public static final double kMinOutput = -0.5;
-
-    // Algae Rotate PID
-    // public static final double kPRotateUp = 0.02;
-    // public static final double kIRotateUp = 0;
-    // public static final double kDRotateUp = 0;
-    // public static final double kPRotateDown = 0.01;
-    // public static final double kIRotateDown = 0;
-    // public static final double kDRotateDown = 0;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
 
     // Algae setpoint
-    // public static final double kMaxAngle = 90;
-    // public static final double kMinAngle = 0;
-    // public static final double kStepAngle = 0.1;
+    public static final double kMaxAngle = 120;
+    public static final double kMinAngle = 0;
+    public static final double kStepAngle = 0.1;
 
     // Algae inverted
     public static final Boolean kIntakeMotorInverted = true;
@@ -102,7 +86,6 @@ public class Constants {
     public static final double kDistancePerPulse = 360.0 / 2048;
     public static final double kRotateEncoderOffset = 0.0;
     public static final double fullRange = 360;
-    // public static final double kGetAlgaeAngle = 83.35;
   }
 
   public static final class CoralShooterConstant {

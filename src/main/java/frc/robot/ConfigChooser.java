@@ -21,6 +21,7 @@ public class ConfigChooser {
   public static void initConfig() {
     Preferences.initInt("robotConfig", 0);
   }
+
   /**
    * Updates the current configuration based on the robot preference.
    */
@@ -131,13 +132,47 @@ public class ConfigChooser {
    * Configuration values for algae intake.
    */
   public static class AlgaeIntake {
-    private static final Map<String, Integer> australiaMap = Map.of(
-        "expectedZero", -157);
+    private static final Map<String, Double> australiaMap = Map.ofEntries(
+        Map.entry("kIntakeFastSpeed", 0.3),
+        Map.entry("kIntakeSlowSpeed", 0.1),
+        Map.entry("kReverseIntakeSpeed", -0.3),
 
-    private static final Map<String, Integer> taiwanMap = Map.of(
-        "expectedZero", -265);
+        Map.entry("kUpIntakeRotateSpeed", -0.6),
+        Map.entry("kDownIntakeRotateSpeed", 0.1),
 
-    public static int getInt(String key) {
+        Map.entry("rotMotorUpPIDkP", 0.07),
+        Map.entry("rotMotorUpPIDkI", 0.0),
+        Map.entry("rotMotorUpPIDkD", 0.0),
+
+        Map.entry("rotMotorDownPIDkP", 0.01),
+        Map.entry("rotMotorDownPIDkI", 0.0),
+        Map.entry("rotMotorDownPIDkD", 0.0),
+
+        Map.entry("expectedZero", -157.0),
+
+        Map.entry("kGetAlgaeAngle", 95.0));
+
+    private static final Map<String, Double> taiwanMap = Map.ofEntries(
+        Map.entry("kIntakeFastSpeed", 0.3),
+        Map.entry("kIntakeSlowSpeed", 0.1),
+        Map.entry("kReverseIntakeSpeed", -0.3),
+
+        Map.entry("kUpIntakeRotateSpeed", -0.6),
+        Map.entry("kDownIntakeRotateSpeed", 0.1),
+
+        Map.entry("rotMotorUpPIDkP", 0.07),
+        Map.entry("rotMotorUpPIDkI", 0.0),
+        Map.entry("rotMotorUpPIDkD", 0.0),
+
+        Map.entry("rotMotorDownPIDkP", 0.01),
+        Map.entry("rotMotorDownPIDkI", 0.0),
+        Map.entry("rotMotorDownPIDkD", 0.0),
+
+        Map.entry("expectedZero", -265.0),
+
+        Map.entry("kGetAlgaeAngle", 95.0));
+
+    public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
     }
   }
@@ -173,25 +208,31 @@ public class ConfigChooser {
   public static class Elevator {
     private static final Map<String, Distance> australiaMap = Map.of(
         "kHeightOffset", Millimeters.of(540.0),
+
         "kLowestHeight", Millimeters.of(540.0),
         "kMaxHeight", Millimeters.of(1630.0),
+
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(879.0),
         "kTrdFloor", Millimeters.of(1300.0),
         "kTopFloor", Millimeters.of(1850),
+
         "kToGetSecAlgaeHeight", Millimeters.of(818.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
 
     private static final Map<String, Distance> taiwanMap = Map.of(
         "kHeightOffset", Millimeters.of(600.0),
+
         "kLowestHeight", Millimeters.of(600.0),
-        "kMaxHeight", Millimeters.of(1520.0),
+        "kMaxHeight", Millimeters.of(1770.0),
+
         "kInitialHeight", Millimeters.of(600.0),
         "kSecFloor", Millimeters.of(839.0),
         "kTrdFloor", Millimeters.of(1186.666666),
         "kTopFloor", Millimeters.of(1740.0),
-        "kToGetSecAlgaeHeight", Millimeters.of(818.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
+
+        "kToGetSecAlgaeHeight", Millimeters.of(925.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1275.0));
 
     public static Distance getDistance(String key) {
       return getValue(australiaMap, taiwanMap, key);
