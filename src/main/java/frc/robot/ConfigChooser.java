@@ -109,7 +109,7 @@ public class ConfigChooser {
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.145264,
         "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", 0.019043,
+        "kBackLeftCanCoderMagOffset", 0.479043,
         "kBackRightCanCoderMagOffset", 0.082764);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
