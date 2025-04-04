@@ -297,7 +297,6 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
-    Preferences.initInt("robot", 0);
   }
 
   public Command gyroResetCmd() {
