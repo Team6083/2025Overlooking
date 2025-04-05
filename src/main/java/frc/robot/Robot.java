@@ -37,6 +37,9 @@ public class Robot extends TimedRobot {
       DriverStation.startDataLog(DataLogManager.getLog());
     }
 
+    ConfigChooser.initConfig();
+    ConfigChooser.updateConfig();
+
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
         .set(BuildConstants.BUILD_DATE);
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
@@ -66,6 +69,9 @@ public class Robot extends TimedRobot {
     if (gcTimer.advanceIfElapsed(5)) {
       System.gc();
     }
+
+    ConfigChooser.updateConfig();
+    SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
   }
 
   @Override
