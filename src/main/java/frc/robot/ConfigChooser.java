@@ -38,7 +38,6 @@ public class ConfigChooser {
    * @param australiaMap The map for Australia configuration
    * @param taiwanMap    The map for Taiwan configuration
    * @param key          The key to look up
-   * @param defaultValue The default value if the key is not found
    * @return The value from the map or the default value
    */
   private static <T> T getValue(Map<String, T> australiaMap, Map<String, T> taiwanMap, String key) {
