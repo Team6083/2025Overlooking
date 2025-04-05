@@ -125,7 +125,7 @@ public class Constants {
   }
 
   public static final class SwerveControlConstant {
-    public static final double kDriveBaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+    public static final double kDrivebaseMaxSpeed = DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
     public static final double kMinJoystickInput = 0.1;
 
     public static final double kXLimiterRateLimit = 5.0;
