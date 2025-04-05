@@ -38,7 +38,7 @@ public class TagTracking {
     return leftTable.getEntry("tv").getDouble(0);
   }
 
-  public Boolean isGetTarget() {
+  public Boolean hasTarget() {
     return getRightTv() == 1 || getLeftTv() == 1;
   }
 

@@ -72,7 +72,7 @@ public class SwerveToReefCmd extends Command {
     double ySpeed;
     double rotSpeed;
 
-    if (tagTracking.isGetTarget()) {
+    if (tagTracking.hasTarget()) {
 
       if (Math.abs(tagTracking.get3dTx()) < 0.5) {
         xSpeed = -tzPID.calculate(tagTracking.get3dTz());
@@ -109,7 +109,7 @@ public class SwerveToReefCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !tagDebouncer.calculate(tagTracking.isGetTarget())
+    return !tagDebouncer.calculate(tagTracking.hasTarget())
         || Math.abs(txPID.getError()) < 0.025 && Math.abs(tzPID.getError()) < 0.05;
   }
 }
