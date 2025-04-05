@@ -147,8 +147,8 @@ public class RobotContainer {
     controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
     controlPanel.button(8).whileTrue(
         new SequentialCommandGroup(
-        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
-        algaeIntakeSubsystem.intakeCmd()));
+            algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+            algaeIntakeSubsystem.intakeCmd()));
     controlPanel.button(3).whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.intakeCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
