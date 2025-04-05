@@ -18,14 +18,14 @@ public class ConfigChooser {
   private static boolean isAustraliaConfig = true;
 
   public static void initConfig() {
-    Preferences.initInt("robotConfig", 0);
+    Preferences.initBoolean("isAustraliaConfig", true);
   }
 
   /**
    * Updates the current configuration based on the robot preference.
    */
   public static void updateConfig() {
-    isAustraliaConfig = Preferences.getInt("robotConfig", 0) == 0;
+    isAustraliaConfig = Preferences.getBoolean("isAustraliaConfig", true);
   }
 
   public static boolean isAustraliaConfig() {
