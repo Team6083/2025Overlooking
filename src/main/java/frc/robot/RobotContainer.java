@@ -14,14 +14,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.PreferencesClass.CoralShooter;
-import frc.robot.PreferencesClass.Elevator;
-import frc.robot.PreferencesClass.ModuleRotationController;
-import frc.robot.PreferencesClass.SwerveControl;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -115,15 +110,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagRight",
+    //     Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
+    //         swerveDrive.driveForwardCmd().withTimeout(2),
+    //         () -> tagTracking.getTv() == 1));
 
-    NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagLeft",
+    //     Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
+    //         swerveDrive.driveForwardCmd().withTimeout(2),
+    //         () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
@@ -135,7 +130,7 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(new SwerveControlCmd(
-        swerveDrive, mainController, elevatorSubsystem, elevatorBypassSafety));
+        swerveDrive, mainController));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -186,8 +181,8 @@ public class RobotContainer {
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
     // TagTracking
-    controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
-    controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
+    // controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
+    // controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
   }
 
   public Command getAutonomousCommand() {
