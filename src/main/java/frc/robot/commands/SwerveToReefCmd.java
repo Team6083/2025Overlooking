@@ -50,13 +50,13 @@ public class SwerveToReefCmd extends Command {
       yawPID.setSetpoint(-60);
     } else if (tagID == 7 || tagID == 18) {
       yawPID.setSetpoint(0);
-    } else if(tagID == 8 || tagID == 17) {
+    } else if (tagID == 8 || tagID == 17) {
       yawPID.setSetpoint(60);
-    } else if(tagID == 9 || tagID == 22){
+    } else if (tagID == 9 || tagID == 22) {
       yawPID.setSetpoint(120);
-    } else if(tagID == 10 || tagID == 21){
+    } else if (tagID == 10 || tagID == 21) {
       yawPID.setSetpoint(180);
-    } else if(tagID == 11 || tagID == 20){
+    } else if (tagID == 11 || tagID == 20) {
       yawPID.setSetpoint(-120);
     } else {
       yawPID.setSetpoint(0);
