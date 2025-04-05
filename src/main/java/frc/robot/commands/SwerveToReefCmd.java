@@ -67,6 +67,7 @@ public class SwerveToReefCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
     double ySpeed;
     double rotSpeed;
@@ -96,6 +97,7 @@ public class SwerveToReefCmd extends Command {
       SmartDashboard.putData("TxController", txPID);
       SmartDashboard.putData("YawController", yawPID);
     }
+    // CHECKSTYLE.ON: LocalVariableName
   }
 
   // Called once the command ends or is interrupted.
