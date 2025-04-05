@@ -17,7 +17,6 @@ import java.util.Map;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
-  /** Creates a new CoralRightCmd. */
   SwerveDrive swerveDrive;
   ElevatorSubsystem elevatorSubsystem;
   CoralShooterSubsystem coralShooterSubsystem;
