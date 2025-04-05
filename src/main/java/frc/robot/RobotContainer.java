@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -15,6 +13,7 @@ import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
+import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
@@ -35,9 +34,6 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser;
 
-  private final SequentialCommandGroup takeL2AlgaeCommandGroup;
-  private final SequentialCommandGroup takeL3AlgaeCommandGroup;
-
   private Supplier<Integer> targetFloor;
 
   public RobotContainer() {
@@ -48,24 +44,6 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
     swerveDrive = new SwerveDrive();
-
-    takeL2AlgaeCommandGroup = new ParallelRaceGroup(
-        elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
-            .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
-        algaeIntakeSubsystem.reverseIntakeCmd())
-        .andThen(new ParallelRaceGroup(
-            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                .withTimeout(1.5),
-            algaeIntakeSubsystem.reverseIntakeCmd()));
-
-    takeL3AlgaeCommandGroup = new ParallelRaceGroup(
-        elevatorSubsystem.toGetTrdAlgaeCmd().repeatedly()
-            .until(() -> elevatorSubsystem.getAbsoluteError() < 5),
-        algaeIntakeSubsystem.reverseIntakeCmd())
-        .andThen(new ParallelRaceGroup(
-            new RunCommand(() -> swerveDrive.drive(-0.4, 0, 0, false), swerveDrive)
-                .withTimeout(1.5),
-            algaeIntakeSubsystem.reverseIntakeCmd()));
 
     registerNamedCommands();
 
@@ -165,15 +143,19 @@ public class RobotContainer {
     mainController.y().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
     controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
-    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd());
+    controlPanel.button(8).whileTrue(
+        new SequentialCommandGroup(
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        algaeIntakeSubsystem.intakeCmd()));
     controlPanel.button(3).whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
-    controlPanel.button(1).whileTrue(algaeIntakeSubsystem.intakeCmd());
     mainController.x().whileTrue(algaeIntakeSubsystem.intakeCmd());
     mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
 
     // Elevator + AlgaeIntake
-    controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
-    controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
+    controlPanel.button(6).whileTrue(
+        new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2));
+    controlPanel.button(5).whileTrue(
+        new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
 
     // switch floor
     controlPanel.button(1).onTrue(setTargetFloor(2));
