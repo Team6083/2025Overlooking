@@ -115,8 +115,8 @@ public class Constants {
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
 
-    public static final double kMaxOutputHigher = 0.8;
-    public static final double kMaxOutputLower = 0.5;
+    public static final double kMaxOutputHigher = 0.5;
+    public static final double kMaxOutputLower = 0.4;
     public static final double kMinOutput = -0.1;
     public static final Distance kStepHeight = Millimeters.of(7);
 
