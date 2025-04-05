@@ -4,105 +4,114 @@
 
 package frc.robot.lib;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import java.io.IOException;
-import java.util.Optional;
 
 /** Add your docs here. */
 public class TagTracking {
-  private final NetworkTable table;
-  private final AprilTagFieldLayout layout;
+  private final NetworkTable leftTable;
+  private final NetworkTable rightTable;
 
   public TagTracking() {
-    table = NetworkTableInstance.getDefault().getTable("limelight-lyly");
+    leftTable = NetworkTableInstance.getDefault().getTable("limelight-left");
+    rightTable = NetworkTableInstance.getDefault().getTable("limelight-right");
     setLedMode(0);
     setPipeline(0);
-    try {
-      layout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2025ReefscapeWelded.m_resourceFile);
-    } catch (IOException err) {
-      throw new RuntimeException();
-    }
   }
 
   private void setLedMode(int ledMode) {
-    table.getEntry("ledMode").setNumber(ledMode);
+    rightTable.getEntry("ledMode").setNumber(ledMode);
+    leftTable.getEntry("ledMode").setNumber(ledMode);
   }
 
   private void setPipeline(int pipeline) {
-    table.getEntry("pipeline").setNumber(pipeline);
+    rightTable.getEntry("pipeline").setNumber(pipeline);
+    leftTable.getEntry("pipeline").setNumber(pipeline);
   }
 
-  public double[] getCt() {
-    double[] ct = table.getEntry("camtran").getDoubleArray(new double[6]);
-    return ct;
+  // tv int 1 if valid target exists. 0 if no valid targets exist.
+  public double getRightTv() {
+    return rightTable.getEntry("tv").getDouble(0);
   }
 
-  public double getTx() {
-    double tx = table.getEntry("tx").getDouble(0);
-    return tx;
+  public double getLeftTv() {
+    return leftTable.getEntry("tv").getDouble(0);
   }
 
-  public double getTy() {
-    double ty = table.getEntry("ty").getDouble(0);
-    return ty;
+  public Boolean hasTarget() {
+    return getRightTv() == 1 || getLeftTv() == 1;
   }
 
-  public double getTv() {
-    double tv = table.getEntry("tv").getDouble(0);
-    return tv;
-  }
-
-  public double getTid() {
-    double id = table.getEntry("tid").getDouble(0);
-    return id;
-  }
-
-  public double[] getBt() {
-    double[] bt = table.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
-    return bt;
-  }
-
-  public double[] getTr() {
-    double[] tr = table.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
-    return tr;
-  }
-
-  public double getDistance() {
-    // readValue();
-    // CHECKSTYLE.OFF: LocalVariableName
-    double targetHeight = getBt()[1]; // botpose in targetspace y
-    double xDis = getBt()[0];
-    double zDis = getBt()[2];
-    double horDis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(zDis, 2));
-    double distance = Math.sqrt(Math.pow(targetHeight, 2) + Math.pow(horDis, 2));
-    return distance;
-    // CHECKSTYLE.ON: LocalVariableName
-  }
-
-  public Pose2d getTagPose2d() {
-    return getTagPose3d().toPose2d();
-  }
-
-  public Pose3d getTagPose3d() {
-    return getDesiredTagPose3d(getTid());
-  }
-
-  public Pose3d getDesiredTagPose3d(double index) {
-    if (getTv() == 1) {
-      Optional<Pose3d> tagPose3d = layout.getTagPose((int) index);
-      Pose3d tagPose = tagPose3d.isPresent() ? tagPose3d.get() : new Pose3d();
-      return tagPose;
+  public double getRightTid() {
+    if (getRightTv() == 1) {
+      double id = rightTable.getEntry("tid").getDouble(0);
+      return id;
     } else {
-      return new Pose3d();
+      return 0;
     }
   }
 
-  public Pose2d getDesiredTagPose2d(double index) {
-    return getDesiredTagPose3d(index).toPose2d();
+  public double getLeftTid() {
+    if (getLeftTv() == 1) {
+      double id = leftTable.getEntry("tid").getDouble(0);
+      return id;
+    } else {
+      return 0;
+    }
+  }
+
+  public double getBestTargetId() {
+    if (getRightTv() == 1) {
+      return getRightTid();
+    } else if (getLeftTv() == 1) {
+      return getLeftTid();
+    } else {
+      return 0;
+    }
+  }
+
+  // [tx, ty, tz, pitch, yaw, roll] (meters, degrees)
+  public double[] getRightTargetPoseRobotSpace() {
+    return rightTable.getEntry("targetPose_robotSpace").getDoubleArray(new double[6]);
+  }
+
+  public double[] getLeftTargetPoseRobotSpace() {
+    return leftTable.getEntry("targetPose_robotSpace").getDoubleArray(new double[6]);
+  }
+
+  public double get3dTx() {
+    if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
+      return (getRightTargetPoseRobotSpace()[0] + getLeftTargetPoseRobotSpace()[0]) / 2;
+    } else if (getRightTv() == 1) {
+      return getRightTargetPoseRobotSpace()[0];
+    } else if (getLeftTv() == 1) {
+      return getLeftTargetPoseRobotSpace()[0];
+    } else {
+      return 0;
+    }
+  }
+
+  public double get3dTz() {
+    if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
+      return (getRightTargetPoseRobotSpace()[2] + getLeftTargetPoseRobotSpace()[2]) / 2;
+    } else if (getRightTv() == 1) {
+      return getRightTargetPoseRobotSpace()[2];
+    } else if (getLeftTv() == 1) {
+      return getLeftTargetPoseRobotSpace()[2];
+    } else {
+      return 0;
+    }
+  }
+
+  public double get3dYaw() {
+    if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
+      return (getRightTargetPoseRobotSpace()[4] + getLeftTargetPoseRobotSpace()[4]) / 2;
+    } else if (getRightTv() == 1) {
+      return getRightTargetPoseRobotSpace()[4];
+    } else if (getLeftTv() == 1) {
+      return getLeftTargetPoseRobotSpace()[4];
+    } else {
+      return 0;
+    }
   }
 }

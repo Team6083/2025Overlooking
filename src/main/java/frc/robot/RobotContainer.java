@@ -9,16 +9,16 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class RobotContainer {
@@ -34,7 +34,7 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser;
 
-  private final TagTracking tagTracking;
+  private Supplier<Integer> targetFloor;
 
   public RobotContainer() {
     Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
@@ -44,8 +44,6 @@ public class RobotContainer {
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
     swerveDrive = new SwerveDrive();
-
-    tagTracking = new TagTracking();
 
     registerNamedCommands();
 
@@ -85,15 +83,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    NamedCommands.registerCommand("AprilTagRight",
-        Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagRight",
+    // Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
+    // swerveDrive.driveForwardCmd().withTimeout(2),
+    // () -> tagTracking.getTv() == 1));
 
-    NamedCommands.registerCommand("AprilTagLeft",
-        Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
-            swerveDrive.driveForwardCmd().withTimeout(2),
-            () -> tagTracking.getTv() == 1));
+    // NamedCommands.registerCommand("AprilTagLeft",
+    // Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
+    // swerveDrive.driveForwardCmd().withTimeout(2),
+    // () -> tagTracking.getTv() == 1));
 
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
@@ -159,9 +157,34 @@ public class RobotContainer {
     controlPanel.button(5).whileTrue(
         new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
 
-    // TagTracking
-    controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
-    controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
+    // switch floor
+    controlPanel.button(1).onTrue(setTargetFloor(2));
+    controlPanel.button(3).onTrue(setTargetFloor(3));
+    controlPanel.button(5).onTrue(setTargetFloor(4));
+
+    Map<Integer, Command> coralLeftMap = Map.of(
+        2, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true),
+        3, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true),
+        4, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
+
+    controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, targetFloor));
+
+    Map<Integer, Command> coralRightMap = Map.of(
+        2, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false),
+        3, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false),
+        4, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
+
+    controlPanel.button(4).whileTrue(Commands.select(coralRightMap, targetFloor));
+  }
+
+  private Command setTargetFloor(int floor) {
+    return Commands.runOnce(() -> this.targetFloor = () -> floor);
   }
 
   public Command getAutonomousCommand() {
