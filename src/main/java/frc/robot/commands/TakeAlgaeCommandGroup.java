@@ -26,12 +26,21 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
     this.elevatorSubsystem = elevatorSubsystem;
     this.algaeIntakeSubsystem = algaeIntakeSubsystem;
 
+    Command lowerAlgaeIntake = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd();
+
     Command elevatorToTargetHeight = Commands.either(
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
         () -> targetFloor == 2)
         .repeatedly()
         .until(() -> elevatorSubsystem.isAtTargetHeight());
+
+    Command forwardLittle = swerveDrive
+        .runEnd(
+            () -> swerveDrive.drive(0.4, 0, 0, false),
+            () -> swerveDrive.drive(0, 0, 0, false))
+        .repeatedly()
+        .withTimeout(1.5);
 
     Command backwardLittle = swerveDrive
         .runEnd(
@@ -41,9 +50,11 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .withTimeout(1.5);
 
     addCommands(
+        lowerAlgaeIntake,
         Commands.race(
             elevatorToTargetHeight,
             algaeIntakeSubsystem.reverseIntakeCmd()),
+        forwardLittle,
         Commands.race(
             backwardLittle,
             algaeIntakeSubsystem.reverseIntakeCmd()));
