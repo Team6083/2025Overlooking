@@ -4,14 +4,14 @@
 
 package frc.robot.commands;
 
-import java.util.Map;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import java.util.Map;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
