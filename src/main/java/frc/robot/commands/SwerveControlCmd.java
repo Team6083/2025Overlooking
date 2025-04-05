@@ -10,6 +10,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.ConfigChooser;
 import frc.robot.Constants.SwerveControlConstant;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -51,14 +52,14 @@ public class SwerveControlCmd extends Command {
   @Override
   public void execute() {
     if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
-      magnification = SwerveControlConstant.kSafeMagnification;
-      rotMagnification = SwerveControlConstant.kRotSafeMagnification;
+      magnification = ConfigChooser.SwerveControl.getDouble("kSafeMagnification");
+      rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotSafeMagnification");
     } else if (mainController.leftBumper().getAsBoolean()) {
-      magnification = SwerveControlConstant.kFastMagnification;
-      rotMagnification = SwerveControlConstant.kRotFastMagnification;
+      magnification = ConfigChooser.SwerveControl.getDouble("kFastMagnification");
+      rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotFastMagnification");
     } else {
-      magnification = SwerveControlConstant.kDefaultMagnification;
-      rotMagnification = SwerveControlConstant.kRotDefaultMagnification;
+      magnification = ConfigChooser.SwerveControl.getDouble("kDefaultMagnification");
+      rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotDefaultMagnification");
     }
     // CHECKSTYLE.OFF: LocalVariableName
     double xSpeed;
