@@ -26,8 +26,6 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
     this.elevatorSubsystem = elevatorSubsystem;
     this.algaeIntakeSubsystem = algaeIntakeSubsystem;
 
-    Command lowerAlgaeIntake = algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd();
-
     Command elevatorToTargetHeight = Commands.either(
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
@@ -50,7 +48,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .withTimeout(1.5);
 
     addCommands(
-        lowerAlgaeIntake,
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
         elevatorToTargetHeight,
         forwardLittle,
         Commands.race(
