@@ -91,7 +91,7 @@ public class ConfigChooser {
   }
 
   /**
-   * Configuration values for drivebase.
+   * Configuration values for drive base.
    */
   public static class DriveBase {
     private static final Map<String, Boolean> australiaBooleanMap = Map.of(

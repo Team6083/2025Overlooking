@@ -83,16 +83,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
 
-    // NamedCommands.registerCommand("AprilTagRight",
-    // Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
-    // swerveDrive.driveForwardCmd().withTimeout(2),
-    // () -> tagTracking.getTv() == 1));
-
-    // NamedCommands.registerCommand("AprilTagLeft",
-    // Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
-    // swerveDrive.driveForwardCmd().withTimeout(2),
-    // () -> tagTracking.getTv() == 1));
-
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
 
