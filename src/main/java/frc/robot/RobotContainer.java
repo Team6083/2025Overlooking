@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.derive;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -27,7 +29,7 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
   private final SwerveControlCmd swerveJoystickCmd;
   private final CommandXboxController mainController;
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
     powerDistribution = new PowerDistribution();
@@ -38,15 +40,15 @@ public class RobotContainer {
     mainController = new CommandXboxController(0);
     swerveJoystickCmd = new SwerveControlCmd(swerveDrive, mainController);
 
-    NamedCommands.registerCommand("CoralShooter",
-        coralShooterSubsystem.coralShooterSlowOnCmd());
-    NamedCommands.registerCommand("ElevatortoSecFloor",
-        elevatorSubsystem.toSecFloorCmd());
+    // NamedCommands.registerCommand("CoralShooter",
+    //     coralShooterSubsystem.coralShooterSlowOnCmd());
+    // NamedCommands.registerCommand("ElevatortoSecFloor",
+    //     elevatorSubsystem.toSecFloorCmd());
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    // autoChooser = AutoBuilder.buildAutoChooser();
+    // autoChooser.setDefaultOption("Do Nothing", Commands.none());
 
-    SmartDashboard.putData("Autochooser", autoChooser);
+    // SmartDashboard.putData("Autochooser", autoChooser);
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
@@ -82,6 +84,7 @@ public class RobotContainer {
     // mainController.a().whileTrue(algaeIntakeSubsystem.manualDownRotateCmd());
     // mainController.x().whileTrue(algaeIntakeSubsystem.setIntakeMotorFastOnCmd());
     // mainController.b().whileTrue(algaeIntakeSubsystem.reIntakeCmd());
+    mainController.pov(0).whileTrue(swerveDrive.driveForwardCmd());
     mainController.leftBumper().whileTrue(swerveDrive.setTurningDegreeCmd(0));
     mainController.x().whileTrue(swerveDrive.sysIdDynamicFCmd());
     mainController.b().whileTrue(swerveDrive.sysIdDynamicRCmd());
@@ -91,7 +94,7 @@ public class RobotContainer {
     // algaeIntakeSubsystem.setDefaultCommand(algaeIntakeSubsystem.setIntakeMotorSlowOnCmd());
   }
 
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-  }
+  // public Command getAutonomousCommand() {
+  //   return autoChooser.getSelected();
+  // }
 }

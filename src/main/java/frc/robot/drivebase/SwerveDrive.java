@@ -335,6 +335,8 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("poseY", getPose2d().getY());
     SmartDashboard.putNumber("poseRotationDegree",
         getPose2d().getRotation().getDegrees());
+    SmartDashboard.putBoolean("GyroIsConnected", gyro.isConnected());
+    SmartDashboard.putBoolean("GyroIsCalibrating",gyro.isCalibrating());
   }
 
   public Command gyroResetCmd() {
@@ -346,6 +348,12 @@ public class SwerveDrive extends SubsystemBase {
   public Command setTurningDegreeCmd(double degree) {
     Command cmd = this.runEnd(() -> setTurningDegree(degree), this::stop);
     cmd.setName("setTurningDegreeCmd");
+    return cmd;
+  }
+
+  public Command driveForwardCmd(){
+    Command cmd = this.runEnd(()->drive(0.5, 0, 0, false), this::stop);
+    cmd.setName("driveForward");
     return cmd;
   }
 }
