@@ -44,19 +44,19 @@ public class SwerveToReefCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double tagID = tagTracking.getBestTargetId();
+    double tagId = tagTracking.getBestTargetId();
 
-    if (tagID == 6 || tagID == 19) {
+    if (tagId == 6 || tagId == 19) {
       yawPID.setSetpoint(-60);
-    } else if (tagID == 7 || tagID == 18) {
+    } else if (tagId == 7 || tagId == 18) {
       yawPID.setSetpoint(0);
-    } else if (tagID == 8 || tagID == 17) {
+    } else if (tagId == 8 || tagId == 17) {
       yawPID.setSetpoint(60);
-    } else if (tagID == 9 || tagID == 22) {
+    } else if (tagId == 9 || tagId == 22) {
       yawPID.setSetpoint(120);
-    } else if (tagID == 10 || tagID == 21) {
+    } else if (tagId == 10 || tagId == 21) {
       yawPID.setSetpoint(180);
-    } else if (tagID == 11 || tagID == 20) {
+    } else if (tagId == 11 || tagId == 20) {
       yawPID.setSetpoint(-120);
     } else {
       yawPID.setSetpoint(0);
@@ -73,8 +73,8 @@ public class SwerveToReefCmd extends Command {
 
     if (tagTracking.isGetTarget()) {
 
-      if (Math.abs(tagTracking.get3DTx()) < 0.5) {
-        xSpeed = -tzPID.calculate(tagTracking.get3DTz());
+      if (Math.abs(tagTracking.get3dTx()) < 0.5) {
+        xSpeed = -tzPID.calculate(tagTracking.get3dTz());
         rotSpeed = yawPID.calculate(swerveDrive.getRotation2dDegrees().getDegrees());
 
       } else {
@@ -82,7 +82,7 @@ public class SwerveToReefCmd extends Command {
         rotSpeed = 0;
       }
 
-      ySpeed = txPID.calculate(tagTracking.get3DTx());
+      ySpeed = txPID.calculate(tagTracking.get3dTx());
 
       xSpeed = MathUtil.clamp(xSpeed, -0.6, 0.6);
       ySpeed = MathUtil.clamp(ySpeed, -0.6, 0.6);

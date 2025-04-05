@@ -79,7 +79,7 @@ public class TagTracking {
     return leftTable.getEntry("targetPose_robotSpace").getDoubleArray(new double[6]);
   }
 
-  public double get3DTx() {
+  public double get3dTx() {
     if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
       return (getRightTargetPoseRobotSpace()[0] + getLeftTargetPoseRobotSpace()[0]) / 2;
     } else if (getRightTv() == 1) {
@@ -91,7 +91,7 @@ public class TagTracking {
     }
   }
 
-  public double get3DTz() {
+  public double get3dTz() {
     if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
       return (getRightTargetPoseRobotSpace()[2] + getLeftTargetPoseRobotSpace()[2]) / 2;
     } else if (getRightTv() == 1) {
@@ -103,7 +103,7 @@ public class TagTracking {
     }
   }
 
-  public double get3DYaw() {
+  public double get3dYaw() {
     if (getRightTv() == 1 && getLeftTv() == 1 && getRightTid() == getLeftTid()) {
       return (getRightTargetPoseRobotSpace()[4] + getLeftTargetPoseRobotSpace()[4]) / 2;
     } else if (getRightTv() == 1) {
