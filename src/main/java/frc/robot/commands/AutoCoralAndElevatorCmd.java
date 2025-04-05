@@ -12,7 +12,6 @@ import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import java.util.Map;
 
-
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -25,6 +24,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
       CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
+    this.coralShooterSubsystem = coralShooterSubsystem;
 
     Command swerveToTag = Commands.either(
         new SwerveToReefCmd(swerveDrive, isLeft),
