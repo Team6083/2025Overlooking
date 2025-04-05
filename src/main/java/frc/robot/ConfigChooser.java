@@ -34,6 +34,8 @@ public class ConfigChooser {
 
   /**
    * Gets a value from the current configuration map.
+   *
+   * @param <T>          The type of the value in the map
    * @param australiaMap The map for Australia configuration
    * @param taiwanMap    The map for Taiwan configuration
    * @param key          The key to look up
