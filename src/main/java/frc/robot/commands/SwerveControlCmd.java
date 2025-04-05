@@ -52,8 +52,8 @@ public class SwerveControlCmd extends Command {
   @Override
   public void execute() {
     if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
-      magnification = SwerveControlConstant.kSafeMagnification;
-      rotMagnification = SwerveControlConstant.kRotSafeMagnification;
+      magnification = ConfigChooser.SwerveControl.getDouble("kSafeMagnification");
+      rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotSafeMagnification");
     } else if (mainController.leftBumper().getAsBoolean()) {
       magnification = ConfigChooser.SwerveControl.getDouble("kFastMagnification");
       rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotFastMagnification");
