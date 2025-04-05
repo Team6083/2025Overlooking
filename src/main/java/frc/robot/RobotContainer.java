@@ -177,9 +177,30 @@ public class RobotContainer {
     controlPanel.button(6).whileTrue(takeL2AlgaeCommandGroup);
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
-    // TagTracking
-    controlPanel.button(2).whileTrue(new SwerveToTagCmd(swerveDrive, true));
-    controlPanel.button(4).whileTrue(new SwerveToTagCmd(swerveDrive, false));
+    // switch floor
+    controlPanel.button(1).onTrue(switchFloor(2));
+    controlPanel.button(3).onTrue(switchFloor(2));
+    controlPanel.button(5).onTrue(switchFloor(4));
+
+    Map<Integer, Command> coralLeftMap = Map.of(
+        2, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true),
+        3, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true),
+        4, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
+
+    controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, targetFloor));
+
+    Map<Integer, Command> coralRightMap = Map.of(
+        2, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false),
+        3, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false),
+        4, new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
+
+    controlPanel.button(4).whileTrue(Commands.select(coralRightMap, targetFloor));
   }
 
   public Command getAutonomousCommand() {
