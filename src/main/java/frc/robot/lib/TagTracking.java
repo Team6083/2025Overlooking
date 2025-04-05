@@ -60,7 +60,7 @@ public class TagTracking {
     }
   }
 
-  public double getBestTargetID() {
+  public double getBestTargetId() {
     if (getRightTv() == 1) {
       return getRightTid();
     } else if (getLeftTv() == 1) {

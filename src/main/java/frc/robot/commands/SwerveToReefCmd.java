@@ -44,7 +44,7 @@ public class SwerveToReefCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double tagID = tagTracking.getBestTargetID();
+    double tagID = tagTracking.getBestTargetId();
 
     if (tagID == 6 || tagID == 19) {
       yawPID.setSetpoint(-60);
