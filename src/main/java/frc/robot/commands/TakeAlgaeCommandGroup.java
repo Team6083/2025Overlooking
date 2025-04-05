@@ -51,9 +51,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
 
     addCommands(
         lowerAlgaeIntake,
-        Commands.race(
-            elevatorToTargetHeight,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
+        elevatorToTargetHeight,
         forwardLittle,
         Commands.race(
             backwardLittle,
