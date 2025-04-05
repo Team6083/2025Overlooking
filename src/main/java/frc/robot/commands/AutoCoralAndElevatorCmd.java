@@ -26,11 +26,6 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
     this.elevatorSubsystem = elevatorSubsystem;
     this.coralShooterSubsystem = coralShooterSubsystem;
 
-    Command swerveToTag = Commands.either(
-        new SwerveToReefCmd(swerveDrive, isLeft),
-        new SwerveToReefCmd(swerveDrive, isLeft),
-        () -> isLeft);
-
     Command forwardLittle = swerveDrive
         .runEnd(
             () -> swerveDrive.drive(0.45, 0, 0, false),
@@ -70,7 +65,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
         Commands.race(
             new CoralShooterHoldCmd(coralShooterSubsystem),
             new SequentialCommandGroup(
-                swerveToTag,
+                new SwerveToReefCmd(swerveDrive, isLeft),
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
