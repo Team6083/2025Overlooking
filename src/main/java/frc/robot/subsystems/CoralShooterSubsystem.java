@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CoralShooterConstant;
+import frc.robot.ConfigChooser;
 import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 
 public class CoralShooterSubsystem extends SubsystemBase {
@@ -42,12 +43,16 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void coralShooterShoot() {
-    setMotorSpeed(CoralShooterConstant.kShooterMotorSlowSpeed);
+  public void coralShooterIn() {
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralInSpeed"));
+  }
+
+  public void coralShooterOut() {
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralOutSpeed"));
   }
 
   public void coralShooterReverseShoot() {
-    setMotorSpeed(CoralShooterConstant.kShooterMotorReverseSpeed);
+    setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralReverseSpeed"));
   }
 
   public void coralShooterStop() { // Motor stop
@@ -62,9 +67,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return false;
   }
 
-  public Command coralShooterShootCmd() {
-    Command cmd = runEnd(this::coralShooterShoot, this::coralShooterStop);
-    cmd.setName("coralShooterSlowOn");
+  public Command coralShooterInCmd() {
+    Command cmd = runEnd(this::coralShooterIn, this::coralShooterStop);
+    cmd.setName("coralShooterIn");
+    return cmd;
+  }
+
+  public Command coralShooterOutCmd() {
+    Command cmd = runEnd(this::coralShooterOut, this::coralShooterStop);
+    cmd.setName("coralShooterOut");
     return cmd;
   }
 
