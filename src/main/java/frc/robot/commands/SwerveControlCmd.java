@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.ConfigChooser;
 import frc.robot.Constants.SwerveControlConstant;
-import frc.robot.drivebase.SwerveDrive;
+import frc.robot.driveBase.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import java.util.function.Supplier;
 
@@ -32,7 +32,7 @@ public class SwerveControlCmd extends Command {
 
   private double magnification;
   private double rotMagnification;
-  private final double drivebaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
+  private final double driveBaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
   private final Supplier<Boolean> elevatorBypassSafety;
 
@@ -69,21 +69,21 @@ public class SwerveControlCmd extends Command {
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
       xSpeed = -xLimiter.calculate(mainController.getLeftY())
-          * drivebaseMaxSpeed * magnification;
+          * driveBaseMaxSpeed * magnification;
 
     } else {
       xSpeed = 0;
     }
     if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
       ySpeed = -yLimiter.calculate(mainController.getLeftX())
-          * drivebaseMaxSpeed * magnification;
+          * driveBaseMaxSpeed * magnification;
 
     } else {
       ySpeed = 0;
     }
     if (Math.abs(mainController.getRightX()) > minJoystickInput) {
       rotSpeed = -rotLimiter.calculate(mainController.getRightX())
-          * drivebaseMaxSpeed * rotMagnification;
+          * driveBaseMaxSpeed * rotMagnification;
 
     } else {
       rotSpeed = 0;

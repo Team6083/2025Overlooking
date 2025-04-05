@@ -1,4 +1,4 @@
-package frc.robot.drivebase;
+package frc.robot.driveBase;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.FollowPathCommand;
@@ -29,7 +29,7 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 public class SwerveDrive extends SubsystemBase {
-  public final SwerveModule frontLeft;
+  private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
