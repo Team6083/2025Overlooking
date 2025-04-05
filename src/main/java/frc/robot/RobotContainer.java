@@ -176,9 +176,9 @@ public class RobotContainer {
     controlPanel.button(5).whileTrue(takeL3AlgaeCommandGroup);
 
     // switch floor
-    controlPanel.button(1).onTrue(switchFloor(2));
-    controlPanel.button(3).onTrue(switchFloor(2));
-    controlPanel.button(5).onTrue(switchFloor(4));
+    controlPanel.button(1).onTrue(setTargetFloor(2));
+    controlPanel.button(3).onTrue(setTargetFloor(3));
+    controlPanel.button(5).onTrue(setTargetFloor(4));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
@@ -199,13 +199,13 @@ public class RobotContainer {
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
 
     controlPanel.button(4).whileTrue(Commands.select(coralRightMap, targetFloor));
-  }
+    }
 
-  private Command switchFloor(int targetFloor) {
-    return Commands.runOnce(() -> this.targetFloor = () -> targetFloor);
-  }
+    private Command setTargetFloor(int floor) {
+    return Commands.runOnce(() -> this.targetFloor = () -> floor);
+    }
 
-  public Command getAutonomousCommand() {
+    public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
 }
