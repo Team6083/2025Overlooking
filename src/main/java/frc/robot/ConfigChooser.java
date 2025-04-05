@@ -1,11 +1,11 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Millimeters;
+
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Preferences;
 import frc.robot.Constants.ModuleConstant;
 import java.util.Map;
-
-import static edu.wpi.first.units.Units.Millimeters;
 
 /**
  * Manages robot preferences and configuration values for different robot
