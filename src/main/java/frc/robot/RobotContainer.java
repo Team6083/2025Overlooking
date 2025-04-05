@@ -11,12 +11,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.SwerveToTagCmd;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -37,12 +36,10 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser;
 
-  private final TagTracking tagTracking;
-
   private final SequentialCommandGroup takeL2AlgaeCommandGroup;
   private final SequentialCommandGroup takeL3AlgaeCommandGroup;
     
-  private int targetFloor;
+  private Supplier<Integer> targetFloor;
   
     public RobotContainer() {
       Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
@@ -52,8 +49,6 @@ public class RobotContainer {
       elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
       algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
       swerveDrive = new SwerveDrive();
-  
-      tagTracking = new TagTracking();
   
       takeL2AlgaeCommandGroup = new ParallelRaceGroup(
           elevatorSubsystem.toGetSecAlgaeCmd().repeatedly()
@@ -111,15 +106,15 @@ public class RobotContainer {
       NamedCommands.registerCommand("ErDown",
           elevatorSubsystem.toDefaultPositionCmd());
   
-      NamedCommands.registerCommand("AprilTagRight",
-          Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
-              swerveDrive.driveForwardCmd().withTimeout(2),
-              () -> tagTracking.getTv() == 1));
+      // NamedCommands.registerCommand("AprilTagRight",
+      //     Commands.either(new SwerveToTagCmd(swerveDrive, false).withTimeout(4),
+      //         swerveDrive.driveForwardCmd().withTimeout(2),
+      //         () -> tagTracking.getTv() == 1));
   
-      NamedCommands.registerCommand("AprilTagLeft",
-          Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
-              swerveDrive.driveForwardCmd().withTimeout(2),
-              () -> tagTracking.getTv() == 1));
+      // NamedCommands.registerCommand("AprilTagLeft",
+      //     Commands.either(new SwerveToTagCmd(swerveDrive, true).withTimeout(4),
+      //         swerveDrive.driveForwardCmd().withTimeout(2),
+      //         () -> tagTracking.getTv() == 1));
   
       NamedCommands.registerCommand("AlgaeIntake",
           algaeIntakeSubsystem.intakeCmd());
