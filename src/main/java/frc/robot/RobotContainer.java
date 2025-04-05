@@ -199,13 +199,13 @@ public class RobotContainer {
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
 
     controlPanel.button(4).whileTrue(Commands.select(coralRightMap, targetFloor));
-    }
+  }
 
-    private Command setTargetFloor(int floor) {
+  private Command setTargetFloor(int floor) {
     return Commands.runOnce(() -> this.targetFloor = () -> floor);
-    }
+  }
 
-    public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
 }
