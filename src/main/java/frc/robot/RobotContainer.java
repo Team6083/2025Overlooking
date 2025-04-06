@@ -34,7 +34,7 @@ public class RobotContainer {
 
   private final SendableChooser<Command> autoChooser;
 
-  private Supplier<Integer> targetFloor;
+  private Supplier<Integer> targetFloor = () -> 2;
 
   public RobotContainer() {
     Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
