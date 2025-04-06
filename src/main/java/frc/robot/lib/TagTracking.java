@@ -4,8 +4,11 @@
 
 package frc.robot.lib;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /** Add your docs here. */
 public class TagTracking {
@@ -112,6 +115,68 @@ public class TagTracking {
       return getLeftTargetPoseRobotSpace()[4];
     } else {
       return 0;
+    }
+  }
+
+  public Pose2d getLeftTargetBotPose2d() {
+    String botpose_alliance = "botpose_wpiblue"; // 預設藍色隊伍
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent()) {
+      botpose_alliance = alliance.get() == DriverStation.Alliance.Red ? "botpose_wpired" : "botpose_wpiblue";
+    }
+    double[] botpose = leftTable
+        .getEntry(botpose_alliance) // 或 "botpose_wpired"，依隊伍顏色選擇
+        .getDoubleArray(new double[6]);
+
+    double x = botpose[0];
+    double y = botpose[1];
+    double heading = botpose[5];
+
+    return new Pose2d(x, y, Rotation2d.fromDegrees(heading));
+  }
+
+  public Pose2d getRightTargetBotPose2d() {
+    String botpose_alliance = "botpose_wpiblue"; // 預設藍色隊伍
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent()) {
+      botpose_alliance = alliance.get() == DriverStation.Alliance.Red ? "botpose_wpired" : "botpose_wpiblue";
+    }
+
+    double[] botpose = rightTable
+        .getEntry(botpose_alliance) // 或 "botpose_wpired"，依隊伍顏色選擇
+        .getDoubleArray(new double[6]);
+
+    double x = botpose[0];
+    double y = botpose[1];
+    double heading = botpose[5];
+
+    return new Pose2d(x, y, Rotation2d.fromDegrees(heading));
+  }
+
+  public Pose2d getAverageBotPose2d() {
+    if (getLeftTv() == 1 && getRightTv() == 1 && getLeftTid() == getRightTid()) {
+      Pose2d left = getLeftTargetBotPose2d();
+      Pose2d right = getRightTargetBotPose2d();
+
+      double avgX = (left.getX() + right.getX()) / 2;
+      double avgY = (left.getY() + right.getY()) / 2;
+      Rotation2d avgRotation = left.getRotation().interpolate(right.getRotation(), 0.5);
+
+      return new Pose2d(avgX, avgY, avgRotation);
+    } else {
+      return getBPose2d();
+    }
+  }
+
+  public Pose2d getBPose2d() {
+    if (getLeftTv() == 1 && getRightTv() == 1 && getLeftTid() == getRightTid()) {
+      return getAverageBotPose2d();
+    } else if (getLeftTv() == 1) {
+      return getLeftTargetBotPose2d();
+    } else if (getRightTv() == 1) {
+      return getRightTargetBotPose2d();
+    } else {
+      return new Pose2d(0, 0, Rotation2d.fromDegrees(0));
     }
   }
 }

@@ -8,6 +8,8 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.FileVersionException;
 import com.studica.frc.AHRS;
+
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,6 +27,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ConfigChooser;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveBaseConstant;
+import frc.robot.lib.TagTracking;
+
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
@@ -36,7 +40,10 @@ public class SwerveDrive extends SubsystemBase {
 
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
+  private final SwerveDrivePoseEstimator poseEstimator;
   private final AHRS gyro;
+
+  TagTracking tagTracking = new TagTracking();
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -110,6 +117,12 @@ public class SwerveDrive extends SubsystemBase {
         kinematics,
         gyro.getRotation2d(),
         getSwerveModulePosition());
+
+    poseEstimator = new SwerveDrivePoseEstimator(
+        kinematics,
+        gyro.getRotation2d(),
+        getSwerveModulePosition(),
+        new Pose2d());
 
     resetPose2dAndEncoder();
     RobotConfig config;
@@ -193,7 +206,7 @@ public class SwerveDrive extends SubsystemBase {
 
   // 取得當前機器人在場地上的位置與角度
   public Pose2d getPose2d() {
-    return odometry.getPoseMeters();
+    return poseEstimator.getEstimatedPosition();
   }
 
   public SwerveModulePosition[] getSwerveModulePosition() {
@@ -283,6 +296,12 @@ public class SwerveDrive extends SubsystemBase {
 
   @Override
   public void periodic() {
+    poseEstimator.update(gyro.getRotation2d(), getSwerveModulePosition());
+
+    if (tagTracking.hasTarget()) {
+      Pose2d botPose2d = tagTracking.getBPose2d();
+      poseEstimator.addVisionMeasurement(botPose2d, 0);
+    }
     field2dPublisher.set(
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
