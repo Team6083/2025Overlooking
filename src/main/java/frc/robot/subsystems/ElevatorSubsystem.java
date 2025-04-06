@@ -134,8 +134,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     boolean usePID = this.shouldUsePID.get();
 
     var shouldSlowHeight = ConfigChooser.Elevator.getDistance("kTrdFloor")
-    .plus((ConfigChooser.Elevator.getDistance("kTopFloor").minus(ConfigChooser.Elevator.getDistance("kTrdFloor")))
-        .div(3).times(1));
+        .plus((ConfigChooser.Elevator.getDistance("kTopFloor").minus(ConfigChooser.Elevator.getDistance("kTrdFloor")))
+            .div(3).times(1));
 
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
