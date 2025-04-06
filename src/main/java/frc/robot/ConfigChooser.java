@@ -113,14 +113,10 @@ public class ConfigChooser {
         "kBackRightCanCoderMagOffset", 0.082764);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
-        "kFrontLeftCanCoderMagOffset",  0.126221,
+        "kFrontLeftCanCoderMagOffset", 0.126221,
         "kFrontRightCanCoderMagOffset", 0.226562,
         "kBackLeftCanCoderMagOffset", -0.397461,
         "kBackRightCanCoderMagOffset", -0.091064);
-
-
-
-       
 
     public static boolean getBoolean(String key) {
       return getValue(australiaBooleanMap, taiwanBooleanMap, key);
@@ -237,8 +233,22 @@ public class ConfigChooser {
         "kToGetSecAlgaeHeight", Millimeters.of(925.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1275.0));
 
+    private static final Map<String, Double> australiaDoubleMap = Map.of(
+        "kMaxOutputHigher", 0.5,
+        "kMaxOutputLower", 0.4,
+        "kP", 0.02);
+
+    private static final Map<String, Double> taiwanDoubleMap = Map.of(
+        "kMaxOutputHigher", 0.66,
+        "kMaxOutputLower", 0.4,
+        "kP", 0.058);
+
     public static Distance getDistance(String key) {
       return getValue(australiaMap, taiwanMap, key);
+    }
+
+    public static double getDouble(String key) {
+      return getValue(australiaDoubleMap, taiwanDoubleMap, key);
     }
   }
 }
