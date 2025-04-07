@@ -13,7 +13,7 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.TagTracking;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveToReefCmd extends Command {
+public class SwerveToTagCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
 
@@ -25,25 +25,19 @@ public class SwerveToReefCmd extends Command {
 
   Debouncer tagDebouncer = new Debouncer(1, Debouncer.DebounceType.kFalling);
 
-  public SwerveToReefCmd(SwerveDrive swerveDrive, boolean isLeft) {
+  public SwerveToTagCmd(SwerveDrive swerveDrive) {
     this.swerveDrive = swerveDrive;
 
     yawPID.enableContinuousInput(-180, 180);
 
-    tzPID.setSetpoint(0.55);
+    tzPID.setSetpoint(0.8);
+    txPID.setSetpoint(0);
 
     addRequirements(swerveDrive);
 
-    if (isLeft) {
-      txPID.setSetpoint(0.1837);
-    } else {
-      txPID.setSetpoint(-0.16);
-    }
-
-    var name = isLeft ? "Left" : "Right";
-    SmartDashboard.putData(name + "TzController", tzPID);
-    SmartDashboard.putData(name + "TxController", txPID);
-    SmartDashboard.putData(name + "YawController", yawPID);
+    SmartDashboard.putData("ToTagTzController", tzPID);
+    SmartDashboard.putData("ToTagTxController", txPID);
+    SmartDashboard.putData("ToTagYawController", yawPID);
   }
 
   // Called when the command is initially scheduled.

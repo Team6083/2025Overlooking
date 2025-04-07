@@ -149,7 +149,8 @@ public class ConfigChooser {
 
         Map.entry("expectedZero", -157.0),
 
-        Map.entry("kGetAlgaeAngle", 95.0));
+        Map.entry("kGetAlgaeAngle", 95.0),
+        Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
         Map.entry("kIntakeFastSpeed", 0.3),
@@ -169,7 +170,8 @@ public class ConfigChooser {
 
         Map.entry("expectedZero", -265.0),
 
-        Map.entry("kGetAlgaeAngle", 95.0));
+        Map.entry("kGetAlgaeAngle", 106.0),
+        Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
@@ -233,7 +235,7 @@ public class ConfigChooser {
         "kTopFloor", Millimeters.of(1730.0),
 
         "kToGetSecAlgaeHeight", Millimeters.of(925.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1275.0));
+        "kToGetTrdAlgaeHeight", Millimeters.of(1280.0));
 
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kMaxOutputHigher", 0.5,
