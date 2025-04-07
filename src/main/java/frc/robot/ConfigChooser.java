@@ -209,7 +209,7 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1630.0),
+        "kMaxHeight", Millimeters.of(1935.0),
 
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(879.0),
