@@ -98,9 +98,6 @@ public class SwerveToReefCmd extends Command {
       SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
       SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-      SmartDashboard.putBoolean("LimelightIsGetTarget", tagTracking.hasTarget());
-      SmartDashboard.putNumber("tx", tagTracking.get3dTx());
-      SmartDashboard.putNumber("ty", tagTracking.get3dTz());
     }
     // CHECKSTYLE.ON: LocalVariableName
   }
