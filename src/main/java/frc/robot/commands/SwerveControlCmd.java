@@ -51,10 +51,7 @@ public class SwerveControlCmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (elevatorSubsystem.getCurrentHeight().gt(Millimeters.of(545)) && !elevatorBypassSafety.get()) {
-      magnification = ConfigChooser.SwerveControl.getDouble("kSafeMagnification");
-      rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotSafeMagnification");
-    } else if (mainController.leftBumper().getAsBoolean()) {
+    if (mainController.leftBumper().getAsBoolean()) {
       magnification = ConfigChooser.SwerveControl.getDouble("kFastMagnification");
       rotMagnification = ConfigChooser.SwerveControl.getDouble("kRotFastMagnification");
     } else {
