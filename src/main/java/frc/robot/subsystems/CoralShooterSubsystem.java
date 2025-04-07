@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,6 +22,9 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private Rev2mDistanceSensor distanceSensor;
   private DutyCycleEncoder shooterEncoder;
 
+  private Solenoid ledLeft;
+  private Solenoid ledRight;
+
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
     coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
@@ -33,6 +37,10 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
+
+    ledLeft = new Solenoid(null, 0);
+    ledRight = new Solenoid(null, 0);
+    // TODO: the type
   }
 
   public double getEncoder() {
@@ -57,6 +65,32 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public void coralShooterStop() { // Motor stop
     setMotorSpeed(0.0);
+  }
+
+  public void setLightBlink() {
+    isInBlink = true;
+    Thread thread = new Thread(() -> {
+      if (isGetTarget()) {
+        for (int i = 0; i < 2; i++) {
+          ledLeft.set(true);
+          ledRight.set(true);
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          ledLeft.set(false);
+          ledRight.set(false);
+          try {
+            Thread.sleep(200);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+        isInBlink = false;
+      }
+    });
+    thread.start();
   }
 
   public boolean isGetTarget() {
