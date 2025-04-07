@@ -25,7 +25,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private Solenoid ledLeft;
   private Solenoid ledRight;
 
-  private boolean isInBlink = false; 
+  private boolean isInBlink = false;
 
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
@@ -67,6 +67,11 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public void coralShooterStop() { // Motor stop
     setMotorSpeed(0.0);
+  }
+
+  public void setLight(boolean isLightOn) {
+    ledLeft.set(isLightOn);
+    ledRight.set(isLightOn);
   }
 
   public void setLightBlink() {
@@ -128,7 +133,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void periodic() {
-    if(!isInBlink){
+    if (!isInBlink) {
       setLight(isGetTarget());
     }
 
