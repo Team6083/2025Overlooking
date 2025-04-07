@@ -186,7 +186,8 @@ public class ConfigChooser {
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
         "kI", 0.0,
-        "kD", 0.0);
+        "kD", 0.0,
+        "kCoralInTimeOut", 0.065);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,
@@ -194,7 +195,8 @@ public class ConfigChooser {
         "kCoralReverseSpeed", -0.2,
         "kP", 0.003,
         "kI", 0.0,
-        "kD", 0.00015);
+        "kD", 0.00015,
+        "kCoralInTimeOut", 0.25);
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
@@ -214,7 +216,7 @@ public class ConfigChooser {
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(879.0),
         "kTrdFloor", Millimeters.of(1300.0),
-        "kTopFloor", Millimeters.of(1850),
+        "kTopFloor", Millimeters.of(1925),
 
         "kToGetSecAlgaeHeight", Millimeters.of(818.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
