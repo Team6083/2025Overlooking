@@ -192,7 +192,7 @@ public class ConfigChooser {
         "kCoralInSpeed", 0.15,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.2,
-        "kP", 0.0007,
+        "kP", 0.003,
         "kI", 0.0,
         "kD", 0.00015);
 
