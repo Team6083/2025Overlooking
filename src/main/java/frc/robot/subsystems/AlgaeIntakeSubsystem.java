@@ -16,7 +16,6 @@ import frc.robot.ConfigChooser;
 import frc.robot.Constants.AlgaeIntakeConstant;
 import java.util.function.Supplier;
 
-
 public class AlgaeIntakeSubsystem extends SubsystemBase {
   /** Creates a new ALGAEIntakeSubsystem. */
   private final VictorSPX intakeMotor;
@@ -27,6 +26,8 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   private final PIDController algaeRotatePID;
 
   private final Supplier<Boolean> shouldUsePIDSupplier;
+
+  private boolean isManualControl = false;
 
   public AlgaeIntakeSubsystem(Supplier<Boolean> shouldUsePIDSupplier) {
     this.shouldUsePIDSupplier = shouldUsePIDSupplier;
@@ -74,6 +75,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     algaeRotatePID.setSetpoint(ConfigChooser.AlgaeIntake.getDouble("kGetAlgaeAngle"));
   }
 
+  public void toTakeAlgaeFromReefDegree() {
+    algaeRotatePID.setSetpoint(ConfigChooser.AlgaeIntake.getDouble("kTakeAlgaeFromReefAngle"));
+  }
+
   public void stopRotate() {
     rotateMotor.set(ControlMode.PercentOutput, 0);
   }
@@ -90,7 +95,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public void periodic() {
     var usePID = shouldUsePIDSupplier.get();
 
-    if (usePID) {
+    if (usePID && !isManualControl) {
       if (getCurrentAngle() > getRotateSetpoint()) {
         algaeRotatePID.setPID(
             ConfigChooser.AlgaeIntake.getDouble("rotMotorUpPIDkP"),
@@ -102,7 +107,6 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
             ConfigChooser.AlgaeIntake.getDouble("rotMotorDownPIDkI"),
             ConfigChooser.AlgaeIntake.getDouble("rotMotorDownPIDkD"));
       }
-
       double output = algaeRotatePID.calculate(getCurrentAngle());
       output = MathUtil.clamp(output, AlgaeIntakeConstant.kMinOutput, AlgaeIntakeConstant.kMaxOutput);
 
@@ -136,8 +140,14 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public Command setRotateCmd(double speed) {
     Command cmd = runEnd(
-        () -> manualSetRotate(speed),
-        this::stopRotate);
+        () -> {
+          isManualControl = true;
+          manualSetRotate(speed);
+        },
+        () -> {
+          isManualControl = false;
+          stopRotate();
+        });
     cmd.setName("manualSetRotateCmd");
     return cmd;
   }
@@ -159,6 +169,12 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
   public Command toAlgaeIntakeDegreeCmd() {
     Command cmd = runOnce(this::toAlgaeIntakeDegree);
     cmd.setName("toAlgaeIntakeDegreeCmd");
+    return cmd;
+  }
+
+  public Command toTakeAlgaeFromReefDegreeCmd() {
+    Command cmd = runOnce(this::toTakeAlgaeFromReefDegree);
+    cmd.setName("toTakeAlgaeFromReefDegreeCmd");
     return cmd;
   }
 
