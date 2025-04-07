@@ -295,6 +295,8 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
+    SmartDashboard.putBoolean("GyroIsConnected", gyro.isConnected());
+    SmartDashboard.putBoolean("GyroIsCalibrating", gyro.isCalibrating());
   }
 
   public Command gyroResetCmd() {
