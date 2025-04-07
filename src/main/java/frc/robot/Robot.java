@@ -72,6 +72,8 @@ public class Robot extends TimedRobot {
 
     ConfigChooser.updateConfig();
     SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
+    double matchTime = DriverStation.getMatchTime();
+    SmartDashboard.putNumber("Match Time", matchTime);
   }
 
   @Override
