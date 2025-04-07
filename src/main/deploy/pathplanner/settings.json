@@ -3,24 +3,18 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
-    "James",
     "L - leave(tag)",
     "M - leave(tag)",
     "R - leave(tag)",
-    "algae",
     "cstr(tag)",
     "only leave",
-    "rtcs(tag)",
-    "way point(tag)",
-    "way points"
+    "rtcs(tag)"
   ],
   "autoFolders": [
-    "JamesL1",
     "L2",
     "crazy L2",
     "crazy L3",
-    "crazy L4",
-    "only leave"
+    "crazy L4"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.0,

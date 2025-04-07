@@ -71,20 +71,22 @@ public class RobotContainer {
         coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
 
     NamedCommands.registerCommand("ErToSec",
-        elevatorSubsystem.toSecFloorCmd());
+        elevatorSubsystem.toSecFloorCmd()
+            .repeatedly()
+            .until(() -> elevatorSubsystem.isAtTargetHeight()));
 
     NamedCommands.registerCommand("ErToTrd",
-        elevatorSubsystem.toTrdFloorCmd());
+        elevatorSubsystem.toTrdFloorCmd()
+            .repeatedly()
+            .until(() -> elevatorSubsystem.isAtTargetHeight()));
 
     NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.toTopFloorCmd().repeatedly()
+        elevatorSubsystem.toTopFloorCmd()
+            .repeatedly()
             .until(() -> elevatorSubsystem.isAtTargetHeight()));
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
-
-    NamedCommands.registerCommand("AlgaeIntake",
-        algaeIntakeSubsystem.intakeCmd());
 
     NamedCommands.registerCommand("CoralShooterHold",
         new CoralShooterHoldCmd(coralShooterSubsystem));
