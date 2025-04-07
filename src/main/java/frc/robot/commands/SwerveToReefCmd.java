@@ -19,7 +19,7 @@ public class SwerveToReefCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(1.2, 0, 0);
+  PIDController txPID = new PIDController(1.5, 0, 0);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.03, 0, 0);
 
@@ -39,6 +39,11 @@ public class SwerveToReefCmd extends Command {
     } else {
       txPID.setSetpoint(-0.16);
     }
+
+    var name = isLeft ? "Left" : "Right";
+    SmartDashboard.putData(name + "TzController", tzPID);
+    SmartDashboard.putData(name + "TxController", txPID);
+    SmartDashboard.putData(name + "YawController", yawPID);
   }
 
   // Called when the command is initially scheduled.
@@ -93,9 +98,9 @@ public class SwerveToReefCmd extends Command {
       SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
       SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-      SmartDashboard.putData("TzController", tzPID);
-      SmartDashboard.putData("TxController", txPID);
-      SmartDashboard.putData("YawController", yawPID);
+      SmartDashboard.putBoolean("LimelightIsGetTarget", tagTracking.hasTarget());
+      SmartDashboard.putNumber("tx", tagTracking.get3dTx());
+      SmartDashboard.putNumber("ty", tagTracking.get3dTz());
     }
     // CHECKSTYLE.ON: LocalVariableName
   }
@@ -110,6 +115,6 @@ public class SwerveToReefCmd extends Command {
   @Override
   public boolean isFinished() {
     return !tagDebouncer.calculate(tagTracking.hasTarget())
-        || Math.abs(txPID.getError()) < 0.025 && Math.abs(tzPID.getError()) < 0.05;
+        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.05;
   }
 }
