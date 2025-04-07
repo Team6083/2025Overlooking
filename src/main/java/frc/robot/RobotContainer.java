@@ -143,6 +143,14 @@ public class RobotContainer {
     controlPanel.button(3).onTrue(setTargetFloor(3));
     controlPanel.button(5).onTrue(setTargetFloor(4));
 
+    Map<Integer, Command> oneButtonAlgaeMap = Map.of(
+        2, new TakeAlgaeCommandGroup(
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2),
+        3, new TakeAlgaeCommandGroup(
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
+
+    controlPanel.button(6).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
+
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true),
@@ -151,7 +159,7 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
 
-    controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, targetFloor));
+    controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
 
     Map<Integer, Command> coralRightMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
@@ -161,10 +169,11 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
 
-    controlPanel.button(4).whileTrue(Commands.select(coralRightMap, targetFloor));
+    controlPanel.button(4).whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
   }
 
   private Command setTargetFloor(int floor) {
+    SmartDashboard.putNumber("targetFloor", floor);
     return Commands.runOnce(() -> this.targetFloor = () -> floor);
   }
 
