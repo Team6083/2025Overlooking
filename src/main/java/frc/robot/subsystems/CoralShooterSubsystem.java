@@ -25,6 +25,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private Solenoid ledLeft;
   private Solenoid ledRight;
 
+  private boolean isInBlink = false; 
+
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
     coralShooterMotor.setInverted(CoralShooterConstant.kCoralShooterMotorInverted);
@@ -126,7 +128,10 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public void periodic() {
-    // This method will be called once per scheduler run
+    if(!isInBlink){
+      setLight(isGetTarget());
+    }
+
     SmartDashboard.putNumber("Distance", distanceSensor.getDistance());
     SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", shooterEncoder.get());
