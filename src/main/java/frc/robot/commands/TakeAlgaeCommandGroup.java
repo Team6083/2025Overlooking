@@ -35,10 +35,10 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
 
     Command forwardLittle = swerveDrive
         .runEnd(
-            () -> swerveDrive.drive(0.4, 0, 0, false),
+            () -> swerveDrive.drive(0.45, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(1.5);
+        .withTimeout(0.75);
 
     Command backwardLittle = swerveDrive
         .runEnd(
@@ -47,12 +47,21 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(1.5);
 
+    Command elevatorToDefaultHeight = elevatorSubsystem
+        .toDefaultPositionCmd()
+        .repeatedly()
+        .until(() -> elevatorSubsystem.isAtTargetHeight());
+
     addCommands(
-        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        algaeIntakeSubsystem.toTakeAlgaeFromReefDegreeCmd(),
         elevatorToTargetHeight,
-        forwardLittle,
+        new SwerveToTagCmd(swerveDrive),
+        Commands.race(
+            forwardLittle,
+            algaeIntakeSubsystem.reverseIntakeCmd()),
         Commands.race(
             backwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()));
+            algaeIntakeSubsystem.reverseIntakeCmd()),
+        elevatorToDefaultHeight);
   }
 }
