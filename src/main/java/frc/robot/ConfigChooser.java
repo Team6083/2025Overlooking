@@ -192,7 +192,7 @@ public class ConfigChooser {
         "kCoralInSpeed", 0.15,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.2,
-        "kP", 0.0007,
+        "kP", 0.003,
         "kI", 0.0,
         "kD", 0.00015);
 
@@ -209,7 +209,7 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1630.0),
+        "kMaxHeight", Millimeters.of(1935.0),
 
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(879.0),
