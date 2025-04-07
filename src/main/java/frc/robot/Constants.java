@@ -70,7 +70,7 @@ public class Constants {
     public static final int kAlgaeEncoderChannel = 6;
 
     public static final double kMaxOutput = 0.5;
-    public static final double kMinOutput = -0.5;
+    public static final double kMinOutput = -0.7;
 
     // Algae setpoint
     public static final double kMaxAngle = 120;
