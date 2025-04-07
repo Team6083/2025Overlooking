@@ -3,6 +3,7 @@
   "waypoints": [
     {
       "anchor": {
+
         "x": 1.5307499999999998,
         "y": 7.27175
       },
@@ -10,6 +11,7 @@
       "nextControl": {
         "x": 1.2810527078918497,
         "y": 7.284048874495543
+
       },
       "isLocked": false,
       "linkedName": "left coral station"

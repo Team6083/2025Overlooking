@@ -3,6 +3,7 @@
   "waypoints": [
     {
       "anchor": {
+
         "x": 7.1857500000000005,
         "y": 7.5447500000000005
       },
@@ -10,18 +11,21 @@
       "nextControl": {
         "x": 7.555756232706709,
         "y": 7.9116827259651865
+
       },
       "isLocked": false,
       "linkedName": "left barge"
     },
     {
       "anchor": {
+
         "x": 5.3527499999999995,
         "y": 5.24375
       },
       "prevControl": {
         "x": 5.937014737509514,
         "y": 6.219143978803683
+
       },
       "nextControl": null,
       "isLocked": false,
