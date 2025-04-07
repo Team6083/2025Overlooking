@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,7 +20,9 @@ import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 public class CoralShooterSubsystem extends SubsystemBase {
   /** Creates a new CoralShooterSubsystem. */
   private VictorSPX coralShooterMotor;
+
   private Rev2mDistanceSensor distanceSensor;
+
   private DutyCycleEncoder shooterEncoder;
 
   private Solenoid ledLeft;
@@ -40,9 +43,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
 
-    ledLeft = new Solenoid(null, 0);
-    ledRight = new Solenoid(null, 0);
-    // TODO: the type
+    ledLeft = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    ledRight = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
   }
 
   public double getEncoder() {
