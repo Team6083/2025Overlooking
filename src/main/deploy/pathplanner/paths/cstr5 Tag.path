@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0071306818181818,
-        "y": 0.89890625
+        "x": 1.0835795454545456,
+        "y": 1.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.4093922990695765,
-        "y": 0.5614886691008343
+        "x": 0.48584116270594035,
+        "y": 0.7625824191008344
       },
       "isLocked": false,
       "linkedName": "right coral station"
