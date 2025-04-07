@@ -72,11 +72,11 @@ public class TagTracking {
 
   // [tx, ty, tz, pitch, yaw, roll] (meters, degrees)
   public double[] getRightTargetPoseRobotSpace() {
-    return rightTable.getEntry("targetPose_robotSpace").getDoubleArray(new double[6]);
+    return rightTable.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
   }
 
   public double[] getLeftTargetPoseRobotSpace() {
-    return leftTable.getEntry("targetPose_robotSpace").getDoubleArray(new double[6]);
+    return leftTable.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
   }
 
   public double get3dTx() {
