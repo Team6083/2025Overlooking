@@ -90,10 +90,10 @@ public class RobotContainer {
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
     NamedCommands.registerCommand("ATL", 
-    new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem,2, true));
+    new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem,3, true));
 
     NamedCommands.registerCommand("ATR", 
-    new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false));
+    new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false));
   }
 
   private void configureBindings() {

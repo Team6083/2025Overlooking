@@ -19,7 +19,7 @@ public class SwerveToReefCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(1.5, 0, 0);
+  PIDController txPID = new PIDController(1.7, 0, 0);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.03, 0, 0);
 
