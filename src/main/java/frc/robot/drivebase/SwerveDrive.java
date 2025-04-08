@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -173,6 +174,16 @@ public class SwerveDrive extends SubsystemBase {
             backRight.getPosition()
         },
         pose);
+
+    poseEstimator.resetPosition(
+        gyro.getRotation2d(),
+        new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            backLeft.getPosition(),
+            backRight.getPosition()
+        },
+        pose);
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -224,11 +235,16 @@ public class SwerveDrive extends SubsystemBase {
         gyro.getRotation2d(),
         getSwerveModulePosition(),
         new Pose2d(0, 0, new Rotation2d(0)));
+
+    poseEstimator.resetPosition(
+        gyro.getRotation2d(),
+        getSwerveModulePosition(),
+        new Pose2d(0, 0, new Rotation2d(0)));
   }
 
   // 更新機器人的場地相對位置
   private void updateOdometry() {
-    odometry.update(
+    poseEstimator.update(
         gyro.getRotation2d(),
         getSwerveModulePosition());
   }
@@ -300,7 +316,7 @@ public class SwerveDrive extends SubsystemBase {
 
     if (tagTracking.hasTarget()) {
       Pose2d botPose2d = tagTracking.getBPose2d();
-      poseEstimator.addVisionMeasurement(botPose2d, 0);
+      poseEstimator.addVisionMeasurement(botPose2d,Timer.getFPGATimestamp());
     }
     field2dPublisher.set(
         new Pose2d[] { getPose2d(),
