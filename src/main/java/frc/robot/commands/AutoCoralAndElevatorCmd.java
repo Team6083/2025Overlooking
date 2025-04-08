@@ -69,7 +69,6 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
-        elevatorToDefaultPosition,
-        backwardLittle);
+        elevatorToDefaultPosition);
   }
 }

@@ -62,7 +62,7 @@ public class SwerveToReefCmd extends Command {
     } else if (tagId == 10 || tagId == 21) {
       yawPID.setSetpoint(180);
     } else if (tagId == 11 || tagId == 20) {
-      yawPID.setSetpoint(-120);
+      yawPID.setSetpoint(60);
     } else {
       yawPID.setSetpoint(0);
     }

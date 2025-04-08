@@ -15,17 +15,17 @@ import java.util.Map;
 public class ConfigChooser {
 
   // Current configuration selection
-  private static boolean isAustraliaConfig = true;
+  private static boolean isAustraliaConfig = false;
 
   public static void initConfig() {
-    Preferences.initBoolean("isAustraliaConfig", true);
+    Preferences.initBoolean("isAustraliaConfig", false);
   }
 
   /**
    * Updates the current configuration based on the robot preference.
    */
   public static void updateConfig() {
-    isAustraliaConfig = Preferences.getBoolean("isAustraliaConfig", true);
+    isAustraliaConfig = Preferences.getBoolean("isAustraliaConfig", false);
   }
 
   public static boolean isAustraliaConfig() {

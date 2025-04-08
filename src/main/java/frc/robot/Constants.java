@@ -45,7 +45,7 @@ public class Constants {
         Math.sqrt(Math.pow(kRobotLength.in(Meters), 2.0) + Math.pow(kRobotWidth.in(Meters), 2.0)));
 
     // 最大轉速需要實際測試看看
-    public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.0);
+    public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.9);
   }
 
   public static final class ModuleConstant {
