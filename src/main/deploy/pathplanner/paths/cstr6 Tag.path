@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0071306818181818,
-        "y": 0.89890625
+        "x": 1.4722500000000003,
+        "y": 0.6222499999999991
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7574333897100316,
-        "y": 0.9112051244955428
+        "x": 1.94025,
+        "y": 0.9927499999999998
       },
       "isLocked": false,
       "linkedName": "right coral station"
@@ -20,8 +20,8 @@
         "y": 2.8354999999999997
       },
       "prevControl": {
-        "x": 4.007677187995811,
-        "y": 3.035945393987901
+        "x": 3.3930000000000002,
+        "y": 2.3675
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": 59.88626684901757
   },
   "reversed": false,
-  "folder": "cstr(tag)",
+  "folder": "cstr",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 55.61965527615517
+    "rotation": 53.972626614896484
   },
   "useDefaultConstraints": true
 }

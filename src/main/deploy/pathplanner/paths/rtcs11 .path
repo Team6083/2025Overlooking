@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.5289772727272728,
-        "y": 7.5682386363636365
+        "x": 1.5210000000000001,
+        "y": 7.554499999999999
       },
       "prevControl": {
-        "x": 2.0856053278798115,
-        "y": 7.341632607954751
+        "x": 2.077628055152539,
+        "y": 7.327893971591114
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": -54.16234704572174
   },
   "reversed": false,
-  "folder": "rtcs(tag)",
+  "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -118.92642583525362
