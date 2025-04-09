@@ -89,10 +89,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralShooterHold",
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
-    NamedCommands.registerCommand("ATL3",
+    NamedCommands.registerCommand("ATL",
         new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true));
 
-    NamedCommands.registerCommand("ATR3",
+    NamedCommands.registerCommand("ATR",
         new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false));
 
   }
