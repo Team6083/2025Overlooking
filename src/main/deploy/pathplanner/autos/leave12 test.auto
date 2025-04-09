@@ -9,24 +9,11 @@
           "data": {
             "pathName": "L - leave(12) Tag"
           }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ATL"
-                }
-              }
-            ]
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "test",
   "choreoAuto": false
 }

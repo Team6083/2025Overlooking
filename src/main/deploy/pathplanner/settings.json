@@ -9,7 +9,10 @@
     "cstr",
     "rtcs"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "coral",
+    "test"
+  ],
   "defaultMaxVel": 4.9,
   "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 327.273,
