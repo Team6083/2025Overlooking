@@ -139,7 +139,7 @@ public class Constants {
 
   public static final class AutoConstants {
     public static final double kPTranslation = 6;
-    public static final double kPRotation = 4;
+    public static final double kPRotation = 3.5;
     public static final double kIRotation = 0.5;
     public static final double kDRotation = 1;
   }
