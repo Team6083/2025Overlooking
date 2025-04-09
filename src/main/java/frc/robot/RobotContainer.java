@@ -61,7 +61,7 @@ public class RobotContainer {
 
   private void registerNamedCommands() {
     NamedCommands.registerCommand("SetTurningDegree",
-        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
+        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
     NamedCommands.registerCommand("CoralShooterIn",
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem)
