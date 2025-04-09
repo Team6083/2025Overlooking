@@ -19,7 +19,7 @@ public class SwerveToReefCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(1.7, 0, 0);
+  PIDController txPID = new PIDController(2.3, 0, 0);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.03, 0, 0);
 
@@ -112,6 +112,6 @@ public class SwerveToReefCmd extends Command {
   @Override
   public boolean isFinished() {
     return !tagDebouncer.calculate(tagTracking.hasTarget())
-        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.05;
+        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.07;
   }
 }
