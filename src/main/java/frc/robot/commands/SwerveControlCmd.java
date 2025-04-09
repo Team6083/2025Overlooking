@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Millimeters;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,9 +11,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.ConfigChooser;
 import frc.robot.Constants.SwerveControlConstant;
 import frc.robot.drivebase.SwerveDrive;
-import frc.robot.subsystems.ElevatorSubsystem;
-import java.util.function.Supplier;
-
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SwerveControlCmd extends Command {
   /** Creates a new SwerveJoystickCmd. */
@@ -28,20 +23,14 @@ public class SwerveControlCmd extends Command {
   // CHECKSTYLE.ON: MemberName
   private final SlewRateLimiter rotLimiter;
 
-  private final ElevatorSubsystem elevatorSubsystem;
-
   private double magnification;
   private double rotMagnification;
   private final double driveBaseMaxSpeed = SwerveControlConstant.kDrivebaseMaxSpeed;
   private final double minJoystickInput = SwerveControlConstant.kMinJoystickInput;
-  private final Supplier<Boolean> elevatorBypassSafety;
 
-  public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController,
-      ElevatorSubsystem elevatorSubsystem, Supplier<Boolean> elevatorBypassSafety) {
+  public SwerveControlCmd(SwerveDrive swerveDrive, CommandXboxController mainController) {
     this.swerveDrive = swerveDrive;
     this.mainController = mainController;
-    this.elevatorSubsystem = elevatorSubsystem;
-    this.elevatorBypassSafety = elevatorBypassSafety;
     xLimiter = new SlewRateLimiter(SwerveControlConstant.kXLimiterRateLimit);
     yLimiter = new SlewRateLimiter(SwerveControlConstant.kYLimiterRateLimit);
     rotLimiter = new SlewRateLimiter(SwerveControlConstant.kRotLimiterRateLimit);

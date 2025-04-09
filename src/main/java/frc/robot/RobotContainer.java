@@ -18,6 +18,8 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+
+import java.nio.charset.MalformedInputException;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -93,7 +95,7 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(new SwerveControlCmd(
-        swerveDrive, mainController, elevatorSubsystem, elevatorBypassSafety));
+        swerveDrive, mainController));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -130,7 +132,7 @@ public class RobotContainer {
             controlPanel.button(10)));
     mainController.start().onTrue(elevatorSubsystem.elevatorReset());
 
-    // ALgaeIntake
+    //ALgaeIntake
     mainController.y().whileTrue(algaeIntakeSubsystem.manualRotateUpCmd());
     mainController.a().whileTrue(algaeIntakeSubsystem.manualRotateDownCmd());
     mainController.x().whileTrue(new SequentialCommandGroup(
@@ -175,7 +177,11 @@ public class RobotContainer {
 
   private Command setTargetFloor(int floor) {
     SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> this.targetFloor = () -> floor);
+    return Commands.runOnce(() -> {
+      this.targetFloor = () -> floor;
+      SmartDashboard.putNumber("targetFloor", floor);
+    });
+
   }
 
   public Command getAutonomousCommand() {
