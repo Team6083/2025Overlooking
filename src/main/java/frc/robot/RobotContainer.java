@@ -63,9 +63,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("SetTurningDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
-    NamedCommands.registerCommand("CoralShooterIn",
+    NamedCommands.registerCommand("CoralIn",
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem)
-            .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.029)));
+            .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
@@ -90,10 +90,10 @@ public class RobotContainer {
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
     NamedCommands.registerCommand("ATL",
-        new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true));
+        new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
 
     NamedCommands.registerCommand("ATR",
-        new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false));
+        new AutoCoralAndElevatorCmd(swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
 
   }
 
