@@ -25,6 +25,9 @@ public class Robot extends TimedRobot {
   Timer gcTimer = new Timer();
 
   public Robot() {
+    ConfigChooser.initConfig();
+    ConfigChooser.updateConfig();
+
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
     gcTimer.start();
@@ -36,9 +39,6 @@ public class Robot extends TimedRobot {
       DataLogManager.start();
       DriverStation.startDataLog(DataLogManager.getLog());
     }
-
-    ConfigChooser.initConfig();
-    ConfigChooser.updateConfig();
 
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
         .set(BuildConstants.BUILD_DATE);
