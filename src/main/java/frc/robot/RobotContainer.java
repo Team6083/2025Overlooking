@@ -110,7 +110,7 @@ public class RobotContainer {
   private void configureBindings() {
     // SwerveDrive
     swerveDrive.setDefaultCommand(new SwerveControlCmd(
-        swerveDrive, mainController, elevatorSubsystem, elevatorBypassSafety));
+        swerveDrive, mainController));
     // used LeftBumper to switch between fast and slow mode
     mainController.back().onTrue(swerveDrive.gyroResetCmd());
 
@@ -192,7 +192,9 @@ public class RobotContainer {
 
   private Command setTargetFloor(int floor) {
     SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> this.targetFloor = () -> floor);
+    return Commands.runOnce(() -> 
+      this.targetFloor = () -> floor
+    );
   }
 
   public Command getAutonomousCommand() {
