@@ -31,7 +31,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
             () -> swerveDrive.drive(0.45, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(0.35);
+        .withTimeout(0.42);
 
     Map<Integer, Command> elevatorMoveToHeightMap = Map
         .of(
@@ -69,7 +69,6 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
-        elevatorToDefaultPosition,
-        backwardLittle);
+        elevatorToDefaultPosition);
   }
 }

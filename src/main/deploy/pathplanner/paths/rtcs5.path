@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 0.530584016393442
+        "x": 3.89025,
+        "y": 2.6892499999999995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.895313233430268,
-        "y": 0.5176816643978487
+        "x": 3.1319232936826737,
+        "y": 2.2381206170619095
       },
       "isLocked": false,
-      "linkedName": "right barge"
+      "linkedName": "reef5(tag)"
     },
     {
       "anchor": {
-        "x": 4.2,
-        "y": 0.531
+        "x": 1.4722500000000003,
+        "y": 0.6222499999999991
       },
       "prevControl": {
-        "x": 3.7596867201143627,
-        "y": 0.5303264452747863
+        "x": 1.688278937074165,
+        "y": 0.7480732822120226
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "right leave"
+      "linkedName": "right coral station"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.44927913469638
+    "rotation": 53.972626614896484
   },
   "reversed": false,
-  "folder": "only leave",
+  "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.57192433396693
+    "rotation": 57.65255650055804
   },
   "useDefaultConstraints": true
 }

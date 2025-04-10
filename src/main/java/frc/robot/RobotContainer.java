@@ -61,11 +61,11 @@ public class RobotContainer {
 
   private void registerNamedCommands() {
     NamedCommands.registerCommand("SetTurningDegree",
-        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.1));
+        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
-    NamedCommands.registerCommand("CoralShooterIn",
+    NamedCommands.registerCommand("CoralIn",
         new CoralShooterInWithAutoStopCmd(coralShooterSubsystem)
-            .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.029)));
+            .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
         coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
@@ -88,6 +88,23 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("CoralShooterHold",
         new CoralShooterHoldCmd(coralShooterSubsystem));
+
+    NamedCommands.registerCommand("CoralLeftL2",
+        new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true));
+
+    NamedCommands.registerCommand("CoralRightL2",
+        new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false));
+
+    NamedCommands.registerCommand("CoralLeftL4",
+        new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
+
+    NamedCommands.registerCommand("CoralRightL4",
+        new AutoCoralAndElevatorCmd(
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
+
   }
 
   private void configureBindings() {
