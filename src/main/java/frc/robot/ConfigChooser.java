@@ -243,9 +243,9 @@ public class ConfigChooser {
         "kP", 0.02);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
-        "kMaxOutputHigher", 0.7,
-        "kMaxOutputLower", 0.5,
-        "kP", 0.015);
+        "kMaxOutputHigher", 0.66,
+        "kMaxOutputLower", 0.4,
+        "kP", 0.058);
 
     public static Distance getDistance(String key) {
       return getValue(australiaMap, taiwanMap, key);
