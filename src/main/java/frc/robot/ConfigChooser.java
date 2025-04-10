@@ -198,7 +198,7 @@ public class ConfigChooser {
         "kP", 0.003,
         "kI", 0.0,
         "kD", 0.00015,
-        "kCoralInTimeOut", 0.25);
+        "kCoralInTimeOut", 0.27);
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
