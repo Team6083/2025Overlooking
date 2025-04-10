@@ -31,8 +31,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
         () -> targetFloor == 2)
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+        .andThen(Commands.waitUntil(() -> elevatorSubsystem.isAtTargetHeight()));
 
     Command forwardLittle = swerveDrive
         .runEnd(
