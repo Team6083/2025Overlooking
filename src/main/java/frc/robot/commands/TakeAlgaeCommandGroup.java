@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -55,7 +56,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
     addCommands(
         algaeIntakeSubsystem.toTakeAlgaeFromReefDegreeCmd(),
         elevatorToTargetHeight,
-        new SwerveToTagCmd(swerveDrive),
+        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
         Commands.race(
             forwardLittle,
             algaeIntakeSubsystem.reverseIntakeCmd()),
