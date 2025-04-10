@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.1857500000000005,
-        "y": 7.5447500000000005
+        "x": 7.18,
+        "y": 1.9189999999999998
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.185749999999999,
-        "y": 7.5447500000000005
+        "x": 6.357569363254839,
+        "y": 2.292137328626825
       },
       "isLocked": false,
-      "linkedName": "left barge"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.6172500000000003,
-        "y": 5.24375
+        "x": 5.27475,
+        "y": 2.972
       },
       "prevControl": {
-        "x": 3.8330286885245926,
-        "y": 6.562397540983607
+        "x": 6.918268596652157,
+        "y": 1.9221880342491025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef(9) tag"
+      "linkedName": "reef3(tag)"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.557071375636674
+    "rotation": 120.73548770192006
   },
   "reversed": false,
-  "folder": "way point(tag)",
+  "folder": "R - leave(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.1120637275567
+    "rotation": -179.57192433396693
   },
   "useDefaultConstraints": true
 }

@@ -19,7 +19,7 @@ public class SwerveToReefCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(1.5, 0, 0);
+  PIDController txPID = new PIDController(2.3, 0, 0);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.03, 0, 0);
 
@@ -62,7 +62,7 @@ public class SwerveToReefCmd extends Command {
     } else if (tagId == 10 || tagId == 21) {
       yawPID.setSetpoint(180);
     } else if (tagId == 11 || tagId == 20) {
-      yawPID.setSetpoint(-120);
+      yawPID.setSetpoint(60);
     } else {
       yawPID.setSetpoint(0);
     }
@@ -112,6 +112,6 @@ public class SwerveToReefCmd extends Command {
   @Override
   public boolean isFinished() {
     return !tagDebouncer.calculate(tagTracking.hasTarget())
-        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.05;
+        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.07;
   }
 }

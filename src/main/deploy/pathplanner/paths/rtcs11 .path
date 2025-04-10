@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.975823863636363,
-        "y": 5.136832386363635
+        "x": 4.992443181818182,
+        "y": 5.248181818181819
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.664313765934818,
-        "y": 5.2970850754445085
+        "x": 4.680933084116636,
+        "y": 5.408434507262692
       },
       "isLocked": false,
       "linkedName": "reef 11"
     },
     {
       "anchor": {
-        "x": 1.0968749999999998,
-        "y": 7.400383522727273
+        "x": 1.6353409090909095,
+        "y": 7.415340909090909
       },
       "prevControl": {
-        "x": 1.6535030551525387,
-        "y": 7.173777494318387
+        "x": 2.191968964243448,
+        "y": 7.1887348806820235
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 327.273,
     "maxAngularAcceleration": 9.0,
     "nominalVoltage": 12.0,
@@ -45,7 +45,7 @@
     "rotation": -54.16234704572174
   },
   "reversed": false,
-  "folder": "rtcs(tag)",
+  "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -118.92642583525362

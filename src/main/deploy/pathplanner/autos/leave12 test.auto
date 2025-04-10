@@ -5,21 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "SetTurningDegree"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "R - leave(4)"
+            "pathName": "L - leave(12) Tag"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "only leave",
+  "folder": "test",
   "choreoAuto": false
 }
