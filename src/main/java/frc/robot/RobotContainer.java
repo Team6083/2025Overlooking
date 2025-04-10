@@ -91,19 +91,19 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("CoralLeftL2",
         new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true, true));
 
     NamedCommands.registerCommand("CoralRightL2",
         new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, true));
 
     NamedCommands.registerCommand("CoralLeftL4",
         new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, true));
 
     NamedCommands.registerCommand("CoralRightL4",
         new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, true));
 
   }
 
@@ -171,21 +171,21 @@ public class RobotContainer {
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true),
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true, false),
         3, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true),
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true, false),
         4, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, false));
 
     controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
 
     Map<Integer, Command> coralRightMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false),
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, false),
         3, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false),
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false, false),
         4, new AutoCoralAndElevatorCmd(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false));
+            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
     controlPanel.button(4).whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
   }
