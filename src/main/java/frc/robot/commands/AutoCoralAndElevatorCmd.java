@@ -21,7 +21,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
   CoralShooterSubsystem coralShooterSubsystem;
 
   public AutoCoralAndElevatorCmd(SwerveDrive swerveDrive, ElevatorSubsystem elevatorSubsystem,
-      CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft) {
+      CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft, Boolean isAutoTime) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
     this.coralShooterSubsystem = coralShooterSubsystem;
@@ -50,9 +50,11 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
         .coralShooterOutCmd()
         .until(() -> !coralShooterSubsystem.isGetTarget());
 
-    Command elevatorToDefaultPosition = elevatorSubsystem
-        .toDefaultPositionCmd().repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+    Command elevatorToDefaultPosition = Commands.either(
+        elevatorSubsystem.toDefaultPositionCmd(),
+        elevatorSubsystem.toDefaultPositionCmd().repeatedly()
+            .until(() -> elevatorSubsystem.isAtTargetHeight()),
+        () -> isAutoTime);
 
     Command backwardLittle = swerveDrive
         .runEnd(
@@ -60,6 +62,11 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
         .withTimeout(0.5);
+
+    Command backwardLittleOrNothing = Commands.either(
+        Commands.none(),
+        backwardLittle,
+        () -> isAutoTime);
 
     addCommands(
         Commands.race(
@@ -69,6 +76,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
-        elevatorToDefaultPosition);
+        elevatorToDefaultPosition,
+        backwardLittleOrNothing);
   }
 }
