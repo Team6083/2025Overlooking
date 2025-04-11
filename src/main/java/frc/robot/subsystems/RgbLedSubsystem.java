@@ -18,16 +18,6 @@ public class RgbLedSubsystem extends SubsystemBase {
     rightLed = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
   }
 
-  public void turnOn() {
-    leftLed.set(true);
-    rightLed.set(true);
-  }
-
-  public void turnOff() {
-    leftLed.set(false);
-    rightLed.set(false);
-  }
-
   public void setLight(boolean isLightOn) {
     leftLed.set(isLightOn);
     rightLed.set(isLightOn);
