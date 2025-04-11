@@ -3,27 +3,18 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
-    "James",
     "L - leave(tag)",
     "M - leave(tag)",
     "R - leave(tag)",
-    "algae",
-    "cstr(tag)",
-    "only leave",
-    "rtcs(tag)",
-    "way point(tag)",
-    "way points"
+    "cstr",
+    "rtcs"
   ],
   "autoFolders": [
-    "JamesL1",
-    "L2",
-    "crazy L2",
-    "crazy L3",
-    "crazy L4",
-    "only leave"
+    "coral",
+    "test"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 2.0,
+  "defaultMaxVel": 4.9,
+  "defaultMaxAccel": 4.5,
   "defaultMaxAngVel": 327.273,
   "defaultMaxAngAccel": 9.0,
   "defaultNominalVoltage": 12.0,

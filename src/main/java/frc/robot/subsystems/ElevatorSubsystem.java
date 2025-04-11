@@ -26,7 +26,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_VictorSPX rightElevatorMotor;
 
   private final DigitalInput upLimitSwitch;
-  private final DigitalInput downLimitSwitch;
 
   private final Encoder encoder;
   private final PIDController elevatorPID;
@@ -52,7 +51,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
 
     upLimitSwitch = new DigitalInput(5);
-    downLimitSwitch = new DigitalInput(7);
 
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA,
         ElevatorConstant.kEncoderChannelB);
@@ -169,7 +167,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
-    SmartDashboard.putBoolean("ElevatorDownLimitswitch", downLimitSwitch.get());
+
     SmartDashboard.putBoolean("ElevatorIsAtTargetHeight", elevatorPID.atSetpoint());
 
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
