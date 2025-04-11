@@ -137,7 +137,7 @@ public class ConfigChooser {
         Map.entry("kReverseIntakeSpeed", -0.3),
 
         Map.entry("kUpIntakeRotateSpeed", -0.6),
-        Map.entry("kDownIntakeRotateSpeed", 0.1),
+        Map.entry("kDownIntakeRotateSpeed", 0.2),
 
         Map.entry("rotMotorUpPIDkP", 0.07),
         Map.entry("rotMotorUpPIDkI", 0.0),
@@ -147,9 +147,9 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -157.0),
+        Map.entry("expectedZero", 147.0),
 
-        Map.entry("kGetAlgaeAngle", 95.0),
+        Map.entry("kGetAlgaeAngle", 104.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
@@ -173,8 +173,18 @@ public class ConfigChooser {
         Map.entry("kGetAlgaeAngle", 106.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
+    private static final Map<String, Boolean> australiaDoubleMap = Map.of(
+        "kRotateMotorInverted", false);
+
+    private static final Map<String, Boolean> taiwanDoubleMap = Map.of(
+        "kRotateMotorInverted", true);
+
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
+    }
+
+    public static boolean getBoolean(String key) {
+      return getValue(australiaDoubleMap, taiwanDoubleMap, key);
     }
   }
 
@@ -220,8 +230,8 @@ public class ConfigChooser {
         "kTrdFloor", Millimeters.of(1300.0),
         "kTopFloor", Millimeters.of(1925),
 
-        "kToGetSecAlgaeHeight", Millimeters.of(818.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
+        "kToGetSecAlgaeHeight", Millimeters.of(975.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
 
     private static final Map<String, Distance> taiwanMap = Map.of(
         "kHeightOffset", Millimeters.of(600.0),
