@@ -5,14 +5,14 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class RGBLedSubsystem extends SubsystemBase {
+public class RgbLedSubsystem extends SubsystemBase {
   private Solenoid leftLed;
   private Solenoid rightLed;
   private boolean isInBlink = false;
   private int blinkingFrequency;
   private final CoralShooterSubsystem coralShooterSubsystem;
 
-  public RGBLedSubsystem(CoralShooterSubsystem coralShooterSubsystem) {
+  public RgbLedSubsystem(CoralShooterSubsystem coralShooterSubsystem) {
     this.coralShooterSubsystem = coralShooterSubsystem;
 
     leftLed = new Solenoid(PneumaticsModuleType.CTREPCM, 0);

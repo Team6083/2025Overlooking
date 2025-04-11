@@ -19,7 +19,7 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.RGBLedSubsystem;
+import frc.robot.subsystems.RgbLedSubsystem;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -27,7 +27,7 @@ public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final RGBLedSubsystem rgbLedSubsystem;
+  private final RgbLedSubsystem rgbLedSubsystem;
   private final SwerveDrive swerveDrive;
 
   private final CommandXboxController mainController = new CommandXboxController(0);
@@ -46,7 +46,7 @@ public class RobotContainer {
     coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
-    rgbLedSubsystem = new RGBLedSubsystem(coralShooterSubsystem);
+    rgbLedSubsystem = new RgbLedSubsystem(coralShooterSubsystem);
     swerveDrive = new SwerveDrive();
 
     registerNamedCommands();
