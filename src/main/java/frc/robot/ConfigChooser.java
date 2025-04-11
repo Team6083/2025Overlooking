@@ -191,13 +191,13 @@ public class ConfigChooser {
    */
   public static class CoralShooter {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kCoralInSpeed", 0.195,
+        "kCoralInSpeed", 0.15,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0,
-        "kCoralInTimeOut", 0.65);
+        "kCoralInTimeOut", 0.14);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,

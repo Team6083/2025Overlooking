@@ -21,7 +21,7 @@ public class TagTrackingCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(3, 0., 0.02);
+  PIDController txPID = new PIDController(3.2, 0.05, 0.02);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.06, 0, 0);
 
@@ -29,7 +29,7 @@ public class TagTrackingCmd extends Command {
 
   public enum AimTarget {
     LEFT("Left", 0.1837, 0.55),
-    CENTER("Center", 0.0, 0.8),
+    CENTER("Center", 0.0, 0.7),
     RIGHT("Right", -0.16, 0.55);
 
     double txSetpoint;
@@ -63,6 +63,10 @@ public class TagTrackingCmd extends Command {
     tzPID.setSetpoint(aimTarget.getTzSetpoint());
     txPID.setSetpoint(aimTarget.getTxSetpoint());
 
+    txPID.setIntegratorRange(-0.2, 0.2);
+    tzPID.setIntegratorRange(-0.2,0.2);
+  
+
     addRequirements(swerveDrive);
 
     SmartDashboard.putData(aimTarget.name + "ToTagTzController", tzPID);
@@ -84,6 +88,7 @@ public class TagTrackingCmd extends Command {
       case 11, 20 -> yawPID.setSetpoint(-120);
       default -> yawPID.setSetpoint(0);
     }
+    
 
   }
 
