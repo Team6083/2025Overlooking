@@ -195,7 +195,8 @@ public class RobotContainer {
 
   private Command setTargetFloor(int floor) {
     SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> this.targetFloor = () -> floor);
+    return Commands.runOnce(() -> 
+      this.targetFloor = () -> floor);
   }
 
   public Command getAutonomousCommand() {
