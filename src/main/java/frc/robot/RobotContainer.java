@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -18,6 +19,7 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.RgbLedSubsystem;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -25,6 +27,7 @@ public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  private final RgbLedSubsystem rgbLedSubsystem;
   private final SwerveDrive swerveDrive;
 
   private final CommandXboxController mainController = new CommandXboxController(0);
@@ -43,6 +46,7 @@ public class RobotContainer {
     coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
+    rgbLedSubsystem = new RgbLedSubsystem(coralShooterSubsystem);
     swerveDrive = new SwerveDrive();
 
     registerNamedCommands();
@@ -130,7 +134,8 @@ public class RobotContainer {
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
-                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
+            rgbLedSubsystem.setLightBlinkCmd(6, 100)));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
@@ -160,9 +165,15 @@ public class RobotContainer {
     controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(1).onTrue(setTargetFloor(2));
-    controlPanel.button(3).onTrue(setTargetFloor(3));
-    controlPanel.button(5).onTrue(setTargetFloor(4));
+    controlPanel.button(1).onTrue(new ParallelCommandGroup(
+        setTargetFloor(2),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200)));
+    controlPanel.button(3).onTrue(new ParallelCommandGroup(
+        setTargetFloor(3),
+        rgbLedSubsystem.setLightBlinkCmd(3, 200)));
+    controlPanel.button(5).onTrue(new ParallelCommandGroup(
+        setTargetFloor(4),
+        rgbLedSubsystem.setLightBlinkCmd(4, 200)));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
