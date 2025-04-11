@@ -47,27 +47,12 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
         .repeatedly()
         .until(() -> elevatorSubsystem.isAtTargetHeight());
 
-    Command autoStopCoralShoot = coralShooterSubsystem
-        .coralShooterOutCmd()
-        .until(() -> !coralShooterSubsystem.isGetTarget());
-
-    Command elevatorToDefaultPosition = Commands.either(
-        elevatorSubsystem.toDefaultPositionCmd(),
-        elevatorSubsystem.toDefaultPositionCmd().repeatedly()
-            .until(() -> elevatorSubsystem.isAtTargetHeight()),
-        () -> isAutoTime);
-
-    Command backwardLittle = swerveDrive
-        .runEnd(
-            () -> swerveDrive.drive(-0.75, 0, 0, false),
-            () -> swerveDrive.drive(0, 0, 0, false))
-        .repeatedly()
-        .withTimeout(0.5);
-
-    Command backwardLittleOrNothing = Commands.either(
-        Commands.none(),
-        backwardLittle,
-        () -> isAutoTime);
+    Command autoStopCoralShoot = Commands.either(
+        coralShooterSubsystem
+            .coralShooterOutCmd()
+            .until(() -> !coralShooterSubsystem.isGetTarget()),
+        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1.5),
+        () -> coralShooterSubsystem.isGetTarget());
 
     addCommands(
         Commands.race(
@@ -77,7 +62,6 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
-        elevatorToDefaultPosition,
-        backwardLittleOrNothing);
+        elevatorSubsystem.toDefaultPositionCmd());
   }
 }
