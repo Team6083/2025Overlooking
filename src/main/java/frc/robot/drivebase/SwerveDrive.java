@@ -234,6 +234,10 @@ public class SwerveDrive extends SubsystemBase {
     gyro.reset();
   }
 
+  public void setGyroTo180() {
+    gyro.setAngleAdjustment(180);
+  }
+
   // 取得機器人目前的旋轉角度
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
@@ -302,6 +306,12 @@ public class SwerveDrive extends SubsystemBase {
   public Command gyroResetCmd() {
     Command cmd = this.runOnce(this::resetGyro);
     cmd.setName("gyroResetCmd");
+    return cmd;
+  }
+
+  public Command setGyroTo180Cmd() {
+    Command cmd = this.runOnce(this::setGyroTo180);
+    cmd.setName("setGyroTo180");
     return cmd;
   }
 

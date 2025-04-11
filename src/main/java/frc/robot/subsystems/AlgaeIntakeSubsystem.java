@@ -46,6 +46,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
     algaeRotatePID = new PIDController(0, 0, 0);
     algaeRotatePID.enableContinuousInput(0, 360);
+    algaeRotatePID.setTolerance(5);
   }
 
   public void intake() {
@@ -89,6 +90,10 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
 
   public double getCurrentAngle() {
     return rotateEncoder.get();
+  }
+
+  public boolean isAtTargetAngle() {
+    return algaeRotatePID.atSetpoint();
   }
 
   @Override
