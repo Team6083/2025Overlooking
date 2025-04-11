@@ -173,8 +173,18 @@ public class ConfigChooser {
         Map.entry("kGetAlgaeAngle", 106.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
+    private static final Map<String, Boolean> australiaDoubleMap = Map.of(
+        "kRotateMotorInverted", false);
+
+    private static final Map<String, Boolean> taiwanDoubleMap = Map.of(
+        "kRotateMotorInverted", true);
+
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
+    }
+
+    public static boolean getBoolean(String key) {
+      return getValue(australiaDoubleMap, taiwanDoubleMap, key);
     }
   }
 
