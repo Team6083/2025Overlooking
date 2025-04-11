@@ -240,7 +240,7 @@ public class ConfigChooser {
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kMaxOutputHigher", 0.5,
         "kMaxOutputLower", 0.4,
-        "kP", 0.02);
+        "kP", 0.024);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
         "kMaxOutputHigher", 0.7,
