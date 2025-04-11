@@ -147,7 +147,7 @@ public class ElevatorSubsystem extends SubsystemBase {
           : ConfigChooser.Elevator.getDouble("kMaxOutputHigher");
 
       var minOutput = currentHeight.lt(shouldSlowHeightDown) ? ConfigChooser.Elevator.getDouble("kMinOutputLower")
-      : ConfigChooser.Elevator.getDouble("kMinOutputHigher");
+          : ConfigChooser.Elevator.getDouble("kMinOutputHigher");
 
       output = MathUtil.clamp(output, minOutput, maxOutput);
 
