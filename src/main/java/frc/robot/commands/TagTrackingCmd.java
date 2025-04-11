@@ -23,7 +23,7 @@ public class TagTrackingCmd extends Command {
 
   PIDController txPID = new PIDController(2.3, 0, 0);
   PIDController tzPID = new PIDController(1.2, 0, 0);
-  PIDController yawPID = new PIDController(0.03, 0, 0);
+  PIDController yawPID = new PIDController(0.06, 0, 0);
 
   Debouncer tagDebouncer = new Debouncer(1, Debouncer.DebounceType.kFalling);
 
