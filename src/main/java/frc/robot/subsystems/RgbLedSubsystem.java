@@ -33,7 +33,7 @@ public class RgbLedSubsystem extends SubsystemBase {
     rightLed.set(isLightOn);
   }
 
-  public void setLightBlink(int blinkFrequency) {
+  public void setLightBlink(int blinkFrequency, int timeGap) {
     if (isInBlink) {
       return;
     }
@@ -46,14 +46,14 @@ public class RgbLedSubsystem extends SubsystemBase {
           leftLed.set(true);
           rightLed.set(true);
           try {
-            Thread.sleep(100);
+            Thread.sleep(timeGap);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
           leftLed.set(false);
           rightLed.set(false);
           try {
-            Thread.sleep(100);
+            Thread.sleep(timeGap);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
@@ -73,8 +73,8 @@ public class RgbLedSubsystem extends SubsystemBase {
     }
   }
 
-  public Command setLightBlinkCmd(int blinkFrequency) {
-    Command cmd = runOnce(() -> setLightBlink(blinkFrequency));
+  public Command setLightBlinkCmd(int blinkFrequency, int timeGap) {
+    Command cmd = runOnce(() -> setLightBlink(blinkFrequency, timeGap));
     cmd.setName("setLightBlinkCmd");
     return cmd;
   }
