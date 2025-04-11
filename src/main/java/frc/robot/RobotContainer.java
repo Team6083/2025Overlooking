@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -131,7 +132,7 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
-            rgbLedSubsystem.setLightBlinkCmd()));
+            rgbLedSubsystem.setLightBlinkCmd(false, 6)));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
@@ -161,9 +162,15 @@ public class RobotContainer {
     controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(1).onTrue(setTargetFloor(2));
-    controlPanel.button(3).onTrue(setTargetFloor(3));
-    controlPanel.button(5).onTrue(setTargetFloor(4));
+    controlPanel.button(1).onTrue(new ParallelCommandGroup(
+        setTargetFloor(2),
+        rgbLedSubsystem.setLightBlinkCmd(true, 2)));
+    controlPanel.button(3).onTrue(new ParallelCommandGroup(
+        setTargetFloor(3),
+        rgbLedSubsystem.setLightBlinkCmd(true, 3)));
+    controlPanel.button(5).onTrue(new ParallelCommandGroup(
+        setTargetFloor(4),
+        rgbLedSubsystem.setLightBlinkCmd(true, 4)));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
