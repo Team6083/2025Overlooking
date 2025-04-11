@@ -34,17 +34,13 @@ public class RgbLedSubsystem extends SubsystemBase {
     rightLed.set(isLightOn);
   }
 
-  public void setLightBlink(boolean isFloorControl, int blinkFrequency) {
+  public void setLightBlink(int blinkFrequency) {
     this.blinkingFrequency = blinkFrequency; 
     if (isInBlink) {
       return;
     }
 
     isInBlink = true;
-
-    if (!isFloorControl) {
-      blinkingFrequency = 6;
-    }
 
     Thread thread = new Thread(() -> {
       if (coralShooterSubsystem.isGetTarget()) {
@@ -79,8 +75,8 @@ public class RgbLedSubsystem extends SubsystemBase {
     }
   }
 
-  public Command setLightBlinkCmd(boolean isFloorControl, int blinkFrequency) {
-    Command cmd = runOnce(() -> setLightBlink(isFloorControl, blinkFrequency));
+  public Command setLightBlinkCmd(int blinkFrequency) {
+    Command cmd = runOnce(() -> setLightBlink(blinkFrequency));
     cmd.setName("setLightBlinkCmd");
     return cmd;
   }

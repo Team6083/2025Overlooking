@@ -132,7 +132,7 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
-            rgbLedSubsystem.setLightBlinkCmd(false, 6)));
+            rgbLedSubsystem.setLightBlinkCmd(6)));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
@@ -164,13 +164,13 @@ public class RobotContainer {
     // switch floor
     controlPanel.button(1).onTrue(new ParallelCommandGroup(
         setTargetFloor(2),
-        rgbLedSubsystem.setLightBlinkCmd(true, 2)));
+        rgbLedSubsystem.setLightBlinkCmd(2)));
     controlPanel.button(3).onTrue(new ParallelCommandGroup(
         setTargetFloor(3),
-        rgbLedSubsystem.setLightBlinkCmd(true, 3)));
+        rgbLedSubsystem.setLightBlinkCmd(3)));
     controlPanel.button(5).onTrue(new ParallelCommandGroup(
         setTargetFloor(4),
-        rgbLedSubsystem.setLightBlinkCmd(true, 4)));
+        rgbLedSubsystem.setLightBlinkCmd(4)));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
