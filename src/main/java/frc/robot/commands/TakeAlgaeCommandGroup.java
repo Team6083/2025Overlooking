@@ -6,7 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -30,8 +32,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
         () -> targetFloor == 2)
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+        .andThen(Commands.waitUntil(() -> elevatorSubsystem.isAtTargetHeight()));
 
     Command forwardLittle = swerveDrive
         .runEnd(
@@ -40,28 +41,24 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(0.75);
 
+    Command algaeToTargetAngle = new SequentialCommandGroup(
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        algaeIntakeSubsystem.intakeCmd().withTimeout(0.8));
+
     Command backwardLittle = swerveDrive
         .runEnd(
             () -> swerveDrive.drive(-0.4, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(1.5);
-
-    Command elevatorToDefaultHeight = elevatorSubsystem
-        .toDefaultPositionCmd()
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+        .withTimeout(1);
 
     addCommands(
-        algaeIntakeSubsystem.toTakeAlgaeFromReefDegreeCmd(),
         elevatorToTargetHeight,
-        new SwerveToTagCmd(swerveDrive),
+        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
+        forwardLittle,
+        algaeToTargetAngle,
         Commands.race(
-            forwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
-        Commands.race(
-            backwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
-        elevatorToDefaultHeight);
+            algaeIntakeSubsystem.intakeCmd(),
+            backwardLittle));
   }
 }

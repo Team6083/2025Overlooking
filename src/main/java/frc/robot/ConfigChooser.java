@@ -52,8 +52,7 @@ public class ConfigChooser {
   public static class SwerveControl {
     private static final Map<String, Double> australiaMap = Map.of(
         "kDefaultMagnification", 0.15,
-        "kFastMagnification", 0.75,
-        "kSafeMagnification", 0.0625,
+        "kFastMagnification", 0.45,
         "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
@@ -61,7 +60,6 @@ public class ConfigChooser {
     private static final Map<String, Double> taiwanMap = Map.of(
         "kDefaultMagnification", 0.17,
         "kFastMagnification", 0.75,
-        "kSafeMagnification", 0.0625,
         "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.75,
         "kRotSafeMagnification", 0.20);
@@ -109,7 +107,7 @@ public class ConfigChooser {
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.145264,
         "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", 0.479043,
+        "kBackLeftCanCoderMagOffset", -0.262451,
         "kBackRightCanCoderMagOffset", 0.082764);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
@@ -137,7 +135,7 @@ public class ConfigChooser {
         Map.entry("kReverseIntakeSpeed", -0.3),
 
         Map.entry("kUpIntakeRotateSpeed", -0.6),
-        Map.entry("kDownIntakeRotateSpeed", 0.1),
+        Map.entry("kDownIntakeRotateSpeed", 0.2),
 
         Map.entry("rotMotorUpPIDkP", 0.07),
         Map.entry("rotMotorUpPIDkI", 0.0),
@@ -147,9 +145,9 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -157.0),
+        Map.entry("expectedZero", 147.0),
 
-        Map.entry("kGetAlgaeAngle", 95.0),
+        Map.entry("kGetAlgaeAngle", 104.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
@@ -173,8 +171,18 @@ public class ConfigChooser {
         Map.entry("kGetAlgaeAngle", 106.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
+    private static final Map<String, Boolean> australiaDoubleMap = Map.of(
+        "kRotateMotorInverted", false);
+
+    private static final Map<String, Boolean> taiwanDoubleMap = Map.of(
+        "kRotateMotorInverted", true);
+
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
+    }
+
+    public static boolean getBoolean(String key) {
+      return getValue(australiaDoubleMap, taiwanDoubleMap, key);
     }
   }
 
@@ -184,12 +192,12 @@ public class ConfigChooser {
   public static class CoralShooter {
     private static final Map<String, Double> australiaMap = Map.of(
         "kCoralInSpeed", 0.195,
-        "kCoralOutSpeed", 0.195,
+        "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0,
-        "kCoralInTimeOut", 0.065);
+        "kCoralInTimeOut", 0.65);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,
@@ -198,7 +206,7 @@ public class ConfigChooser {
         "kP", 0.003,
         "kI", 0.0,
         "kD", 0.00015,
-        "kCoralInTimeOut", 0.25);
+        "kCoralInTimeOut", 0.27);
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
@@ -220,8 +228,8 @@ public class ConfigChooser {
         "kTrdFloor", Millimeters.of(1300.0),
         "kTopFloor", Millimeters.of(1925),
 
-        "kToGetSecAlgaeHeight", Millimeters.of(818.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1355.0));
+        "kToGetSecAlgaeHeight", Millimeters.of(975.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
 
     private static final Map<String, Distance> taiwanMap = Map.of(
         "kHeightOffset", Millimeters.of(600.0),
@@ -238,14 +246,18 @@ public class ConfigChooser {
         "kToGetTrdAlgaeHeight", Millimeters.of(1280.0));
 
     private static final Map<String, Double> australiaDoubleMap = Map.of(
-        "kMaxOutputHigher", 0.5,
-        "kMaxOutputLower", 0.4,
+        "kMaxOutputHigher", 0.8,
+        "kMaxOutputLower", 0.55,
+        "kMinOutputHigher", -0.4,
+        "kMinOutputLower", -0.1,
         "kP", 0.02);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
-        "kMaxOutputHigher", 0.66,
-        "kMaxOutputLower", 0.4,
-        "kP", 0.058);
+        "kMaxOutputHigher", 0.7,
+        "kMaxOutputLower", 0.5,
+        "kMinOutputHigher", -0.4,
+        "kMinOutputLower", -0.1,
+        "kP", 0.015);
 
     public static Distance getDistance(String key) {
       return getValue(australiaMap, taiwanMap, key);
