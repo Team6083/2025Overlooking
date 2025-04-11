@@ -41,28 +41,25 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(0.75);
 
+    Command algaeToTargetAngle = new SequentialCommandGroup(
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        algaeIntakeSubsystem.intakeCmd().withTimeout(0.8));
+
     Command backwardLittle = swerveDrive
         .runEnd(
             () -> swerveDrive.drive(-0.4, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(1.5);
-
-    Command elevatorToDefaultHeight = elevatorSubsystem
-        .toDefaultPositionCmd()
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+        .withTimeout(1);
 
     addCommands(
         algaeIntakeSubsystem.toTakeAlgaeFromReefDegreeCmd(),
         elevatorToTargetHeight,
-        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
+        // new SwerveToTagCmd(swerveDrive),
+        forwardLittle,
+        algaeToTargetAngle,
         Commands.race(
-            forwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
-        Commands.race(
-            backwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
-        elevatorToDefaultHeight);
+            algaeIntakeSubsystem.intakeCmd(),
+            backwardLittle));
   }
 }

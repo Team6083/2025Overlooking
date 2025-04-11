@@ -58,7 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder.setReverseDirection(false);
 
     elevatorPID = new PIDController(ConfigChooser.Elevator.getDouble("kP"), ElevatorConstant.kI, ElevatorConstant.kD);
-    elevatorPID.setTolerance(8);
+    elevatorPID.setTolerance(10);
 
     targetHeight = ConfigChooser.Elevator.getDistance("kInitialHeight");
     encoder.reset();
@@ -131,18 +131,25 @@ public class ElevatorSubsystem extends SubsystemBase {
     Distance currentHeight = getCurrentHeight();
     boolean usePID = this.shouldUsePID.get();
 
-    var shouldSlowHeight = ConfigChooser.Elevator.getDistance("kTrdFloor")
+    var shouldSlowHeightUp = ConfigChooser.Elevator.getDistance("kTrdFloor")
         .plus((ConfigChooser.Elevator.getDistance("kTopFloor")
             .minus(ConfigChooser.Elevator.getDistance("kTrdFloor")))
             .div(3).times(1));
+
+    var shouldSlowHeightDown = ConfigChooser.Elevator.getDistance("kSecFloor")
+        .plus(ConfigChooser.Elevator.getDistance("kInitialHeight")).div(3).times(2);
 
     if (usePID) {
       elevatorPID.setSetpoint(targetHeight.in(Millimeters));
       double output = elevatorPID.calculate(currentHeight.in(Millimeters));
 
-      var maxOutput = currentHeight.gt(shouldSlowHeight) ? ConfigChooser.Elevator.getDouble("kMaxOutputLower")
+      var maxOutput = currentHeight.gt(shouldSlowHeightUp) ? ConfigChooser.Elevator.getDouble("kMaxOutputLower")
           : ConfigChooser.Elevator.getDouble("kMaxOutputHigher");
-      output = MathUtil.clamp(output, ElevatorConstant.kMinOutput, maxOutput);
+
+      var minOutput = currentHeight.lt(shouldSlowHeightDown) ? ConfigChooser.Elevator.getDouble("kMinOutputLower")
+      : ConfigChooser.Elevator.getDouble("kMinOutputHigher");
+
+      output = MathUtil.clamp(output, minOutput, maxOutput);
 
       if (shouldMotorStop()) {
         output = 0;
