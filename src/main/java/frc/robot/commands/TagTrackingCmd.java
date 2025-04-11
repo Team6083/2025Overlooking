@@ -21,7 +21,7 @@ public class TagTrackingCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(2.3, 0, 0);
+  PIDController txPID = new PIDController(3, 0., 0.02);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.06, 0, 0);
 

@@ -171,6 +171,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
 
     SmartDashboard.putData("ElevatorPID", elevatorPID);
+
+    SmartDashboard.putBoolean("isAtTargetHeight", isAtTargetHeight());
   }
 
   public Command toSecFloorCmd() {
