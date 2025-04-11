@@ -60,6 +60,9 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands() {
+    NamedCommands.registerCommand("setGyroTo180",
+        swerveDrive.setGyroTo180Cmd());
+
     NamedCommands.registerCommand("SetTurningDegree",
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
@@ -192,9 +195,7 @@ public class RobotContainer {
 
   private Command setTargetFloor(int floor) {
     SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> 
-      this.targetFloor = () -> floor
-    );
+    return Commands.runOnce(() -> this.targetFloor = () -> floor);
   }
 
   public Command getAutonomousCommand() {
