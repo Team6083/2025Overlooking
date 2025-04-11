@@ -9,7 +9,6 @@ public class RgbLedSubsystem extends SubsystemBase {
   private Solenoid leftLed;
   private Solenoid rightLed;
   private boolean isInBlink = false;
-  private int blinkingFrequency;
   private final CoralShooterSubsystem coralShooterSubsystem;
 
   public RgbLedSubsystem(CoralShooterSubsystem coralShooterSubsystem) {
@@ -35,7 +34,6 @@ public class RgbLedSubsystem extends SubsystemBase {
   }
 
   public void setLightBlink(int blinkFrequency) {
-    this.blinkingFrequency = blinkFrequency; 
     if (isInBlink) {
       return;
     }
@@ -44,7 +42,7 @@ public class RgbLedSubsystem extends SubsystemBase {
 
     Thread thread = new Thread(() -> {
       if (coralShooterSubsystem.isGetTarget()) {
-        for (int i = 0; i < blinkingFrequency; i++) {
+        for (int i = 0; i < blinkFrequency; i++) {
           leftLed.set(true);
           rightLed.set(true);
           try {
