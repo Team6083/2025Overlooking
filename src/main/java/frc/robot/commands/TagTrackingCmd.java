@@ -76,12 +76,12 @@ public class TagTrackingCmd extends Command {
     int tagId = (int) tagTracking.getBestTargetId();
 
     switch (tagId) {
-      case 6, 19 -> yawPID.setSetpoint(120);
-      case 7, 18 -> yawPID.setSetpoint(180);
-      case 8, 17 -> yawPID.setSetpoint(-120);
-      case 9, 22 -> yawPID.setSetpoint(-60);
-      case 10, 21 -> yawPID.setSetpoint(0);
-      case 11, 20 -> yawPID.setSetpoint(60);
+      case 6, 19 -> yawPID.setSetpoint(-60);
+      case 7, 18 -> yawPID.setSetpoint(0);
+      case 8, 17 -> yawPID.setSetpoint(60);
+      case 9, 22 -> yawPID.setSetpoint(120);
+      case 10, 21 -> yawPID.setSetpoint(180);
+      case 11, 20 -> yawPID.setSetpoint(-120);
       default -> yawPID.setSetpoint(0);
     }
 
