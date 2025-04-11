@@ -168,6 +168,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
     SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
 
+    SmartDashboard.putBoolean("ElevatorIsAtTargetHeight", elevatorPID.atSetpoint());
+
     SmartDashboard.putNumber("ElevatorCurrentHeight", currentHeight.in(Millimeters));
 
     SmartDashboard.putData("ElevatorPID", elevatorPID);

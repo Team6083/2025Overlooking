@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -30,8 +31,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
         () -> targetFloor == 2)
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
+        .andThen(Commands.waitUntil(() -> elevatorSubsystem.isAtTargetHeight()));
 
     Command forwardLittle = swerveDrive
         .runEnd(
@@ -52,16 +52,19 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .until(() -> elevatorSubsystem.isAtTargetHeight());
 
+    Command algaeIntake = algaeIntakeSubsystem
+        .intakeCmd()
+        .repeatedly()
+        .withTimeout(5.0);
+
     addCommands(
-        algaeIntakeSubsystem.toTakeAlgaeFromReefDegreeCmd(),
         elevatorToTargetHeight,
         new SwerveToTagCmd(swerveDrive),
-        Commands.race(
-            forwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
-        Commands.race(
-            backwardLittle,
-            algaeIntakeSubsystem.reverseIntakeCmd()),
+        forwardLittle,
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        new ParallelCommandGroup(
+            algaeIntake,
+            backwardLittle),
         elevatorToDefaultHeight);
   }
 }
