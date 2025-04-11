@@ -224,8 +224,8 @@ public class ConfigChooser {
         "kMaxHeight", Millimeters.of(1935.0),
 
         "kInitialHeight", Millimeters.of(540.0),
-        "kSecFloor", Millimeters.of(879.0),
-        "kTrdFloor", Millimeters.of(1300.0),
+        "kSecFloor", Millimeters.of(859.0),
+        "kTrdFloor", Millimeters.of(1280.0),
         "kTopFloor", Millimeters.of(1925),
 
         "kToGetSecAlgaeHeight", Millimeters.of(975.0),
