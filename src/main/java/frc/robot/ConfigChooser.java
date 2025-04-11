@@ -221,12 +221,12 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1935.0),
+        "kMaxHeight", Millimeters.of(1900.0),
 
         "kInitialHeight", Millimeters.of(540.0),
-        "kSecFloor", Millimeters.of(859.0),
-        "kTrdFloor", Millimeters.of(1280.0),
-        "kTopFloor", Millimeters.of(1925),
+        "kSecFloor", Millimeters.of(849.0),
+        "kTrdFloor", Millimeters.of(1270.0),
+        "kTopFloor", Millimeters.of(1900.0),
 
         "kToGetSecAlgaeHeight", Millimeters.of(975.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
