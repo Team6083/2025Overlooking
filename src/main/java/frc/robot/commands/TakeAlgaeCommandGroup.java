@@ -52,14 +52,9 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(1);
 
-    Command algaeIntake = algaeIntakeSubsystem
-        .intakeCmd()
-        .repeatedly()
-        .withTimeout(5.0);
-
     addCommands(
         elevatorToTargetHeight,
-        // new SwerveToTagCmd(swerveDrive),
+        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
         forwardLittle,
         algaeToTargetAngle,
         Commands.race(
