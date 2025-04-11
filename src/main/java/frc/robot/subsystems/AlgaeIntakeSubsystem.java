@@ -36,7 +36,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase {
     rotateMotor = new VictorSPX(AlgaeIntakeConstant.kRotateMotorChannel);
 
     intakeMotor.setInverted(AlgaeIntakeConstant.kIntakeMotorInverted);
-    rotateMotor.setInverted(AlgaeIntakeConstant.kRotateMotorInverted);
+    rotateMotor.setInverted(ConfigChooser.AlgaeIntake.getBoolean("kRotateMotorInverted"));
 
     rotateEncoder = new DutyCycleEncoder(
         AlgaeIntakeConstant.kAlgaeEncoderChannel,

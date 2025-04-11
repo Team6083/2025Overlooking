@@ -79,7 +79,6 @@ public class Constants {
 
     // Algae inverted
     public static final Boolean kIntakeMotorInverted = true;
-    public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
 
     // Algae encoder
