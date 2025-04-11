@@ -137,7 +137,7 @@ public class ConfigChooser {
         Map.entry("kReverseIntakeSpeed", -0.3),
 
         Map.entry("kUpIntakeRotateSpeed", -0.6),
-        Map.entry("kDownIntakeRotateSpeed", 0.1),
+        Map.entry("kDownIntakeRotateSpeed", 0.2),
 
         Map.entry("rotMotorUpPIDkP", 0.07),
         Map.entry("rotMotorUpPIDkI", 0.0),
