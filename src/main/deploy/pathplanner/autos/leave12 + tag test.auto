@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "CoralLeftL2"
+            "pathName": "rtcs 12 new"
           }
         }
       ]
