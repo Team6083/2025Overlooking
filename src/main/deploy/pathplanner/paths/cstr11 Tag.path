@@ -16,19 +16,24 @@
     },
     {
       "anchor": {
-        "x": 4.793011363636364,
-        "y": 5.587215909090909
+        "x": 5.245056818181819,
+        "y": 5.347897727272727
       },
       "prevControl": {
-        "x": 3.935011363636364,
-        "y": 6.406215909090908
+        "x": 4.3870568181818195,
+        "y": 6.166897727272726
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "reef11(Tag)"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6371638141809284,
+      "rotationDegrees": -78.98680068821582
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
