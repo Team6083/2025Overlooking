@@ -36,14 +36,17 @@ public class Robot extends TimedRobot {
   private TagTracking tagTracking;
 
   public Robot() {
+    ConfigChooser.initConfig();
+    ConfigChooser.updateConfig();
+
     m_robotContainer = new RobotContainer();
 
     tagTracking = new TagTracking();
 
-    CameraServer.startAutomaticCapture();
-    camera = CameraServer.startAutomaticCapture();
-    camera.setResolution(640, 480);
-    camera.setFPS(30);
+    // CameraServer.startAutomaticCapture();
+    // camera = CameraServer.startAutomaticCapture();
+    // camera.setResolution(640, 480);
+    // camera.setFPS(30);
 
     new Thread(() -> {
       CvSink cvSink = CameraServer.getVideo();

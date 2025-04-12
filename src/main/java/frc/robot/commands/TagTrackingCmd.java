@@ -21,8 +21,8 @@ public class TagTrackingCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(3.2, 0, 0.001);
-  PIDController tzPID = new PIDController(1.2, 0, 0);
+  PIDController txPID = new PIDController(3, 0, 0.001);
+  PIDController tzPID = new PIDController(3, 0, 0);
   PIDController yawPID = new PIDController(0.06, 0, 0);
 
   Debouncer tagDebouncer = new Debouncer(1, Debouncer.DebounceType.kFalling);
@@ -55,13 +55,16 @@ public class TagTrackingCmd extends Command {
     }
   }
 
+  AimTarget aimTarget;
+
   public TagTrackingCmd(SwerveDrive swerveDrive, AimTarget aimTarget) {
     this.swerveDrive = swerveDrive;
+    this.aimTarget = aimTarget;
 
     yawPID.enableContinuousInput(-180, 180);
 
     tzPID.setSetpoint(aimTarget.getTzSetpoint());
-    txPID.setSetpoint(aimTarget.getTxSetpoint());  
+    txPID.setSetpoint(aimTarget.getTxSetpoint());
 
     addRequirements(swerveDrive);
 
@@ -84,7 +87,6 @@ public class TagTrackingCmd extends Command {
       case 11, 20 -> yawPID.setSetpoint(60);
       default -> yawPID.setSetpoint(0);
     }
-    
 
   }
 
@@ -119,6 +121,9 @@ public class TagTrackingCmd extends Command {
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
       SmartDashboard.putNumber("TagCurrentDegree",
           swerveDrive.getRotation2dDegrees().getMeasure().in(Degrees));
+      SmartDashboard.putData(aimTarget.name + "ToTagTzController", tzPID);
+      SmartDashboard.putData(aimTarget.name + "ToTagTxController", txPID);
+      SmartDashboard.putData(aimTarget.name + "ToTagYawController", yawPID);
     }
     // CHECKSTYLE.ON: LocalVariableName
   }
@@ -132,7 +137,16 @@ public class TagTrackingCmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !tagDebouncer.calculate(tagTracking.hasTarget())
-        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.07;
+    var hasTag = tagDebouncer.calculate(tagTracking.hasTarget());
+    var txOK = Math.abs(txPID.getError()) < 0.03;
+    var tzOK = Math.abs(tzPID.getError()) < 0.09;
+
+    SmartDashboard.putBoolean("TrackingHasTag", hasTag);
+    SmartDashboard.putBoolean("TrackingTxOK", txOK);
+    SmartDashboard.putBoolean("TrackingTzOK", tzOK);
+
+
+    return !hasTag
+        || (txOK && tzOK);
   }
 }

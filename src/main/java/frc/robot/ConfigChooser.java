@@ -107,7 +107,7 @@ public class ConfigChooser {
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.145264,
         "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", -0.262451,
+        "kBackLeftCanCoderMagOffset", -0.343262,
         "kBackRightCanCoderMagOffset", 0.082764);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
@@ -175,7 +175,7 @@ public class ConfigChooser {
         "kRotateMotorInverted", false);
 
     private static final Map<String, Boolean> taiwanDoubleMap = Map.of(
-        "kRotateMotorInverted", true);
+        "kRotateMotorInverted", false);
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);
