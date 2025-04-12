@@ -185,8 +185,6 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, false));
 
-    controlPanel.button(4).whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
-
     Map<Integer, Command> coralRightMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, false),
@@ -195,7 +193,19 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
-    controlPanel.button(5).whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
+    controlPanel.button(4).whileTrue(
+        Commands.either(
+            Commands.select(coralLeftMap, () -> targetFloor.get()),
+            new SequentialCommandGroup(
+                algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+                algaeIntakeSubsystem.intakeCmd()),
+            controlPanel.button(9)));
+
+    controlPanel.button(5).whileTrue(
+        Commands.either(
+            Commands.select(coralRightMap, () -> targetFloor.get()),
+            algaeIntakeSubsystem.reverseIntakeCmd(),
+            controlPanel.button(9)));
   }
 
   private Command setTargetFloor(int floor) {
