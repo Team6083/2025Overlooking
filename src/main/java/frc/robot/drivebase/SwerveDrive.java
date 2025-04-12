@@ -18,7 +18,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -37,6 +40,7 @@ public class SwerveDrive extends SubsystemBase {
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
   private final AHRS gyro;
+  private final Field2d field = new Field2d();
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
   private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
@@ -80,6 +84,13 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putData("FrontRight", frontRight);
     SmartDashboard.putData("BackLeft", backLeft);
     SmartDashboard.putData("BackRight", backRight);
+
+    SmartDashboard.putData("Field", field);
+
+    swerveModuleStates[0] = new SwerveModuleState();
+    swerveModuleStates[1] = new SwerveModuleState();
+    swerveModuleStates[2] = new SwerveModuleState();
+    swerveModuleStates[3] = new SwerveModuleState();
 
     // 初始化 Gyro
     gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
@@ -295,6 +306,25 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
+
+    SmartDashboard.putData("Swerve Drive", new Sendable() {
+
+      public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType("SwerveDrive");
+
+        builder.addDoubleProperty("FrontLeft_Angle", () -> swerveModuleStates[0].angle.getDegrees(), null);
+        builder.addDoubleProperty("FrontLeft_Velocity", () -> swerveModuleStates[0].speedMetersPerSecond, null);
+        builder.addDoubleProperty("FrontRight_Angle", () -> swerveModuleStates[1].angle.getDegrees(), null);
+        builder.addDoubleProperty("FrontRight_Velocity", () -> swerveModuleStates[1].speedMetersPerSecond, null);
+        builder.addDoubleProperty("BackLeft_Angle", () -> swerveModuleStates[2].angle.getDegrees(), null);
+        builder.addDoubleProperty("BackLeft_Velocity", () -> swerveModuleStates[2].speedMetersPerSecond, null);
+        builder.addDoubleProperty("BackRight_Angle", () -> swerveModuleStates[3].angle.getDegrees(), null);
+        builder.addDoubleProperty("BackRight_Velocity", () -> swerveModuleStates[3].speedMetersPerSecond, null);
+
+        builder.addDoubleProperty("Robot Angle", () -> getRotation2dDegrees().getRadians(), null);
+      }
+    });
+
     SmartDashboard.putBoolean("GyroIsConnected", gyro.isConnected());
     SmartDashboard.putBoolean("GyroIsCalibrating", gyro.isCalibrating());
   }
