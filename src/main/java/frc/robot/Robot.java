@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.TagTracking;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -32,8 +34,12 @@ public class Robot extends TimedRobot {
 
   private Timer gcTimer = new Timer();
 
+  private TagTracking tagTracking;
+
   public Robot() {
     m_robotContainer = new RobotContainer();
+
+    tagTracking = new TagTracking();
 
     CameraServer.startAutomaticCapture();
     camera = CameraServer.startAutomaticCapture();
@@ -106,6 +112,7 @@ public class Robot extends TimedRobot {
     
     double matchTime = DriverStation.getMatchTime();
     SmartDashboard.putNumber("Match Time", matchTime);
+    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv()==1||tagTracking.getLeftTv()==1);
   }
 
   @Override
