@@ -324,6 +324,9 @@ public class SwerveDrive extends SubsystemBase {
         builder.addDoubleProperty("Robot Angle", () -> getRotation2dDegrees().getRadians(), null);
       }
     });
+
+    SmartDashboard.putBoolean("GyroIsConnected", gyro.isConnected());
+    SmartDashboard.putBoolean("GyroIsCalibrating", gyro.isCalibrating());
   }
 
   public Command gyroResetCmd() {

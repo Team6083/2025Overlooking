@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.161840909090909,
-        "y": 6.781590909090909
+        "x": 2.727340909090908,
+        "y": 6.937590909090909
       },
       "isLocked": false,
       "linkedName": "left coral station"
     },
     {
       "anchor": {
-        "x": 3.8805,
-        "y": 5.36075
+        "x": 5.07,
+        "y": 5.2925
       },
       "prevControl": {
-        "x": 4.093387677179099,
-        "y": 5.229681937889936
+        "x": 4.212000000000001,
+        "y": 6.1114999999999995
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef10(Tag)"
+      "linkedName": "reef11(Tag)"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.875001559612556
+    "rotation": -120.01836742760908
   },
   "reversed": false,
   "folder": "cstr",

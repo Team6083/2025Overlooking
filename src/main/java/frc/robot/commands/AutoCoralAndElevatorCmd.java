@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -21,7 +22,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
   CoralShooterSubsystem coralShooterSubsystem;
 
   public AutoCoralAndElevatorCmd(SwerveDrive swerveDrive, ElevatorSubsystem elevatorSubsystem,
-      CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft) {
+      CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft, Boolean isAutoTime) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
     this.coralShooterSubsystem = coralShooterSubsystem;
@@ -31,7 +32,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
             () -> swerveDrive.drive(0.45, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(0.35);
+        .withTimeout(0.52);
 
     Map<Integer, Command> elevatorMoveToHeightMap = Map
         .of(
@@ -46,30 +47,21 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
         .repeatedly()
         .until(() -> elevatorSubsystem.isAtTargetHeight());
 
-    Command autoStopCoralShoot = coralShooterSubsystem
-        .coralShooterOutCmd()
-        .until(() -> !coralShooterSubsystem.isGetTarget());
-
-    Command elevatorToDefaultPosition = elevatorSubsystem
-        .toDefaultPositionCmd().repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
-
-    Command backwardLittle = swerveDrive
-        .runEnd(
-            () -> swerveDrive.drive(-0.75, 0, 0, false),
-            () -> swerveDrive.drive(0, 0, 0, false))
-        .repeatedly()
-        .withTimeout(0.5);
+    Command autoStopCoralShoot = Commands.either(
+        coralShooterSubsystem
+            .coralShooterOutCmd()
+            .until(() -> !coralShooterSubsystem.isGetTarget()),
+        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1.5),
+        () -> coralShooterSubsystem.isGetTarget());
 
     addCommands(
         Commands.race(
             new CoralShooterHoldCmd(coralShooterSubsystem),
             new SequentialCommandGroup(
-                new SwerveToReefCmd(swerveDrive, isLeft),
+                new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
                 forwardLittle,
                 elevatorToTargetFloor)),
         autoStopCoralShoot,
-        elevatorToDefaultPosition,
-        backwardLittle);
+        elevatorSubsystem.toDefaultPositionCmd());
   }
 }
