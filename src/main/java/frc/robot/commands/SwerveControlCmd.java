@@ -55,14 +55,14 @@ public class SwerveControlCmd extends Command {
     // CHECKSTYLE.ON: LocalVariableName
 
     if (Math.abs(mainController.getLeftY()) > minJoystickInput) {
-      xSpeed = -xLimiter.calculate(mainController.getLeftY())
+      xSpeed = xLimiter.calculate(mainController.getLeftY())
           * driveBaseMaxSpeed * magnification;
 
     } else {
       xSpeed = 0;
     }
     if (Math.abs(mainController.getLeftX()) > minJoystickInput) {
-      ySpeed = -yLimiter.calculate(mainController.getLeftX())
+      ySpeed = yLimiter.calculate(mainController.getLeftX())
           * driveBaseMaxSpeed * magnification;
 
     } else {

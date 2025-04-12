@@ -21,7 +21,7 @@ public class TagTrackingCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(3, 0., 0.02);
+  PIDController txPID = new PIDController(3.2, 0, 0.001);
   PIDController tzPID = new PIDController(1.2, 0, 0);
   PIDController yawPID = new PIDController(0.06, 0, 0);
 
@@ -29,7 +29,7 @@ public class TagTrackingCmd extends Command {
 
   public enum AimTarget {
     LEFT("Left", 0.1837, 0.55),
-    CENTER("Center", 0.0, 0.8),
+    CENTER("Center", 0.0, 0.7),
     RIGHT("Right", -0.16, 0.55);
 
     double txSetpoint;
@@ -61,7 +61,7 @@ public class TagTrackingCmd extends Command {
     yawPID.enableContinuousInput(-180, 180);
 
     tzPID.setSetpoint(aimTarget.getTzSetpoint());
-    txPID.setSetpoint(aimTarget.getTxSetpoint());
+    txPID.setSetpoint(aimTarget.getTxSetpoint());  
 
     addRequirements(swerveDrive);
 
@@ -76,14 +76,15 @@ public class TagTrackingCmd extends Command {
     int tagId = (int) tagTracking.getBestTargetId();
 
     switch (tagId) {
-      case 6, 19 -> yawPID.setSetpoint(-60);
-      case 7, 18 -> yawPID.setSetpoint(0);
-      case 8, 17 -> yawPID.setSetpoint(60);
-      case 9, 22 -> yawPID.setSetpoint(120);
-      case 10, 21 -> yawPID.setSetpoint(180);
-      case 11, 20 -> yawPID.setSetpoint(-120);
+      case 6, 19 -> yawPID.setSetpoint(120);
+      case 7, 18 -> yawPID.setSetpoint(180);
+      case 8, 17 -> yawPID.setSetpoint(-120);
+      case 9, 22 -> yawPID.setSetpoint(-60);
+      case 10, 21 -> yawPID.setSetpoint(0);
+      case 11, 20 -> yawPID.setSetpoint(60);
       default -> yawPID.setSetpoint(0);
     }
+    
 
   }
 
