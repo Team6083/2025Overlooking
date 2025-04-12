@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Degrees;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.Debouncer;
@@ -21,7 +19,7 @@ public class TagTrackingCmd extends Command {
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(3, 0, 0.001);
+  PIDController txPID = new PIDController(3.2, 0, 0.001);
   PIDController tzPID = new PIDController(3, 0, 0);
   PIDController yawPID = new PIDController(0.06, 0, 0);
 
@@ -94,6 +92,18 @@ public class TagTrackingCmd extends Command {
   @Override
   public void execute() {
     // CHECKSTYLE.OFF: LocalVariableName
+    int tagId = (int) tagTracking.getBestTargetId();
+
+    switch (tagId) {
+      case 6, 19 -> yawPID.setSetpoint(120);
+      case 7, 18 -> yawPID.setSetpoint(180);
+      case 8, 17 -> yawPID.setSetpoint(-120);
+      case 9, 22 -> yawPID.setSetpoint(-60);
+      case 10, 21 -> yawPID.setSetpoint(0);
+      case 11, 20 -> yawPID.setSetpoint(60);
+      default -> yawPID.setSetpoint(0);
+    }
+
     double xSpeed;
     double ySpeed;
     double rotSpeed;
@@ -108,7 +118,18 @@ public class TagTrackingCmd extends Command {
         rotSpeed = 0;
       }
 
-      rotSpeed = yawPID.calculate(swerveDrive.getRotation2dDegrees().getMeasure().in(Degrees));
+      double normalizeToMinus180To180Range = swerveDrive.getRotation2dDegrees().getDegrees();
+
+      normalizeToMinus180To180Range = normalizeToMinus180To180Range % 360;
+
+      // 如果角度大於 180°，則將它轉換到 -180° 到 180° 範圍
+      if (normalizeToMinus180To180Range > 180) {
+        normalizeToMinus180To180Range -= 360;
+      } else if (normalizeToMinus180To180Range <= -180) {
+        normalizeToMinus180To180Range += 360;
+      }
+
+      rotSpeed = yawPID.calculate(normalizeToMinus180To180Range);
       ySpeed = txPID.calculate(tagTracking.get3dTx());
 
       xSpeed = MathUtil.clamp(xSpeed, -0.6, 0.6);
@@ -119,11 +140,11 @@ public class TagTrackingCmd extends Command {
       SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
       SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-      SmartDashboard.putNumber("TagCurrentDegree",
-          swerveDrive.getRotation2dDegrees().getMeasure().in(Degrees));
+      SmartDashboard.putNumber("TagCurrentDegree", normalizeToMinus180To180Range);
       SmartDashboard.putData(aimTarget.name + "ToTagTzController", tzPID);
       SmartDashboard.putData(aimTarget.name + "ToTagTxController", txPID);
       SmartDashboard.putData(aimTarget.name + "ToTagYawController", yawPID);
+      SmartDashboard.putNumber("TagID", tagId);
     }
     // CHECKSTYLE.ON: LocalVariableName
   }
@@ -139,12 +160,11 @@ public class TagTrackingCmd extends Command {
   public boolean isFinished() {
     var hasTag = tagDebouncer.calculate(tagTracking.hasTarget());
     var txOK = Math.abs(txPID.getError()) < 0.03;
-    var tzOK = Math.abs(tzPID.getError()) < 0.09;
+    var tzOK = Math.abs(tzPID.getError()) < 0.1;
 
     SmartDashboard.putBoolean("TrackingHasTag", hasTag);
     SmartDashboard.putBoolean("TrackingTxOK", txOK);
     SmartDashboard.putBoolean("TrackingTzOK", tzOK);
-
 
     return !hasTag
         || (txOK && tzOK);
