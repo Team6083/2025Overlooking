@@ -11,8 +11,7 @@
   ],
   "autoFolders": [
     "Algae",
-    "coral",
-    "test"
+    "coral"
   ],
   "defaultMaxVel": 4.9,
   "defaultMaxAccel": 4.5,
