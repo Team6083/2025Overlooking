@@ -16,24 +16,19 @@
     },
     {
       "anchor": {
-        "x": 1.6353409090909095,
-        "y": 7.415340909090909
+        "x": 1.3827272727272726,
+        "y": 7.521704545454546
       },
       "prevControl": {
-        "x": 1.8482285862700083,
-        "y": 7.284272846980844
+        "x": 1.5956149499063714,
+        "y": 7.3906364833444815
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.29792531120332216,
-      "rotationDegrees": -119.50278109464585
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",

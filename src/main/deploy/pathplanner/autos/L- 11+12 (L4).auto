@@ -11,16 +11,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "CoralLeftL4"
-                }
-              }
-            ]
+            "name": "CoralLeftL4"
           }
         },
         {
