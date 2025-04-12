@@ -141,7 +141,7 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
-            rgbLedSubsystem.setLightBlinkCmd(6, 100)));));
+            rgbLedSubsystem.setLightBlinkCmd(6, 100)));
     controlPanel.button(6)
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
@@ -176,13 +176,13 @@ public class RobotContainer {
     // switch floor
     controlPanel.button(3).onTrue(new ParallelCommandGroup(
         setTargetFloor(2).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
-        rgbLedSubsystem.setLightBlinkCmd(2, 200));
+        rgbLedSubsystem.setLightBlinkCmd(2, 200)));
     controlPanel.button(2).onTrue(new ParallelCommandGroup(
-        setTargetFloor(3).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
-        rgbLedSubsystem.setLightBlinkCmd(2, 200));
+        setTargetFloor(3).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 3 selected"))),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200)));
     controlPanel.button(1).onTrue(new ParallelCommandGroup(
-        setTargetFloor(4).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
-        rgbLedSubsystem.setLightBlinkCmd(2, 200));
+        setTargetFloor(4).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 4 selected"))),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200)));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
