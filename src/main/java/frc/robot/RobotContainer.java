@@ -128,6 +128,10 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+    controlPanel.button(6)
+        .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterInCmd()
+                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
@@ -192,9 +196,7 @@ public class RobotContainer {
 
   private Command setTargetFloor(int floor) {
     SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> 
-      this.targetFloor = () -> floor
-    );
+    return Commands.runOnce(() -> this.targetFloor = () -> floor);
   }
 
   public Command getAutonomousCommand() {
