@@ -7,20 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(12) Tag"
+            "pathName": "ML - leave(12) Tag"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "CoralLeftL2"
-                }
-              }
-            ]
+            "name": "CoralLeftL4"
           }
         },
         {
@@ -44,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralRightL2"
+            "name": "CoralRightL4"
           }
         }
       ]

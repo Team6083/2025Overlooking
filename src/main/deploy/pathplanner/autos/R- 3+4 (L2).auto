@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralLeftL2"
+                  "name": "CoralRightL2"
                 }
               }
             ]
@@ -44,7 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralRightL2"
+            "name": "CoralLeftL2"
           }
         }
       ]

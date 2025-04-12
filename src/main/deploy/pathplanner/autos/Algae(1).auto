@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(12) Tag"
+            "pathName": "M - leave(1) algae"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralLeftL2"
+            "name": "TakeAlgae"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "test",
+  "folder": "Algae",
   "choreoAuto": false
 }

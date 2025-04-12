@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.167352806223595,
-        "y": 5.989922672028143
+        "x": 6.155795454545455,
+        "y": 6.065852272727272
       },
       "isLocked": false,
       "linkedName": "LMC"
     },
     {
       "anchor": {
-        "x": 5.07,
-        "y": 5.2925
+        "x": 5.284943181818182,
+        "y": 5.281420454545455
       },
       "prevControl": {
-        "x": 5.577327780021634,
-        "y": 5.424587116136555
+        "x": 5.728295454545456,
+        "y": 5.994375
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef11(Tag)"
+      "linkedName": "reef(12) tag"
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -120.01836742760908
+    "velocity": 0.0,
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": "L - leave(tag)",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 180.0
   },
   "useDefaultConstraints": true
