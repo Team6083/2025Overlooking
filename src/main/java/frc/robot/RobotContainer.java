@@ -43,7 +43,6 @@ public class RobotContainer {
     Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
     Supplier<Boolean> algaeRotateUsePID = () -> controlPanel.button(12).getAsBoolean();
 
-
     coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
@@ -212,21 +211,19 @@ public class RobotContainer {
             algaeIntakeSubsystem.reverseIntakeCmd(),
             controlPanel.button(9)));
 
-   //Elastic
+    // Elastic
     new Trigger(controlPanel.button(4)::getAsBoolean)
-    .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-    .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
 
     new Trigger(controlPanel.button(5)::getAsBoolean)
-    .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-    .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
 
     new Trigger(controlPanel.button(7)::getAsBoolean)
-    .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-    .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
   }
-
-  
 
   private void elasticNotification(String title, String description) {
     Elastic.Notification notification = new Elastic.Notification();
