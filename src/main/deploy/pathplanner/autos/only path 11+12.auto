@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ML - leave(12) Tag"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs12"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr11 Tag"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "test",
+  "choreoAuto": false
+}
