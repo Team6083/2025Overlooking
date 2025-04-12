@@ -109,10 +109,10 @@ public class Robot extends TimedRobot {
 
     ConfigChooser.updateConfig();
     SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
-    
+
     double matchTime = DriverStation.getMatchTime();
     SmartDashboard.putNumber("Match Time", matchTime);
-    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv()==1||tagTracking.getLeftTv()==1);
+    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv() == 1 || tagTracking.getLeftTv() == 1);
   }
 
   @Override
