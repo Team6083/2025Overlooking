@@ -15,6 +15,8 @@ import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.Elastic;
+import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -163,9 +165,12 @@ public class RobotContainer {
     controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(3).onTrue(setTargetFloor(2));
-    controlPanel.button(2).onTrue(setTargetFloor(3));
-    controlPanel.button(1).onTrue(setTargetFloor(4));
+    controlPanel.button(3).onTrue(setTargetFloor(2)
+        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))));
+    controlPanel.button(2).onTrue(setTargetFloor(3)
+        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 3 selected"))));
+    controlPanel.button(1).onTrue(setTargetFloor(4)
+        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 4 selected"))));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
@@ -204,6 +209,15 @@ public class RobotContainer {
             Commands.select(coralRightMap, () -> targetFloor.get()),
             algaeIntakeSubsystem.reverseIntakeCmd(),
             controlPanel.button(9)));
+  }
+
+  private void elasticNotification(String title, String description) {
+    Elastic.Notification notification = new Elastic.Notification();
+    Elastic.sendNotification(notification
+        .withLevel(NotificationLevel.INFO)
+        .withTitle(title)
+        .withDescription(description)
+        .withDisplaySeconds(3.0));
   }
 
   private Command setTargetFloor(int floor) {
