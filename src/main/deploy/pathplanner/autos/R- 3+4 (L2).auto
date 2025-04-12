@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "setGyroTo180"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "R - leave(3) Tag"
@@ -23,11 +17,7 @@
               {
                 "type": "named",
                 "data": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/autos/R- 3+4 (L2).auto
                   "name": "CoralRightL2"
-=======
-                  "name": "CoralLeftL2"
->>>>>>> main:src/main/deploy/pathplanner/autos/R- 3+4.auto
                 }
               }
             ]
@@ -54,11 +44,7 @@
         {
           "type": "named",
           "data": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/autos/R- 3+4 (L2).auto
             "name": "CoralLeftL2"
-=======
-            "name": "CoralRightL2"
->>>>>>> main:src/main/deploy/pathplanner/autos/R- 3+4.auto
           }
         }
       ]
