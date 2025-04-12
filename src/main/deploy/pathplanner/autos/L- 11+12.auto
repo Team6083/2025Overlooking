@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": null
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "L - leave(12) Tag"
