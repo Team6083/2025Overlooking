@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.ConfigChooser;
 import frc.robot.Constants.ElevatorConstant;
+import frc.robot.lib.Elastic;
+import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import java.util.function.Supplier;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -164,6 +166,15 @@ public class ElevatorSubsystem extends SubsystemBase {
       if (shouldMotorStop()) {
         leftElevatorMotor.set(ControlMode.PercentOutput, 0);
         rightElevatorMotor.set(ControlMode.PercentOutput, 0);
+      }
+
+      if (encoder.getStopped()) {
+        Elastic.Notification notification = new Elastic.Notification();
+        Elastic.sendNotification(notification
+            .withLevel(NotificationLevel.ERROR)
+            .withTitle("Error Notification")
+            .withDescription("Elevator encoder is Stopped")
+            .withDisplaySeconds(3.0));
       }
     }
 
