@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -40,31 +41,24 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(0.75);
 
+    Command algaeToTargetAngle = new SequentialCommandGroup(
+        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+        algaeIntakeSubsystem.intakeCmd().withTimeout(0.8));
+
     Command backwardLittle = swerveDrive
         .runEnd(
             () -> swerveDrive.drive(-0.4, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(1.5);
-
-    Command elevatorToDefaultHeight = elevatorSubsystem
-        .toDefaultPositionCmd()
-        .repeatedly()
-        .until(() -> elevatorSubsystem.isAtTargetHeight());
-
-    Command algaeIntake = algaeIntakeSubsystem
-        .intakeCmd()
-        .repeatedly()
-        .withTimeout(5.0);
+        .withTimeout(1);
 
     addCommands(
         elevatorToTargetHeight,
-        new SwerveToTagCmd(swerveDrive),
+        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
         forwardLittle,
-        algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
-        new ParallelCommandGroup(
-            algaeIntake,
-            backwardLittle),
-        elevatorToDefaultHeight);
+        algaeToTargetAngle,
+        Commands.race(
+            algaeIntakeSubsystem.intakeCmd(),
+            backwardLittle));
   }
 }

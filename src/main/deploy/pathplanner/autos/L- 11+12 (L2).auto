@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "setGyroTo180"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "ML - leave(12) Tag"
