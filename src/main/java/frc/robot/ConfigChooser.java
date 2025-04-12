@@ -191,13 +191,13 @@ public class ConfigChooser {
    */
   public static class CoralShooter {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kCoralInSpeed", 0.195,
+        "kCoralInSpeed", 0.15,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0,
-        "kCoralInTimeOut", 0.65);
+        "kCoralInTimeOut", 0.14);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,
@@ -221,12 +221,12 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1935.0),
+        "kMaxHeight", Millimeters.of(1900.0),
 
         "kInitialHeight", Millimeters.of(540.0),
-        "kSecFloor", Millimeters.of(879.0),
-        "kTrdFloor", Millimeters.of(1300.0),
-        "kTopFloor", Millimeters.of(1925),
+        "kSecFloor", Millimeters.of(849.0),
+        "kTrdFloor", Millimeters.of(1270.0),
+        "kTopFloor", Millimeters.of(1900.0),
 
         "kToGetSecAlgaeHeight", Millimeters.of(975.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
