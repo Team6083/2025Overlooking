@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
@@ -209,6 +210,19 @@ public class RobotContainer {
             Commands.select(coralRightMap, () -> targetFloor.get()),
             algaeIntakeSubsystem.reverseIntakeCmd(),
             controlPanel.button(9)));
+
+    // Elastic
+    new Trigger(controlPanel.button(4)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+
+    new Trigger(controlPanel.button(5)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+
+    new Trigger(controlPanel.button(7)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
   }
 
   private void elasticNotification(String title, String description) {
