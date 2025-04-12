@@ -16,19 +16,24 @@
     },
     {
       "anchor": {
-        "x": 1.4722500000000003,
-        "y": 0.6222499999999991
+        "x": 1.435909090909091,
+        "y": 0.6678977272727274
       },
       "prevControl": {
-        "x": 2.584056858456507,
-        "y": 1.1084896465221108
+        "x": 2.547715949365598,
+        "y": 1.1541373737948395
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "right coral station"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.653789731051344,
+      "rotationDegrees": 87.33305123995271
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
