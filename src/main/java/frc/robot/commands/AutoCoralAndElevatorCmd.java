@@ -60,7 +60,7 @@ public class AutoCoralAndElevatorCmd extends SequentialCommandGroup {
             new SequentialCommandGroup(
                 new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
                 forwardLittle,
-                elevatorToTargetFloor.withTimeout(0.1))),
+                elevatorToTargetFloor)),
         autoStopCoralShoot,
         elevatorSubsystem.toDefaultPositionCmd());
   }
