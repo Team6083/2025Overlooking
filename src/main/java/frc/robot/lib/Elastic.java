@@ -36,6 +36,7 @@ public final class Elastic {
   public static void selectTab(int tabIndex) {
     selectTab(Integer.toString(tabIndex));
   }
+  
   public static class Notification {
     @JsonProperty("level")
     private NotificationLevel level;

@@ -211,12 +211,12 @@ public class RobotContainer {
             controlPanel.button(9)));
   }
 
-  private void elasticNotification(String Title, String Description) {
+  private void elasticNotification(String title, String description) {
     Elastic.Notification notification = new Elastic.Notification();
     Elastic.sendNotification(notification
         .withLevel(NotificationLevel.INFO)
-        .withTitle(Title)
-        .withDescription(Description)
+        .withTitle(title)
+        .withDescription(description)
         .withDisplaySeconds(3.0));
   }
 
