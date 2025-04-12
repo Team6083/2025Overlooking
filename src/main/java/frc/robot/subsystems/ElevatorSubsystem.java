@@ -168,7 +168,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         rightElevatorMotor.set(ControlMode.PercentOutput, 0);
       }
 
-      if (encoder.getStopped()) {
+      if (encoder.getStopped() && leftElevatorMotor.getMotorOutputVoltage() > 1
+          && rightElevatorMotor.getMotorOutputVoltage() > 1) {
         Elastic.Notification notification = new Elastic.Notification();
         Elastic.sendNotification(notification
             .withLevel(NotificationLevel.ERROR)
