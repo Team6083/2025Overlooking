@@ -281,7 +281,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public Command toGetTrdAlgaeCmd() {
     Command cmd = runOnce(this::toGetTrdAlgae);
-    cmd.setName("toGsqetTrdAlgae");
+    cmd.setName("toGetTrdAlgae");
     return cmd;
   }
 
