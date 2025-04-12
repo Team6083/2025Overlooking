@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.428774237086285,
-        "y": 3.5334249443301857
+        "x": 6.554659090909091,
+        "y": 5.254829545454545
       },
       "isLocked": false,
       "linkedName": "middle"
     },
     {
       "anchor": {
-        "x": 5.27475,
-        "y": 2.972
+        "x": 5.138693181818183,
+        "y": 5.175056818181818
       },
       "prevControl": {
-        "x": 5.05953023981109,
-        "y": 2.8447975832610557
+        "x": 4.933203941409097,
+        "y": 5.3174442195770855
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef3(tag)"
+      "linkedName": "reef 12 algae"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.73548770192006
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": "M - leave(tag)",

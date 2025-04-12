@@ -11,9 +11,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "CoralLeftL2"
+            "pathName": "rtcs12"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr11 Tag"
           }
         }
       ]

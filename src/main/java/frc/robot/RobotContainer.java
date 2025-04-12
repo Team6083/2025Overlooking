@@ -110,6 +110,10 @@ public class RobotContainer {
         new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, true));
 
+    NamedCommands.registerCommand("TakeAlgae",
+        new TakeAlgaeCommandGroup(
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2));
+
   }
 
   private void configureBindings() {
@@ -242,7 +246,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return swerveDrive.gyroResetCmd()
+    return Commands.runOnce(() -> swerveDrive.resetGyro())
         .andThen(autoChooser.getSelected());
   }
 }

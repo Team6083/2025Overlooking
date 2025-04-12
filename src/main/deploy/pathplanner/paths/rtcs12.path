@@ -16,25 +16,34 @@
     },
     {
       "anchor": {
-        "x": 1.6353409090909095,
-        "y": 7.415340909090909
+        "x": 1.3827272727272726,
+        "y": 7.521704545454546
       },
       "prevControl": {
-        "x": 1.8482285862700083,
-        "y": 7.284272846980844
+        "x": 1.5956149499063714,
+        "y": 7.3906364833444815
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [
     {
-      "waypointRelativePos": 0.29792531120332216,
-      "rotationDegrees": -119.50278109464585
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6078787878787886,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 4.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 327.273,
+        "maxAngularAcceleration": 9.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
     }
   ],
-  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -55,5 +64,5 @@
     "velocity": 0,
     "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
