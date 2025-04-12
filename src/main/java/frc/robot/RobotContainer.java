@@ -56,6 +56,8 @@ public class RobotContainer {
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
 
+    SmartDashboard.putNumber("targetFloor", 2);
+
     configureBindings();
   }
 
