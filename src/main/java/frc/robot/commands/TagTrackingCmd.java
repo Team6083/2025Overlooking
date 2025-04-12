@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.Degrees;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.Debouncer;
@@ -13,53 +15,76 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.TagTracking;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SwerveToTagCmd extends Command {
+public class TagTrackingCmd extends Command {
   /** Creates a new SwerveTrackingCmd. */
   SwerveDrive swerveDrive;
 
   TagTracking tagTracking = new TagTracking();
 
-  PIDController txPID = new PIDController(1.5, 0, 0);
+  PIDController txPID = new PIDController(3.2, 0, 0.001);
   PIDController tzPID = new PIDController(1.2, 0, 0);
-  PIDController yawPID = new PIDController(0.03, 0, 0);
+  PIDController yawPID = new PIDController(0.06, 0, 0);
 
   Debouncer tagDebouncer = new Debouncer(1, Debouncer.DebounceType.kFalling);
 
-  public SwerveToTagCmd(SwerveDrive swerveDrive) {
+  public enum AimTarget {
+    LEFT("Left", 0.1837, 0.55),
+    CENTER("Center", 0.0, 0.7),
+    RIGHT("Right", -0.16, 0.55);
+
+    double txSetpoint;
+    double tzSetpoint;
+    String name;
+
+    AimTarget(String name, double txSetpoint, double tzSetpoint) {
+      this.name = name;
+      this.txSetpoint = txSetpoint;
+      this.tzSetpoint = tzSetpoint;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public double getTxSetpoint() {
+      return txSetpoint;
+    }
+
+    public double getTzSetpoint() {
+      return tzSetpoint;
+    }
+  }
+
+  public TagTrackingCmd(SwerveDrive swerveDrive, AimTarget aimTarget) {
     this.swerveDrive = swerveDrive;
 
     yawPID.enableContinuousInput(-180, 180);
 
-    tzPID.setSetpoint(0.8);
-    txPID.setSetpoint(0);
+    tzPID.setSetpoint(aimTarget.getTzSetpoint());
+    txPID.setSetpoint(aimTarget.getTxSetpoint());  
 
     addRequirements(swerveDrive);
 
-    SmartDashboard.putData("ToTagTzController", tzPID);
-    SmartDashboard.putData("ToTagTxController", txPID);
-    SmartDashboard.putData("ToTagYawController", yawPID);
+    SmartDashboard.putData(aimTarget.name + "ToTagTzController", tzPID);
+    SmartDashboard.putData(aimTarget.name + "ToTagTxController", txPID);
+    SmartDashboard.putData(aimTarget.name + "ToTagYawController", yawPID);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double tagId = tagTracking.getBestTargetId();
+    int tagId = (int) tagTracking.getBestTargetId();
 
-    if (tagId == 6 || tagId == 19) {
-      yawPID.setSetpoint(-60);
-    } else if (tagId == 7 || tagId == 18) {
-      yawPID.setSetpoint(0);
-    } else if (tagId == 8 || tagId == 17) {
-      yawPID.setSetpoint(60);
-    } else if (tagId == 9 || tagId == 22) {
-      yawPID.setSetpoint(120);
-    } else if (tagId == 10 || tagId == 21) {
-      yawPID.setSetpoint(180);
-    } else if (tagId == 11 || tagId == 20) {
-      yawPID.setSetpoint(-120);
-    } else {
-      yawPID.setSetpoint(0);
+    switch (tagId) {
+      case 6, 19 -> yawPID.setSetpoint(120);
+      case 7, 18 -> yawPID.setSetpoint(180);
+      case 8, 17 -> yawPID.setSetpoint(-120);
+      case 9, 22 -> yawPID.setSetpoint(-60);
+      case 10, 21 -> yawPID.setSetpoint(0);
+      case 11, 20 -> yawPID.setSetpoint(60);
+      default -> yawPID.setSetpoint(0);
     }
+    
 
   }
 
@@ -75,13 +100,13 @@ public class SwerveToTagCmd extends Command {
 
       if (Math.abs(tagTracking.get3dTx()) < 0.5) {
         xSpeed = -tzPID.calculate(tagTracking.get3dTz());
-        rotSpeed = yawPID.calculate(swerveDrive.getRotation2dDegrees().getDegrees());
 
       } else {
         xSpeed = 0;
         rotSpeed = 0;
       }
 
+      rotSpeed = yawPID.calculate(swerveDrive.getRotation2dDegrees().getMeasure().in(Degrees));
       ySpeed = txPID.calculate(tagTracking.get3dTx());
 
       xSpeed = MathUtil.clamp(xSpeed, -0.6, 0.6);
@@ -92,6 +117,8 @@ public class SwerveToTagCmd extends Command {
       SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
       SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
+      SmartDashboard.putNumber("TagCurrentDegree",
+          swerveDrive.getRotation2dDegrees().getMeasure().in(Degrees));
     }
     // CHECKSTYLE.ON: LocalVariableName
   }
@@ -106,6 +133,6 @@ public class SwerveToTagCmd extends Command {
   @Override
   public boolean isFinished() {
     return !tagDebouncer.calculate(tagTracking.hasTarget())
-        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.05;
+        || Math.abs(txPID.getError()) < 0.03 && Math.abs(tzPID.getError()) < 0.07;
   }
 }

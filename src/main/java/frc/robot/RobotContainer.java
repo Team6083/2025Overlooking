@@ -10,12 +10,15 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.Elastic;
+import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -59,6 +62,8 @@ public class RobotContainer {
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
+
+    SmartDashboard.putNumber("targetFloor", 2);
 
     configureBindings();
   }
@@ -109,6 +114,10 @@ public class RobotContainer {
         new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, true));
 
+    NamedCommands.registerCommand("TakeAlgae",
+        new TakeAlgaeCommandGroup(
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2));
+
   }
 
   private void configureBindings() {
@@ -132,8 +141,11 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
-            rgbLedSubsystem.setLightBlinkCmd(6, 100)));
-    mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
+            rgbLedSubsystem.setLightBlinkCmd(6, 100)));));
+    controlPanel.button(6)
+        .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
+            coralShooterSubsystem.coralShooterInCmd()
+                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
@@ -159,18 +171,18 @@ public class RobotContainer {
         algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
         algaeIntakeSubsystem.intakeCmd()));
     mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
-    controlPanel.button(7).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(1).onTrue(new ParallelCommandGroup(
-        setTargetFloor(2),
-        rgbLedSubsystem.setLightBlinkCmd(2, 200)));
     controlPanel.button(3).onTrue(new ParallelCommandGroup(
-        setTargetFloor(3),
-        rgbLedSubsystem.setLightBlinkCmd(3, 200)));
-    controlPanel.button(5).onTrue(new ParallelCommandGroup(
-        setTargetFloor(4),
-        rgbLedSubsystem.setLightBlinkCmd(4, 200)));
+        setTargetFloor(2).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200));
+    controlPanel.button(2).onTrue(new ParallelCommandGroup(
+        setTargetFloor(3).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200));
+    controlPanel.button(1).onTrue(new ParallelCommandGroup(
+        setTargetFloor(4).andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))),
+        rgbLedSubsystem.setLightBlinkCmd(2, 200));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
@@ -178,7 +190,7 @@ public class RobotContainer {
         3, new TakeAlgaeCommandGroup(
             swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
 
-    controlPanel.button(6).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
+    controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
@@ -188,8 +200,6 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, false));
 
-    controlPanel.button(2).whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
-
     Map<Integer, Command> coralRightMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, false),
@@ -198,17 +208,52 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
-    controlPanel.button(4).whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
+    controlPanel.button(4).whileTrue(
+        Commands.either(
+            Commands.select(coralLeftMap, () -> targetFloor.get()),
+            new SequentialCommandGroup(
+                algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+                algaeIntakeSubsystem.intakeCmd()),
+            controlPanel.button(9)));
+
+    controlPanel.button(5).whileTrue(
+        Commands.either(
+            Commands.select(coralRightMap, () -> targetFloor.get()),
+            algaeIntakeSubsystem.reverseIntakeCmd(),
+            controlPanel.button(9)));
+
+    // Elastic
+    new Trigger(controlPanel.button(4)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+
+    new Trigger(controlPanel.button(5)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+
+    new Trigger(controlPanel.button(7)::getAsBoolean)
+        .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+  }
+
+  private void elasticNotification(String title, String description) {
+    Elastic.Notification notification = new Elastic.Notification();
+    Elastic.sendNotification(notification
+        .withLevel(NotificationLevel.INFO)
+        .withTitle(title)
+        .withDescription(description)
+        .withDisplaySeconds(3.0));
   }
 
   private Command setTargetFloor(int floor) {
-    SmartDashboard.putNumber("targetFloor", floor);
-    return Commands.runOnce(() -> 
-      this.targetFloor = () -> floor
-    );
+    return Commands.runOnce(() -> {
+      this.targetFloor = () -> floor;
+      SmartDashboard.putNumber("targetFloor", floor);
+    });
   }
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return Commands.runOnce(() -> swerveDrive.resetGyro())
+        .andThen(autoChooser.getSelected());
   }
 }

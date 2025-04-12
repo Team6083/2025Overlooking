@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(12) Tag"
+            "pathName": "R - leave(3) Tag"
           }
         },
         {
@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ATL"
+                  "name": "CoralRightL2"
                 }
               }
             ]
@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "rtcs12"
+            "pathName": "rtcs3"
           }
         },
         {
@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "cstr11 Tag"
+            "pathName": "cstr4 Tag"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ATR"
+            "name": "CoralLeftL2"
           }
         }
       ]

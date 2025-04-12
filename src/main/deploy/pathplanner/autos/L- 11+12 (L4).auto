@@ -7,26 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R - leave(3) Tag"
+            "pathName": "ML - leave(12) Tag"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ATL"
-                }
-              }
-            ]
+            "name": "CoralLeftL4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "rtcs3"
+            "pathName": "rtcs12"
           }
         },
         {
@@ -38,13 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "cstr4 Tag"
+            "pathName": "cstr11 Tag"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ATR"
+            "name": "CoralRightL4"
           }
         }
       ]

@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.07,
-        "y": 5.2925
+        "x": 4.793011363636364,
+        "y": 5.587215909090909
       },
       "prevControl": {
-        "x": 6.121796583527195,
-        "y": 4.653471782486747
+        "x": 5.844807947163559,
+        "y": 4.9481876915776555
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "M - leave(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

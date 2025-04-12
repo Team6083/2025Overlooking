@@ -5,6 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -13,6 +16,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.TagTracking;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
@@ -22,11 +28,41 @@ public class Robot extends TimedRobot {
   // CHECKSTYLE.ON: MemberName
 
   private boolean saveLogs = false;
-  Timer gcTimer = new Timer();
+
+  private UsbCamera camera;
+
+  private Timer gcTimer = new Timer();
+
+  private TagTracking tagTracking;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+
+    tagTracking = new TagTracking();
+
     CameraServer.startAutomaticCapture();
+    camera = CameraServer.startAutomaticCapture();
+    camera.setResolution(640, 480);
+    camera.setFPS(30);
+
+    new Thread(() -> {
+      CvSink cvSink = CameraServer.getVideo();
+      CvSource outputStream = CameraServer.putVideo("Flipped Camera", 640, 400);
+
+      Mat frame = new Mat();
+
+      while (!Thread.interrupted()) {
+
+        if (cvSink.grabFrame(frame) == 0) {
+          continue;
+        }
+
+        Core.flip(frame, frame, 0);
+        outputStream.putFrame(frame);
+      }
+    })
+        .start();
+
     gcTimer.start();
   }
 
@@ -72,6 +108,10 @@ public class Robot extends TimedRobot {
 
     ConfigChooser.updateConfig();
     SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
+
+    double matchTime = DriverStation.getMatchTime();
+    SmartDashboard.putNumber("Match Time", matchTime);
+    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv() == 1 || tagTracking.getLeftTv() == 1);
   }
 
   @Override

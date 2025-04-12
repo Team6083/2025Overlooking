@@ -79,7 +79,6 @@ public class Constants {
 
     // Algae inverted
     public static final Boolean kIntakeMotorInverted = true;
-    public static final Boolean kRotateMotorInverted = true;
     public static final Boolean kAlgaeEncoderInverted = true;
 
     // Algae encoder
@@ -115,9 +114,6 @@ public class Constants {
     public static final double kManualUpPower = 0.4;
     public static final double kManualDownPower = -0.2;
 
-    public static final double kMaxOutputHigher = 0.5;
-    public static final double kMaxOutputLower = 0.4;
-    public static final double kMinOutput = -0.1;
     public static final Distance kStepHeight = Millimeters.of(7);
 
     public static final double kEncoderDistancePerPulse = (1.0 / 2048.0)
