@@ -306,25 +306,6 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",
         getPose2d().getRotation().getDegrees());
-
-    SmartDashboard.putData("Swerve Drive", new Sendable() {
-
-      public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("SwerveDrive");
-
-        builder.addDoubleProperty("FrontLeft_Angle", () -> swerveModuleStates[0].angle.getDegrees(), null);
-        builder.addDoubleProperty("FrontLeft_Velocity", () -> swerveModuleStates[0].speedMetersPerSecond, null);
-        builder.addDoubleProperty("FrontRight_Angle", () -> swerveModuleStates[1].angle.getDegrees(), null);
-        builder.addDoubleProperty("FrontRight_Velocity", () -> swerveModuleStates[1].speedMetersPerSecond, null);
-        builder.addDoubleProperty("BackLeft_Angle", () -> swerveModuleStates[2].angle.getDegrees(), null);
-        builder.addDoubleProperty("BackLeft_Velocity", () -> swerveModuleStates[2].speedMetersPerSecond, null);
-        builder.addDoubleProperty("BackRight_Angle", () -> swerveModuleStates[3].angle.getDegrees(), null);
-        builder.addDoubleProperty("BackRight_Velocity", () -> swerveModuleStates[3].speedMetersPerSecond, null);
-
-        builder.addDoubleProperty("Robot Angle", () -> getRotation2dDegrees().getRadians(), null);
-      }
-    });
-
     SmartDashboard.putBoolean("GyroIsConnected", gyro.isConnected());
     SmartDashboard.putBoolean("GyroIsCalibrating", gyro.isCalibrating());
   }
