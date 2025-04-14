@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.lib.TagTracking;
+import frc.robot.subsystems.CoralShooterSubsystem;
+import frc.robot.subsystems.RgbLedSubsystem;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -34,6 +36,10 @@ public class Robot extends TimedRobot {
   private Timer gcTimer = new Timer();
 
   private TagTracking tagTracking;
+
+  private CoralShooterSubsystem coralShooterSubsystem = new CoralShooterSubsystem();
+
+  private RgbLedSubsystem rgbLedSubsystem = new RgbLedSubsystem(coralShooterSubsystem);
 
   public Robot() {
     ConfigChooser.initConfig();
@@ -140,6 +146,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    rgbLedSubsystem.setLightBlinkCmd(2, 100);
   }
 
   @Override
