@@ -43,10 +43,10 @@ public class Robot extends TimedRobot {
 
     tagTracking = new TagTracking();
 
-    // CameraServer.startAutomaticCapture();
-    // camera = CameraServer.startAutomaticCapture();
-    // camera.setResolution(640, 480);
-    // camera.setFPS(30);
+    CameraServer.startAutomaticCapture();
+    camera = CameraServer.startAutomaticCapture();
+    camera.setResolution(640, 480);
+    camera.setFPS(30);
 
     new Thread(() -> {
       CvSink cvSink = CameraServer.getVideo();
