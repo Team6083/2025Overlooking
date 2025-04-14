@@ -29,6 +29,11 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
     this.elevatorSubsystem = elevatorSubsystem;
     this.coralShooterSubsystem = coralShooterSubsystem;
 
+    Command toL3 = Commands.either(
+        elevatorSubsystem.toTrdFloorCmd(),
+        Commands.none(),
+        () -> targetFloor == 4);
+
     Command forwardLittle = swerveDrive
         .runEnd(
             () -> swerveDrive.drive(0.45, 0, 0, false),
@@ -60,6 +65,7 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
         Commands.race(
             new CoralShooterHoldCmd(coralShooterSubsystem),
             new SequentialCommandGroup(
+                toL3,
                 new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
                 forwardLittle,
                 elevatorToTargetFloor)),
