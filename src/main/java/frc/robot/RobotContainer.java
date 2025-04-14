@@ -89,6 +89,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
 
+    NamedCommands.registerCommand("AlgaeIntakeToDefaultPosition",
+        algaeIntakeSubsystem.toDefaultDegreeCmd());
+
     NamedCommands.registerCommand("CoralShooterHold",
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
