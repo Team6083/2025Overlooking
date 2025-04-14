@@ -158,14 +158,14 @@ public class TagTrackingCmd extends Command {
   @Override
   public boolean isFinished() {
     var hasTag = tagDebouncer.calculate(tagTracking.hasTarget());
-    var txOK = Math.abs(txPID.getError()) < 0.03;
-    var tzOK = Math.abs(tzPID.getError()) < 0.1;
+    var txOk = Math.abs(txPID.getError()) < 0.03;
+    var tzOk = Math.abs(tzPID.getError()) < 0.1;
 
     SmartDashboard.putBoolean("TrackingHasTag", hasTag);
-    SmartDashboard.putBoolean("TrackingTxOK", txOK);
-    SmartDashboard.putBoolean("TrackingTzOK", tzOK);
+    SmartDashboard.putBoolean("TrackingTxOK", txOk);
+    SmartDashboard.putBoolean("TrackingTzOK", tzOk);
 
     return !hasTag
-        || (txOK && tzOK);
+        || (txOk && tzOk);
   }
 }
