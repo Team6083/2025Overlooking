@@ -91,6 +91,19 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return cmd;
   }
 
+  public Command CoralShooterAutoInCmd() {
+    Command cmd = runEnd(
+        () -> {
+          if (!isGetTarget()) {
+            coralShooterIn();
+          }
+        },
+        this::coralShooterStop
+    ).until(this::isGetTarget);
+    cmd.setName("CoralShooterAutoIn");
+    return cmd;
+  }
+
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Distance", distanceSensor.getDistance());
