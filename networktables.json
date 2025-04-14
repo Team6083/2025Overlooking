@@ -1,0 +1,10 @@
+[
+  {
+    "name": "/Preferences/isAustraliaConfig",
+    "type": "boolean",
+    "value": true,
+    "properties": {
+      "persistent": true
+    }
+  }
+]

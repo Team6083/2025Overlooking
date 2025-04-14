@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.284943181818182,
-        "y": 5.281420454545455
+        "x": 5.37225,
+        "y": 5.24375
       },
       "prevControl": {
-        "x": 5.728295454545456,
-        "y": 5.994375
+        "x": 5.815602272727274,
+        "y": 5.956704545454545
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef(12) tag"
+      "linkedName": "reef 12(tag)"
     }
   ],
   "rotationTargets": [],

@@ -12,20 +12,20 @@
         "y": 4.003487667781326
       },
       "isLocked": false,
-      "linkedName": "middle"
+      "linkedName": "middle barge"
     },
     {
       "anchor": {
-        "x": 5.929772727272727,
+        "x": 6.172,
         "y": 4.015118243243243
       },
       "prevControl": {
-        "x": 5.6797920799297295,
+        "x": 5.922019352657002,
         "y": 4.018228862791761
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 1"
+      "linkedName": "reef  A algae"
     }
   ],
   "rotationTargets": [],
