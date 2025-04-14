@@ -122,7 +122,6 @@ public class TagTrackingCmd extends Command {
 
       normalizeToMinus180To180Range = normalizeToMinus180To180Range % 360;
 
-      // 如果角度大於 180°，則將它轉換到 -180° 到 180° 範圍
       if (normalizeToMinus180To180Range > 180) {
         normalizeToMinus180To180Range -= 360;
       } else if (normalizeToMinus180To180Range <= -180) {
