@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.AutoCoralAndElevatorCmd;
+import frc.robot.commandgroups.CoralAutoToReefCommandGroup;
+import frc.robot.commandgroups.TakeAlgaeCommandGroup;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
-import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.Elastic;
 import frc.robot.lib.Elastic.Notification.NotificationLevel;
@@ -94,19 +94,19 @@ public class RobotContainer {
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
     NamedCommands.registerCommand("CoralLeftL2",
-        new AutoCoralAndElevatorCmd(
+        new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true, true));
 
     NamedCommands.registerCommand("CoralRightL2",
-        new AutoCoralAndElevatorCmd(
+        new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, true));
 
     NamedCommands.registerCommand("CoralLeftL4",
-        new AutoCoralAndElevatorCmd(
+        new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, true));
 
     NamedCommands.registerCommand("CoralRightL4",
-        new AutoCoralAndElevatorCmd(
+        new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, true));
 
     NamedCommands.registerCommand("TakeAlgae",
@@ -191,19 +191,19 @@ public class RobotContainer {
     controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
 
     Map<Integer, Command> coralLeftMap = Map.of(
-        2, new AutoCoralAndElevatorCmd(
+        2, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true, false),
-        3, new AutoCoralAndElevatorCmd(
+        3, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, true, false),
-        4, new AutoCoralAndElevatorCmd(
+        4, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, false));
 
     Map<Integer, Command> coralRightMap = Map.of(
-        2, new AutoCoralAndElevatorCmd(
+        2, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, false),
-        3, new AutoCoralAndElevatorCmd(
+        3, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 3, false, false),
-        4, new AutoCoralAndElevatorCmd(
+        4, new CoralAutoToReefCommandGroup(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
     // switch coral and algae mode on button 4
