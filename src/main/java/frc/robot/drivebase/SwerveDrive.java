@@ -18,8 +18,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
-import edu.wpi.first.util.sendable.Sendable;
-import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -136,7 +134,7 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(AutoConstants.kPTranslation),
+            new PIDConstants(AutoConstants.kPTranslation, 0, 0.75),
             new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
@@ -164,12 +162,7 @@ public class SwerveDrive extends SubsystemBase {
   public void resetPose(Pose2d pose) {
     odometry.resetPosition(
         gyro.getRotation2d(),
-        new SwerveModulePosition[] {
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
-        },
+        getSwerveModulePosition(),
         pose);
   }
 
@@ -202,7 +195,7 @@ public class SwerveDrive extends SubsystemBase {
     backRight.setDesiredState(swerveModuleStates[3]);
   }
 
-  // 取得當前機器人在場地上的位置與角度
+  // get the current robot' position and angle of the robot on the field
   public Pose2d getPose2d() {
     return odometry.getPoseMeters();
   }
@@ -216,36 +209,28 @@ public class SwerveDrive extends SubsystemBase {
     };
   }
 
-  // 重設機器人的位置與角度
-  public void resetPose() {
-    odometry.resetPosition(
-        gyro.getRotation2d(),
-        getSwerveModulePosition(),
-        new Pose2d(0, 0, new Rotation2d(0)));
-  }
-
-  // 更新機器人的場地相對位置
+  // renew the robot's relative field position
   private void updateOdometry() {
     odometry.update(
         gyro.getRotation2d(),
         getSwerveModulePosition());
   }
 
-  // 重置所有輪子的 Encoder 與機器人位置
+  // reset all the wheels encoder and positions
   public void resetPose2dAndEncoder() {
     frontLeft.resetAllEncoder();
     frontRight.resetAllEncoder();
     backLeft.resetAllEncoder();
     backRight.resetAllEncoder();
-    resetPose();
+    resetPose(new Pose2d(0, 0, new Rotation2d(0)));
   }
 
-  // 重置陀螺儀的角度
+  // reset gyro
   public void resetGyro() {
     gyro.reset();
   }
 
-  // 取得機器人目前的旋轉角度
+  // get the robot's current rotation
   public Rotation2d getRotation2dDegrees() {
     return Rotation2d.fromDegrees(DriveBaseConstant.kGyroOffSet
         + ((DriveBaseConstant.kGyroInverted)

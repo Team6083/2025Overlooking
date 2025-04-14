@@ -36,6 +36,9 @@ public class Robot extends TimedRobot {
   private TagTracking tagTracking;
 
   public Robot() {
+    ConfigChooser.initConfig();
+    ConfigChooser.updateConfig();
+
     m_robotContainer = new RobotContainer();
 
     tagTracking = new TagTracking();

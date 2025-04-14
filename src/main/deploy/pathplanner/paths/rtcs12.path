@@ -16,19 +16,24 @@
     },
     {
       "anchor": {
-        "x": 1.3827272727272726,
-        "y": 7.521704545454546
+        "x": 1.3561363636363637,
+        "y": 7.269090909090909
       },
       "prevControl": {
-        "x": 1.5956149499063714,
-        "y": 7.3906364833444815
+        "x": 1.5690240408154625,
+        "y": 7.138022846980844
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.658679706601468,
+      "rotationDegrees": -83.53869674522217
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
@@ -56,7 +61,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -54.16234704572174
+    "rotation": -50.648247373735146
   },
   "reversed": false,
   "folder": "rtcs",
