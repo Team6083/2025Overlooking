@@ -12,20 +12,20 @@
         "y": 3.5334249443301857
       },
       "isLocked": false,
-      "linkedName": "middle"
+      "linkedName": "middle barge"
     },
     {
       "anchor": {
-        "x": 5.07,
-        "y": 2.7379999999999995
+        "x": 5.0992500000000005,
+        "y": 2.6307499999999995
       },
       "prevControl": {
-        "x": 4.85478023981109,
-        "y": 2.6107975832610553
+        "x": 4.88403023981109,
+        "y": 2.503547583261055
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef4(tag)"
+      "linkedName": "reef 4(tag)"
     }
   ],
   "rotationTargets": [],

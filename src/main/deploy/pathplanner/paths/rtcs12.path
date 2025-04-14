@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.720774819817589,
-        "y": 5.3649732150452465
+        "x": 4.5142500000000005,
+        "y": 5.604500000000001
       },
       "isLocked": false,
       "linkedName": "reef 12"
@@ -20,8 +20,8 @@
         "y": 7.269090909090909
       },
       "prevControl": {
-        "x": 1.5690240408154625,
-        "y": 7.138022846980844
+        "x": 2.11463953502443,
+        "y": 6.7380943507667865
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -50.648247373735146
+    "rotation": -54.632051062620896
   },
   "reversed": false,
   "folder": "rtcs",

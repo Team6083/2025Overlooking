@@ -5,12 +5,14 @@
   "pathFolders": [
     "L - leave(tag)",
     "M - leave(tag)",
+    "backward after take algae",
     "R - leave(tag)",
     "cstr",
     "rtcs"
   ],
   "autoFolders": [
     "Algae",
+    "coral + algae",
     "coral"
   ],
   "defaultMaxVel": 4.9,

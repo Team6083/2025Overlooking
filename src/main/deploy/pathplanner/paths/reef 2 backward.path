@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.89025,
-        "y": 2.6892499999999995
+        "x": 5.772,
+        "y": 3.8787499999999993
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1319232936826737,
-        "y": 2.2381206170619095
+        "x": 6.225135635763528,
+        "y": 4.049760437164556
       },
       "isLocked": false,
-      "linkedName": "reef5(tag)"
+      "linkedName": "reef 2"
     },
     {
       "anchor": {
-        "x": 1.435909090909091,
-        "y": 0.6678977272727274
+        "x": 6.172,
+        "y": 4.015118243243243
       },
       "prevControl": {
-        "x": 1.6519380279832558,
-        "y": 0.793721009484751
+        "x": 5.729624688202907,
+        "y": 3.8622506443899236
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "right coral station"
+      "linkedName": "reef  A algae"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.972626614896484
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "rtcs",
+  "folder": "backward after take algae",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 57.65255650055804
+    "rotation": -178.63607246839715
   },
   "useDefaultConstraints": true
 }

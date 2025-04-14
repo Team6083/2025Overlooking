@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.435909090909091,
-        "y": 0.6678977272727274
+        "x": 1.2772500000000002,
+        "y": 0.8172499999999991
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9039090909090908,
-        "y": 1.038397727272728
+        "x": 1.74525,
+        "y": 1.1877499999999999
       },
       "isLocked": false,
       "linkedName": "right coral station"
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef(6) Tag"
+      "linkedName": "reef 6(tag)"
     }
   ],
   "rotationTargets": [],
