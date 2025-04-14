@@ -162,12 +162,7 @@ public class SwerveDrive extends SubsystemBase {
   public void resetPose(Pose2d pose) {
     odometry.resetPosition(
         gyro.getRotation2d(),
-        new SwerveModulePosition[] {
-            frontLeft.getPosition(),
-            frontRight.getPosition(),
-            backLeft.getPosition(),
-            backRight.getPosition()
-        },
+        getSwerveModulePosition(),
         pose);
   }
 
@@ -214,14 +209,6 @@ public class SwerveDrive extends SubsystemBase {
     };
   }
 
-  // 重設機器人的位置與角度
-  public void resetPose() {
-    odometry.resetPosition(
-        gyro.getRotation2d(),
-        getSwerveModulePosition(),
-        new Pose2d(0, 0, new Rotation2d(0)));
-  }
-
   // 更新機器人的場地相對位置
   private void updateOdometry() {
     odometry.update(
@@ -235,7 +222,7 @@ public class SwerveDrive extends SubsystemBase {
     frontRight.resetAllEncoder();
     backLeft.resetAllEncoder();
     backRight.resetAllEncoder();
-    resetPose();
+    resetPose(new Pose2d(0, 0, new Rotation2d(0)));
   }
 
   // 重置陀螺儀的角度
