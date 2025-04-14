@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutoCoralAndElevatorCmd;
 import frc.robot.commands.CoralShooterHoldCmd;
-import frc.robot.commands.CoralShooterInWithAutoStopCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.commands.TakeAlgaeCommandGroup;
 import frc.robot.drivebase.SwerveDrive;
@@ -69,7 +68,7 @@ public class RobotContainer {
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
     NamedCommands.registerCommand("CoralIn",
-        new CoralShooterInWithAutoStopCmd(coralShooterSubsystem)
+            coralShooterSubsystem.coralShooterAutoInCmd()
             .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
