@@ -216,15 +216,15 @@ public class RobotContainer {
         .whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
 
     // Elastic
-    new Trigger(controlPanel.button(4)::getAsBoolean)
+    controlPanel.button(4)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
 
-    new Trigger(controlPanel.button(5)::getAsBoolean)
+    controlPanel.button(5)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
 
-    new Trigger(controlPanel.button(7)::getAsBoolean)
+    controlPanel.button(7)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
   }
