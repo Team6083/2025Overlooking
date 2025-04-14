@@ -93,8 +93,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public Command coralShooterAutoInCmd() {
     Command cmd = run(this::coralShooterIn)
-    .until(this::isGetTarget)
-    .finallyDo(this::coralShooterStop);
+        .until(this::isGetTarget)
+        .finallyDo(this::coralShooterStop);
     cmd.setName("CoralShooterAutoIn");
     return cmd;
   }
