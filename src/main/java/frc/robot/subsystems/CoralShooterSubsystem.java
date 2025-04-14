@@ -91,7 +91,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
     return cmd;
   }
 
-  public Command CoralShooterAutoInCmd() {
+  public Command coralShooterAutoInCmd() {
     Command cmd = runEnd(
         () -> {
           if (!isGetTarget()) {
