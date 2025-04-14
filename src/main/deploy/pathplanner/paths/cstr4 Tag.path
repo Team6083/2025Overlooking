@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4722500000000003,
-        "y": 0.6222499999999991
+        "x": 1.435909090909091,
+        "y": 0.6678977272727274
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.101236091331188,
-        "y": 1.0658463633187538
+        "x": 2.064895182240279,
+        "y": 1.1114940905914823
       },
       "isLocked": false,
       "linkedName": "right coral station"
@@ -28,7 +28,12 @@
       "linkedName": "reef4(tag)"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6684596577017149,
+      "rotationDegrees": 96.20556223235191
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
