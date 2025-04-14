@@ -201,19 +201,19 @@ public class RobotContainer {
         4, new AutoCoralAndElevatorCmd(
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
-    controlPanel.button(4).whileTrue(
-        Commands.either(
-            Commands.select(coralLeftMap, () -> targetFloor.get()),
-            new SequentialCommandGroup(
-                algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
-                algaeIntakeSubsystem.intakeCmd()),
-            controlPanel.button(9)));
+    // switch coral and algae mode on button 4
+    controlPanel.button(4).and(controlPanel.button(9))
+        .whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
+    controlPanel.button(4).and(controlPanel.button(9).negate())
+        .whileTrue(new SequentialCommandGroup(
+            algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+            algaeIntakeSubsystem.intakeCmd()));
 
-    controlPanel.button(5).whileTrue(
-        Commands.either(
-            Commands.select(coralRightMap, () -> targetFloor.get()),
-            algaeIntakeSubsystem.reverseIntakeCmd(),
-            controlPanel.button(9)));
+    // switch coral and algae mode on button 5
+    controlPanel.button(5).and(controlPanel.button(9))
+        .whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
+    controlPanel.button(5).and(controlPanel.button(9).negate())
+        .whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
 
     // Elastic
     new Trigger(controlPanel.button(4)::getAsBoolean)
