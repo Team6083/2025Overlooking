@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -71,7 +70,7 @@ public class RobotContainer {
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
     NamedCommands.registerCommand("CoralIn",
-            coralShooterSubsystem.coralShooterAutoInCmd()
+        coralShooterSubsystem.coralShooterAutoInCmd()
             .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
@@ -144,6 +143,7 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+    mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
     mainController.povUp().whileTrue(elevatorSubsystem.toTrdFloorCmd());
