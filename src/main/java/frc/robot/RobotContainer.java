@@ -170,12 +170,18 @@ public class RobotContainer {
     controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(3).onTrue(setTargetFloor(2)
-        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 2 selected"))));
-    controlPanel.button(2).onTrue(setTargetFloor(3)
-        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 3 selected"))));
-    controlPanel.button(1).onTrue(setTargetFloor(4)
-        .andThen(Commands.runOnce(() -> elasticNotification("Floor Changed", "Floor 4 selected"))));
+    controlPanel.button(3)
+        .onTrue(setTargetFloor(2)
+            .andThen(Commands.runOnce(
+                () -> elasticNotification("Floor Changed", "Floor 2 selected"))));
+    controlPanel.button(2)
+        .onTrue(setTargetFloor(3)
+            .andThen(Commands.runOnce(
+                () -> elasticNotification("Floor Changed", "Floor 3 selected"))));
+    controlPanel.button(1)
+        .onTrue(setTargetFloor(4)
+            .andThen(Commands.runOnce(
+                () -> elasticNotification("Floor Changed", "Floor 4 selected"))));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
