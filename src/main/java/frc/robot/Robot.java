@@ -39,27 +39,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     CameraServer.startAutomaticCapture();
-    camera = CameraServer.startAutomaticCapture();
-    camera.setResolution(640, 480);
-    camera.setFPS(30);
-
-    new Thread(() -> {
-      CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo("Flipped Camera", 640, 400);
-
-      Mat frame = new Mat();
-
-      while (!Thread.interrupted()) {
-
-        if (cvSink.grabFrame(frame) == 0) {
-          continue;
-        }
-
-        Core.flip(frame, frame, 0);
-        outputStream.putFrame(frame);
-      }
-    })
-        .start();
 
     gcTimer.start();
   }
