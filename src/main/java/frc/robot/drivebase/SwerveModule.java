@@ -116,7 +116,7 @@ public class SwerveModule extends SubsystemBase {
   // calculate the rate of the drive
   public LinearVelocity getDriveRate() {
     return Meters.per(Seconds).of(driveEncoder.getVelocity() / 6.75 * 2.0 * Math.PI
-        * ModuleConstant.kWheelRadius.in(Meters)/60);
+        * ModuleConstant.kWheelRadius.in(Meters) / 60);
   }
 
   // to get rotation of turning motor
@@ -135,9 +135,9 @@ public class SwerveModule extends SubsystemBase {
   private double[] optimizeOutputVoltage(SwerveModuleState goalState, Rotation2d currentRotation2d) {
     SwerveModuleState desiredState = new SwerveModuleState(
         goalState.speedMetersPerSecond, goalState.angle);
-        desiredState.optimize(currentRotation2d);
-        driveMotorVoltage = desiredState.speedMetersPerSecond
-            * ModuleConstant.kDesireSpeedToMotorVoltage;
+    desiredState.optimize(currentRotation2d);
+    driveMotorVoltage = desiredState.speedMetersPerSecond
+        * ModuleConstant.kDesireSpeedToMotorVoltage;
     turningMotorVoltage = rotController.calculate(
         currentRotation2d.getDegrees(), desiredState.angle.getDegrees());
     return new double[] { driveMotorVoltage, turningMotorVoltage };
@@ -162,15 +162,24 @@ public class SwerveModule extends SubsystemBase {
     driveMotor.setVoltage(volts.in(edu.wpi.first.units.Units.Volts));
   }
 
-  public double getVoltage(){
-    return (driveMotor.getAppliedOutput())*RobotController.getBatteryVoltage();
+  public double getVoltage() {
+    return (driveMotor.getAppliedOutput()) * RobotController.getBatteryVoltage();
   }
 
-  public void logMotors(SysIdRoutineLog log) {
+  public void logDriveMotors(SysIdRoutineLog log) {
     log.motor(name)
         .voltage(edu.wpi.first.units.Units.Volts.of(getVoltage()))
         .linearPosition(getDriveDistance())
         .linearVelocity(getDriveRate());
+
+  }
+
+  public void logTurningMotors(SysIdRoutineLog log) {
+    log.motor(name)
+        .voltage(edu.wpi.first.units.Units.Volts.of(getVoltage()))
+        .angularPosition(edu.wpi.first.units.Units.Radians.of(getRotation2d().getRadians())) // 假設 encoder 值是旋轉圈數
+        .angularVelocity(edu.wpi.first.units.Units.RadiansPerSecond.of(
+            turningMotor.getEncoder().getVelocity() * 2 * Math.PI / 60)); // Convert RPM to radians per second
 
   }
 

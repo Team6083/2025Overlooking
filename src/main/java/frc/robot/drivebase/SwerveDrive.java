@@ -126,10 +126,10 @@ public class SwerveDrive extends SubsystemBase {
               backRight.voltageDrive(voltage);
             },
             (log) -> {
-              frontLeft.logMotors(log);
-              frontRight.logMotors(log);
-              backLeft.logMotors(log);
-              backRight.logMotors(log);
+              frontLeft.logDriveMotors(log);
+              frontRight.logDriveMotors(log);
+              backLeft.logDriveMotors(log);
+              backRight.logDriveMotors(log);
             },
             this));
 
