@@ -5,8 +5,8 @@
   "pathFolders": [
     "L - leave(tag)",
     "M - leave(tag)",
-    "backward after take algae",
     "R - leave(tag)",
+    "backward after take algae",
     "cstr",
     "rtcs"
   ],

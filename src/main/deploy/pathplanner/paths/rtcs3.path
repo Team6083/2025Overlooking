@@ -46,13 +46,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 53.972626614896484
   },
   "reversed": false,
   "folder": "rtcs",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 120.46554491945979
   },
   "useDefaultConstraints": true

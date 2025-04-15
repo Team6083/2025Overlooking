@@ -35,6 +35,31 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "AlgaeIntakeToDefaultPosition"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "reef A to reef B"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TakeAlgae"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
                   "name": "ErDown"
                 }
               },
