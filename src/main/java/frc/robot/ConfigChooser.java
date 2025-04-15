@@ -51,8 +51,8 @@ public class ConfigChooser {
    */
   public static class SwerveControl {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kDefaultMagnification", 0.15,
-        "kFastMagnification", 0.45,
+        "kDefaultMagnification", 0.25,
+        "kFastMagnification", 0.55,
         "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
@@ -141,7 +141,7 @@ public class ConfigChooser {
         Map.entry("rotMotorUpPIDkI", 0.0),
         Map.entry("rotMotorUpPIDkD", 0.0),
 
-        Map.entry("rotMotorDownPIDkP", 0.01),
+        Map.entry("rotMotorDownPIDkP", 0.03),
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
