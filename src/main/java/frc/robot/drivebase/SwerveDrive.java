@@ -286,11 +286,11 @@ public class SwerveDrive extends SubsystemBase {
             new Pose2d(0, 0, new Rotation2d(0)) });
     swerveDesiredStatePublisher.set(swerveModuleStates);
     swerveCurrentStatePublisher.set(new SwerveModuleState[] {
-      frontLeft.getState(),
-      frontRight.getState(),
-      backLeft.getState(),
-      backRight.getState()
-  });
+        frontLeft.getState(),
+        frontRight.getState(),
+        backLeft.getState(),
+        backRight.getState()
+    });
 
     updateOdometry();
 
