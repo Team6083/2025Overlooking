@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.9092905405356,
-        "y": 4.934121621618328
+        "x": 5.889527027027027,
+        "y": 5.065878378378378
       },
       "isLocked": false,
       "linkedName": "reef  A algae"
@@ -20,8 +20,8 @@
         "y": 5.362331081077786
       },
       "prevControl": {
-        "x": 5.812844594584712,
-        "y": 5.069831081074492
+        "x": 5.81706081081081,
+        "y": 5.1119932432432424
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3196881091617916,
+      "waypointRelativePos": 0.40643274853801337,
       "rotationDegrees": -145.0
     }
   ],
