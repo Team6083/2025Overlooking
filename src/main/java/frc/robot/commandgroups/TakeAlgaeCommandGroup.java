@@ -4,12 +4,15 @@
 
 package frc.robot.commandgroups;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.TagTrackingCmd;
 import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -21,6 +24,9 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
   SwerveDrive swerveDrive;
   ElevatorSubsystem elevatorSubsystem;
   AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  TagTracking tagTracking = new TagTracking();
+
+  Debouncer tagDebouncer = new Debouncer(1, DebounceType.kFalling);
 
   public TakeAlgaeCommandGroup(SwerveDrive swerveDrive,
       ElevatorSubsystem elevatorSubsystem, AlgaeIntakeSubsystem algaeIntakeSubsystem, int targetFloor) {
@@ -53,12 +59,15 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .withTimeout(1);
 
     addCommands(
-        elevatorToTargetHeight,
-        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
-        forwardLittle,
-        algaeToTargetAngle,
-        Commands.race(
-            algaeIntakeSubsystem.intakeCmd(),
-            backwardLittle));
+        Commands.either(
+            new SequentialCommandGroup(
+                elevatorToTargetHeight,
+                new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
+                forwardLittle,
+                algaeToTargetAngle,
+                Commands.race(
+                    algaeIntakeSubsystem.intakeCmd(),
+                    backwardLittle)),
+            Commands.none(), () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }
