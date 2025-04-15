@@ -35,16 +35,22 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ErDown"
+                  "name": "AlgaeIntakeToDefaultPosition"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "AlgaeIntakeToDefaultPosition"
+                  "pathName": "reef 1 to reef 12"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TakeAlgae"
           }
         }
       ]
