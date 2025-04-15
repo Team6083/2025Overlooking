@@ -194,7 +194,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     SmartDashboard.putData("ElevatorPID", elevatorPID);
 
-    SmartDashboard.putBoolean("isAtTargetHeight", isAtTargetHeight());
+    SmartDashboard.putBoolean("ElevatorIsAtTargetHeight", isAtTargetHeight());
   }
 
   public Command toSecFloorCmd() {
@@ -244,13 +244,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
       leftElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
       rightElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
-      SmartDashboard.putNumber("manualMovePower", adjustedPower);
+      SmartDashboard.putNumber("ElevatorManualMovePower", adjustedPower);
 
       targetHeight = getCurrentHeight();
     }, () -> {
       leftElevatorMotor.set(ControlMode.PercentOutput, 0);
       rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      SmartDashboard.putNumber("manualMovePower", power);
+      SmartDashboard.putNumber("ElevatorManualMovePower", 0);
     });
     cmd.setName("manualMove");
     return cmd;

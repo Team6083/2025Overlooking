@@ -41,8 +41,6 @@ public class CoralShooterHoldCmd extends Command {
     double encoderCurrentDegree = coralShooterSubsystem.getEncoder();
     double speed = MathUtil.clamp(coralHoldPID.calculate(encoderCurrentDegree, encoderTargetDegree), -0.3, 0.2);
     coralShooterSubsystem.setMotorSpeed(speed);
-    SmartDashboard.putNumber("TargetDegree", encoderTargetDegree);
-    SmartDashboard.putNumber("HoldSpeed", speed);
     SmartDashboard.putData("CoralHoldPID", coralHoldPID);
   }
 

@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.lib.TagTracking;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
@@ -33,15 +32,11 @@ public class Robot extends TimedRobot {
 
   private Timer gcTimer = new Timer();
 
-  private TagTracking tagTracking;
-
   public Robot() {
     ConfigChooser.initConfig();
     ConfigChooser.updateConfig();
 
     m_robotContainer = new RobotContainer();
-
-    tagTracking = new TagTracking();
 
     CameraServer.startAutomaticCapture();
     camera = CameraServer.startAutomaticCapture();
@@ -92,14 +87,11 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
         .set(BuildConstants.GIT_BRANCH);
 
-    SmartDashboard.putString("MavenName", BuildConstants.MAVEN_NAME);
-    SmartDashboard.putString("Version", BuildConstants.VERSION);
-    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
-    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitInfo", String.format("%s (%s), %s",
+        BuildConstants.GIT_SHA,
+        BuildConstants.GIT_BRANCH,
+        BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("GitDirty", BuildConstants.DIRTY == 1 ? "Dirty" : "Clean");
   }
 
   @Override
@@ -110,11 +102,9 @@ public class Robot extends TimedRobot {
     }
 
     ConfigChooser.updateConfig();
-    SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
+    SmartDashboard.putBoolean("IsAustraliaConfig", ConfigChooser.isAustraliaConfig());
 
-    double matchTime = DriverStation.getMatchTime();
-    SmartDashboard.putNumber("Match Time", matchTime);
-    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv() == 1 || tagTracking.getLeftTv() == 1);
+    SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
   }
 
   @Override

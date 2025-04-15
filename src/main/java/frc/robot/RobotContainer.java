@@ -57,7 +57,7 @@ public class RobotContainer {
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
 
-    SmartDashboard.putNumber("targetFloor", 2);
+    SmartDashboard.putNumber("TargetFloor", 2);
 
     configureBindings();
   }
@@ -67,7 +67,7 @@ public class RobotContainer {
         swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
 
     NamedCommands.registerCommand("CoralIn",
-            coralShooterSubsystem.coralShooterAutoInCmd()
+        coralShooterSubsystem.coralShooterAutoInCmd()
             .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
 
     NamedCommands.registerCommand("CoralShooterWithStop",
@@ -248,7 +248,7 @@ public class RobotContainer {
   private Command setTargetFloor(int floor) {
     return Commands.runOnce(() -> {
       this.targetFloor = () -> floor;
-      SmartDashboard.putNumber("targetFloor", floor);
+      SmartDashboard.putNumber("TargetFloor", floor);
     });
   }
 
