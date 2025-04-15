@@ -29,7 +29,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
   Debouncer tagDebouncer = new Debouncer(1, DebounceType.kFalling);
 
   public TakeAlgaeCommandGroup(SwerveDrive swerveDrive,
-      ElevatorSubsystem elevatorSubsystem, AlgaeIntakeSubsystem algaeIntakeSubsystem, int targetFloor) {
+      ElevatorSubsystem elevatorSubsystem, AlgaeIntakeSubsystem algaeIntakeSubsystem) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
     this.algaeIntakeSubsystem = algaeIntakeSubsystem;
