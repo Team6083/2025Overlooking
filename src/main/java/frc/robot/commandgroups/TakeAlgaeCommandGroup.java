@@ -37,7 +37,16 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
     Command elevatorToTargetHeight = Commands.either(
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
-        () -> targetFloor == 2)
+        () -> {
+          switch ((int) tagTracking.getBestTargetId()) {
+            case 6, 8, 10, 17, 19, 21:
+              return true;
+            case 7, 9, 11, 18, 20, 22:
+              return false;
+            default:
+              return true;
+          }
+        })
         .andThen(Commands.waitUntil(() -> elevatorSubsystem.isAtTargetHeight()));
 
     Command forwardLittle = swerveDrive
