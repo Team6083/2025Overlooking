@@ -113,7 +113,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("TakeAlgae",
         new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2));
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
   }
 
@@ -186,9 +186,9 @@ public class RobotContainer {
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2),
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem),
         3, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
     controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
 
