@@ -263,8 +263,8 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(5, 0.0, 0.0),
-            new PIDConstants(5.0, 0.0, 0.0)),
+          new PIDConstants(AutoConstants.kPTranslation, 0, 0.75),
+          new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
 
