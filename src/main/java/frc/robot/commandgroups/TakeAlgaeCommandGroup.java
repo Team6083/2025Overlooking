@@ -59,13 +59,15 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .withTimeout(1);
 
     addCommands(
-        Commands.either(new SequentialCommandGroup(elevatorToTargetHeight,
-            new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
-            forwardLittle,
-            algaeToTargetAngle,
-            Commands.race(
-                algaeIntakeSubsystem.intakeCmd(),
-                backwardLittle)),
+        Commands.either(
+            new SequentialCommandGroup(
+                elevatorToTargetHeight,
+                new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
+                forwardLittle,
+                algaeToTargetAngle,
+                Commands.race(
+                    algaeIntakeSubsystem.intakeCmd(),
+                    backwardLittle)),
             Commands.none(), () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }
