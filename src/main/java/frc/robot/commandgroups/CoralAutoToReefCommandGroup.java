@@ -32,7 +32,7 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
     Command toL3 = Commands.either(
         elevatorSubsystem.toTrdFloorCmd(),
         Commands.none(),
-        () -> targetFloor == 4);
+        () -> targetFloor != 2);
 
     Command forwardLittle = swerveDrive
         .runEnd(
