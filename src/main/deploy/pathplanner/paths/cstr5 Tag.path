@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8524999999999998,
-        "y": 1.2754999999999996
+        "x": 1.9302364864864865,
+        "y": 1.2119932432432414
       },
       "isLocked": false,
       "linkedName": "right coral station"
@@ -20,8 +20,8 @@
         "y": 2.6892499999999995
       },
       "prevControl": {
-        "x": 3.6172500000000003,
-        "y": 2.3479999999999994
+        "x": 3.445439189189189,
+        "y": 2.206756756756757
       },
       "nextControl": null,
       "isLocked": false,
