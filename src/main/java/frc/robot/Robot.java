@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Alert;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.lib.TagTracking;
 
 public class Robot extends TimedRobot {
@@ -78,10 +76,6 @@ public class Robot extends TimedRobot {
         BuildConstants.GIT_BRANCH,
         BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
-
-    SmartDashboard.putData("Reset Distance-Sensor", new InstantCommand(() -> {
-      m_robotContainer.getDistanceSensor().resetSensor(Port.kOnboard);
-    }));
   }
 
   @Override
