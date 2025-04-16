@@ -219,15 +219,15 @@ public class RobotContainer {
     // Elastic
     controlPanel.button(4)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("Main")));
 
     controlPanel.button(5)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("Main")));
 
     controlPanel.button(7)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
-        .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
+        .onFalse(Commands.runOnce(() -> Elastic.selectTab("Main")));
   }
 
   private Command setTargetFloor(int floor) {
