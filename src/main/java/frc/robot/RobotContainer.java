@@ -20,8 +20,8 @@ import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import java.util.Map;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class RobotContainer {
