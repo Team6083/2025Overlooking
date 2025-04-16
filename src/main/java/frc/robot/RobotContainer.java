@@ -63,9 +63,6 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands() {
-    NamedCommands.registerCommand("SetTurningDegree",
-        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
-
     NamedCommands.registerCommand("CoralIn",
         coralShooterSubsystem.coralShooterAutoInCmd()
             .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
@@ -85,9 +82,6 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
-
-    NamedCommands.registerCommand("AlgaeIntake",
-        algaeIntakeSubsystem.intakeCmd());
 
     NamedCommands.registerCommand("AlgaeIntakeToDefaultPosition",
         algaeIntakeSubsystem.toDefaultDegreeCmd());

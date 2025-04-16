@@ -64,7 +64,7 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
         coralShooterSubsystem
             .coralShooterOutCmd()
             .until(() -> !coralShooterSubsystem.isGetTarget()),
-        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1.5),
+        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1),
         () -> coralShooterSubsystem.isGetTarget());
 
     addCommands(
