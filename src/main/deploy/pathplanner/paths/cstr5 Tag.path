@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6148108108108103,
-        "y": 1.1258243243243233
+        "x": 1.7391718148042614,
+        "y": 1.2803882567561211
       },
       "isLocked": false,
       "linkedName": "right coral station"
     },
     {
       "anchor": {
-        "x": 3.4783783783783786,
-        "y": 2.2989864864864855
+        "x": 3.379560810810811,
+        "y": 2.694256756756756
       },
       "prevControl": {
-        "x": 3.0335675675675677,
-        "y": 1.8164932432432432
+        "x": 3.1741622061610113,
+        "y": 2.543407421669364
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0.5,
     "rotation": 57.65255650055804
   },
   "reversed": false,
