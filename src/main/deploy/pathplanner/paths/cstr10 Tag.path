@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2253378378378377,
-        "y": 7.305743243243243
+        "x": 1.196590909090909,
+        "y": 7.37046875
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7518378378378374,
-        "y": 6.671993243243243
+        "x": 1.7230909090909088,
+        "y": 6.73671875
       },
       "isLocked": false,
       "linkedName": "left coral station"
     },
     {
       "anchor": {
-        "x": 3.8805,
-        "y": 5.36075
+        "x": 3.6196875,
+        "y": 5.485838068181818
       },
       "prevControl": {
-        "x": 4.093387677179099,
-        "y": 5.229681937889936
+        "x": 3.8325751771790992,
+        "y": 5.354770006071753
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.875001559612556
+    "rotation": -60.48850144290966
   },
   "reversed": false,
   "folder": "cstr",
