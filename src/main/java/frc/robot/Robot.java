@@ -89,9 +89,10 @@ public class Robot extends TimedRobot {
     if (Math.abs(
         tagTracking.getRightTargetPoseRobotSpace()[0] - tagTracking.getLeftTargetPoseRobotSpace()[0]) > 0.2) {
       double currentTime = Timer.getFPGATimestamp();
-      if (currentTime - lastTime > 3)
+      if (currentTime - lastTime > 3) {
         Elastic.sendNotification("Limelight", "The position of camera is wrong.");
-      lastTime = currentTime;
+        lastTime = currentTime;
+      }
     }
   }
 
