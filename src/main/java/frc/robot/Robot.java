@@ -32,8 +32,8 @@ public class Robot extends TimedRobot {
 
   private Alert limelightAlert;
 
-  private boolean disableRightLimelight;
-  private boolean disableLeftLimelight;
+  private boolean disableRightLimelight = false;
+  private boolean disableLeftLimelight = false;
 
   public Robot() {
     ConfigChooser.initConfig();
