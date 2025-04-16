@@ -1,5 +1,4 @@
 
-
 package frc.robot.lib;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -191,5 +190,15 @@ public final class Elastic {
       WARNING,
       ERROR
     }
+  }
+
+  public static void sendNotification(String title, String description) {
+    Elastic.Notification notification = new Elastic.Notification();
+    
+    Elastic.sendNotification(notification
+        .withLevel(Elastic.Notification.NotificationLevel.INFO)
+        .withTitle(title)
+        .withDescription(description)
+        .withDisplaySeconds(3.0));
   }
 }

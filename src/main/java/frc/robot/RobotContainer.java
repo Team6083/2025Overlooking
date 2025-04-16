@@ -174,15 +174,15 @@ public class RobotContainer {
     controlPanel.button(3)
         .onTrue(setTargetFloor(2)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 2 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 2 selected"))));
     controlPanel.button(2)
         .onTrue(setTargetFloor(3)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 3 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 3 selected"))));
     controlPanel.button(1)
         .onTrue(setTargetFloor(4)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 4 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
@@ -234,15 +234,6 @@ public class RobotContainer {
     controlPanel.button(7)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
-  }
-
-  private void elasticNotification(String title, String description) {
-    Elastic.Notification notification = new Elastic.Notification();
-    Elastic.sendNotification(notification
-        .withLevel(NotificationLevel.INFO)
-        .withTitle(title)
-        .withDescription(description)
-        .withDisplaySeconds(3.0));
   }
 
   private Command setTargetFloor(int floor) {
