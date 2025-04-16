@@ -68,9 +68,6 @@ public class RobotContainer {
   }
 
   private void registerNamedCommands() {
-    NamedCommands.registerCommand("SetTurningDegree",
-        swerveDrive.setTurningDegreeCmd(0).withTimeout(0.0000001));
-
     NamedCommands.registerCommand("CoralIn",
         coralShooterSubsystem.coralShooterAutoInCmd()
             .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
@@ -90,9 +87,6 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ErDown",
         elevatorSubsystem.toDefaultPositionCmd());
-
-    NamedCommands.registerCommand("AlgaeIntake",
-        algaeIntakeSubsystem.intakeCmd());
 
     NamedCommands.registerCommand("AlgaeIntakeToDefaultPosition",
         algaeIntakeSubsystem.toDefaultDegreeCmd());
@@ -179,15 +173,15 @@ public class RobotContainer {
     controlPanel.button(3)
         .onTrue(setTargetFloor(2)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 2 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 2 selected"))));
     controlPanel.button(2)
         .onTrue(setTargetFloor(3)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 3 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 3 selected"))));
     controlPanel.button(1)
         .onTrue(setTargetFloor(4)
             .andThen(Commands.runOnce(
-                () -> elasticNotification("Floor Changed", "Floor 4 selected"))));
+                () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
@@ -241,15 +235,6 @@ public class RobotContainer {
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("main")));
   }
 
-  private void elasticNotification(String title, String description) {
-    Elastic.Notification notification = new Elastic.Notification();
-    Elastic.sendNotification(notification
-        .withLevel(NotificationLevel.INFO)
-        .withTitle(title)
-        .withDescription(description)
-        .withDisplaySeconds(3.0));
-  }
-
   private Command setTargetFloor(int floor) {
     return Commands.runOnce(() -> {
       this.targetFloor = () -> floor;
@@ -258,8 +243,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.runOnce(() -> swerveDrive.resetGyro())
-        .andThen(autoChooser.getSelected());
+    return autoChooser.getSelected();
+
+  }
+
+  public void autoInit() {
+    swerveDrive.resetGyro();
   }
 
   public Rev2mDistanceSensor getDistanceSensor() {
