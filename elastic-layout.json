@@ -3,16 +3,16 @@
   "grid_size": 32,
   "tabs": [
     {
-      "name": "main",
+      "name": "Main",
       "grid_layout": {
         "layouts": [],
         "containers": [
           {
             "title": "Match Time",
-            "x": 0.0,
-            "y": 128.0,
-            "width": 384.0,
-            "height": 320.0,
+            "x": 864.0,
+            "y": 0.0,
+            "width": 416.0,
+            "height": 192.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Match Time",
@@ -24,30 +24,9 @@
             }
           },
           {
-            "title": "backLeft_ModuleVelocity",
-            "x": 0.0,
-            "y": 448.0,
-            "width": 224.0,
-            "height": 224.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/SmartDashboard/backLeft_ModuleVelocity",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": -140.0,
-              "end_angle": 140.0,
-              "min_value": -4.0,
-              "max_value": 4.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
-            }
-          },
-          {
             "title": "FMSInfo",
-            "x": 320.0,
-            "y": 0.0,
+            "x": 0.0,
+            "y": 128.0,
             "width": 384.0,
             "height": 128.0,
             "type": "FMSInfo",
@@ -57,23 +36,9 @@
             }
           },
           {
-            "title": "GameSpecificMessage",
-            "x": 704.0,
-            "y": 0.0,
-            "width": 320.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/FMSInfo/GameSpecificMessage",
-              "period": 0.06,
-              "data_type": "string",
-              "show_submit_button": false
-            }
-          },
-          {
             "title": "USB Camera 0",
             "x": 384.0,
-            "y": 128.0,
+            "y": 0.0,
             "width": 480.0,
             "height": 320.0,
             "type": "Camera Stream",
@@ -87,7 +52,7 @@
             "title": "AutoChooser",
             "x": 0.0,
             "y": 0.0,
-            "width": 320.0,
+            "width": 384.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
             "properties": {
@@ -97,48 +62,11 @@
             }
           },
           {
-            "title": "Gyro_Heading",
-            "x": 224.0,
-            "y": 448.0,
-            "width": 224.0,
-            "height": 224.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/SmartDashboard/Gyro_Heading",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": 0.0,
-              "end_angle": 360.0,
-              "min_value": 0.0,
-              "max_value": 360.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
-            }
-          },
-          {
-            "title": "ElevatorCurrentHeight",
-            "x": 448.0,
-            "y": 448.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Match Time",
-            "properties": {
-              "topic": "/SmartDashboard/ElevatorCurrentHeight",
-              "period": 0.06,
-              "data_type": "double",
-              "time_display_mode": "Seconds Only",
-              "red_start_time": 15,
-              "yellow_start_time": 30
-            }
-          },
-          {
             "title": "SwerveDrive",
-            "x": 832.0,
-            "y": 448.0,
-            "width": 448.0,
-            "height": 256.0,
+            "x": 0.0,
+            "y": 256.0,
+            "width": 384.0,
+            "height": 96.0,
             "type": "Subsystem",
             "properties": {
               "topic": "/SmartDashboard/SwerveDrive",
@@ -146,43 +74,11 @@
             }
           },
           {
-            "title": "Elevatorsetpoint",
-            "x": 576.0,
-            "y": 448.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Match Time",
-            "properties": {
-              "topic": "/SmartDashboard/ElevatorPID/setpoint",
-              "period": 0.06,
-              "data_type": "double",
-              "time_display_mode": "Seconds Only",
-              "red_start_time": 0,
-              "yellow_start_time": 0
-            }
-          },
-          {
-            "title": "AlgaeRotateEncoder",
-            "x": 704.0,
-            "y": 448.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Match Time",
-            "properties": {
-              "topic": "/SmartDashboard/AlgaeRotateEncoder",
-              "period": 0.06,
-              "data_type": "double",
-              "time_display_mode": "Seconds Only",
-              "red_start_time": 0,
-              "yellow_start_time": 0
-            }
-          },
-          {
             "title": "TargetFloor",
-            "x": 864.0,
-            "y": 128.0,
-            "width": 416.0,
-            "height": 320.0,
+            "x": 704.0,
+            "y": 320.0,
+            "width": 160.0,
+            "height": 128.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/TargetFloor",
@@ -195,30 +91,157 @@
           },
           {
             "title": "ElevatorCurrentHeight",
-            "x": 1024.0,
-            "y": 0.0,
-            "width": 128.0,
+            "x": 384.0,
+            "y": 320.0,
+            "width": 160.0,
             "height": 128.0,
-            "type": "Text Display",
+            "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/ElevatorCurrentHeight",
               "period": 0.06,
               "data_type": "double",
-              "show_submit_button": false
+              "time_display_mode": "Seconds Only",
+              "red_start_time": 15,
+              "yellow_start_time": 30
             }
           },
           {
             "title": "setpoint",
-            "x": 1152.0,
-            "y": 0.0,
-            "width": 128.0,
+            "x": 544.0,
+            "y": 320.0,
+            "width": 160.0,
             "height": 128.0,
-            "type": "Text Display",
+            "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/ElevatorPID/setpoint",
               "period": 0.06,
               "data_type": "double",
-              "show_submit_button": false
+              "time_display_mode": "Seconds Only",
+              "red_start_time": 15,
+              "yellow_start_time": 30
+            }
+          },
+          {
+            "title": "Alerts",
+            "x": 864.0,
+            "y": 192.0,
+            "width": 416.0,
+            "height": 256.0,
+            "type": "Alerts",
+            "properties": {
+              "topic": "/SmartDashboard/Alerts",
+              "period": 0.06
+            }
+          },
+          {
+            "title": "DisableLeftLimelight",
+            "x": 0.0,
+            "y": 352.0,
+            "width": 192.0,
+            "height": 96.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/DisableLeftLimelight",
+              "period": 0.06,
+              "data_type": "boolean"
+            }
+          },
+          {
+            "title": "DisableRightLimelight",
+            "x": 192.0,
+            "y": 352.0,
+            "width": 192.0,
+            "height": 96.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/DisableRightLimelight",
+              "period": 0.06,
+              "data_type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Limelight",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "limelight-left",
+            "x": 128.0,
+            "y": 96.0,
+            "width": 512.0,
+            "height": 384.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-left",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "limelight-right",
+            "x": 672.0,
+            "y": 96.0,
+            "width": 512.0,
+            "height": 384.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-right",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "TagTrackingHasTag",
+            "x": 224.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 96.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/TagTrackingHasTag",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "TagTrackingTzOK",
+            "x": 512.0,
+            "y": 0.0,
+            "width": 288.0,
+            "height": 96.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/TagTrackingTzOK",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "TagTrackingTxOK",
+            "x": 832.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 96.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/SmartDashboard/TagTrackingTxOK",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
             }
           }
         ]
@@ -231,28 +254,14 @@
           {
             "title": "backleft",
             "x": 0.0,
-            "y": 32.0,
+            "y": 0.0,
             "width": 320.0,
-            "height": 544.0,
+            "height": 480.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
-              {
-                "title": "backLeft_DriveMotorApplyVoltage",
-                "x": 1152.0,
-                "y": 256.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/backLeft_DriveMotorApplyVoltage",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
               {
                 "title": "backLeft_ModuleDriveMotorVoltage",
                 "x": 1152.0,
@@ -356,28 +365,14 @@
           {
             "title": "BackLeft",
             "x": 320.0,
-            "y": 32.0,
+            "y": 0.0,
             "width": 320.0,
-            "height": 544.0,
+            "height": 480.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
-              {
-                "title": "backRight_DriveMotorApplyVoltage",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/backRight_DriveMotorApplyVoltage",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
               {
                 "title": "backRight_ModuleDriveMotorVoltage",
                 "x": 0.0,
@@ -481,28 +476,14 @@
           {
             "title": "FrontLeft",
             "x": 640.0,
-            "y": 32.0,
+            "y": 0.0,
             "width": 320.0,
-            "height": 544.0,
+            "height": 480.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
-              {
-                "title": "frontLeft_DriveMotorApplyVoltage",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/frontLeft_DriveMotorApplyVoltage",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
               {
                 "title": "frontLeft_ModuleDriveMotorVoltage",
                 "x": 0.0,
@@ -606,28 +587,14 @@
           {
             "title": "List Layout",
             "x": 960.0,
-            "y": 32.0,
+            "y": 0.0,
             "width": 320.0,
-            "height": 544.0,
+            "height": 480.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
-              {
-                "title": "frontRight_DriveMotorApplyVoltage",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/frontRight_DriveMotorApplyVoltage",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
               {
                 "title": "frontRight_ModuleDriveMotorVoltage",
                 "x": 0.0,
@@ -733,97 +700,12 @@
       }
     },
     {
-      "name": "Limelight",
-      "grid_layout": {
-        "layouts": [],
-        "containers": [
-          {
-            "title": "limelight-left",
-            "x": 96.0,
-            "y": 96.0,
-            "width": 512.0,
-            "height": 416.0,
-            "type": "Camera Stream",
-            "properties": {
-              "topic": "/CameraPublisher/limelight-left",
-              "period": 0.06,
-              "rotation_turns": 0
-            }
-          },
-          {
-            "title": "limelight-right",
-            "x": 672.0,
-            "y": 96.0,
-            "width": 512.0,
-            "height": 416.0,
-            "type": "Camera Stream",
-            "properties": {
-              "topic": "/CameraPublisher/limelight-right",
-              "period": 0.06,
-              "rotation_turns": 0
-            }
-          },
-          {
-            "title": "TagTrackingHasTag",
-            "x": 832.0,
-            "y": 0.0,
-            "width": 224.0,
-            "height": 96.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/SmartDashboard/TagTrackingHasTag",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
-            }
-          },
-          {
-            "title": "TagTrackingTzOK",
-            "x": 480.0,
-            "y": 0.0,
-            "width": 288.0,
-            "height": 96.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/SmartDashboard/TagTrackingTzOK",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
-            }
-          },
-          {
-            "title": "TagTrackingTxOK",
-            "x": 160.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 96.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/SmartDashboard/TagTrackingTxOK",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
-            }
-          }
-        ]
-      }
-    },
-    {
       "name": "Deta",
       "grid_layout": {
         "layouts": [
           {
             "title": "algae",
-            "x": 512.0,
+            "x": 896.0,
             "y": 0.0,
             "width": 256.0,
             "height": 256.0,
@@ -881,10 +763,115 @@
           },
           {
             "title": "elevator",
-            "x": 256.0,
+            "x": 640.0,
             "y": 0.0,
             "width": 256.0,
-            "height": 416.0,
+            "height": 256.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "ElevatorUsePID",
+                "x": 672.0,
+                "y": 448.0,
+                "width": 128.0,
+                "height": 128.0,
+                "type": "Boolean Box",
+                "properties": {
+                  "topic": "/SmartDashboard/ElevatorUsePID",
+                  "period": 0.06,
+                  "data_type": "boolean",
+                  "true_color": 4283215696,
+                  "false_color": 4294198070,
+                  "true_icon": "None",
+                  "false_icon": "None"
+                }
+              },
+              {
+                "title": "ElevatorUpLimitSwitch",
+                "x": 544.0,
+                "y": 384.0,
+                "width": 128.0,
+                "height": 128.0,
+                "type": "Boolean Box",
+                "properties": {
+                  "topic": "/SmartDashboard/ElevatorUpLimitSwitch",
+                  "period": 0.06,
+                  "data_type": "boolean",
+                  "true_color": 4283215696,
+                  "false_color": 4294198070,
+                  "true_icon": "None",
+                  "false_icon": "None"
+                }
+              }
+            ]
+          },
+          {
+            "title": "List Layout",
+            "x": 128.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "DistanceSensor",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 128.0,
+                "height": 128.0,
+                "type": "Text Display",
+                "properties": {
+                  "topic": "/SmartDashboard/CoralShooterDistance",
+                  "period": 0.06,
+                  "data_type": "double",
+                  "show_submit_button": false
+                }
+              },
+              {
+                "title": "CoralShooterEncoder",
+                "x": 864.0,
+                "y": 128.0,
+                "width": 128.0,
+                "height": 128.0,
+                "type": "Text Display",
+                "properties": {
+                  "topic": "/SmartDashboard/CoralShooterEncoder",
+                  "period": 0.06,
+                  "data_type": "double",
+                  "show_submit_button": false
+                }
+              },
+              {
+                "title": "CoralShooterIsGetTarget",
+                "x": 928.0,
+                "y": 160.0,
+                "width": 128.0,
+                "height": 128.0,
+                "type": "Boolean Box",
+                "properties": {
+                  "topic": "/SmartDashboard/CoralShooterIsGetTarget",
+                  "period": 0.06,
+                  "data_type": "boolean",
+                  "true_color": 4283215696,
+                  "false_color": 4294198070,
+                  "true_icon": "None",
+                  "false_icon": "None"
+                }
+              }
+            ]
+          },
+          {
+            "title": "elevator",
+            "x": 384.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 256.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
@@ -930,112 +917,6 @@
                   "period": 0.06,
                   "data_type": "double",
                   "show_submit_button": false
-                }
-              },
-              {
-                "title": "ElevatorUsePID",
-                "x": 672.0,
-                "y": 448.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Boolean Box",
-                "properties": {
-                  "topic": "/SmartDashboard/ElevatorUsePID",
-                  "period": 0.06,
-                  "data_type": "boolean",
-                  "true_color": 4283215696,
-                  "false_color": 4294198070,
-                  "true_icon": "None",
-                  "false_icon": "None"
-                }
-              },
-              {
-                "title": "ElevatorUpLimitSwitch",
-                "x": 544.0,
-                "y": 384.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Boolean Box",
-                "properties": {
-                  "topic": "/SmartDashboard/ElevatorUpLimitSwitch",
-                  "period": 0.06,
-                  "data_type": "boolean",
-                  "true_color": 4283215696,
-                  "false_color": 4294198070,
-                  "true_icon": "None",
-                  "false_icon": "None"
-                }
-              },
-              {
-                "title": "ElevatorEncoder",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/ElevatorEncoder",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              }
-            ]
-          },
-          {
-            "title": "coral",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "List Layout",
-            "properties": {
-              "label_position": "TOP"
-            },
-            "children": [
-              {
-                "title": "CoralShooterDistance",
-                "x": 32.0,
-                "y": 0.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/CoralShooterDistance",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
-              {
-                "title": "CoralShooterEncoder",
-                "x": 96.0,
-                "y": 160.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Text Display",
-                "properties": {
-                  "topic": "/SmartDashboard/CoralShooterEncoder",
-                  "period": 0.06,
-                  "data_type": "double",
-                  "show_submit_button": false
-                }
-              },
-              {
-                "title": "IsGetTarget",
-                "x": 96.0,
-                "y": 160.0,
-                "width": 128.0,
-                "height": 128.0,
-                "type": "Boolean Box",
-                "properties": {
-                  "topic": "/SmartDashboard/IsGetTarget",
-                  "period": 0.06,
-                  "data_type": "boolean",
-                  "true_color": 4283215696,
-                  "false_color": 4294198070,
-                  "true_icon": "None",
-                  "false_icon": "None"
                 }
               }
             ]
