@@ -17,10 +17,10 @@ import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.Elastic;
 import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
+import com.revrobotics.Rev2mDistanceSensor.Port;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import com.revrobotics.Rev2mDistanceSensor.Port;
 import java.util.Map;
 import java.util.function.Supplier;
 
