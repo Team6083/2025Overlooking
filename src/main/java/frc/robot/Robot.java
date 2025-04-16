@@ -5,9 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -16,8 +13,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
@@ -27,8 +22,6 @@ public class Robot extends TimedRobot {
   // CHECKSTYLE.ON: MemberName
 
   private boolean saveLogs = false;
-
-  private UsbCamera camera;
 
   private Timer gcTimer = new Timer();
 
