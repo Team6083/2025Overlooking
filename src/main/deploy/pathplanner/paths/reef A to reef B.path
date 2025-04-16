@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.172,
-        "y": 4.015118243243243
+        "x": 6.238682432432432,
+        "y": 3.9920608108108104
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.108148038903381,
-        "y": 4.382030763845633
+        "x": 7.022635135135135,
+        "y": 3.082939189189189
       },
       "isLocked": false,
       "linkedName": "reef  A algae"
     },
     {
       "anchor": {
-        "x": 5.263682432432432,
-        "y": 2.6810810810810803
+        "x": 5.290033783783785,
+        "y": 2.536148648648648
       },
       "prevControl": {
-        "x": 6.515371621621622,
-        "y": 3.5309121621621617
+        "x": 6.192567567567568,
+        "y": 2.391216216216216
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.7748538011695892,
-      "rotationDegrees": 147.3
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 148.252849542609
     }
   ],
   "constraintZones": [],
@@ -47,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 122.19573393471319
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": "backward after take algae",

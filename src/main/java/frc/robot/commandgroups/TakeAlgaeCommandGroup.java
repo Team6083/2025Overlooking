@@ -65,7 +65,7 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
             () -> swerveDrive.drive(-0.4, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(1);
+        .withTimeout(1.3);
 
     addCommands(
         Commands.either(
