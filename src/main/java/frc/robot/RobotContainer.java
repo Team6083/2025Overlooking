@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,6 +15,7 @@ import frc.robot.commandgroups.TakeAlgaeCommandGroup;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 import frc.robot.lib.Elastic;
 import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
@@ -22,11 +24,14 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import com.revrobotics.Rev2mDistanceSensor.Port;
+
 public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final SwerveDrive swerveDrive;
+  private final Rev2mDistanceSensor distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
 
   private final CommandXboxController mainController = new CommandXboxController(0);
   private final CommandGenericHID controlPanel = new CommandGenericHID(1);
@@ -255,5 +260,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return Commands.runOnce(() -> swerveDrive.resetGyro())
         .andThen(autoChooser.getSelected());
+  }
+
+  public Rev2mDistanceSensor getDistanceSensor() {
+    return distanceSensor;
   }
 }
