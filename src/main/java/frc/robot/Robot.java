@@ -71,7 +71,6 @@ public class Robot extends TimedRobot {
         BuildConstants.GIT_BRANCH,
         BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
-
   }
 
   @Override
