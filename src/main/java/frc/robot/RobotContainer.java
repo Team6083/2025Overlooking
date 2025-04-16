@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,7 +17,6 @@ import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.Elastic;
 import frc.robot.lib.Elastic.Notification.NotificationLevel;
-import com.revrobotics.Rev2mDistanceSensor.Port;
 import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
