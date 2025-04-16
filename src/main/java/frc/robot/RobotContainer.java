@@ -253,7 +253,11 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.runOnce(() -> swerveDrive.resetGyro())
-        .andThen(autoChooser.getSelected());
+    return autoChooser.getSelected();
+
+  }
+
+  public void autoInit() {
+    swerveDrive.resetGyro();
   }
 }
