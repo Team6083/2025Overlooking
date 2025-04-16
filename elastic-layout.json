@@ -9,10 +9,10 @@
         "containers": [
           {
             "title": "Match Time",
-            "x": 0.0,
-            "y": 128.0,
-            "width": 384.0,
-            "height": 320.0,
+            "x": 864.0,
+            "y": 0.0,
+            "width": 416.0,
+            "height": 192.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/Match Time",
@@ -25,8 +25,8 @@
           },
           {
             "title": "FMSInfo",
-            "x": 288.0,
-            "y": 0.0,
+            "x": 0.0,
+            "y": 128.0,
             "width": 384.0,
             "height": 128.0,
             "type": "FMSInfo",
@@ -38,7 +38,7 @@
           {
             "title": "USB Camera 0",
             "x": 384.0,
-            "y": 128.0,
+            "y": 0.0,
             "width": 480.0,
             "height": 320.0,
             "type": "Camera Stream",
@@ -52,7 +52,7 @@
             "title": "AutoChooser",
             "x": 0.0,
             "y": 0.0,
-            "width": 288.0,
+            "width": 384.0,
             "height": 128.0,
             "type": "ComboBox Chooser",
             "properties": {
@@ -63,10 +63,10 @@
           },
           {
             "title": "SwerveDrive",
-            "x": 672.0,
-            "y": 0.0,
-            "width": 288.0,
-            "height": 128.0,
+            "x": 0.0,
+            "y": 256.0,
+            "width": 384.0,
+            "height": 96.0,
             "type": "Subsystem",
             "properties": {
               "topic": "/SmartDashboard/SwerveDrive",
@@ -75,10 +75,10 @@
           },
           {
             "title": "TargetFloor",
-            "x": 864.0,
-            "y": 128.0,
-            "width": 416.0,
-            "height": 320.0,
+            "x": 704.0,
+            "y": 320.0,
+            "width": 160.0,
+            "height": 128.0,
             "type": "Match Time",
             "properties": {
               "topic": "/SmartDashboard/TargetFloor",
@@ -91,8 +91,8 @@
           },
           {
             "title": "ElevatorCurrentHeight",
-            "x": 960.0,
-            "y": 0.0,
+            "x": 384.0,
+            "y": 320.0,
             "width": 160.0,
             "height": 128.0,
             "type": "Match Time",
@@ -107,8 +107,8 @@
           },
           {
             "title": "setpoint",
-            "x": 1120.0,
-            "y": 0.0,
+            "x": 544.0,
+            "y": 320.0,
             "width": 160.0,
             "height": 128.0,
             "type": "Match Time",
@@ -119,6 +119,44 @@
               "time_display_mode": "Seconds Only",
               "red_start_time": 15,
               "yellow_start_time": 30
+            }
+          },
+          {
+            "title": "Alerts",
+            "x": 864.0,
+            "y": 192.0,
+            "width": 416.0,
+            "height": 256.0,
+            "type": "Alerts",
+            "properties": {
+              "topic": "/SmartDashboard/Alerts",
+              "period": 0.06
+            }
+          },
+          {
+            "title": "DisableLeftLimelight",
+            "x": 0.0,
+            "y": 352.0,
+            "width": 192.0,
+            "height": 96.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/DisableLeftLimelight",
+              "period": 0.06,
+              "data_type": "boolean"
+            }
+          },
+          {
+            "title": "DisableRightLimelight",
+            "x": 192.0,
+            "y": 352.0,
+            "width": 192.0,
+            "height": 96.0,
+            "type": "Toggle Switch",
+            "properties": {
+              "topic": "/SmartDashboard/DisableRightLimelight",
+              "period": 0.06,
+              "data_type": "boolean"
             }
           }
         ]
