@@ -32,9 +32,6 @@ public class Robot extends TimedRobot {
 
   private Alert limelightAlert;
 
-  private boolean disableRightLimelight = false;
-  private boolean disableLeftLimelight = false;
-
   public Robot() {
     ConfigChooser.initConfig();
     ConfigChooser.updateConfig();
@@ -47,8 +44,8 @@ public class Robot extends TimedRobot {
 
     gcTimer.start();
     
-    SmartDashboard.putBoolean("DisableRightLimelight", disableRightLimelight);
-    SmartDashboard.putBoolean("DisableLeftLimelight", disableLeftLimelight);
+    SmartDashboard.putBoolean("DisableRightLimelight", false);
+    SmartDashboard.putBoolean("DisableLeftLimelight", false);
   }
 
   @Override
@@ -100,13 +97,9 @@ public class Robot extends TimedRobot {
       limelightAlert.set(false);
     }
 
-    SmartDashboard.putBoolean("DisableRightLimelight", disableRightLimelight);
-    SmartDashboard.putBoolean("DisableLeftLimelight", disableLeftLimelight);
-
     tagTracking.enableDisableLimelight(
         SmartDashboard.getBoolean("DisableRightLimelight", false),
         SmartDashboard.getBoolean("DisableLeftLimelight", false));
-
   }
 
   @Override
