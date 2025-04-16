@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 
   private TagTracking tagTracking;
 
-  private Alert LimelightAlert;
+  private Alert limelightAlert;
 
   private boolean disableRightLimelight;
   private boolean disableLeftLimelight;
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
     tagTracking = new TagTracking();
-    LimelightAlert = new Alert("the position of Limelight is wrong.", AlertType.kWarning);
+    limelightAlert = new Alert("the position of Limelight is wrong.", AlertType.kWarning);
 
     CameraServer.startAutomaticCapture();
 
@@ -96,9 +96,9 @@ public class Robot extends TimedRobot {
 
     if (Math.abs(
         tagTracking.getRightTargetPoseRobotSpace()[0] - tagTracking.getLeftTargetPoseRobotSpace()[0]) > 0.2) {
-      LimelightAlert.set(true);
+      limelightAlert.set(true);
     } else {
-      LimelightAlert.set(false);
+      limelightAlert.set(false);
     }
 
     SmartDashboard.putBoolean("DisableRightLimelight", disableRightLimelight);
