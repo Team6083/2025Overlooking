@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -13,7 +15,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.lib.Elastic;
 import frc.robot.lib.TagTracking;
 
 public class Robot extends TimedRobot {
@@ -29,7 +30,7 @@ public class Robot extends TimedRobot {
 
   private TagTracking tagTracking;
 
-  private double lastTime = 0;
+  private Alert limelightAlert;
 
   public Robot() {
     ConfigChooser.initConfig();
@@ -37,10 +38,14 @@ public class Robot extends TimedRobot {
 
     m_robotContainer = new RobotContainer();
     tagTracking = new TagTracking();
+    limelightAlert = new Alert("the position of Limelight is wrong.", AlertType.kWarning);
 
     CameraServer.startAutomaticCapture();
 
     gcTimer.start();
+    
+    SmartDashboard.putBoolean("DisableRightLimelight", false);
+    SmartDashboard.putBoolean("DisableLeftLimelight", false);
   }
 
   @Override
@@ -87,12 +92,14 @@ public class Robot extends TimedRobot {
 
     if (Math.abs(
         tagTracking.getRightTargetPoseRobotSpace()[0] - tagTracking.getLeftTargetPoseRobotSpace()[0]) > 0.2) {
-      double currentTime = Timer.getFPGATimestamp();
-      if (currentTime - lastTime > 3) {
-        Elastic.sendNotification("Limelight", "The position of camera is wrong.");
-        lastTime = currentTime;
-      }
+      limelightAlert.set(true);
+    } else {
+      limelightAlert.set(false);
     }
+
+    tagTracking.enableDisableLimelight(
+        SmartDashboard.getBoolean("DisableRightLimelight", false),
+        SmartDashboard.getBoolean("DisableLeftLimelight", false));
   }
 
   @Override
