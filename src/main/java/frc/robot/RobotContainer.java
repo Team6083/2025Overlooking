@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.revrobotics.Rev2mDistanceSensor.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,7 +16,6 @@ import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.Elastic;
 import frc.robot.lib.Elastic.Notification.NotificationLevel;
-import frc.robot.lib.sensor.distance.Rev2mDistanceSensor;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -31,7 +29,6 @@ public class RobotContainer {
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
   private final RgbLedSubsystem rgbLedSubsystem;
   private final SwerveDrive swerveDrive;
-  private final Rev2mDistanceSensor distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
 
   private final CommandXboxController mainController = new CommandXboxController(0);
   private final CommandGenericHID controlPanel = new CommandGenericHID(1);
@@ -251,9 +248,5 @@ public class RobotContainer {
 
   public void autoInit() {
     swerveDrive.resetGyro();
-  }
-
-  public Rev2mDistanceSensor getDistanceSensor() {
-    return distanceSensor;
   }
 }

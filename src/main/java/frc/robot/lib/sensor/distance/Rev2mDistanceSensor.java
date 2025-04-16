@@ -9,7 +9,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 
 public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Sendable {
 
-  private com.revrobotics.Rev2mDistanceSensor actualSensor;
+  private final com.revrobotics.Rev2mDistanceSensor actualSensor;
 
   private final SimDevice simSensor;
   private final SimDouble simDistance;
@@ -34,25 +34,6 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
       return;
     }
     actualSensor.setAutomaticMode(enabling);
-  }
-
-  public void resetSensor(Port port) {
-    if (simSensor != null) {
-      return;
-    }
-
-    if (actualSensor != null) {
-      actualSensor.setAutomaticMode(false);
-    }
-
-    try {
-      Thread.sleep(500);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
-
-    actualSensor = new com.revrobotics.Rev2mDistanceSensor(port);
-
   }
 
   @Override
