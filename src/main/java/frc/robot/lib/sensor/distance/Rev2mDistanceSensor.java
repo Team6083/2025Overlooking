@@ -36,18 +36,18 @@ public class Rev2mDistanceSensor implements DistanceSensor, AutoCloseable, Senda
     actualSensor.setAutomaticMode(enabling);
   }
 
-  public void resetSensor(Port port){
-    if (simSensor != null){
+  public void resetSensor(Port port) {
+    if (simSensor != null) {
       return;
     }
 
-    if (actualSensor != null){
+    if (actualSensor != null) {
       actualSensor.setAutomaticMode(false);
     }
 
     try {
       Thread.sleep(500);
-    } catch (InterruptedException e){
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
 
