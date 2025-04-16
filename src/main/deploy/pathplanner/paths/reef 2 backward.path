@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.225135635763528,
-        "y": 4.049760437164556
+        "x": 6.049950762540506,
+        "y": 3.9172949623841866
       },
       "isLocked": false,
       "linkedName": "reef 2"
     },
     {
       "anchor": {
-        "x": 6.172,
-        "y": 4.015118243243243
+        "x": 6.238682432432432,
+        "y": 3.9920608108108104
       },
       "prevControl": {
-        "x": 5.729624688202907,
-        "y": 3.8622506443899236
+        "x": 5.959108542462744,
+        "y": 3.9977195912897616
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "backward after take algae",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -178.63607246839715
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

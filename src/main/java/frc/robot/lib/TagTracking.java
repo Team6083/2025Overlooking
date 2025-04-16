@@ -12,6 +12,9 @@ public class TagTracking {
   private final NetworkTable leftTable;
   private final NetworkTable rightTable;
 
+  private boolean disableRightLimelight = false;
+  private boolean disableLeftLimelight = false;
+
   public TagTracking() {
     leftTable = NetworkTableInstance.getDefault().getTable("limelight-left");
     rightTable = NetworkTableInstance.getDefault().getTable("limelight-right");
@@ -31,11 +34,19 @@ public class TagTracking {
 
   // tv int 1 if valid target exists. 0 if no valid targets exist.
   public double getRightTv() {
-    return rightTable.getEntry("tv").getDouble(0);
+    if (disableRightLimelight) {
+      return -1;
+    } else {
+      return rightTable.getEntry("tv").getDouble(0);
+    }
   }
 
   public double getLeftTv() {
-    return leftTable.getEntry("tv").getDouble(0);
+    if (disableLeftLimelight) {
+      return -1;
+    } else {
+      return leftTable.getEntry("tv").getDouble(0);
+    }
   }
 
   public Boolean hasTarget() {
@@ -113,5 +124,10 @@ public class TagTracking {
     } else {
       return 0;
     }
+  }
+
+  public void enableDisableLimelight(boolean isDisableRightLimelight, boolean isDisableLeftLimelight) {
+    this.disableRightLimelight = isDisableRightLimelight;
+    this.disableLeftLimelight = isDisableLeftLimelight;
   }
 }
