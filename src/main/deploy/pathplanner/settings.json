@@ -11,9 +11,8 @@
     "rtcs"
   ],
   "autoFolders": [
-    "Algae",
-    "coral + algae",
-    "coral"
+    "coral",
+    "coral + algae"
   ],
   "defaultMaxVel": 4.9,
   "defaultMaxAccel": 4.5,
