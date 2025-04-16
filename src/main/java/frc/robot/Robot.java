@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.Elastic;
+import frc.robot.lib.TagTracking;
 
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
@@ -25,11 +27,16 @@ public class Robot extends TimedRobot {
 
   private Timer gcTimer = new Timer();
 
+  private TagTracking tagTracking;
+
+  private double lastTime = 0;
+
   public Robot() {
     ConfigChooser.initConfig();
     ConfigChooser.updateConfig();
 
     m_robotContainer = new RobotContainer();
+    tagTracking = new TagTracking();
 
     CameraServer.startAutomaticCapture();
 
@@ -77,6 +84,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("IsAustraliaConfig", ConfigChooser.isAustraliaConfig());
 
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
+
+    if (Math.abs(
+        tagTracking.getRightTargetPoseRobotSpace()[0] - tagTracking.getLeftTargetPoseRobotSpace()[0]) > 0.2) {
+      double currentTime = Timer.getFPGATimestamp();
+      if (currentTime - lastTime > 3) {
+        Elastic.sendNotification("Limelight", "The position of camera is wrong.");
+        lastTime = currentTime;
+      }
+    }
   }
 
   @Override
