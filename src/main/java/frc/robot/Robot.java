@@ -39,27 +39,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     CameraServer.startAutomaticCapture();
-    camera = CameraServer.startAutomaticCapture();
-    camera.setResolution(640, 480);
-    camera.setFPS(30);
-
-    new Thread(() -> {
-      CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo("Flipped Camera", 640, 400);
-
-      Mat frame = new Mat();
-
-      while (!Thread.interrupted()) {
-
-        if (cvSink.grabFrame(frame) == 0) {
-          continue;
-        }
-
-        Core.flip(frame, frame, 0);
-        outputStream.putFrame(frame);
-      }
-    })
-        .start();
 
     gcTimer.start();
   }
@@ -87,14 +66,11 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
         .set(BuildConstants.GIT_BRANCH);
 
-    SmartDashboard.putString("MavenName", BuildConstants.MAVEN_NAME);
-    SmartDashboard.putString("Version", BuildConstants.VERSION);
-    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
-    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitInfo", String.format("%s (%s), %s",
+        BuildConstants.GIT_SHA,
+        BuildConstants.GIT_BRANCH,
+        BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("GitDirty", BuildConstants.DIRTY == 1 ? "Dirty" : "Clean");
   }
 
   @Override
@@ -105,10 +81,9 @@ public class Robot extends TimedRobot {
     }
 
     ConfigChooser.updateConfig();
-    SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
+    SmartDashboard.putBoolean("IsAustraliaConfig", ConfigChooser.isAustraliaConfig());
 
-    double matchTime = DriverStation.getMatchTime();
-    SmartDashboard.putNumber("Match Time", matchTime);
+    SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
   }
 
   @Override

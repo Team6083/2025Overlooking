@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.705,
-        "y": 2.962249999999999
+        "x": 7.285909090909091,
+        "y": 4.015118243243243
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.973750000000001,
-        "y": 1.8312499999999994
+        "x": 6.736332184325509,
+        "y": 4.003487667781326
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "middle barge"
     },
     {
       "anchor": {
-        "x": 1.5210000000000001,
-        "y": 0.6027499999999998
+        "x": 6.172,
+        "y": 4.015118243243243
       },
       "prevControl": {
-        "x": 1.95,
-        "y": 1.0122499999999999
+        "x": 5.922019352657002,
+        "y": 4.018228862791761
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "reef  A algae"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 53.615648184164186
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "rtcs",
+  "folder": "M - leave(tag)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 57.893744044882204
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

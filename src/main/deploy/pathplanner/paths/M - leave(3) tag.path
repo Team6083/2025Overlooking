@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.428774237086285,
-        "y": 3.5334249443301857
+        "x": 6.42559656460517,
+        "y": 3.5553896524881656
       },
       "isLocked": false,
-      "linkedName": "middle"
+      "linkedName": "middle barge"
     },
     {
       "anchor": {
-        "x": 5.27475,
-        "y": 2.972
+        "x": 5.230743243243244,
+        "y": 2.694256756756756
       },
       "prevControl": {
-        "x": 5.05953023981109,
-        "y": 2.8447975832610557
+        "x": 5.036590685592854,
+        "y": 2.536761409657827
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef3(tag)"
+      "linkedName": "reef 3(tag)"
     }
   ],
   "rotationTargets": [],

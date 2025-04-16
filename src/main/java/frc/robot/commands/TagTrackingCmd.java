@@ -139,7 +139,6 @@ public class TagTrackingCmd extends Command {
       SmartDashboard.putNumber("TagTrackingXSpeed", xSpeed);
       SmartDashboard.putNumber("TagTrackingYSpeed", ySpeed);
       SmartDashboard.putNumber("TagTrackingRotSpeed", rotSpeed);
-      SmartDashboard.putNumber("TagCurrentDegree", normalizeToMinus180To180Range);
       SmartDashboard.putData(aimTarget.name + "ToTagTzController", tzPID);
       SmartDashboard.putData(aimTarget.name + "ToTagTxController", txPID);
       SmartDashboard.putData(aimTarget.name + "ToTagYawController", yawPID);
@@ -161,9 +160,9 @@ public class TagTrackingCmd extends Command {
     var txOk = Math.abs(txPID.getError()) < 0.03;
     var tzOk = Math.abs(tzPID.getError()) < 0.1;
 
-    SmartDashboard.putBoolean("TrackingHasTag", hasTag);
-    SmartDashboard.putBoolean("TrackingTxOK", txOk);
-    SmartDashboard.putBoolean("TrackingTzOK", tzOk);
+    SmartDashboard.putBoolean("TagTrackingHasTag", hasTag);
+    SmartDashboard.putBoolean("TagTrackingTxOK", txOk);
+    SmartDashboard.putBoolean("TagTrackingTzOK", tzOk);
 
     return !hasTag
         || (txOk && tzOk);

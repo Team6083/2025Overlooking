@@ -60,7 +60,7 @@ public class RobotContainer {
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
     SmartDashboard.putData("SwerveDrive", swerveDrive);
 
-    SmartDashboard.putNumber("targetFloor", 2);
+    SmartDashboard.putNumber("TargetFloor", 2);
 
     configureBindings();
   }
@@ -92,6 +92,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("AlgaeIntake",
         algaeIntakeSubsystem.intakeCmd());
 
+    NamedCommands.registerCommand("AlgaeIntakeToDefaultPosition",
+        algaeIntakeSubsystem.toDefaultDegreeCmd());
+
     NamedCommands.registerCommand("CoralShooterHold",
         new CoralShooterHoldCmd(coralShooterSubsystem));
 
@@ -113,7 +116,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("TakeAlgae",
         new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2));
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
   }
 
@@ -187,9 +190,9 @@ public class RobotContainer {
 
     Map<Integer, Command> oneButtonAlgaeMap = Map.of(
         2, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 2),
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem),
         3, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
+            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
     controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
 
@@ -249,7 +252,7 @@ public class RobotContainer {
   private Command setTargetFloor(int floor) {
     return Commands.runOnce(() -> {
       this.targetFloor = () -> floor;
-      SmartDashboard.putNumber("targetFloor", floor);
+      SmartDashboard.putNumber("TargetFloor", floor);
     });
   }
 

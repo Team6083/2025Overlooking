@@ -4,6 +4,8 @@
 
 package frc.robot.commandgroups;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -11,6 +13,7 @@ import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.TagTrackingCmd;
 import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import java.util.Map;
@@ -22,12 +25,20 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
   SwerveDrive swerveDrive;
   ElevatorSubsystem elevatorSubsystem;
   CoralShooterSubsystem coralShooterSubsystem;
+  TagTracking tagTracking = new TagTracking();
+
+  Debouncer tagDebouncer = new Debouncer(1, DebounceType.kFalling);
 
   public CoralAutoToReefCommandGroup(SwerveDrive swerveDrive, ElevatorSubsystem elevatorSubsystem,
       CoralShooterSubsystem coralShooterSubsystem, int targetFloor, Boolean isLeft, Boolean isAutoTime) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
     this.coralShooterSubsystem = coralShooterSubsystem;
+
+    Command toL3 = Commands.either(
+        elevatorSubsystem.toTrdFloorCmd(),
+        Commands.none(),
+        () -> targetFloor != 2);
 
     Command forwardLittle = swerveDrive
         .runEnd(
@@ -57,13 +68,17 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
         () -> coralShooterSubsystem.isGetTarget());
 
     addCommands(
-        Commands.race(
-            new CoralShooterHoldCmd(coralShooterSubsystem),
-            new SequentialCommandGroup(
-                new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
-                forwardLittle,
-                elevatorToTargetFloor)),
-        autoStopCoralShoot,
-        elevatorSubsystem.toDefaultPositionCmd());
+        Commands.either(
+            new SequentialCommandGroup(Commands.race(
+                new CoralShooterHoldCmd(coralShooterSubsystem),
+                new SequentialCommandGroup(
+                    toL3,
+                    new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
+                    forwardLittle,
+                    elevatorToTargetFloor)),
+                autoStopCoralShoot,
+                elevatorSubsystem.toDefaultPositionCmd()),
+            Commands.none(),
+            () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }

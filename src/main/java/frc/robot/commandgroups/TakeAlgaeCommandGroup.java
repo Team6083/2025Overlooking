@@ -4,12 +4,15 @@
 
 package frc.robot.commandgroups;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.TagTrackingCmd;
 import frc.robot.commands.TagTrackingCmd.AimTarget;
 import frc.robot.drivebase.SwerveDrive;
+import frc.robot.lib.TagTracking;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -21,9 +24,12 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
   SwerveDrive swerveDrive;
   ElevatorSubsystem elevatorSubsystem;
   AlgaeIntakeSubsystem algaeIntakeSubsystem;
+  TagTracking tagTracking = new TagTracking();
+
+  Debouncer tagDebouncer = new Debouncer(1, DebounceType.kFalling);
 
   public TakeAlgaeCommandGroup(SwerveDrive swerveDrive,
-      ElevatorSubsystem elevatorSubsystem, AlgaeIntakeSubsystem algaeIntakeSubsystem, int targetFloor) {
+      ElevatorSubsystem elevatorSubsystem, AlgaeIntakeSubsystem algaeIntakeSubsystem) {
     this.swerveDrive = swerveDrive;
     this.elevatorSubsystem = elevatorSubsystem;
     this.algaeIntakeSubsystem = algaeIntakeSubsystem;
@@ -31,7 +37,16 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
     Command elevatorToTargetHeight = Commands.either(
         elevatorSubsystem.toGetSecAlgaeCmd(),
         elevatorSubsystem.toGetTrdAlgaeCmd(),
-        () -> targetFloor == 2)
+        () -> {
+          switch ((int) tagTracking.getBestTargetId()) {
+            case 6, 8, 10, 17, 19, 21:
+              return true;
+            case 7, 9, 11, 18, 20, 22:
+              return false;
+            default:
+              return true;
+          }
+        })
         .andThen(Commands.waitUntil(() -> elevatorSubsystem.isAtTargetHeight()));
 
     Command forwardLittle = swerveDrive
@@ -53,12 +68,15 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .withTimeout(1);
 
     addCommands(
-        elevatorToTargetHeight,
-        new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
-        forwardLittle,
-        algaeToTargetAngle,
-        Commands.race(
-            algaeIntakeSubsystem.intakeCmd(),
-            backwardLittle));
+        Commands.either(
+            new SequentialCommandGroup(
+                elevatorToTargetHeight,
+                new TagTrackingCmd(swerveDrive, AimTarget.CENTER),
+                forwardLittle,
+                algaeToTargetAngle,
+                Commands.race(
+                    algaeIntakeSubsystem.intakeCmd(),
+                    backwardLittle)),
+            Commands.none(), () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }

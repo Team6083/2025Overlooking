@@ -51,8 +51,8 @@ public class ConfigChooser {
    */
   public static class SwerveControl {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kDefaultMagnification", 0.15,
-        "kFastMagnification", 0.45,
+        "kDefaultMagnification", 0.25,
+        "kFastMagnification", 0.55,
         "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
@@ -107,7 +107,7 @@ public class ConfigChooser {
     private static final Map<String, Double> australiaDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.145264,
         "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", -0.343262,
+        "kBackLeftCanCoderMagOffset", -0.013428,
         "kBackRightCanCoderMagOffset", 0.082764);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
@@ -141,13 +141,13 @@ public class ConfigChooser {
         Map.entry("rotMotorUpPIDkI", 0.0),
         Map.entry("rotMotorUpPIDkD", 0.0),
 
-        Map.entry("rotMotorDownPIDkP", 0.01),
+        Map.entry("rotMotorDownPIDkP", 0.03),
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", 147.0),
+        Map.entry("expectedZero", 86.0),
 
-        Map.entry("kGetAlgaeAngle", 104.0),
+        Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(

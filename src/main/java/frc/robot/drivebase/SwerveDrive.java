@@ -41,8 +41,10 @@ public class SwerveDrive extends SubsystemBase {
   private final Field2d field = new Field2d();
 
   private SwerveModuleState[] swerveModuleStates = new SwerveModuleState[4];
-  private final StructArrayPublisher<SwerveModuleState> swervePublisher = NetworkTableInstance
-      .getDefault().getStructArrayTopic("States", SwerveModuleState.struct).publish();
+  private final StructArrayPublisher<SwerveModuleState> swerveDesiredStatePublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("DesiredStates", SwerveModuleState.struct).publish();
+  private final StructArrayPublisher<SwerveModuleState> swerveCurrentStatePublisher = NetworkTableInstance
+      .getDefault().getStructArrayTopic("CurrentStates", SwerveModuleState.struct).publish();
 
   private final StructArrayPublisher<Pose2d> field2dPublisher = NetworkTableInstance
       .getDefault().getStructArrayTopic("PoseArray", Pose2d.struct).publish();
@@ -263,8 +265,8 @@ public class SwerveDrive extends SubsystemBase {
         this::getRobotRelativeSpeeds,
         (speeds, feedforwards) -> driveRobotRelative(speeds),
         new PPHolonomicDriveController(
-            new PIDConstants(5, 0.0, 0.0),
-            new PIDConstants(5.0, 0.0, 0.0)),
+            new PIDConstants(AutoConstants.kPTranslation, 0, 0.75),
+            new PIDConstants(AutoConstants.kPRotation, AutoConstants.kIRotation, AutoConstants.kDRotation)),
         config,
         () -> {
 
@@ -282,11 +284,17 @@ public class SwerveDrive extends SubsystemBase {
     field2dPublisher.set(
         new Pose2d[] { getPose2d(),
             new Pose2d(0, 0, new Rotation2d(0)) });
-    swervePublisher.set(swerveModuleStates);
+    swerveDesiredStatePublisher.set(swerveModuleStates);
+    swerveCurrentStatePublisher.set(new SwerveModuleState[] {
+        frontLeft.getState(),
+        frontRight.getState(),
+        backLeft.getState(),
+        backRight.getState()
+    });
 
     updateOdometry();
 
-    SmartDashboard.putNumber("Gyro_Heading", gyro.getRotation2d().getDegrees());
+    SmartDashboard.putNumber("GyroHeading", gyro.getRotation2d().getDegrees());
     SmartDashboard.putNumber("PoseX", getPose2d().getX());
     SmartDashboard.putNumber("PoseY", getPose2d().getY());
     SmartDashboard.putNumber("PoseRotationDegree",

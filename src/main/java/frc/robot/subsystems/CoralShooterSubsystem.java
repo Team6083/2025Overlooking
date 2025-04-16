@@ -101,8 +101,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Distance", distanceSensor.getDistance());
-    SmartDashboard.putBoolean("IsGetTarget", isGetTarget());
+    SmartDashboard.putNumber("CoralShooterDistance", distanceSensor.getDistance());
+    SmartDashboard.putBoolean("CoralShooterIsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", shooterEncoder.get());
   }
 }
