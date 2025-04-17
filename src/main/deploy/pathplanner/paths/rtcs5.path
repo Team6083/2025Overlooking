@@ -1,0 +1,68 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.379560810810811,
+        "y": 2.694256756756756
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.2230855575915744,
+        "y": 2.88923238377197
+      },
+      "isLocked": false,
+      "linkedName": "reef 5 (tag)"
+    },
+    {
+      "anchor": {
+        "x": 0.9618243243243242,
+        "y": 0.7310810810810813
+      },
+      "prevControl": {
+        "x": 1.195581923119727,
+        "y": 0.642439189148387
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "right coral station"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6078787878787886,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 4.0,
+        "maxAcceleration": 3.5,
+        "maxAngularVelocity": 327.273,
+        "maxAngularAcceleration": 9.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": 53.972626614896484
+  },
+  "reversed": false,
+  "folder": "rtcs",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 57.65255650055804
+  },
+  "useDefaultConstraints": false
+}
