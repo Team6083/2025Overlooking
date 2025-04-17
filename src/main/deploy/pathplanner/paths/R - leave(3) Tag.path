@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.195506756756757,
-        "y": 1.956418918918919
+        "x": 5.840250000000001,
+        "y": 2.2602499999999996
       },
       "isLocked": false,
       "linkedName": null
@@ -20,15 +20,20 @@
         "y": 2.4373310810810813
       },
       "prevControl": {
-        "x": 5.810472972972973,
-        "y": 2.075000000000001
+        "x": 6.2595,
+        "y": 2.114
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "reef 3(tag)"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 150.43032404773126
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

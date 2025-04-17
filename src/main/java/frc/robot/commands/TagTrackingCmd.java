@@ -26,9 +26,9 @@ public class TagTrackingCmd extends Command {
   Debouncer tagDebouncer = new Debouncer(1, Debouncer.DebounceType.kFalling);
 
   public enum AimTarget {
-    LEFT("Left", 0.1837, 0.55),
+    LEFT("Left", 0.16, 0.55),
     CENTER("Center", 0.0, 0.7),
-    RIGHT("Right", -0.16, 0.55);
+    RIGHT("Right", -0.15, 0.55);
 
     double txSetpoint;
     double tzSetpoint;

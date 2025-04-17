@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   // CHECKSTYLE.ON: MemberName
 
-  private boolean saveLogs = false;
+  private boolean saveLogs = true;
 
   private Timer gcTimer = new Timer();
 

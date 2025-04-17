@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.155795454545455,
-        "y": 6.065852272727272
+        "x": 6.113250000000001,
+        "y": 5.789750000000001
       },
       "isLocked": false,
       "linkedName": "LMC"
     },
     {
       "anchor": {
-        "x": 5.37225,
-        "y": 5.24375
+        "x": 5.3048863636363635,
+        "y": 5.465894886363635
       },
       "prevControl": {
-        "x": 5.815602272727274,
-        "y": 5.956704545454545
+        "x": 6.425872582080971,
+        "y": 5.797873231398258
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0.5,
     "rotation": -119.99999999999999
   },
   "reversed": false,

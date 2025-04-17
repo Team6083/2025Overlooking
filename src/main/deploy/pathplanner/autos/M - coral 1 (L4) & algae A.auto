@@ -54,25 +54,6 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "ErDown"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AlgaeIntakeToDefaultPosition"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ErDown"
