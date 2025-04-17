@@ -80,7 +80,7 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
                     toL3,
                     new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
                     forwardLittle,
-                    elevatorToTargetFloor)),
+                    elevatorToTargetFloor).withTimeout(0.1)),
                 autoStopCoralShoot,
                 elevatorSubsystem.toDefaultPositionCmd()),
             Commands.none()
