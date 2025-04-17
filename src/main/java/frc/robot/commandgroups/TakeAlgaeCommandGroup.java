@@ -6,6 +6,7 @@ package frc.robot.commandgroups;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -67,6 +68,10 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
         .repeatedly()
         .withTimeout(1.3);
 
+    Command putDashboard = Commands.runOnce(() -> {
+      SmartDashboard.putBoolean("TagTrackingHasTag", false);
+    });
+
     addCommands(
         Commands.either(
             new SequentialCommandGroup(
@@ -77,6 +82,8 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
                 Commands.race(
                     algaeIntakeSubsystem.intakeCmd(),
                     backwardLittle)),
-            Commands.none(), () -> tagDebouncer.calculate(tagTracking.hasTarget())));
+            Commands.none()
+                .andThen(putDashboard),
+            () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }

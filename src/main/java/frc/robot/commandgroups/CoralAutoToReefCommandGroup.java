@@ -6,6 +6,7 @@ package frc.robot.commandgroups;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -67,6 +68,10 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
         coralShooterSubsystem.coralShooterOutCmd().withTimeout(1),
         () -> coralShooterSubsystem.isGetTarget());
 
+    Command putDashboard = Commands.runOnce(() -> {
+      SmartDashboard.putBoolean("TagTrackingHasTag", false);
+    });
+
     addCommands(
         Commands.either(
             new SequentialCommandGroup(Commands.race(
@@ -78,7 +83,8 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
                     elevatorToTargetFloor)),
                 autoStopCoralShoot,
                 elevatorSubsystem.toDefaultPositionCmd()),
-            Commands.none(),
+            Commands.none()
+                .andThen(putDashboard),
             () -> tagDebouncer.calculate(tagTracking.hasTarget())));
   }
 }
