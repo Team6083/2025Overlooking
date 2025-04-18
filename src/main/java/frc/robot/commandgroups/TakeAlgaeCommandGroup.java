@@ -52,10 +52,10 @@ public class TakeAlgaeCommandGroup extends SequentialCommandGroup {
 
     Command forwardLittle = swerveDrive
         .runEnd(
-            () -> swerveDrive.drive(0.45, 0, 0, false),
+            () -> swerveDrive.drive(0.65, 0, 0, false),
             () -> swerveDrive.drive(0, 0, 0, false))
         .repeatedly()
-        .withTimeout(0.75);
+        .withTimeout(0.5);
 
     Command algaeToTargetAngle = new SequentialCommandGroup(
         algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
