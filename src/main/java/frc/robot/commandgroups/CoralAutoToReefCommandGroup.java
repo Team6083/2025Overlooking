@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.TagTrackingCmd;
 import frc.robot.commands.TagTrackingCmd.AimTarget;
@@ -74,13 +75,15 @@ public class CoralAutoToReefCommandGroup extends SequentialCommandGroup {
 
     addCommands(
         Commands.either(
-            new SequentialCommandGroup(Commands.race(
-                new CoralShooterHoldCmd(coralShooterSubsystem),
-                new SequentialCommandGroup(
-                    toL3,
-                    new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
-                    forwardLittle,
-                    elevatorToTargetFloor)),
+            new SequentialCommandGroup(
+                Commands.race(
+                    new CoralShooterHoldCmd(coralShooterSubsystem),
+                    new SequentialCommandGroup(
+                        toL3,
+                        new TagTrackingCmd(swerveDrive, isLeft ? AimTarget.LEFT : AimTarget.RIGHT),
+                        forwardLittle,
+                        elevatorToTargetFloor,
+                        new WaitCommand(0.1))),
                 autoStopCoralShoot,
                 elevatorSubsystem.toDefaultPositionCmd()),
             Commands.none()
