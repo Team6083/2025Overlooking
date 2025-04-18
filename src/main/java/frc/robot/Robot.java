@@ -33,9 +33,6 @@ public class Robot extends TimedRobot {
   private Alert limelightAlert;
 
   public Robot() {
-    ConfigChooser.initConfig();
-    ConfigChooser.updateConfig();
-
     m_robotContainer = new RobotContainer();
     tagTracking = new TagTracking();
     limelightAlert = new Alert("the position of Limelight is wrong.", AlertType.kWarning);
@@ -54,9 +51,6 @@ public class Robot extends TimedRobot {
       DataLogManager.start();
       DriverStation.startDataLog(DataLogManager.getLog());
     }
-
-    ConfigChooser.initConfig();
-    ConfigChooser.updateConfig();
 
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
         .set(BuildConstants.BUILD_DATE);
@@ -84,9 +78,6 @@ public class Robot extends TimedRobot {
     if (gcTimer.advanceIfElapsed(5)) {
       System.gc();
     }
-
-    ConfigChooser.updateConfig();
-    SmartDashboard.putBoolean("IsAustraliaConfig", ConfigChooser.isAustraliaConfig());
 
     SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
 

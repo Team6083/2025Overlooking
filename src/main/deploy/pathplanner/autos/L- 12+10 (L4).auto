@@ -39,6 +39,18 @@
           "data": {
             "name": "CoralLeftL4"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs10"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralIn"
+          }
         }
       ]
     }

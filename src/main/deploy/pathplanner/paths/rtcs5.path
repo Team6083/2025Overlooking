@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.23575,
-        "y": 5.048749999999999
+        "x": 3.379560810810811,
+        "y": 2.694256756756756
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.5142500000000005,
-        "y": 5.604500000000001
+        "x": 3.1680135951661637,
+        "y": 2.47081759818731
       },
       "isLocked": false,
-      "linkedName": "reef 12"
+      "linkedName": "reef 5 (tag)"
     },
     {
       "anchor": {
-        "x": 1.2089999999999999,
-        "y": 7.4375
+        "x": 0.9618243243243242,
+        "y": 0.7310810810810813
       },
       "prevControl": {
-        "x": 1.9675031713880655,
-        "y": 6.906503441675878
+        "x": 1.4183157099697885,
+        "y": 0.9133213746223566
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": "right coral station"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.658679706601468,
-      "rotationDegrees": -83.53869674522217
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
@@ -61,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0.5,
-    "rotation": -50.47736872882886
+    "rotation": 53.972626614896484
   },
   "reversed": false,
   "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -119.99999999999999
+    "rotation": 57.65255650055804
   },
   "useDefaultConstraints": false
 }

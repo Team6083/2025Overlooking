@@ -15,7 +15,6 @@ import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
 import frc.robot.lib.Elastic;
-import frc.robot.lib.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -182,13 +181,8 @@ public class RobotContainer {
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
-    Map<Integer, Command> oneButtonAlgaeMap = Map.of(
-        2, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem),
-        3, new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
-
-    controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
+    controlPanel.button(7).whileTrue(
+        new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new CoralAutoToReefCommandGroup(
