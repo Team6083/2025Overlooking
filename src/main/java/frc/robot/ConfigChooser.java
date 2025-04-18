@@ -137,11 +137,11 @@ public class ConfigChooser {
         Map.entry("kUpIntakeRotateSpeed", -0.6),
         Map.entry("kDownIntakeRotateSpeed", 0.2),
 
-        Map.entry("rotMotorUpPIDkP", 0.07),
+        Map.entry("rotMotorUpPIDkP", 0.075),
         Map.entry("rotMotorUpPIDkI", 0.0),
         Map.entry("rotMotorUpPIDkD", 0.0),
 
-        Map.entry("rotMotorDownPIDkP", 0.03),
+        Map.entry("rotMotorDownPIDkP", 0.04),
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
