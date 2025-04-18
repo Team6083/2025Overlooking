@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2089999999999999,
-        "y": 7.4375
+        "x": 3.1785,
+        "y": 4.17125
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8330000000000002,
-        "y": 6.8525
+        "x": 2.0475,
+        "y": 4.5905
       },
       "isLocked": false,
-      "linkedName": "left coral station"
+      "linkedName": "reef 8"
     },
     {
       "anchor": {
-        "x": 3.3930000000000002,
-        "y": 5.234
+        "x": 1.2089999999999999,
+        "y": 7.4375
       },
       "prevControl": {
-        "x": 3.34425,
-        "y": 5.887250000000001
+        "x": 2.081995540175128,
+        "y": 6.007215186319743
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "reef 9(tag)"
+      "linkedName": "left coral station"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.020292302071255
+    "rotation": -50.47736872882886
   },
   "reversed": false,
-  "folder": "cstr",
+  "folder": "rtcs",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.47736872882886
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
