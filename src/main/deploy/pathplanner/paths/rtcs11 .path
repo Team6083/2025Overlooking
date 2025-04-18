@@ -28,7 +28,12 @@
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6303191489361707,
+      "rotationDegrees": -99.60461714761429
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -41,8 +46,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -50.47736872882886
+    "velocity": 0.5,
+    "rotation": -50.477
   },
   "reversed": false,
   "folder": "rtcs",
