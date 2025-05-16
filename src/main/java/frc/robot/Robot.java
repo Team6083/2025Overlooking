@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.Elastic;
 import frc.robot.lib.TagTracking;
 
 public class Robot extends TimedRobot {
@@ -70,6 +71,8 @@ public class Robot extends TimedRobot {
         BuildConstants.GIT_BRANCH,
         BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
+
+    Elastic.sendNotification("Robot init", "robot init");
   }
 
   @Override
