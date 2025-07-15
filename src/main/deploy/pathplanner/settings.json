@@ -6,13 +6,13 @@
     "L - leave(tag)",
     "M - leave(tag)",
     "R - leave(tag)",
+    "backward after take algae",
     "cstr",
     "rtcs"
   ],
   "autoFolders": [
-    "Algae",
     "coral",
-    "test"
+    "coral + algae"
   ],
   "defaultMaxVel": 4.9,
   "defaultMaxAccel": 4.5,

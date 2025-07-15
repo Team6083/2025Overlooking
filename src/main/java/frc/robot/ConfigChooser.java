@@ -51,8 +51,8 @@ public class ConfigChooser {
    */
   public static class SwerveControl {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kDefaultMagnification", 0.15,
-        "kFastMagnification", 0.45,
+        "kDefaultMagnification", 0.25,
+        "kFastMagnification", 0.75,
         "kRotDefaultMagnification", 0.35,
         "kRotFastMagnification", 0.8,
         "kRotSafeMagnification", 0.25);
@@ -105,10 +105,10 @@ public class ConfigChooser {
         "kBackRightDriveMotorInverted", false);
 
     private static final Map<String, Double> australiaDoubleMap = Map.of(
-        "kFrontLeftCanCoderMagOffset", 0.145264,
-        "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", -0.262451,
-        "kBackRightCanCoderMagOffset", 0.082764);
+        "kFrontLeftCanCoderMagOffset", -0.174072,
+        "kFrontRightCanCoderMagOffset", -0.255859,
+        "kBackLeftCanCoderMagOffset", 0.480957,
+        "kBackRightCanCoderMagOffset", -0.244385);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.126221,
@@ -137,17 +137,17 @@ public class ConfigChooser {
         Map.entry("kUpIntakeRotateSpeed", -0.6),
         Map.entry("kDownIntakeRotateSpeed", 0.2),
 
-        Map.entry("rotMotorUpPIDkP", 0.07),
+        Map.entry("rotMotorUpPIDkP", 0.075),
         Map.entry("rotMotorUpPIDkI", 0.0),
         Map.entry("rotMotorUpPIDkD", 0.0),
 
-        Map.entry("rotMotorDownPIDkP", 0.01),
+        Map.entry("rotMotorDownPIDkP", 0.04),
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
         Map.entry("expectedZero", 203.0),
 
-        Map.entry("kGetAlgaeAngle", 104.0),
+        Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
@@ -175,7 +175,7 @@ public class ConfigChooser {
         "kRotateMotorInverted", false);
 
     private static final Map<String, Boolean> taiwanDoubleMap = Map.of(
-        "kRotateMotorInverted", true);
+        "kRotateMotorInverted", false);
 
     public static double getDouble(String key) {
       return getValue(australiaMap, taiwanMap, key);

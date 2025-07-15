@@ -5,10 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -16,9 +15,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.lib.Elastic;
 import frc.robot.lib.TagTracking;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
 public class Robot extends TimedRobot {
   // CHECKSTYLE.OFF: MemberName
@@ -29,41 +27,23 @@ public class Robot extends TimedRobot {
 
   private boolean saveLogs = false;
 
-  private UsbCamera camera;
-
   private Timer gcTimer = new Timer();
 
   private TagTracking tagTracking;
 
+  private Alert limelightAlert;
+
   public Robot() {
     m_robotContainer = new RobotContainer();
-
     tagTracking = new TagTracking();
+    limelightAlert = new Alert("the position of Limelight is wrong.", AlertType.kWarning);
 
     CameraServer.startAutomaticCapture();
-    camera = CameraServer.startAutomaticCapture();
-    camera.setResolution(640, 480);
-    camera.setFPS(30);
-
-    new Thread(() -> {
-      CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo("Flipped Camera", 640, 400);
-
-      Mat frame = new Mat();
-
-      while (!Thread.interrupted()) {
-
-        if (cvSink.grabFrame(frame) == 0) {
-          continue;
-        }
-
-        Core.flip(frame, frame, 0);
-        outputStream.putFrame(frame);
-      }
-    })
-        .start();
 
     gcTimer.start();
+    
+    SmartDashboard.putBoolean("DisableRightLimelight", false);
+    SmartDashboard.putBoolean("DisableLeftLimelight", false);
   }
 
   @Override
@@ -72,9 +52,6 @@ public class Robot extends TimedRobot {
       DataLogManager.start();
       DriverStation.startDataLog(DataLogManager.getLog());
     }
-
-    ConfigChooser.initConfig();
-    ConfigChooser.updateConfig();
 
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/BuildDate").publish()
         .set(BuildConstants.BUILD_DATE);
@@ -89,14 +66,13 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getStringTopic("/Metadata/GitBranch").publish()
         .set(BuildConstants.GIT_BRANCH);
 
-    SmartDashboard.putString("MavenName", BuildConstants.MAVEN_NAME);
-    SmartDashboard.putString("Version", BuildConstants.VERSION);
-    SmartDashboard.putString("GitSHA", BuildConstants.GIT_SHA);
-    SmartDashboard.putString("GitDate", BuildConstants.GIT_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
+    SmartDashboard.putString("GitInfo", String.format("%s (%s), %s",
+        BuildConstants.GIT_SHA,
+        BuildConstants.GIT_BRANCH,
+        BuildConstants.DIRTY == 1 ? "Dirty" : "Clean"));
     SmartDashboard.putString("BuildDate", BuildConstants.BUILD_DATE);
-    SmartDashboard.putString("GitBranch", BuildConstants.GIT_BRANCH);
-    SmartDashboard.putString("GitDirty", BuildConstants.DIRTY == 1 ? "Dirty" : "Clean");
+
+    Elastic.sendNotification("Robot init", "robot init");
   }
 
   @Override
@@ -106,12 +82,18 @@ public class Robot extends TimedRobot {
       System.gc();
     }
 
-    ConfigChooser.updateConfig();
-    SmartDashboard.putBoolean("isAustraliaConfig", ConfigChooser.isAustraliaConfig());
+    SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
 
-    double matchTime = DriverStation.getMatchTime();
-    SmartDashboard.putNumber("Match Time", matchTime);
-    SmartDashboard.putBoolean("isLimelightGetTarget", tagTracking.getRightTv() == 1 || tagTracking.getLeftTv() == 1);
+    if (Math.abs(
+        tagTracking.getRightTargetPoseRobotSpace()[0] - tagTracking.getLeftTargetPoseRobotSpace()[0]) > 0.2) {
+      limelightAlert.set(true);
+    } else {
+      limelightAlert.set(false);
+    }
+
+    tagTracking.enableDisableLimelight(
+        SmartDashboard.getBoolean("DisableRightLimelight", false),
+        SmartDashboard.getBoolean("DisableLeftLimelight", false));
   }
 
   @Override
@@ -128,6 +110,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    m_robotContainer.autoInit();
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {

@@ -1,5 +1,4 @@
 
-
 package frc.robot.lib;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,14 +20,6 @@ public final class Elastic {
       .publish(PubSubOption.keepDuplicates(true));
   private static final ObjectMapper objectMapper = new ObjectMapper();
 
-  public static void sendNotification(Notification notification) {
-    try {
-      notificationPublisher.set(objectMapper.writeValueAsString(notification));
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-  }
-
   public static void selectTab(String tabName) {
     selectedTabPublisher.set(tabName);
   }
@@ -36,7 +27,7 @@ public final class Elastic {
   public static void selectTab(int tabIndex) {
     selectTab(Integer.toString(tabIndex));
   }
-  
+
   public static class Notification {
     @JsonProperty("level")
     private NotificationLevel level;
@@ -75,7 +66,6 @@ public final class Elastic {
       this.width = width;
     }
 
-
     public Notification(NotificationLevel level, String title, String description) {
       this(level, title, description, 3000, 350, -1);
     }
@@ -89,7 +79,7 @@ public final class Elastic {
         NotificationLevel level, String title, String description, double width, double height) {
       this(level, title, description, 3000, width, height);
     }
-    
+
     public void setLevel(NotificationLevel level) {
       this.level = level;
     }
@@ -191,5 +181,23 @@ public final class Elastic {
       WARNING,
       ERROR
     }
+  }
+
+  public static void sendNotification(Notification notification) {
+    try {
+      notificationPublisher.set(objectMapper.writeValueAsString(notification));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void sendNotification(String title, String description) {
+    Elastic.Notification notification = new Elastic.Notification();
+
+    Elastic.sendNotification(notification
+        .withLevel(Elastic.Notification.NotificationLevel.INFO)
+        .withTitle(title)
+        .withDescription(description)
+        .withDisplaySeconds(3.0));
   }
 }

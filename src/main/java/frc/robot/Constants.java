@@ -49,14 +49,16 @@ public class Constants {
   }
 
   public static final class ModuleConstant {
-    // 定義輪子的半徑，單位是公尺
+    // define the radius of the wheel in meters
     public static final Distance kWheelRadius = Meters.of(0.0508);
 
-    // 定義輪子的 driveMotor & turningMotor 最大輸出電壓
+    // define the maximum output voltage of the driveMotor
+    // and turingMotor of the wheel
     public static final double kMaxModuleDriveVoltage = 12.0;
     public static final double kMaxModuleTurningVoltage = 12.0;
 
-    // 目前使用方式為直接將輸入速度轉換成電壓，並沒有考慮輪子是否有達到目標轉速
+    // the current method is to directly convert the input speed into voltage
+    // without considering whether the wheel has reached the target speed
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
   }
@@ -134,9 +136,9 @@ public class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kPTranslation = 6;
-    public static final double kPRotation = 4.25;
-    public static final double kIRotation = 0.5;
+    public static final double kPTranslation = 5.75;
+    public static final double kPRotation = 4.5;
+    public static final double kIRotation = 0;
     public static final double kDRotation = 0.5;
   }
 }
