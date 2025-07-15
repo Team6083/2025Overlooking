@@ -145,7 +145,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", 86.0),
+        Map.entry("expectedZero", 203.0),
 
         Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));

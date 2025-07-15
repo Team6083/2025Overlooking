@@ -133,11 +133,9 @@ public class RobotContainer {
     mainController.rightBumper().and(mainController.leftBumper())
         .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
             coralShooterSubsystem.coralShooterInCmd()
-                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut")),
-            rgbLedSubsystem.setLightBlinkCmd(6, 100)));
-    controlPanel.button(6)
-        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
-            coralShooterSubsystem.coralShooterInCmd()
+                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+    controlPanel.button(7)
+        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
@@ -165,7 +163,7 @@ public class RobotContainer {
         algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
         algaeIntakeSubsystem.intakeCmd()));
     mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
-    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    controlPanel.button(6).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
     controlPanel.button(3)
