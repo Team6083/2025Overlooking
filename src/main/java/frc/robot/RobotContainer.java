@@ -34,8 +34,6 @@ public class RobotContainer {
 
   private final Supplier<Boolean> elevatorBypassSafety = () -> controlPanel.button(9).getAsBoolean();
 
-  private final SendableChooser<Command> autoChooser;
-
   private Supplier<Integer> targetFloor = () -> 2;
 
   public RobotContainer() {
@@ -48,12 +46,6 @@ public class RobotContainer {
     rgbLedSubsystem = new RgbLedSubsystem(coralShooterSubsystem);
     swerveDrive = new SwerveDrive();
 
-    registerNamedCommands();
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
-    SmartDashboard.putData("AutoChooser", autoChooser);
-
     SmartDashboard.putData("CoralShooterSubsystem", coralShooterSubsystem);
     SmartDashboard.putData("ElevatorSubsystem", elevatorSubsystem);
     SmartDashboard.putData("AlgaeIntakeSubsystem", algaeIntakeSubsystem);
@@ -62,55 +54,6 @@ public class RobotContainer {
     SmartDashboard.putNumber("TargetFloor", 2);
 
     configureBindings();
-  }
-
-  private void registerNamedCommands() {
-    NamedCommands.registerCommand("CoralIn",
-        coralShooterSubsystem.coralShooterAutoInCmd()
-            .andThen(coralShooterSubsystem.coralShooterInCmd().withTimeout(0.035)));
-
-    NamedCommands.registerCommand("CoralShooterWithStop",
-        coralShooterSubsystem.coralShooterOutCmd().withTimeout(1));
-
-    NamedCommands.registerCommand("ErToSec",
-        elevatorSubsystem.toSecFloorCmd());
-
-    NamedCommands.registerCommand("ErToTrd",
-        elevatorSubsystem.toTrdFloorCmd());
-
-    NamedCommands.registerCommand("ErToFour",
-        elevatorSubsystem.toTopFloorCmd().repeatedly()
-            .until(() -> elevatorSubsystem.isAtTargetHeight()));
-
-    NamedCommands.registerCommand("ErDown",
-        elevatorSubsystem.toDefaultPositionCmd());
-
-    NamedCommands.registerCommand("AlgaeIntakeToDefaultPosition",
-        algaeIntakeSubsystem.toDefaultDegreeCmd());
-
-    NamedCommands.registerCommand("CoralShooterHold",
-        new CoralShooterHoldCmd(coralShooterSubsystem));
-
-    NamedCommands.registerCommand("CoralLeftL2",
-        new CoralAutoToReefCommandGroup(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, true, true));
-
-    NamedCommands.registerCommand("CoralRightL2",
-        new CoralAutoToReefCommandGroup(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 2, false, true));
-
-    NamedCommands.registerCommand("CoralLeftL4",
-        new CoralAutoToReefCommandGroup(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, true, true));
-
-    NamedCommands.registerCommand("CoralRightL4",
-        new CoralAutoToReefCommandGroup(
-            swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, true));
-
-    NamedCommands.registerCommand("TakeAlgae",
-        new TakeAlgaeCommandGroup(
-            swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
-
   }
 
   private void configureBindings() {
@@ -233,11 +176,6 @@ public class RobotContainer {
       this.targetFloor = () -> floor;
       SmartDashboard.putNumber("TargetFloor", floor);
     });
-  }
-
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-
   }
 
   public void autoInit() {

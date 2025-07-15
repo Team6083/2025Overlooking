@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture();
 
     gcTimer.start();
-    
+
     SmartDashboard.putBoolean("DisableRightLimelight", false);
     SmartDashboard.putBoolean("DisableLeftLimelight", false);
   }
@@ -106,17 +106,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledExit() {
-  }
-
-  @Override
-  public void autonomousInit() {
-    m_robotContainer.autoInit();
-
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
   }
 
   @Override
