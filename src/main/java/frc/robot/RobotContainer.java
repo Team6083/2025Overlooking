@@ -137,7 +137,7 @@ public class RobotContainer {
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
-    controlPanel.button(6)
+    controlPanel.button(7)
         .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
@@ -167,7 +167,7 @@ public class RobotContainer {
         algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
         algaeIntakeSubsystem.intakeCmd()));
     mainController.b().whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
-    controlPanel.button(8).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
+    controlPanel.button(6).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
     controlPanel.button(3).onTrue(setTargetFloor(2)
@@ -183,7 +183,7 @@ public class RobotContainer {
         3, new TakeAlgaeCommandGroup(
             swerveDrive, elevatorSubsystem, algaeIntakeSubsystem, 3));
 
-    controlPanel.button(7).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
+    controlPanel.button(8).whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new AutoCoralAndElevatorCmd(
