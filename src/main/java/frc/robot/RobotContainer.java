@@ -135,8 +135,7 @@ public class RobotContainer {
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     controlPanel.button(7)
-        .toggleOnTrue(new SequentialCommandGroup(new CoralShooterInWithAutoStopCmd(coralShooterSubsystem),
-            coralShooterSubsystem.coralShooterInCmd()
+        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
@@ -180,8 +179,8 @@ public class RobotContainer {
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
-    controlPanel.button(8)
-        .whileTrue(Commands.select(oneButtonAlgaeMap, () -> targetFloor.get()));
+    controlPanel.button(7).whileTrue(
+        new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new CoralAutoToReefCommandGroup(
