@@ -105,10 +105,10 @@ public class ConfigChooser {
         "kBackRightDriveMotorInverted", false);
 
     private static final Map<String, Double> australiaDoubleMap = Map.of(
-        "kFrontLeftCanCoderMagOffset", 0.145264,
-        "kFrontRightCanCoderMagOffset", 0.245361,
-        "kBackLeftCanCoderMagOffset", -0.013428,
-        "kBackRightCanCoderMagOffset", 0.082764);
+        "kFrontLeftCanCoderMagOffset", -0.174072,
+        "kFrontRightCanCoderMagOffset", -0.255859,
+        "kBackLeftCanCoderMagOffset", 0.480957,
+        "kBackRightCanCoderMagOffset", -0.244385);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.126221,
