@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ML - leave(12) Tag"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralRightL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs11 "
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr8 Tag"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLeftL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "rtcs 8"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "cstr8 Tag"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralRightL2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "coral",
+  "choreoAuto": false
+}
