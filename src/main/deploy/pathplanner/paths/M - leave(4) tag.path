@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.285909090909091,
+        "y": 4.015118243243243
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.428774237086285,
+        "y": 3.5334249443301857
+      },
+      "isLocked": false,
+      "linkedName": "middle barge"
+    },
+    {
+      "anchor": {
+        "x": 5.0992500000000005,
+        "y": 2.6307499999999995
+      },
+      "prevControl": {
+        "x": 4.88403023981109,
+        "y": 2.503547583261055
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "reef 4(tag)"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.9,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 327.273,
+    "maxAngularAcceleration": 9.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "reversed": false,
+  "folder": "M - leave(tag)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
