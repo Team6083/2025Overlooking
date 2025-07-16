@@ -45,7 +45,7 @@
     "rotation": -60.48850144290966
   },
   "reversed": false,
-  "folder": "L - leave(tag)",
+  "folder": "L-leave",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

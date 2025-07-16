@@ -3,10 +3,11 @@
   "robotLength": 0.87,
   "holonomicMode": true,
   "pathFolders": [
-    "L - leave(tag)",
-    "M - leave(tag)",
-    "R - leave(tag)",
-    "backward after take algae",
+    "L-leave",
+    "M-leave",
+    "ML-leave",
+    "rtr",
+    "R-leave",
     "cstr",
     "rtcs"
   ],
