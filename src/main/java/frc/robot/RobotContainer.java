@@ -179,7 +179,7 @@ public class RobotContainer {
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
-    controlPanel.button(7).whileTrue(
+    controlPanel.button(8).whileTrue(
         new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
 
     Map<Integer, Command> coralLeftMap = Map.of(
@@ -221,7 +221,7 @@ public class RobotContainer {
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("Main")));
 
-    controlPanel.button(7)
+    controlPanel.button(8)
         .onTrue(Commands.runOnce(() -> Elastic.selectTab("Limelight")))
         .onFalse(Commands.runOnce(() -> Elastic.selectTab("Main")));
   }
