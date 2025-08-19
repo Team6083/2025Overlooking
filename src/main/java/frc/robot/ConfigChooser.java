@@ -105,10 +105,10 @@ public class ConfigChooser {
         "kBackRightDriveMotorInverted", false);
 
     private static final Map<String, Double> australiaDoubleMap = Map.of(
-        "kFrontLeftCanCoderMagOffset", -0.174072,
-        "kFrontRightCanCoderMagOffset", -0.255859,
-        "kBackLeftCanCoderMagOffset", 0.480957,
-        "kBackRightCanCoderMagOffset", -0.244385);
+        "kFrontLeftCanCoderMagOffset",-0.177246 ,
+        "kFrontRightCanCoderMagOffset", -0.245361,
+        "kBackLeftCanCoderMagOffset",0.496582 ,
+        "kBackRightCanCoderMagOffset", -0.242676);
 
     private static final Map<String, Double> taiwanDoubleMap = Map.of(
         "kFrontLeftCanCoderMagOffset", 0.126221,
@@ -145,7 +145,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", 203.0),
+        Map.entry("expectedZero", -43.0),
 
         Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
