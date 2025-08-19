@@ -93,10 +93,10 @@ public class ConfigChooser {
    */
   public static class DriveBase {
     private static final Map<String, Boolean> australiaBooleanMap = Map.of(
-        "kFrontLeftDriveMotorInverted", false,
-        "kFrontRightDriveMotorInverted", true,
-        "kBackLeftDriveMotorInverted", false,
-        "kBackRightDriveMotorInverted", true);
+        "kFrontLeftDriveMotorInverted", true,
+        "kFrontRightDriveMotorInverted", false,
+        "kBackLeftDriveMotorInverted", true,
+        "kBackRightDriveMotorInverted", false);
 
     private static final Map<String, Boolean> taiwanBooleanMap = Map.of(
         "kFrontLeftDriveMotorInverted", true,
