@@ -191,7 +191,7 @@ public class ConfigChooser {
    */
   public static class CoralShooter {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kCoralInSpeed", 0.15,
+        "kCoralInSpeed", 0.25,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
@@ -221,7 +221,7 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1900.0),
+        "kMaxHeight", Millimeters.of(1920.0),
 
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(849.0),
