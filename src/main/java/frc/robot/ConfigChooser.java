@@ -145,7 +145,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", 203.0),
+        Map.entry("expectedZero", -40.0),
 
         Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
@@ -166,7 +166,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -265.0),
+        Map.entry("expectedZero", -30.0),
 
         Map.entry("kGetAlgaeAngle", 106.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
@@ -226,7 +226,7 @@ public class ConfigChooser {
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(849.0),
         "kTrdFloor", Millimeters.of(1270.0),
-        "kTopFloor", Millimeters.of(1900.0),
+        "kTopFloor", Millimeters.of(1920.0),
 
         "kToGetSecAlgaeHeight", Millimeters.of(975.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));

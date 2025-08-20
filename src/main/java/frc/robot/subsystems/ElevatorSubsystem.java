@@ -125,7 +125,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       return false;
     }
 
-    return upLimitSwitch.get();
+    return !upLimitSwitch.get();
   }
 
   @Override
