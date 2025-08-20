@@ -135,8 +135,9 @@ public class RobotContainer {
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     controlPanel.button(7)
-        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterInCmd()
-                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
+        coralShooterSubsystem.coralShooterInCmd()
+            .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator

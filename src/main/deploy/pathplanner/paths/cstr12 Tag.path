@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2089999999999999,
-        "y": 7.4375
+        "x": 1.422972972972973,
+        "y": 7.338682432432432
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0767499999999997,
-        "y": 7.018250000000001
+        "x": 2.2907229729729734,
+        "y": 6.919432432432433
       },
       "isLocked": false,
       "linkedName": "left coral station"
@@ -48,7 +48,7 @@
   "folder": "cstr",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.47736872882886
+    "rotation": -55.06906269888944
   },
   "useDefaultConstraints": true
 }
