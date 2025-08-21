@@ -43,7 +43,8 @@ public class CoralShooterSubsystem extends SubsystemBase {
     coralShooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void coralShooterIn() {
+  public void 
+  coralShooterIn() {
     setMotorSpeed(ConfigChooser.CoralShooter.getDouble("kCoralInSpeed"));
   }
 
