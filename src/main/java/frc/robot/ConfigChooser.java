@@ -145,7 +145,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", 203.0),
+        Map.entry("expectedZero", -40.0),
 
         Map.entry("kGetAlgaeAngle", 100.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
@@ -166,7 +166,7 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -265.0),
+        Map.entry("expectedZero", -30.0),
 
         Map.entry("kGetAlgaeAngle", 106.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
@@ -191,7 +191,7 @@ public class ConfigChooser {
    */
   public static class CoralShooter {
     private static final Map<String, Double> australiaMap = Map.of(
-        "kCoralInSpeed", 0.15,
+        "kCoralInSpeed", 0.25,
         "kCoralOutSpeed", 0.25,
         "kCoralReverseSpeed", -0.195,
         "kP", 0.0035,
@@ -221,12 +221,12 @@ public class ConfigChooser {
         "kHeightOffset", Millimeters.of(540.0),
 
         "kLowestHeight", Millimeters.of(540.0),
-        "kMaxHeight", Millimeters.of(1900.0),
+        "kMaxHeight", Millimeters.of(1920.0),
 
         "kInitialHeight", Millimeters.of(540.0),
         "kSecFloor", Millimeters.of(849.0),
         "kTrdFloor", Millimeters.of(1270.0),
-        "kTopFloor", Millimeters.of(1900.0),
+        "kTopFloor", Millimeters.of(1920.0),
 
         "kToGetSecAlgaeHeight", Millimeters.of(975.0),
         "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));

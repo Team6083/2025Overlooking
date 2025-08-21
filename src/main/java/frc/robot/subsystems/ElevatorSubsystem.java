@@ -27,8 +27,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final WPI_VictorSPX leftElevatorMotor;
   private final WPI_VictorSPX rightElevatorMotor;
 
-  private final DigitalInput upLimitSwitch;
-
   private final Encoder encoder;
   private final PIDController elevatorPID;
 
@@ -51,8 +49,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     leftElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
     rightElevatorMotor.setExpiration(ElevatorConstant.kMotorSafetyExpirationTime);
-
-    upLimitSwitch = new DigitalInput(5);
 
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA,
         ElevatorConstant.kEncoderChannelB);
@@ -120,13 +116,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     leftElevatorMotor.set(ControlMode.PercentOutput, 0);
   }
 
-  public boolean shouldMotorStop() {
-    if (bypassLimitSwitch.get() && !shouldUsePID.get()) {
-      return false;
-    }
-
-    return upLimitSwitch.get();
-  }
+ 
 
   @Override
   public void periodic() {
@@ -154,19 +144,12 @@ public class ElevatorSubsystem extends SubsystemBase {
 
       output = MathUtil.clamp(output, minOutput, maxOutput);
 
-      if (shouldMotorStop()) {
-        output = 0;
-      }
-
       leftElevatorMotor.set(ControlMode.PercentOutput, output);
       rightElevatorMotor.set(ControlMode.PercentOutput, output);
     } else {
       targetHeight = currentHeight;
 
-      if (shouldMotorStop()) {
-        leftElevatorMotor.set(ControlMode.PercentOutput, 0);
-        rightElevatorMotor.set(ControlMode.PercentOutput, 0);
-      }
+  
 
       if (encoder.getStopped() && leftElevatorMotor.getMotorOutputVoltage() > 1
           && rightElevatorMotor.getMotorOutputVoltage() > 1) {
@@ -186,7 +169,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("ElevatorBypassLimitSwitch", bypassLimitSwitch.get());
 
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
-    SmartDashboard.putBoolean("ElevatorUpLimitSwitch", upLimitSwitch.get());
 
     SmartDashboard.putBoolean("ElevatorIsAtTargetHeight", elevatorPID.atSetpoint());
 
@@ -238,10 +220,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   public Command manualMoveCmd(double power) {
     Command cmd = runEnd(() -> {
       double adjustedPower = power;
-      if (shouldMotorStop()) {
-        adjustedPower = 0;
-      }
-
+      
       leftElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
       rightElevatorMotor.set(ControlMode.PercentOutput, adjustedPower);
       SmartDashboard.putNumber("ElevatorManualMovePower", adjustedPower);
