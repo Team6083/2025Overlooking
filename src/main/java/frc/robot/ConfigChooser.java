@@ -228,8 +228,8 @@ public class ConfigChooser {
         "kTrdFloor", Millimeters.of(1270.0),
         "kTopFloor", Millimeters.of(1920.0),
 
-        "kToGetSecAlgaeHeight", Millimeters.of(975.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
+        "kToGetSecAlgaeHeight", Millimeters.of(1005.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1430.0));
 
     private static final Map<String, Distance> taiwanMap = Map.of(
         "kHeightOffset", Millimeters.of(600.0),
