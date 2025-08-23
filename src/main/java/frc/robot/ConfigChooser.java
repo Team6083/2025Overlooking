@@ -145,9 +145,9 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -35.0),
+        Map.entry("expectedZero", -47.0),
 
-        Map.entry("kGetAlgaeAngle", 100.0),
+        Map.entry("kGetAlgaeAngle", 105.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
@@ -197,7 +197,7 @@ public class ConfigChooser {
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0,
-        "kCoralInTimeOut", 0.14);
+        "kCoralInTimeOut", 0.05);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,

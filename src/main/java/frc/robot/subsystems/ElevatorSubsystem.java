@@ -53,7 +53,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     encoder = new Encoder(ElevatorConstant.kEncoderChannelA,
         ElevatorConstant.kEncoderChannelB);
     encoder.setDistancePerPulse(ElevatorConstant.kEncoderDistancePerPulse);
-    encoder.setReverseDirection(false);
+    encoder.setReverseDirection(true);
 
     elevatorPID = new PIDController(ConfigChooser.Elevator.getDouble("kP"), ElevatorConstant.kI, ElevatorConstant.kD);
     elevatorPID.setTolerance(10);

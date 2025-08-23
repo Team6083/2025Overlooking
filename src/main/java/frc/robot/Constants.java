@@ -113,7 +113,7 @@ public class Constants {
 
     public static final double kMotorSafetyExpirationTime = 0.1;
 
-    public static final double kManualUpPower = 0.4;
+    public static final double kManualUpPower = 0.5;
     public static final double kManualDownPower = -0.2;
 
     public static final Distance kStepHeight = Millimeters.of(7);
