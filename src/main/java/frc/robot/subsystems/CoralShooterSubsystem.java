@@ -66,9 +66,15 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isGetTarget() {
-    if ((distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange
-        && distanceSensor.getDistance() > 0) || (getCoralShooterCurrent() < 2 && getCoralShooterCurrent() > 1)) {
-      return true;
+    if (distanceSensor.getDistance() != -1) {
+      if ((distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange
+          && distanceSensor.getDistance() > 0)) {
+        return true;
+      }
+    } else {
+      if (getCoralShooterCurrent() > 1) {
+        return true;
+      }
     }
     return false;
   }
