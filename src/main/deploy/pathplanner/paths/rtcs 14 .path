@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.317512508681433,
-        "y": 5.6261475754445085
+        "x": 3.337713882508237,
+        "y": 5.7038498914777165
       },
       "isLocked": false,
-      "linkedName": "reef 11"
+      "linkedName": "reef 14"
     },
     {
       "anchor": {
@@ -20,20 +20,15 @@
         "y": 8.01722972972973
       },
       "prevControl": {
-        "x": 1.492101028125512,
-        "y": 7.790623701320844
+        "x": 0.6231159078627864,
+        "y": 8.321154314088593
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "left coral station"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6303191489361707,
-      "rotationDegrees": -99.60461714761429
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -46,11 +41,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
+    "velocity": 0,
     "rotation": -55.06906269888944
   },
   "reversed": false,
-  "folder": "rtcs",
+  "folder": "rtr",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -58.76759909772066

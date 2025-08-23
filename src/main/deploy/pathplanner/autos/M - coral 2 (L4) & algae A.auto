@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "M - leave A algae"
+            "pathName": "L - leave(12) Tag"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralLeftL4"
+            "name": "CoralRightL4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "reef 2 backward"
+            "pathName": "reef(12) backward"
           }
         },
         {
@@ -41,7 +41,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "reef A to reef B"
+                  "pathName": "reef 12 to 14 "
                 }
               }
             ]
@@ -54,9 +54,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ErDown"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AlgaeIntakeToDefaultPosition"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "rtcs 14 "
+                }
+              }
+            ]
           }
         }
       ]
