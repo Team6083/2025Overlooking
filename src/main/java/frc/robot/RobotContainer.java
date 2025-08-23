@@ -131,13 +131,13 @@ public class RobotContainer {
 
     coralShooterSubsystem.setDefaultCommand(coralShooterDefaultCmd);
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
-    // mainController.rightBumper().and(mainController.leftBumper())
-    // .toggleOnTrue(new
-    // SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
-    // coralShooterSubsystem.coralShooterInCmd()
-    // .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.rightBumper().and(mainController.leftBumper())
-        .toggleOnTrue(new CoralShooterAutoStop(coralShooterSubsystem));
+    .toggleOnTrue(new
+    SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
+    coralShooterSubsystem.coralShooterInCmd()
+    .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+    // mainController.rightBumper().and(mainController.leftBumper())
+    //     .toggleOnTrue(new CoralShooterAutoStop(coralShooterSubsystem));
     controlPanel.button(7)
         .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
             coralShooterSubsystem.coralShooterInCmd()
