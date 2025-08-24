@@ -145,9 +145,9 @@ public class ConfigChooser {
         Map.entry("rotMotorDownPIDkI", 0.0),
         Map.entry("rotMotorDownPIDkD", 0.0),
 
-        Map.entry("expectedZero", -40.0),
+        Map.entry("expectedZero", -47.0),
 
-        Map.entry("kGetAlgaeAngle", 100.0),
+        Map.entry("kGetAlgaeAngle", 105.0),
         Map.entry("kTakeAlgaeFromReefAngle", 106.0));
 
     private static final Map<String, Double> taiwanMap = Map.ofEntries(
@@ -197,7 +197,7 @@ public class ConfigChooser {
         "kP", 0.0035,
         "kI", 0.0,
         "kD", 0.0,
-        "kCoralInTimeOut", 0.14);
+        "kCoralInTimeOut", 0.05);
 
     private static final Map<String, Double> taiwanMap = Map.of(
         "kCoralInSpeed", 0.15,
@@ -228,8 +228,8 @@ public class ConfigChooser {
         "kTrdFloor", Millimeters.of(1270.0),
         "kTopFloor", Millimeters.of(1920.0),
 
-        "kToGetSecAlgaeHeight", Millimeters.of(975.0),
-        "kToGetTrdAlgaeHeight", Millimeters.of(1400.0));
+        "kToGetSecAlgaeHeight", Millimeters.of(1005.0),
+        "kToGetTrdAlgaeHeight", Millimeters.of(1430.0));
 
     private static final Map<String, Distance> taiwanMap = Map.of(
         "kHeightOffset", Millimeters.of(600.0),

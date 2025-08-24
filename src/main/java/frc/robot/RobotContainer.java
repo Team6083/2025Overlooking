@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commandgroups.CoralAutoToReefCommandGroup;
 import frc.robot.commandgroups.TakeAlgaeCommandGroup;
+import frc.robot.commands.CoralShooterAutoStop;
 import frc.robot.commands.CoralShooterHoldCmd;
 import frc.robot.commands.SwerveControlCmd;
 import frc.robot.drivebase.SwerveDrive;
@@ -131,13 +132,16 @@ public class RobotContainer {
     coralShooterSubsystem.setDefaultCommand(coralShooterDefaultCmd);
     mainController.rightBumper().whileTrue(coralShooterSubsystem.coralShooterOutCmd());
     mainController.rightBumper().and(mainController.leftBumper())
+    .toggleOnTrue(new
+    SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
+    coralShooterSubsystem.coralShooterInCmd()
+    .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+    // mainController.rightBumper().and(mainController.leftBumper())
+    //     .toggleOnTrue(new CoralShooterAutoStop(coralShooterSubsystem));
+    controlPanel.button(7)
         .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
             coralShooterSubsystem.coralShooterInCmd()
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
-    controlPanel.button(7)
-        .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
-        coralShooterSubsystem.coralShooterInCmd()
-            .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator

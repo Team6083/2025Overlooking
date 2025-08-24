@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1785,
-        "y": 4.17125
+        "x": 3.629022606382979,
+        "y": 5.465894886363635
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0475,
-        "y": 4.5905
+        "x": 3.337713882508237,
+        "y": 5.7038498914777165
       },
       "isLocked": false,
-      "linkedName": "reef 8"
+      "linkedName": "reef 14"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.9515791223404255
       },
       "prevControl": {
-        "x": 2.1332349018772563,
-        "y": 6.521294308660169
+        "x": 0.947882296591941,
+        "y": 8.25550370669929
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
+    "velocity": 0,
     "rotation": -55.06906269888944
   },
   "reversed": false,
-  "folder": "rtcs",
+  "folder": "rtr",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -58.76759909772066
   },
   "useDefaultConstraints": true
 }

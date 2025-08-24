@@ -12,6 +12,7 @@
     "rtcs"
   ],
   "autoFolders": [
+    "Algae only",
     "coral",
     "coral + algae"
   ],

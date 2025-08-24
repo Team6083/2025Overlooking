@@ -7,7 +7,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor.Port;
+
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,6 +24,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
   private VictorSPX coralShooterMotor;
   private Rev2mDistanceSensor distanceSensor;
   private DutyCycleEncoder shooterEncoder;
+  private PowerDistribution powerDistribution;
 
   public CoralShooterSubsystem() {
     coralShooterMotor = new VictorSPX(CoralShooterConstant.kShooterMotorChannel);
@@ -33,6 +38,7 @@ public class CoralShooterSubsystem extends SubsystemBase {
 
     distanceSensor = new Rev2mDistanceSensor(Port.kOnboard);
     distanceSensor.setAutomaticMode(true);
+    powerDistribution = new PowerDistribution();
   }
 
   public double getEncoder() {
@@ -60,11 +66,22 @@ public class CoralShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isGetTarget() {
-    if (distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange
-        && distanceSensor.getDistance() > 0) {
-      return true;
+    if (distanceSensor.getDistance() != -1) {
+      if ((distanceSensor.getDistance() <= CoralShooterConstant.kDistanceRange
+          && distanceSensor.getDistance() > 0)) {
+        return true;
+      }
+    } else {
+      if (getCoralShooterCurrent() > 1) {
+        return true;
+      }
     }
     return false;
+  }
+
+  public double getCoralShooterCurrent() {
+    double current = powerDistribution.getCurrent(2);
+    return current;
   }
 
   public Command coralShooterInCmd() {
@@ -104,5 +121,6 @@ public class CoralShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("CoralShooterDistance", distanceSensor.getDistance());
     SmartDashboard.putBoolean("CoralShooterIsGetTarget", isGetTarget());
     SmartDashboard.putNumber("CoralShooterEncoder", shooterEncoder.get());
+    SmartDashboard.putNumber("CoralShooterCurrent", getCoralShooterCurrent());
   }
 }

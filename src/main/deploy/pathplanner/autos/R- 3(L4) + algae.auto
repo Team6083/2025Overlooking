@@ -7,25 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L - leave(12) Tag"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralRightL4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "reef(12) backward"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TakeAlgae"
+            "pathName": "R - leave(3) Tag"
           }
         },
         {
@@ -35,26 +17,26 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AlgaeIntakeToDefaultPosition"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "reef 12 to 14 "
+                  "name": "CoralRightL4"
                 }
               }
             ]
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "reef(3) backward"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "TakeAlgae"
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -64,9 +46,9 @@
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "rtcs 14 "
+                  "name": "ErDown"
                 }
               }
             ]
@@ -76,6 +58,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "coral + algae",
+  "folder": "coral",
   "choreoAuto": false
 }
