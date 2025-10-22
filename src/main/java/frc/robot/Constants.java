@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Millimeters;
 
+import java.util.Map;
+
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 
@@ -46,6 +48,7 @@ public class Constants {
 
     // 最大轉速需要實際測試看看
     public static final LinearVelocity kMaxSpeed = MetersPerSecond.of(4.9);
+
   }
 
   public static final class ModuleConstant {
@@ -61,6 +64,14 @@ public class Constants {
     // without considering whether the wheel has reached the target speed
     public static final double kDesireSpeedToMotorVoltage = kMaxModuleDriveVoltage
         / DriveBaseConstant.kMaxSpeed.in(MetersPerSecond);
+
+    public 
+
+    //   public static class SwerveModule {
+    // private static final Map<String, Double> australiaMAP = Map.of(
+    //     "kP", ModuleConstant.kMaxModuleTurningVoltage / 180,
+    //     "kI", 0.0,
+    //     "kD", 0.0);
   }
 
   public static final class AlgaeIntakeConstant {
@@ -133,6 +144,11 @@ public class Constants {
     // fieldRelative
     // Field - true / Robot - false
     public static final Boolean kFieldRelative = true;
+
+    public static final double kDefaultMagnification = 0.25;
+    public static final double kFastMagnification = 0.75;
+    public static final double kRotDefaultMagnification = 0.35;
+    public static final double kRotFastMagnification = 0.8;
   }
 
   public static final class AutoConstants {

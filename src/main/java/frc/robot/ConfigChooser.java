@@ -47,29 +47,6 @@ public class ConfigChooser {
   }
 
   /**
-   * Configuration values for swerve control.
-   */
-  public static class SwerveControl {
-    private static final Map<String, Double> australiaMap = Map.of(
-        "kDefaultMagnification", 0.25,
-        "kFastMagnification", 0.75,
-        "kRotDefaultMagnification", 0.35,
-        "kRotFastMagnification", 0.8,
-        "kRotSafeMagnification", 0.25);
-
-    private static final Map<String, Double> taiwanMap = Map.of(
-        "kDefaultMagnification", 0.17,
-        "kFastMagnification", 0.75,
-        "kRotDefaultMagnification", 0.35,
-        "kRotFastMagnification", 0.75,
-        "kRotSafeMagnification", 0.20);
-
-    public static double getDouble(String key) {
-      return getValue(australiaMap, taiwanMap, key);
-    }
-  }
-
-  /**
    * Configuration values for swerve modules.
    */
   public static class SwerveModule {

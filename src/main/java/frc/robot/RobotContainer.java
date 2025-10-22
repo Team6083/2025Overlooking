@@ -18,7 +18,6 @@ import frc.robot.lib.Elastic;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.CoralShooterSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.RgbLedSubsystem;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -26,13 +25,10 @@ public class RobotContainer {
   private final CoralShooterSubsystem coralShooterSubsystem;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeIntakeSubsystem algaeIntakeSubsystem;
-  private final RgbLedSubsystem rgbLedSubsystem;
   private final SwerveDrive swerveDrive;
 
   private final CommandXboxController mainController = new CommandXboxController(0);
   private final CommandGenericHID controlPanel = new CommandGenericHID(1);
-
-  private final Supplier<Boolean> elevatorBypassSafety = () -> controlPanel.button(9).getAsBoolean();
 
   private final SendableChooser<Command> autoChooser;
 
@@ -43,9 +39,8 @@ public class RobotContainer {
     Supplier<Boolean> algaeRotateUsePID = () -> controlPanel.button(12).getAsBoolean();
 
     coralShooterSubsystem = new CoralShooterSubsystem();
-    elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
+    elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID);
     algaeIntakeSubsystem = new AlgaeIntakeSubsystem(algaeRotateUsePID);
-    rgbLedSubsystem = new RgbLedSubsystem(coralShooterSubsystem);
     swerveDrive = new SwerveDrive();
 
     registerNamedCommands();

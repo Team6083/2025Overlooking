@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,11 +32,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   private Distance targetHeight;
 
   private final Supplier<Boolean> shouldUsePID;
-  private final Supplier<Boolean> bypassLimitSwitch;
 
-  public ElevatorSubsystem(Supplier<Boolean> shouldUsePID, Supplier<Boolean> bypassLimitSwitch) {
+  public ElevatorSubsystem(Supplier<Boolean> shouldUsePID) {
     this.shouldUsePID = shouldUsePID;
-    this.bypassLimitSwitch = bypassLimitSwitch;
 
     leftElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kLeftElevatorMotorChannel);
     rightElevatorMotor = new WPI_VictorSPX(ElevatorConstant.kRightElevatorMotorChannel);
@@ -166,7 +163,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         leftElevatorMotor.getMotorOutputVoltage());
 
     SmartDashboard.putBoolean("ElevatorUsePID", usePID);
-    SmartDashboard.putBoolean("ElevatorBypassLimitSwitch", bypassLimitSwitch.get());
 
     SmartDashboard.putNumber("ElevatorEncoder", encoder.getDistance());
 
