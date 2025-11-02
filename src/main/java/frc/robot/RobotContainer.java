@@ -30,7 +30,8 @@ public class RobotContainer {
   private final SwerveDrive swerveDrive;
 
   private final CommandXboxController mainController = new CommandXboxController(0);
-  private final CommandGenericHID controlPanel = new CommandGenericHID(1);
+  private final CommandXboxController secController = new CommandXboxController(1);
+  private final CommandGenericHID controlPanel = new CommandGenericHID(2);
 
   private final Supplier<Boolean> elevatorBypassSafety = () -> controlPanel.button(9).getAsBoolean();
 
@@ -39,8 +40,10 @@ public class RobotContainer {
   private Supplier<Integer> targetFloor = () -> 2;
 
   public RobotContainer() {
-    Supplier<Boolean> elevatorUsePID = () -> controlPanel.button(10).getAsBoolean();
+    // Supplier<Boolean> elevatorUsePID = () ->
+    // controlPanel.button(10).getAsBoolean();
     Supplier<Boolean> algaeRotateUsePID = () -> controlPanel.button(12).getAsBoolean();
+    Supplier<Boolean> elevatorUsePID = () -> true;
 
     coralShooterSubsystem = new CoralShooterSubsystem();
     elevatorSubsystem = new ElevatorSubsystem(elevatorUsePID, elevatorBypassSafety);
@@ -136,8 +139,8 @@ public class RobotContainer {
                 .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     controlPanel.button(7)
         .toggleOnTrue(new SequentialCommandGroup(coralShooterSubsystem.coralShooterAutoInCmd(),
-        coralShooterSubsystem.coralShooterInCmd()
-            .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
+            coralShooterSubsystem.coralShooterInCmd()
+                .withTimeout(ConfigChooser.CoralShooter.getDouble("kCoralInTimeOut"))));
     mainController.button(10).whileTrue(coralShooterSubsystem.coralShooterReverseShootCmd());
 
     // Elevator
@@ -167,21 +170,22 @@ public class RobotContainer {
     controlPanel.button(6).whileTrue(algaeIntakeSubsystem.toDefaultDegreeCmd());
 
     // switch floor
-    controlPanel.button(3)
+    secController.pov(270)
         .onTrue(setTargetFloor(2)
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 2 selected"))));
-    controlPanel.button(2)
+    secController.pov(0)
         .onTrue(setTargetFloor(3)
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 3 selected"))));
-    controlPanel.button(1)
+    secController.pov(90)
         .onTrue(setTargetFloor(4)
             .andThen(Commands.runOnce(
                 () -> Elastic.sendNotification("Floor Changed", "Floor 4 selected"))));
 
-    controlPanel.button(8).whileTrue(
-        new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem, algaeIntakeSubsystem));
+    // controlPanel.button(8).whileTrue(
+    // new TakeAlgaeCommandGroup(swerveDrive, elevatorSubsystem,
+    // algaeIntakeSubsystem));
 
     Map<Integer, Command> coralLeftMap = Map.of(
         2, new CoralAutoToReefCommandGroup(
@@ -200,18 +204,18 @@ public class RobotContainer {
             swerveDrive, elevatorSubsystem, coralShooterSubsystem, 4, false, false));
 
     // switch coral and algae mode on button 4
-    controlPanel.button(4).and(controlPanel.button(9))
+    // controlPanel.button(4).and(controlPanel.button(9))
+    // .whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
+    // controlPanel.button(4).and(controlPanel.button(9).negate())
+    // .whileTrue(new SequentialCommandGroup(
+    // algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
+    // algaeIntakeSubsystem.intakeCmd()));
+    secController.button(3)
         .whileTrue(Commands.select(coralLeftMap, () -> targetFloor.get()));
-    controlPanel.button(4).and(controlPanel.button(9).negate())
-        .whileTrue(new SequentialCommandGroup(
-            algaeIntakeSubsystem.toAlgaeIntakeDegreeCmd(),
-            algaeIntakeSubsystem.intakeCmd()));
 
     // switch coral and algae mode on button 5
-    controlPanel.button(5).and(controlPanel.button(9))
+    secController.button(2)
         .whileTrue(Commands.select(coralRightMap, () -> targetFloor.get()));
-    controlPanel.button(5).and(controlPanel.button(9).negate())
-        .whileTrue(algaeIntakeSubsystem.reverseIntakeCmd());
 
     // Elastic
     controlPanel.button(4)

@@ -100,7 +100,7 @@ public class TagTrackingCmd extends Command {
       case 8, 17 -> yawPID.setSetpoint(-120);
       case 9, 22 -> yawPID.setSetpoint(-60);
       case 10, 21 -> yawPID.setSetpoint(0);
-      case 11, 20 -> yawPID.setSetpoint(60);
+      case 11, 20 -> yawPID.setSetpoint(180);
       default -> yawPID.setSetpoint(0);
     }
 
